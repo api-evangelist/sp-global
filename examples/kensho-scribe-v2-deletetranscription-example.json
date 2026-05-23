@@ -1,0 +1,13 @@
+{
+  "operation": "deletetranscription",
+  "method": "DELETE",
+  "path": "/api/v2/transcription/{transcription_id}",
+  "summary": "Delete All Transcription Data By ID",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": null
+  }
+}

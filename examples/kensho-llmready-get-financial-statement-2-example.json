@@ -1,0 +1,16 @@
+{
+  "operation": "get-financial-statement-2",
+  "method": "GET",
+  "path": "/api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

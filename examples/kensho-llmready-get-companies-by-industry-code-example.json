@@ -1,0 +1,17 @@
+{
+  "operation": "get-companies-by-industry-code",
+  "method": "GET",
+  "path": "/api/v1/company_groups/industry/{industry_classification}/{industry_code}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "companies": [
+        0
+      ]
+    }
+  }
+}

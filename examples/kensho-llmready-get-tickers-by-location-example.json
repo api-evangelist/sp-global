@@ -1,0 +1,21 @@
+{
+  "operation": "get-tickers-by-location",
+  "method": "GET",
+  "path": "/api/v1/ticker_groups/geo/country/{iso_code}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "tickers": [
+        {
+          "trading_item_id": null,
+          "security_id": null,
+          "company_id": null
+        }
+      ]
+    }
+  }
+}

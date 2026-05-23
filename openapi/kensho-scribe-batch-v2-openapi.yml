@@ -1,0 +1,604 @@
+openapi: 3.0.0
+servers:
+- url: https://scribe.kensho.com
+info:
+  version: 2.0.0
+  title: Scribe Batch API
+  description: 'Scribe''s Batch API is a RESTful API allowing users to asynchronously transcribe audio or video files.
+
+    '
+security:
+- BearerAuth: []
+paths:
+  /api/v2/transcription:
+    post:
+      summary: Start A New Transcription
+      operationId: startTranscription
+      description: "Starts a transcription request for a single audio or video file.\n\nWe support a wide array of audio formats\
+        \ along with their respective compression / codec\noptions including:\n - AAC\n - FLAC\n - MP1\n - MP3\n - WAV\n\n\
+        Currently we only support MP4 video files where the audio streams _must_ be one\nof the supported audio formats.\n\
+        \nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nMultichannel\
+        \ audio will be merged into a single stream prior to transcription.\nIn very rare cases this can cause transcription\
+        \ issues with stereo audio when\nthe two channels have near identical content that is slightly out of phase.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/jsonOptions'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/mpfdOptions'
+            encoding:
+              media:
+                contentType: application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav,
+                  audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4
+      callbacks:
+        transcription_complete:
+          callback_uri:
+            put:
+              summary: An optional callback invoked upon transcription completion.
+              description: 'If the request includes the `callback_uri` option then this endpoint will be called when the transcription
+                is complete.
+
+                The endpoint must be externally accessible and any response other than 200 will be seen as failure.  A failure
+                to call
+
+                the callback will not result in a failed transcription.
+
+                '
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/callback'
+              responses:
+                '200':
+                  description: The callback was successfully received.
+      responses:
+        '201':
+          description: Transcription was successfully started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transcriptionId'
+        '400':
+          description: An invalid request was made to the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: 'Authentication information was not provided - check to ensure that `Authorization`
+
+            header is present.
+
+            '
+        '404':
+          description: 'The transcript, for the `transcription_id`, cannot be found.
+
+            '
+        '429':
+          description: 'The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid
+
+            getting this.
+
+            '
+  /api/v2/transcription/{transcription_id}:
+    head:
+      summary: Query a transcription by ID
+      operationId: queryTranscription
+      description: Determines if a transcript is available for download or not.
+      parameters:
+      - in: path
+        name: transcription_id
+        schema:
+          type: string
+        required: true
+        description: ID of a transcription to query for
+      responses:
+        '200':
+          description: 'The transcription, for the `transcription_id` is complete and can be downloaded
+
+            for the returned `Content-Type`.
+
+            '
+          headers:
+            Expires:
+              schema:
+                type: string
+                format: date-time
+              description: The date and time, after which, the transcription will no longer be retrievable
+        '202':
+          description: 'The transcription, for the `transcription_id` is still in progress.  Retrying
+
+            later will yield a successful result.
+
+            '
+        '400':
+          description: An invalid request was made to the server.
+        '401':
+          description: 'Authentication information was not provided - check to ensure that `Authorization`
+
+            header is present.
+
+            '
+        '404':
+          description: 'The transcript, for the `transcription_id`, cannot be found.
+
+            '
+        '406':
+          description: 'A transcription cannot be queried for the given ''Accept'' mime type.
+
+            '
+        '429':
+          description: 'The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid
+
+            getting this.
+
+            '
+    get:
+      summary: Download A Transcription By ID
+      operationId: downloadTranscription
+      description: Get the resulting transcript from the transcription request.
+      parameters:
+      - in: path
+        name: transcription_id
+        schema:
+          type: string
+        required: true
+        description: ID of a transcription to retrieve
+      responses:
+        '200':
+          description: Results of a transcription request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jsonTranscript'
+              example:
+                transcript: Hello world
+                accuracy: 0.99
+                slice_meta:
+                - transcript: Hello world
+                  accuracy: 0.99
+                  start_ms: 0
+                  duration_ms: 2000
+                  speaker_id: 0
+                  speaker_accuracy: 1
+                  token_meta:
+                  - transcript: Hello
+                    accuracy: 0.99
+                    start_ms: 0
+                    duration_ms: 1000
+                    align_success: true
+                  - transcript: world
+                    accuracy: 0.99
+                    start_ms: 1000
+                    duration_ms: 1000
+                    align_success: true
+            text/vtt:
+              schema:
+                $ref: '#/components/schemas/vttTranscript'
+              example: 'WEBVTT
+
+
+                NOTE
+
+                Confidence: 99%
+
+
+                00:00:00.000 --> 00:00:2.000
+
+                <v speaker_0>Hello world</v>
+
+                '
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+              schema:
+                description: A Microsoft Word document
+                type: string
+                format: binary
+          headers:
+            Expires:
+              schema:
+                type: string
+                format: date-time
+              description: The date and time, after which, the transcription will no longer be retrievable
+        '202':
+          description: 'The transcription, with the `transcription_id` is still in progress.  Retrying
+
+            later will yield a successful result.
+
+            '
+        '400':
+          description: An invalid request was made to the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: 'Authentication information was not provided - check to ensure that `Authorization`
+
+            header is present.
+
+            '
+        '404':
+          description: 'The transcript, for the `transcription_id`, cannot be found.
+
+            '
+        '406':
+          description: 'A transcription cannot be returned for the given ''Accept'' mime type.
+
+            '
+        '429':
+          description: 'The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid
+
+            getting this.
+
+            '
+    delete:
+      summary: Delete All Transcription Data By ID
+      operationId: deleteTranscription
+      description: Attempts to ensure that all stored data for a transcription is no longer available on the system.
+      parameters:
+      - in: path
+        name: transcription_id
+        schema:
+          type: string
+        required: true
+        description: ID of a transcription to delete
+      responses:
+        '200':
+          description: "All stored data associated with the transcription is no longer available.\nThis could mean that:\n\
+            \ * The transcription data existed and is no longer available.\n * The transcription data did not exist and is\
+            \ still no longer available.\n * The transcription data was not available to you and so, as far as you are concerned,\
+            \ the data is no longer available.\n"
+        '400':
+          description: An invalid request was made to the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: 'Authentication information was not provided - check to ensure that `Authorization`
+
+            header is present.
+
+            '
+        '429':
+          description: 'The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid
+
+            getting this.
+
+            '
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'A Kensho access token is required for all transcription requests.  For more information on access tokens,
+
+        and how to obtain them, view the [authentication guide](../../authentication).
+
+        '
+  schemas:
+    commonOptions:
+      type: object
+      properties:
+        callback_uri:
+          type: string
+          format: uri
+          description: 'A URI (currently restricted to http/https) which Scribe can send information to when the
+
+            transcription is complete.
+
+
+            When the URI protocol is http or https we will make a PUT request to the callback_uri to
+
+            indicate a change in the status of the transcription job.  The PUT request body will be
+
+            JSON and contain the transcription id and if the transcription completed successfully or not:
+
+            ```json
+
+            { ''transcription_id'': ''<ID>'', ''result'': ''success'' }
+
+            ```
+
+
+            A separate call can then be made to retrieve the transcript (or any failures while generating it).
+
+            '
+        transcriber:
+          type: string
+          enum:
+          - human
+          - machine
+          default: machine
+          description: 'The type of transcription to perform - either machine only (AI) or human assisted (human in the loop).
+
+            '
+        media_language:
+          type: string
+          enum:
+          - cmn
+          - da
+          - dan
+          - de
+          - deu
+          - en
+          - eng
+          - es
+          - fr
+          - fra
+          - it
+          - ita
+          - ja
+          - jpn
+          - ko
+          - kor
+          - nl
+          - nld
+          - 'no'
+          - nor
+          - por
+          - pt
+          - ru
+          - rus
+          - spa
+          - yue
+          - zh
+          - zho
+          default: en
+          description: 'The source language of the media.  If the media is not in english then the contents will have to be
+            translated
+
+            prior to transcription.  This is a single, ISO-639, language code which can be two characters for ISO-639-1 (ie
+            en)
+
+            or three characters for ISO-639-3 (ie zho).
+
+
+            **NOTE - Only applicable when `human` is specified as the transcriber.**
+
+            '
+        priority:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          default: medium
+          description: 'This is the priority of the transcription and is dictated by contractual turn around times.
+
+
+            **NOTE - Only applicable when `human` is specified as the transcriber.**
+
+            '
+        context:
+          oneOf:
+          - type: string
+            description: 'a single or multiline block of text with ''context'' on this transcription.
+
+              '
+            example: Q1 Earnings Call
+          - type: object
+            additionalProperties: true
+            properties:
+              id:
+                type: string
+                description: 'A short ID to pair with the transcription - typically something to cross reference the
+
+                  transcription with.
+
+                  '
+                example: abc_internal_id
+              title:
+                type: string
+                description: 'A (typically) one line title / name to associate with the transcription.
+
+                  '
+                example: Q1 earnings
+              description:
+                type: string
+                description: 'A single or multiline block of text with more descriptive information about the transcription
+
+                  '
+                example: 'Q1 earnings calls featuring Jane the CEO, with guest speaker John.
+
+                  '
+            description: TODO
+          description: 'Additional ''context'' information that can be attached to the transcription.  This is typically never
+            read
+
+            on the Kensho side, but it can be used to recall or cross-reference internal information about the
+
+            transcript.  A typical scenario could be one where transcriptions are submitted with titles, names and
+
+            tracked with internal IDs which is needed when retrieving the transcript.
+
+            '
+    jsonOptions:
+      allOf:
+      - type: object
+        required:
+        - media_url
+        properties:
+          media_url:
+            type: string
+            format: url
+            example: https://example.com/earnings_report.mp3
+            description: 'The URL pointing to the media to transcribe.
+
+              This needs to be a full URL, less than 2048 characters, where Scribe can GET the data from without any other
+
+              intervention (credentials, tokens, etc.).
+
+              If Scribe cannot GET from that URL then the job will fail.
+
+              '
+      - $ref: '#/components/schemas/commonOptions'
+    mpfdOptions:
+      type: object
+      required:
+      - media
+      properties:
+        media:
+          type: string
+          format: binary
+          description: 'The binary data for the media to transcribe.
+
+            Along with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,
+
+            and the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:
+
+            - application/mp3
+
+            - audio/aac
+
+            - audio/flac
+
+            - audio/m4a
+
+            - audio/mp3
+
+            - audio/mpeg
+
+            - audio/mpeg3
+
+            - audio/wav
+
+            - audio/wave
+
+            - audio/x-flac
+
+            - audio/x-m4a
+
+            - audio/x-mpeg-3
+
+            - audio/x-wav
+
+            - video/mp4
+
+            '
+        options:
+          $ref: '#/components/schemas/commonOptions'
+    error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A detailed statement about why the error occurred.
+          example: Specified content type cannot be returned
+        msg_code:
+          type: string
+          description: An error code which can be used to get more information about the problem.
+          example: S2T-BA-0010
+    callback:
+      type: object
+      properties:
+        transcription_id:
+          type: string
+          description: The ID of the transcription
+          example: 76fc238be38d49cda51dd396ca69215d
+        result:
+          type: string
+          description: The final result of the transcription - one of 'success' or 'failure'
+          example: success
+      required:
+      - transcription_id
+      - result
+    transcriptionId:
+      type: object
+      properties:
+        transcription_id:
+          type: string
+          description: The ID of the transcription
+          example: 76fc238be38d49cda51dd396ca69215d
+      required:
+      - transcription_id
+    vttTranscript:
+      description: Transcribed video text tracks
+      type: string
+    jsonTranscript:
+      description: A structured output of the transcript - ideal for programmatic or custom uses of transcriptions
+      type: object
+      properties:
+        transcript:
+          description: The full text of the transcript
+          type: string
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: 'An indicator of accuracy - a higher number gives a higher confidence towards the transcription.
+
+            '
+        slice_meta:
+          type: array
+          description: Array of slices of the transcribed audio
+          items:
+            $ref: '#/components/schemas/sliceMeta'
+    sliceMeta:
+      description: A single slice of transcribed audio
+      type: object
+      properties:
+        transcript:
+          type: string
+          description: The transcribed text of the slice
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: 'An indicator of the accuracy of the transcribed slice - a higher number gives a higher confidence.
+
+            '
+        start_ms:
+          type: integer
+          description: The start time, from the beginning of the file, of the slice in milliseconds
+        duration_ms:
+          type: integer
+          description: The duration of the slice in milliseconds
+        speaker_id:
+          type: integer
+          description: 'The ID of the speaker in the stream of audio.  Typically this increments from 0 (first detected speaker)
+
+            and, when negative (unknown speaker), indicates that we are not confident in saying we''ve heard this
+
+            speaker in the audio before.
+
+            '
+        speaker_accuracy:
+          minimum: 0
+          maximum: 1
+          description: 'An indicator of the accuracy of the speaker identification - a higher number gives a higher confidence.
+
+            '
+        token_meta:
+          type: array
+          description: Array of tokens of the transcribed slice
+          items:
+            $ref: '#/components/schemas/tokenMeta'
+    tokenMeta:
+      description: A single transcribed token
+      type: object
+      properties:
+        transcript:
+          type: string
+          description: The transcribed text of the token
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: 'An indicator of the accuracy of the transcribed token - a higher number gives a higher confidence.
+
+            '
+        start_ms:
+          type: integer
+          description: The token start time, in milliseconds, from the beginning of the file.
+        duration_ms:
+          type: integer
+          description: The token duration, in milliseconds.
+        align_success:
+          type: boolean
+          description: Indicates whether the token has a definitive timestamp

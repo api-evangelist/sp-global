@@ -1,0 +1,38 @@
+{
+  "entity": "kensho-scribe-transcription",
+  "description": "Scribe v2 batch transcription response.",
+  "sourceSchema": "json-schema/kensho-scribe-transcription-schema.json",
+  "main": "commonOptions",
+  "fields": [
+    {
+      "name": "callback_uri",
+      "type": "string",
+      "description": "A URI (currently restricted to http/https) which Scribe can send information to when the",
+      "required": false
+    },
+    {
+      "name": "transcriber",
+      "type": "string",
+      "description": "The type of transcription to perform - either machine only (AI) or human assisted (human in the loop).",
+      "required": false
+    },
+    {
+      "name": "media_language",
+      "type": "string",
+      "description": "The source language of the media.  If the media is not in english then the contents will have to be translated",
+      "required": false
+    },
+    {
+      "name": "priority",
+      "type": "string",
+      "description": "This is the priority of the transcription and is dictated by contractual turn around times.",
+      "required": false
+    },
+    {
+      "name": "context",
+      "type": "mixed",
+      "description": "Additional 'context' information that can be attached to the transcription.  This is typically never read",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,444 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Node:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - DOCUMENT
+          - PARAGRAPH
+          - H1
+          - H2
+        content:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Node'
+    ContentTree:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: Identifier for a content node that is unique across all nodes in a document
+        type:
+          type: string
+          description: Type of a content node, must be one of document|paragraph|H1|H2|table|table_cell|table_title
+        content:
+          type: string
+          description: Text that corresponds to the content node (optional)
+        children:
+          type: array
+          description: List of child content nodes (recursive)
+          items:
+            $ref: '#'
+      required:
+      - uid
+      - type
+      - content
+      - children
+    Annotations:
+      type: array
+      description: Additional data about structure of the document that references text content nodes by their UIDs
+      items:
+        type: object
+        description: Individual annotation
+        properties:
+          type:
+            type: string
+            description: Type of an annotation, (e.g. table structure / row header, etc.).
+          content_uids:
+            type: array
+            description: Non-empty list of UIDs of content nodes corresponding to the annotation.
+            items:
+              type: string
+            minItems: 1
+          data:
+            type: object
+        required:
+        - type
+        - content_uids
+    Output:
+      type: object
+      properties:
+        content_tree:
+          type: object
+          $ref: '#/components/schemas/ContentTree'
+        annotations:
+          type: object
+          $ref: '#/components/schemas/Annotations'
+      required:
+      - content_tree
+      - annotations
+paths:
+  /v3/extractions:
+    post:
+      description: Submit a document for extraction
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - file
+              - document_type
+              - ocr
+              - enhanced_table_extraction
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: The document to extract. The maximum file size is 100MB.
+                  format: binary
+                document_type:
+                  type: string
+                  description: 'The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`,
+                    and `general`.
+
+                    Please refer to our [overview page](home) for a detailed breakdown of which model will provide the most
+                    optimal output for your use case.
+
+                    '
+                ocr:
+                  type: string
+                  description: 'Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.
+
+                    See the [OCR](ocr) page for more information.
+
+                    '
+                enhanced_table_extraction:
+                  type: string
+                  description: 'Use our newest model to extract data from complex tables more accurately than ever.                     This
+                    must be `true` or `false`.
+
+                    '
+                figure_extraction:
+                  type: string
+                  description: 'Use our newest model to extract data from figures.                     This must be `true`
+                    or `false`.
+
+                    See the [Figure Extraction](figex) page for more information.
+
+                    '
+                include_images:
+                  type: string
+                  description: 'Whether to return the locations of images. This must be `true` or `false`.
+
+                    '
+                include_relations:
+                  type: string
+                  description: 'Whether to return the relations between items. This must be `true` or `false`.
+
+                    '
+                document_id:
+                  type: string
+                  description: A custom document identifier.
+                priority:
+                  type: string
+                  enum:
+                  - low
+                  description: The priority level. Anything besides `low` will be considered `high` priority.
+                pages:
+                  type: string
+                  description: 'This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.'
+                return_absolute_pdf_page_numbers:
+                  type: boolean
+                  default: false
+                  description: 'Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer
+                    to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for
+                    each page requested
+
+                    '
+                output_format:
+                  type: string
+                  description: 'This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`.
+                    It determines if the response format will include location bounding box information.
+
+                    <br>
+
+                    Including this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain
+                    a URL for downloading the document from AWS.
+
+                    '
+      responses:
+        '200':
+          description: The request was successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                    format: uuid
+        '400':
+          description: This can be any combination of the required parameters are not provided, a parameter that is invalid,
+            or if a specific pages is requested in the `pages` parameter and that page is not in the document. E.g., requesting
+            page 57 for a 10 page document.
+        '401':
+          description: The authentication token is missing or invalid.
+        default:
+          description: An unexpected error occurred.
+      security:
+      - bearerAuth: []
+  /v3/extractions/upload-url:
+    post:
+      summary: Upload URL To Submit A Document For Extraction.
+      description: Creates the request and returns a pre-signed upload URL to upload the document for extraction.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - output_format
+              - document_type
+              - ocr
+              - enhanced_table_extraction
+              type: object
+              properties:
+                output_format:
+                  type: string
+                  description: This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`.
+                    It determines if the extracted document format will include location bounding box information and character
+                    offsets.
+                document_type:
+                  type: string
+                  description: 'The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`,
+                    and `general`.
+
+                    Please refer to our [overview page](home) for a detailed breakdown of which model will provide the most
+                    optimal output for your use case.
+
+                    '
+                ocr:
+                  type: string
+                  description: 'Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.
+
+                    See the [OCR](ocr) page for more information.
+
+                    '
+                enhanced_table_extraction:
+                  type: string
+                  description: 'Use our newest model to extract data from complex tables more accurately than ever. This must
+                    be `true` or `false`.
+
+                    '
+                figure_extraction:
+                  type: string
+                  description: 'Use our newest model to extract data from figures. This must be `true` or `false`.
+
+                    See the [Figure Extraction](figex) page for more information.
+
+                    '
+                document_id:
+                  type: string
+                  description: A custom document identifier.
+                priority:
+                  type: string
+                  enum:
+                  - low
+                  description: The priority level. Anything besides `low` will be considered `high` priority.
+                pages:
+                  type: string
+                  description: 'This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.'
+                num_pages_to_extract:
+                  type: integer
+                  description: This specifies the total number of pages to extract.
+            encoding:
+              file:
+                contentType: application/pdf
+        required: true
+      responses:
+        '200':
+          description: The request was successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                    format: uuid
+                  upload_spec:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        description: The URL to POST the document upload to. Returns 204 on success. Refer to the AWS pre-signed
+                          URL documentation for detailed information on specific response codes and their meanings.
+                      fields:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        description: Fields required in the form data of the POST request for uploading the document to the
+                          `url`.
+        '400':
+          description: This can be any combination of the required parameters are not provided or parameter value is invalid.
+        '401':
+          description: The authentication token is missing or invalid.
+        default:
+          description: An unexpected error occurred.
+      security:
+      - bearerAuth: []
+  /v3/extractions/upload-complete:
+    put:
+      summary: Mark The Upload As Complete To Start Extraction
+      description: Call this after the document has been uploaded to the pre-signed URL returned by `/v3/extractions/upload-url`.
+        The extraction process will not begin until this endpoint is called.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - request_id
+              type: object
+              properties:
+                request_id:
+                  type: uuid
+                  description: The request_id for the extraction.
+        required: true
+      responses:
+        '204':
+          description: The request was marked as uploaded successfully.
+        '400':
+          description: The request_id was not provided by the client, or was not created via `/v3/extractions/upload-url`.
+        '401':
+          description: The authentication token is missing or invalid.
+        '404':
+          description: The request_id or the uploaded document could not be found.
+        default:
+          description: An unexpected error occurred.
+      security:
+      - bearerAuth: []
+  /v3/extractions/{request_id}:
+    get:
+      description: Retrieve the extracted document
+      parameters:
+      - name: request_id
+        in: path
+        description: request uuid
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: output_format
+        in: query
+        description: This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`.
+          It determines if the response format will include location bounding box information.
+        required: false
+        schema:
+          type: string
+          default: structured_document_with_locations
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                    - failed
+                    - pending
+                  error:
+                    type: string
+                  output:
+                    type: object
+                    $ref: '#/components/schemas/Output'
+                  metadata:
+                    type: object
+                    properties: {}
+        '400':
+          description: 'The request_id was not provided by the client, or output_format was specified when the request was
+            created.
+
+            <br>
+
+            If output_format was specified when the request was created, /v3/extractions/download-url/{request_id} must be
+            called to get a pre-signed URL to retrieve the extracted output.
+
+            '
+        '401':
+          description: The authentication token is missing or invalid.
+        '404':
+          description: The request_id could not be found.
+        '405':
+          description: The request is on a different API version than the POST request that created the request.
+        default:
+          description: An unexpected error occurred.
+      security:
+      - bearerAuth: []
+  /v3/extractions/download-url/{request_id}:
+    get:
+      summary: Retrieve The Extracted Document's Download URL
+      description: GET the `output_url` in the response to download the extracted document.
+      parameters:
+      - name: request_id
+        in: path
+        description: request uuid
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                    - failed
+                    - pending
+                    - awaiting_document_upload
+                    - awaiting_document_upload_complete_notification
+                  error:
+                    type: string
+                  output_url:
+                    type: string
+                  metadata:
+                    type: object
+                    properties: {}
+        '400':
+          description: The request_id was not provided by the client, or output_format was not specified when the request
+            was created.
+        '401':
+          description: The authentication token is missing or invalid.
+        '404':
+          description: The request_id could not be found.
+        '405':
+          description: The request is on a different API version than the POST request that created the request, the document
+            has not been uploaded, or /v3/extractions/upload-complete has not been called to marked the upload complete.
+        default:
+          description: An unexpected error occurred.
+      security:
+      - bearerAuth: []
+servers:
+- url: https://extract.kensho.com/

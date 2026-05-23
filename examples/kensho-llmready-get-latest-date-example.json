@@ -1,0 +1,27 @@
+{
+  "operation": "get-latest-date",
+  "method": "GET",
+  "path": "/api/v1/latest",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "annual": {
+        "latest_year": 0
+      },
+      "quarterly": {
+        "latest_quarter": 0,
+        "latest_year": 0
+      },
+      "now": {
+        "current_year": 0,
+        "current_quarter": 0,
+        "current_month": 0,
+        "current_date": "2026-05-23"
+      }
+    }
+  }
+}

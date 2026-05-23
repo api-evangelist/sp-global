@@ -1,0 +1,60 @@
+{
+  "operation": "fundinground-info-retrieve",
+  "method": "GET",
+  "path": "/api/v1/fundinground/info/{transaction_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "timeline": {
+        "announced_date": "2026-05-23",
+        "closed_date": "2026-05-23"
+      },
+      "participants": {
+        "target": null,
+        "investors": [
+          null
+        ]
+      },
+      "transaction": {
+        "funding_type": "string",
+        "amount_offered": "string",
+        "currency": "string",
+        "legal_fees": "string",
+        "other_fees": "string",
+        "initial_gross_amount_offered": "string",
+        "offering_size_change": "string",
+        "upsized_amount": "string",
+        "upsized_amount_percent": "string",
+        "pre_money_valuation": "string",
+        "post_money_valuation": "string",
+        "aggregate_amount_raised": "string",
+        "liquidation_preference": "string",
+        "anti_dilution_method": "string",
+        "liquidation_price": "string",
+        "option_pool": "string",
+        "participating_preferred_cap": "string",
+        "liquidation_preference_multiple": "string",
+        "use_of_proceeds": "string",
+        "pre_deal_situation": "string",
+        "redemption": "string",
+        "cumulative_dividends": "string",
+        "reorganization": "string",
+        "pay_to_play": "string",
+        "pay_to_play_penalties": "string"
+      },
+      "security": {
+        "dividend_per_share": "string",
+        "annualized_dividend_rate": "string",
+        "seniority_level": "string",
+        "coupon_type": "string",
+        "funding_convertible_type": "string",
+        "security_description": "string",
+        "class_series_tranche": "string"
+      }
+    }
+  }
+}

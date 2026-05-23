@@ -1,0 +1,16 @@
+{
+  "operation": "info-descriptions-retrieve",
+  "method": "GET",
+  "path": "/api/v1/info/{company_id}/descriptions",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "summary": "string",
+      "description": "string"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "operation": "api-annotations-async-get",
+  "method": "GET",
+  "path": "/api/v1/annotations-async",
+  "summary": "Get Annotations For The Specified Job ID",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "message": "OK",
+      "request_id": "R1234",
+      "results": [
+        {
+          "knowledge_base": "capiq",
+          "annotations": [
+            {
+              "start_index": 0,
+              "end_index": 6,
+              "text": "Kensho",
+              "ner_score": 0.99,
+              "ned_score": 0.96,
+              "ner_type": "ORG",
+              "entity_label": "Kensho Technologies",
+              "entity_type": "ORG",
+              "entity_kb_id": "251994106"
+            },
+            {
+              "start_index": 130,
+              "end_index": 144,
+              "text": "The LEGO Group",
+              "ner_score": 0.89,
+              "ned_score": 0.99,
+              "ner_type": "ORG",
+              "entity_label": "LEGO A/S",
+              "entity_type": "ORG",
+              "entity_kb_id": "701221"
+            }
+          ],
+          "entity_relevance_scores": {
+            "701221": 0.5,
+            "251994106": 0.5
+          }
+        },
+        {
+          "knowledge_base": "wikimedia",
+          "annotations": [
+            {
+              "start_index": 1000,
+              "end_index": 1007,
+              "text": "Nairobi",
+              "ner_score": 1,
+              "ned_score": 0.43,
+              "ner_type": "LOC",
+              "entity_label": "Nairobi",
+              "entity_type": "CITY",
+              "entity_kb_id": "3870"
+            },
+            {
+              "start_index": 1201,
+              "end_index": 1203,
+              "text": "AU",
+              "ner_score": 1,
+              "ned_score": 0.43,
+              "ner_type": "ORG",
+              "entity_label": "African Union",
+              "entity_type": "NGO",
+              "entity_kb_id": "7159"
+            }
+          ],
+          "entity_relevance_scores": {
+            "3870": 0.5,
+            "7159": 0.5
+          }
+        }
+      ]
+    }
+  }
+}

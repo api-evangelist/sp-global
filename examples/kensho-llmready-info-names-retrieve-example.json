@@ -1,0 +1,26 @@
+{
+  "operation": "info-names-retrieve",
+  "method": "GET",
+  "path": "/api/v1/info/{company_id}/names",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "alternate_names": [
+        "string"
+      ],
+      "historical_names": [
+        "string"
+      ],
+      "native_names": [
+        {
+          "name": null,
+          "language": null
+        }
+      ]
+    }
+  }
+}

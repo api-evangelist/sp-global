@@ -1,0 +1,28 @@
+{
+  "operation": "post-v3-extractions",
+  "method": "POST",
+  "path": "/v3/extractions",
+  "summary": "",
+  "request": {
+    "body": {
+      "file": "string",
+      "document_type": "string",
+      "ocr": "string",
+      "enhanced_table_extraction": "string",
+      "figure_extraction": "string",
+      "include_images": "string",
+      "include_relations": "string",
+      "document_id": "string",
+      "priority": "low",
+      "pages": "string",
+      "return_absolute_pdf_page_numbers": false,
+      "output_format": "string"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "request_id": "00000000-0000-0000-0000-000000000000"
+    }
+  }
+}

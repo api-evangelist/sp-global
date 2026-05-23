@@ -1,0 +1,29 @@
+{
+  "operation": "post-v3-extractions-upload-url",
+  "method": "POST",
+  "path": "/v3/extractions/upload-url",
+  "summary": "Upload URL To Submit A Document For Extraction.",
+  "request": {
+    "body": {
+      "output_format": "string",
+      "document_type": "string",
+      "ocr": "string",
+      "enhanced_table_extraction": "string",
+      "figure_extraction": "string",
+      "document_id": "string",
+      "priority": "low",
+      "pages": "string",
+      "num_pages_to_extract": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "request_id": "00000000-0000-0000-0000-000000000000",
+      "upload_spec": {
+        "url": "string",
+        "fields": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "operation": "downloadtranscription",
+  "method": "GET",
+  "path": "/api/v2/transcription/{transcription_id}",
+  "summary": "Download A Transcription By ID",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transcript": "string",
+      "accuracy": 0.0,
+      "slice_meta": [
+        {
+          "transcript": null,
+          "accuracy": null,
+          "start_ms": null,
+          "duration_ms": null,
+          "speaker_id": null,
+          "speaker_accuracy": null,
+          "token_meta": null
+        }
+      ]
+    }
+  }
+}

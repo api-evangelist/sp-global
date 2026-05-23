@@ -1,0 +1,361 @@
+openapi: 3.0.0
+servers:
+- url: https://scribe.kensho.com
+info:
+  version: 1.1.0
+  title: Scribe Batch API
+  description: 'Scribe''s Batch API allows users to upload audio files for asynchronous processing.
+
+    Once a file has been uploaded, and unique, randomly generated ID is returned to the user.
+
+    Users can then use that ID to poll the Scribe Batch API to get results.
+
+
+    Accessing these APIs requires passing an authentication header in the standard format of
+
+    "Authorization: Bearer <YOUR_ACCESS_TOKEN>".
+
+
+    For individual users accessing the API, see the [authentication guide](../../authentication).
+
+    '
+components:
+  schemas:
+    PollTranscriptionResponse:
+      description: Returned type from polling a transcription
+      type: object
+      properties:
+        status:
+          description: One of 'success', 'error', or 'pending'
+          type: string
+        error:
+          description: Present iff status == 'error'
+          type: string
+          nullable: true
+        data:
+          description: Returned transcript, present iff status == 'success'
+          $ref: '#/components/schemas/Transcript'
+          nullable: true
+        expires:
+          description: 'The date and time when the transcription will no longer be available.
+
+            This date and time will be of a format like ''Jan 1, 1970 00:00:00 GMT''.
+
+            Present iff status == ''success''.
+
+            '
+          type: string
+          nullable: true
+    Transcript:
+      description: A fully specified transcript with timing information
+      type: object
+      properties:
+        transcript:
+          description: The full text of the transcript
+          type: string
+        accuracy:
+          type: number
+          description: The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that
+            the transcription is correct
+        slice_meta:
+          type: array
+          description: Array of slices of the transcribed audio
+          items:
+            $ref: '#/components/schemas/SliceMeta'
+    SliceMeta:
+      description: A single slice of transcribed audio
+      type: object
+      properties:
+        transcript:
+          type: string
+          description: The transcribed text of the slice
+        accuracy:
+          type: number
+          description: 'The accuracy score of the transcribed slice.
+
+            The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription
+            is correct.
+
+            '
+        start_ms:
+          type: integer
+          description: The start time of the slice in milliseconds
+        duration_ms:
+          type: integer
+          description: The duration of the slice in milliseconds
+        token_meta:
+          type: array
+          description: Array of tokens of the transcribed slice
+          items:
+            $ref: '#/components/schemas/TokenMeta'
+    TokenMeta:
+      description: A single transcribed token
+      type: object
+      properties:
+        transcript:
+          type: string
+          description: The transcribed text of the token
+        accuracy:
+          type: number
+          description: 'The accuracy score of the transcribed token.
+
+            The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription
+            is correct.
+
+            '
+        start_ms:
+          type: integer
+          description: The start time of the token in milliseconds
+        duration_ms:
+          type: integer
+          description: The duration of the token in milliseconds
+        align_success:
+          type: boolean
+          description: Indicates whether the token has a definitive timestamp
+paths:
+  /api/v1/transcription:
+    get:
+      summary: Query A Transcription Job
+      operationId: queryTranscription
+      description: 'Get the results of a transcription job.
+
+        This method takes in the unique ID returned from starting a transcription,
+
+        and returns either a JSON (default) or WebVTT response.
+
+
+        If the `Accept` header is missing or of type `application/json` then this call
+
+        will return a tuple of status, error, and transcript.
+
+        The status will be one of "success", "error", or "pending".
+
+        The transcript field will be present if and only if the status is "success".
+
+        The error field will be present if and only if the status is "error".
+
+        A status of "pending" indicates that the transcription job is still in progress,
+
+        in which case neither the transcript nor error will be present.
+
+
+        If the `Accept` header is of type `text/vtt` then this call will return
+
+        the transcription as VTT text tracks.
+
+        '
+      parameters:
+      - in: path
+        name: unique_id
+        description: ID of a transcription job
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        description: 'Authentication header in the format of "Authorization: Bearer <YOUR_ACCESS_TOKEN>"
+
+          '
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: Results of a transcription job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PollTranscriptionResponse'
+            text/vtt:
+              schema:
+                type: string
+                example: 'WEBVTT
+
+
+                  NOTE
+
+                  Confidence: 90%
+
+
+                  00:00:00.000 --> 00:00:10.000
+
+                  <v speaker_0>Test Text</v>
+
+                  '
+        '400':
+          description: 'An invalid request was made to the server.
+
+            This could occur if the unique_id was not added as a path parameter.
+
+            '
+        '403':
+          description: 'The request was not authorized.
+
+            This could be due to credentials that are missing, expired, or invalid.
+
+            A 403 response will contain a body describing the error.
+
+            '
+        '404':
+          description: 'The transcript for the request_id cannot be found.
+
+            It is possible that the transcription is still going on and that an attempt
+
+            at a later time will result in a 200 response.
+
+            '
+        '429':
+          description: 'Indicates that the request was rate limited.
+
+            This can occur if very frequent polling exists limits on the number of
+
+            allowed requests to the API.
+
+            A 429 response will contain a body describing why the upload was rate limited
+
+            '
+        '500':
+          description: 'An error occurred while processing the audio / video uploaded.
+
+            The response text will have additional details.
+
+            '
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: The audio codec 'abc123' is not supported
+    post:
+      summary: Start A Transcription Job
+      operationId: startTranscription
+      description: "Starts a transcription job for a single audio or video file.\n\nThe `Content-Type` header in the request\
+        \ must be set to the type of audio or\nvideo being uploaded. The `Content-Type` can be set to any one of the following\n\
+        mime types that we support:\n- `application/mp3`\n- `audio/aac`\n- `audio/m4a`\n- `audio/mp3`\n- `audio/mpeg`\n- `audio/mpeg3`\n\
+        - `audio/wav`\n- `audio/wave`\n- `audio/x-m4a`\n- `audio/x-mpeg-3`\n- `audio/x-wav`\n- `video/mp4`\n\nMP4 video, as\
+        \ a container, can hold any supported audio type.\nMP3 and M4A audio support a wide variety of compression and audio\
+        \ codec options.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30\
+        \ minutes.\n\nThe body of the request can contain a single binary file OR multipart form data.  When\nmultipart form\
+        \ data is submitted there are a few additional options and requirements:\n- The `Content-Type` header of the request\
+        \ must be `multipart/form-data`\n- There must be file field with the name `file` which contains the audio / video\
+        \ data,\n  the mime type for the data and an optional filename.\n"
+      parameters:
+      - in: header
+        name: Authorization
+        description: 'Authentication header in the format of "Authorization: Bearer <YOUR_ACCESS_TOKEN>"
+
+          '
+        schema:
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: 'Indicates that the audio file was successfully uploaded.
+
+            This method returns a randomly generated unique ID that the client can
+
+            use to query the resulting transcript.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unique_id:
+                    type: string
+                    description: ID of a transcription job
+        '400':
+          description: 'An invalid request was made to the server.
+
+            This could be because of an invalid content type, or an invalid MP3 file.
+
+            A 400 response will contain a body describing the error.
+
+            '
+        '403':
+          description: 'The request was not authorized.
+
+            This could be due to credentials that are missing, expired, or invalid.
+
+            A 403 response will contain a body describing the error.
+
+            '
+        '429':
+          description: 'Indicates the upload was rate limited.
+
+            This can occur if audio is uploaded too quickly, or if a user''s audio
+
+            quota is exceeded.
+
+            A 429 response will contain a body describing why the upload was rate limited
+
+            '
+    delete:
+      summary: Delete A Transcription Job
+      operationId: deleteTranscription
+      description: 'This method takes in the unique_id returned when starting a transcription,
+
+        and deletes all stored data associated with that transcription job.
+
+        '
+      parameters:
+      - in: path
+        name: unique_id
+        description: ID of a transcription job
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        description: 'Authentication header in the format of "Authorization: Bearer <YOUR_ACCESS_TOKEN>"
+
+          '
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: 'All stored data associate with the transcription job is no longer available.
+
+            This could be due to a successful deletion or the transccription job never existed.
+
+            A 200 response does not contain any content body.
+
+            '
+        '400':
+          description: 'An invalid request was made to the server.
+
+            This could occur if the unique_id was not added as a path parameter or the unique_id is invalid.
+
+            A 400 response will contain a body describing the error.
+
+            '
+        '403':
+          description: 'The request was not authorized.
+
+            This could be due to credentials that are missing, expired, or invalid.
+
+            A 403 response will contain a body describing the error.
+
+            '
+        '409':
+          description: 'The transcription job for the request_id is still in progress.
+
+            This could occur if the transcription is still going on and that an attempt
+
+            at a later time will result in a 200 response.
+
+            A 409 response will contain a body describing the error.
+
+            '

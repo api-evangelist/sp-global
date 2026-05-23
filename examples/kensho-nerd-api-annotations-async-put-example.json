@@ -1,0 +1,16 @@
+{
+  "operation": "api-annotations-async-put",
+  "method": "PUT",
+  "path": "/api/v1/annotations-async",
+  "summary": "Start A NERD Annotation Job Given A Provided Job ID",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "job_id": "J1234",
+      "request_id": "R1234"
+    }
+  }
+}

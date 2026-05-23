@@ -1,0 +1,20 @@
+{
+  "operation": "ticker-to-identification-triple-2",
+  "method": "GET",
+  "path": "/api/v1/id/{ticker}/exchange_code/{exchange_code}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "trading_item_id": 0,
+      "security_id": 0,
+      "company_id": 0,
+      "company_name": "string",
+      "ticker": "string",
+      "country": "string"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "operation": "put-v3-extractions-upload-complete",
+  "method": "PUT",
+  "path": "/v3/extractions/upload-complete",
+  "summary": "Mark The Upload As Complete To Start Extraction",
+  "request": {
+    "body": {
+      "request_id": null
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": null
+  }
+}

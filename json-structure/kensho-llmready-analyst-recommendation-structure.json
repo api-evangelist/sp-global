@@ -1,0 +1,20 @@
+{
+  "entity": "kensho-llmready-analyst-recommendation",
+  "description": "Analyst recommendation response.",
+  "sourceSchema": "json-schema/kensho-llmready-analyst-recommendation-schema.json",
+  "main": "AnalystRecommendations",
+  "fields": [
+    {
+      "name": "effective_date",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "estimates",
+      "type": "array",
+      "description": "",
+      "required": true
+    }
+  ]
+}

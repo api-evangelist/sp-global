@@ -1,0 +1,20 @@
+{
+  "operation": "get-competitors-from-company-2",
+  "method": "GET",
+  "path": "/api/v1/competitors/{company_id}/{competitor_source}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "competitors": [
+        {
+          "company_id": null,
+          "company_name": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "operation": "get-consensus-target-price",
+  "method": "GET",
+  "path": "/api/v1/estimates/consensus_target_price/{company_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

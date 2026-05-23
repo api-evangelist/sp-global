@@ -1,0 +1,154 @@
+name: S&P Global Vocabulary
+description: Operational and capability vocabulary spanning S&P Global Market Intelligence (Capital IQ), S&P Global
+  Ratings, S&P Dow Jones Indices, S&P Global Commodity Insights (Platts), S&P Global Mobility, S&P Global Sustainable1,
+  and the Kensho Technologies AI subsidiary that owns the public REST API surface.
+url: https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/vocabulary/sp-global-vocabulary.yml
+created: '2026-05-23'
+modified: '2026-05-23'
+
+dimensions:
+  - name: Business Units
+    description: Operating divisions of S&P Global.
+    terms:
+      - SP-Global-Market-Intelligence
+      - SP-Global-Ratings
+      - SP-Dow-Jones-Indices
+      - SP-Global-Commodity-Insights
+      - SP-Global-Mobility
+      - SP-Global-Sustainable1
+      - Kensho-Technologies
+  - name: Public API Products
+    description: Publicly documented REST API surfaces.
+    terms:
+      - LLM-Ready-API
+      - Kensho-Extract
+      - Kensho-NERD
+      - Kensho-Scribe-Batch-V2
+      - Kensho-Scribe-Batch-V1
+      - Kensho-Scribe-Real-Time
+      - Kensho-Grounding-Agent
+      - SP-Capital-IQ-Pro-API
+      - SP-Global-Marketplace
+  - name: Data Domains
+    description: Top-level dataset domains exposed via the LLM-ready API and Marketplace.
+    terms:
+      - Company-Fundamentals
+      - Financial-Statements
+      - Earnings
+      - Estimates
+      - Analyst-Recommendations
+      - Transcripts
+      - Ownership
+      - Insider-Trading
+      - Pricing-And-Market-Data
+      - Mergers-And-Acquisitions
+      - Funding-Rounds
+      - Auditors
+      - Competitors
+      - Business-Relationships
+      - Securities-Identifiers
+      - Industry-Classifications
+      - Indices
+      - ESG-Scores
+      - Commodity-Prices
+      - Credit-Ratings
+      - Automotive-Production
+  - name: Identifier Systems
+    description: Identifier schemes used across S&P Global APIs.
+    terms:
+      - CIQ-Company-ID
+      - CIQ-Security-ID
+      - CIQ-Trading-Item-ID
+      - CIQ-Transaction-ID
+      - CUSIP
+      - ISIN
+      - SEDOL
+      - Ticker
+      - GICS-Code
+      - Simple-Industry-Code
+      - Wikidata-Q-ID
+  - name: Capabilities
+    description: Naftiko capability shapes generated for S&P Global APIs.
+    terms:
+      - Retrieve-Company
+      - Retrieve-Statements
+      - Retrieve-Estimates
+      - Retrieve-Transcript
+      - Search-Companies-By-Industry
+      - Search-Companies-By-Geography
+      - Lookup-By-CUSIP
+      - Lookup-By-ISIN
+      - Lookup-Mergers
+      - Lookup-Funding-Rounds
+      - Annotate-Text
+      - Resolve-Entity
+      - Extract-Document
+      - Transcribe-Audio
+      - Submit-Grounded-Query
+  - name: Distribution Channels
+    description: How customers consume S&P Global APIs and data.
+    terms:
+      - REST-API
+      - MCP-Server
+      - Python-SDK
+      - Snowflake-Marketplace-Share
+      - Databricks-Marketplace
+      - SFTP-Bulk-Delivery
+      - Office-Plug-In
+      - Capital-IQ-Pro-Desktop
+  - name: Authentication
+    description: Auth mechanisms documented at docs.kensho.com/authentication.
+    terms:
+      - OIDC
+      - OAuth2
+      - Keypair-JWT
+      - Refresh-Token
+      - Personal-Token
+  - name: Lifecycle
+    description: Maturity stage of each surface.
+    terms:
+      - GA
+      - Beta
+      - Alpha
+      - Deprecated
+  - name: Transports
+    description: Wire transports used by Kensho APIs and adapters.
+    terms:
+      - HTTPS-JSON
+      - WebSocket
+      - MCP-stdio
+      - MCP-SSE
+      - MCP-Streamable-HTTP
+      - Presigned-S3-URL
+  - name: Compliance and Governance
+    description: Regulatory and governance regimes relevant to S&P Global data.
+    terms:
+      - SEC-Compliance
+      - SOC2
+      - GDPR
+      - MiFID-II
+      - SFDR
+      - TCFD
+      - ISSB
+
+mappings:
+  - dimension: Public API Products
+    term: LLM-Ready-API
+    schemaOrg: schema:WebAPI
+    spec: openapi/kensho-llmready-openapi.yml
+    capability: capabilities/kensho-llm-ready-api.yaml
+  - dimension: Public API Products
+    term: Kensho-Extract
+    schemaOrg: schema:WebAPI
+    spec: openapi/kensho-extract-openapi.yml
+    capability: capabilities/kensho-extract-api.yaml
+  - dimension: Public API Products
+    term: Kensho-NERD
+    schemaOrg: schema:WebAPI
+    spec: openapi/kensho-nerd-openapi.yml
+    capability: capabilities/kensho-nerd-api.yaml
+  - dimension: Public API Products
+    term: Kensho-Scribe-Batch-V2
+    schemaOrg: schema:WebAPI
+    spec: openapi/kensho-scribe-batch-v2-openapi.yml
+    capability: capabilities/kensho-scribe-api.yaml

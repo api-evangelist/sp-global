@@ -1,0 +1,96 @@
+apiCommonsRateLimitsVersion: '0.1'
+providerId: sp-global
+name: S&P Global / Kensho API Rate Limits
+description: |
+  S&P Global / Kensho do not publish numeric per-second or per-day rate limits on the public Kensho documentation portal.
+  Limits are negotiated per subscription and enforced server-side, typically returning HTTP 429 with backoff guidance.
+  The structure below captures the observable enforcement surface (response codes, retry semantics, and asynchronous
+  workflow rationale) rather than fabricated thresholds.
+created: '2026-05-23'
+modified: '2026-05-23'
+sources:
+  - https://docs.kensho.com/authentication
+  - https://docs.kensho.com/llmreadyapi/api
+  - https://docs.kensho.com/extract/api
+  - https://docs.kensho.com/nerd/api
+  - https://docs.kensho.com/scribe/v2/batch-api-specification
+
+policies:
+  - id: llm-ready-api-limits
+    name: LLM-Ready API Limits
+    appliesTo:
+      - kensho-llm-ready-api
+    enforcement:
+      transport: HTTPS REST
+      headers:
+        - name: Retry-After
+          description: Returned on 429 to indicate seconds before retry.
+      statusCodes:
+        - 429
+        - 503
+      negotiation: per-subscription
+    quotas:
+      published: false
+      notes: Subscription-tier-dependent; contact commercial@kensho.com for limits applicable to the plan.
+    concurrency:
+      published: false
+      notes: Long-running operations should be batched through the kensho-kfinance SDK's async helpers.
+  - id: extract-async-backpressure
+    name: Extract Async Backpressure
+    appliesTo:
+      - kensho-extract-api
+    enforcement:
+      transport: HTTPS REST + presigned S3 URLs
+      pattern: asynchronous-job
+      statusCodes:
+        - 429
+      negotiation: per-subscription
+    quotas:
+      published: false
+      notes: Document volume and concurrent in-flight extractions defined per contract.
+    asyncBehaviour:
+      submit: POST /v3/extractions returns request_id
+      poll: GET /v3/extractions/{request_id} until status terminal
+      download: GET /v3/extractions/download-url/{request_id} returns S3 presigned URL
+  - id: nerd-async-batching
+    name: NERD Async Annotation
+    appliesTo:
+      - kensho-nerd-api
+    enforcement:
+      transport: HTTPS REST
+      pattern: asynchronous-job
+    quotas:
+      published: false
+      notes: Text size limits per request and concurrent annotation jobs are subscription-dependent.
+    asyncBehaviour:
+      submit: POST /api/v1/annotations-async with knowledge_bases and text
+      poll: Job status retrieved by ID
+  - id: scribe-batch-async
+    name: Scribe Batch Async
+    appliesTo:
+      - kensho-scribe-batch-v2-api
+      - kensho-scribe-batch-v1-api
+    enforcement:
+      transport: HTTPS REST + presigned URLs
+      pattern: asynchronous-job
+    quotas:
+      published: false
+      notes: Concurrent transcriptions and total monthly audio hours are subscription-dependent.
+    asyncBehaviour:
+      submit: POST /api/v2/transcription with media reference
+      poll: GET /api/v2/transcription/{transcription_id} until terminal
+  - id: grounding-alpha
+    name: Grounding Agent Alpha
+    appliesTo:
+      - kensho-grounding-agent
+    enforcement:
+      negotiation: alpha-programme
+    quotas:
+      published: false
+      notes: Alpha programme — limits set on a per-customer basis at onboarding.
+
+clientGuidance:
+  - Honour Retry-After on 429 and 503 responses.
+  - Prefer async submit/poll patterns over synchronous fan-out for Extract, NERD, and Scribe.
+  - Use the kensho-kfinance SDK or generated tools to centralise retry, backoff, and pagination.
+  - For agentic workflows, expose MCP tools rather than direct REST calls so transport-level governance is consistent.

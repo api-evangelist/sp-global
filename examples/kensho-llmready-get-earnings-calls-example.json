@@ -1,0 +1,21 @@
+{
+  "operation": "get-earnings-calls",
+  "method": "GET",
+  "path": "/api/v1/earnings/{company_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "earnings": [
+        {
+          "name": null,
+          "key_dev_id": null,
+          "datetime": null
+        }
+      ]
+    }
+  }
+}

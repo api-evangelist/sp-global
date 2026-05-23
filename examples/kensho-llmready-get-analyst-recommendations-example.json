@@ -1,0 +1,16 @@
+{
+  "operation": "get-analyst-recommendations",
+  "method": "GET",
+  "path": "/api/v1/estimates/analyst_recommendations/{company_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

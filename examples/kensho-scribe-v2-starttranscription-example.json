@@ -1,0 +1,15 @@
+{
+  "operation": "starttranscription",
+  "method": "POST",
+  "path": "/api/v2/transcription",
+  "summary": "Start A New Transcription",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transcription_id": "76fc238be38d49cda51dd396ca69215d"
+    }
+  }
+}

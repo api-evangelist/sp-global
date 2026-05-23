@@ -1,0 +1,28 @@
+{
+  "operation": "get-v3-extractions-request-id",
+  "method": "GET",
+  "path": "/v3/extractions/{request_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "error": "string",
+      "output": {
+        "content_tree": {
+          "uid": null,
+          "type": null,
+          "content": null,
+          "children": null
+        },
+        "annotations": [
+          null
+        ]
+      },
+      "metadata": {}
+    }
+  }
+}

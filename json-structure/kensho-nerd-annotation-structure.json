@@ -1,0 +1,32 @@
+{
+  "entity": "kensho-nerd-annotation",
+  "description": "NERD annotation response.",
+  "sourceSchema": "json-schema/kensho-nerd-annotation-schema.json",
+  "main": "me_response",
+  "fields": [
+    {
+      "name": "scopes",
+      "type": "array",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ]
+}

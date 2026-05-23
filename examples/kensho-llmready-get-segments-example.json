@@ -1,0 +1,29 @@
+{
+  "operation": "get-segments",
+  "method": "POST",
+  "path": "/api/v1/segments/",
+  "summary": "",
+  "request": {
+    "body": {
+      "segment_type": null,
+      "period_type": null,
+      "company_ids": [
+        0
+      ],
+      "start_year": 0,
+      "end_year": 0,
+      "start_quarter": null,
+      "end_quarter": null,
+      "calendar_type": null,
+      "num_periods": 0,
+      "num_periods_back": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

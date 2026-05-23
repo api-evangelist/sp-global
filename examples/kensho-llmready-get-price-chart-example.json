@@ -1,0 +1,13 @@
+{
+  "operation": "get-price-chart",
+  "method": "GET",
+  "path": "/api/v1/price_chart/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": "string"
+  }
+}

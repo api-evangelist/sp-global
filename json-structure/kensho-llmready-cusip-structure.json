@@ -1,0 +1,14 @@
+{
+  "entity": "kensho-llmready-cusip",
+  "description": "CUSIP lookup response.",
+  "sourceSchema": "json-schema/kensho-llmready-cusip-schema.json",
+  "main": "CusipResponse",
+  "fields": [
+    {
+      "name": "cusip",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ]
+}

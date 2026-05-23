@@ -1,0 +1,15 @@
+{
+  "operation": "get-raw-transcript",
+  "method": "GET",
+  "path": "/api/v1/transcript/{key_dev_id}/raw",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transcript": "string"
+    }
+  }
+}

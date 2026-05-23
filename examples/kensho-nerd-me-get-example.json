@@ -1,0 +1,21 @@
+{
+  "operation": "me-get",
+  "method": "GET",
+  "path": "/me",
+  "summary": "Get Current User Information",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "scopes": [
+        "openid",
+        "email"
+      ],
+      "email": "me@legos.com",
+      "uid": "uid value",
+      "token": "super_secret_token"
+    }
+  }
+}

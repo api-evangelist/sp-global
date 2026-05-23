@@ -1,0 +1,26 @@
+{
+  "entity": "kensho-llmready-estimate",
+  "description": "Consensus target price estimate from /api/v1/estimates/consensus_target_price/{company_id}.",
+  "sourceSchema": "json-schema/kensho-llmready-estimate-schema.json",
+  "main": "ConsensusTargetPrice",
+  "fields": [
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "effective_date",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "estimates",
+      "type": "array",
+      "description": "",
+      "required": true
+    }
+  ]
+}

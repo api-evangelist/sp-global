@@ -1,0 +1,2424 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: S&P Global LLM-Ready API — kensho-llm-ready-api
+  description: 'S&P Global LLM-Ready API — kensho-llm-ready-api. 61 operations. Lead operation: Get the financial auditors
+    of a given company id. Self-contained Naftiko capability covering one S&P Global / Kensho business surface.'
+  tags:
+  - S&P Global
+  - Kensho
+  - LLM-Ready
+  created: '2026-05-23'
+  modified: '2026-05-23'
+binds:
+- namespace: env
+  keys:
+    KENSHO_LLMREADY_TOKEN: KENSHO_LLMREADY_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: kensho-llm-ready-api
+    baseUri: https://kfinance.kensho.com
+    description: S&P Global LLM-Ready API consumed surface. Self-contained, no shared references.
+    resources:
+    - name: api-v1-auditors
+      path: /api/v1/auditors/
+      operations:
+      - name: auditors_create
+        method: POST
+        description: Get the financial auditors of a given company id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ciqpro-company-ids
+      path: /api/v1/ciqpro/{company_ids}
+      operations:
+      - name: ciqpro_retrieve
+        method: GET
+        description: Given a list of company IDs, return a list of those IDs to their CIQ Pro keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-company-groups-geo-country-iso-code-state
+      path: /api/v1/company_groups/geo/country/{iso_code}/{state}
+      operations:
+      - name: GetCompaniesByLocation
+        method: GET
+        description: Get the list of companies based in a location with filters iso_code and state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-company-groups-industry-industry-classification-indus
+      path: /api/v1/company_groups/industry/{industry_classification}/{industry_code}
+      operations:
+      - name: GetCompaniesByIndustryCode
+        method: GET
+        description: Get the list of companies that are in the given industry_classification and industry_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-company-groups-industry-gics-gics-code
+      path: /api/v1/company_groups/industry/gics/{gics_code}
+      operations:
+      - name: GetCompaniesByGICSCode
+        method: GET
+        description: Get the list of companies that are classified in the gics_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-company-groups-industry-simple-simple-industry
+      path: /api/v1/company_groups/industry/simple/{simple_industry}
+      operations:
+      - name: GetCompaniesBySimpleIndustry
+        method: GET
+        description: Get the list of companies that are in the given simple_industry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-competitors-company-id
+      path: /api/v1/competitors/{company_id}
+      operations:
+      - name: GetCompetitorsfromCompany
+        method: GET
+        description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+          the competitor_source type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-competitors-company-id-competitor-source
+      path: /api/v1/competitors/{company_id}/{competitor_source}
+      operations:
+      - name: GetCompetitorsfromCompany_2
+        method: GET
+        description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+          the competitor_source type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-cusip-security-id
+      path: /api/v1/cusip/{security_id}
+      operations:
+      - name: GetCUSIP
+        method: GET
+        description: Get the CUSIP for a given security_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-earnings-company-id
+      path: /api/v1/earnings/{company_id}
+      operations:
+      - name: GetEarningsCalls
+        method: GET
+        description: Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-earnings-company-id-dates
+      path: /api/v1/earnings/{company_id}/dates
+      operations:
+      - name: GetEarningsCallsDates
+        method: GET
+        description: Get the earnings calls in datetime for a given company_id in UTC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-estimates
+      path: /api/v1/estimates/
+      operations:
+      - name: GetEstimates
+        method: POST
+        description: Get the consensus estimates or guidance for a given company
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-estimates-analyst-recommendations-company-id
+      path: /api/v1/estimates/analyst_recommendations/{company_id}
+      operations:
+      - name: GetAnalystRecommendations
+        method: GET
+        description: Get analyst recommendations for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-estimates-consensus-target-price-company-id
+      path: /api/v1/estimates/consensus_target_price/{company_id}
+      operations:
+      - name: GetConsensusTargetPrice
+        method: GET
+        description: Get the consensus target price estimates for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-fundinground-info-transaction-id
+      path: /api/v1/fundinground/info/{transaction_id}
+      operations:
+      - name: fundinground_info_retrieve
+        method: GET
+        description: Get detailed information about a round of funding
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-fundinground-info-transaction-id-advisors-investor-ad
+      path: /api/v1/fundinground/info/{transaction_id}/advisors/investor/{advised_company_id}
+      operations:
+      - name: fundinground_info_advisors_investor_retrieve
+        method: GET
+        description: Get the advisors and their types for a company buying into a round of funding
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-fundinground-info-transaction-id-advisors-target
+      path: /api/v1/fundinground/info/{transaction_id}/advisors/target
+      operations:
+      - name: fundinground_info_advisors_target_retrieve
+        method: GET
+        description: Get the advisors and their types for the company raising a round of funding
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-fundingrounds-investor-company-id
+      path: /api/v1/fundingrounds/investor/{company_id}
+      operations:
+      - name: fundingrounds_investor_retrieve
+        method: GET
+        description: Get the rounds of funding that the specified company invested in
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-fundingrounds-target-company-id
+      path: /api/v1/fundingrounds/target/{company_id}
+      operations:
+      - name: fundingrounds_target_retrieve
+        method: GET
+        description: Get the rounds of funding that the specified company was in
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-id-cusip
+      path: /api/v1/id/{cusip}
+      operations:
+      - name: CUSIPtoIdentificationTriple
+        method: GET
+        description: Get the most likely trading_item_id, security_id, and company_id with a given CUSIP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-id-isin
+      path: /api/v1/id/{isin}
+      operations:
+      - name: ISINtoIdentificationTriple
+        method: GET
+        description: Get the most likely trading_item_id, security_id, and company_id with a given ISIN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-id-ticker
+      path: /api/v1/id/{ticker}
+      operations:
+      - name: TickertoIdentificationTriple
+        method: GET
+        description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-id-ticker-exchange-code-exchange-code
+      path: /api/v1/id/{ticker}/exchange_code/{exchange_code}
+      operations:
+      - name: TickertoIdentificationTriple_2
+        method: GET
+        description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ids
+      path: /api/v1/ids
+      operations:
+      - name: UnifiedIdentificationTriple
+        method: POST
+        description: Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN,
+          CUSIP, Company ID, ticker, or company name)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-info-company-id
+      path: /api/v1/info/{company_id}
+      operations:
+      - name: GetCompanyInformation
+        method: GET
+        description: Get the general information of a given company_id, such as name, status, company type, simple industry,
+          number of employees, founding date, webpage, and address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-info-company-id-descriptions
+      path: /api/v1/info/{company_id}/descriptions
+      operations:
+      - name: info_descriptions_retrieve
+        method: GET
+        description: Get the company's summary (short description) and description (long description)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-info-company-id-names
+      path: /api/v1/info/{company_id}/names
+      operations:
+      - name: info_names_retrieve
+        method: GET
+        description: 'Get the company''s other names: alternate_names (names that a company also goes by), historical_names
+          (names that the company used to go by), and native_names (company names in native language)'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-isin-security-id
+      path: /api/v1/isin/{security_id}
+      operations:
+      - name: GetISIN
+        method: GET
+        description: Get the ISIN for a given security_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-latest
+      path: /api/v1/latest
+      operations:
+      - name: GetLatestDate
+        method: GET
+        description: Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in
+          UTC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-line-item
+      path: /api/v1/line_item/
+      operations:
+      - name: GetFinancialLineItem
+        method: POST
+        description: Get a financial line item for a set of company_ids
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-line-item-company-id-line-item-period-type-start-year
+      path: /api/v1/line_item/{company_id}/{line_item}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+      operations:
+      - name: GetFinancialLineItem_2
+        method: GET
+        description: Get a financial line item for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-market-cap-company-id-start-date-end-date
+      path: /api/v1/market_cap/{company_id}/{start_date}/{end_date}
+      operations:
+      - name: GetMarketCaps
+        method: GET
+        description: Get the market caps between start and end date inclusive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-merger-info-transaction-id
+      path: /api/v1/merger/info/{transaction_id}
+      operations:
+      - name: merger_info_retrieve
+        method: GET
+        description: Get information about the specified merger/acquisition transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-merger-info-transaction-id-advisors-advised-company-i
+      path: /api/v1/merger/info/{transaction_id}/advisors/{advised_company_id}
+      operations:
+      - name: merger_info_advisors_retrieve
+        method: GET
+        description: Get the advisor companies and their roles for the specified company in the specified merger/acquisition
+          transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-mergers-company-id
+      path: /api/v1/mergers/{company_id}
+      operations:
+      - name: mergers_retrieve
+        method: GET
+        description: Get the merger/acquisition transactions for the specified company
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-price-chart-trading-item-id-start-date-end-date-perio
+      path: /api/v1/price_chart/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}
+      operations:
+      - name: GetPriceChart
+        method: GET
+        description: Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date
+          inclusive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-pricing-trading-item-id-start-date-end-date-periodici
+      path: /api/v1/pricing/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}
+      operations:
+      - name: GetStockPrices
+        method: GET
+        description: Get stock prices for a given trading_item_id and its associated currency between start_date and end_date
+          inclusive, with latest available data being from the previous day, and the most recent price will always be the
+          closing price from the day before
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-pricing-trading-item-id-metadata
+      path: /api/v1/pricing/{trading_item_id}/metadata
+      operations:
+      - name: GetHistoricalMetadata
+        method: GET
+        description: Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type,
+          and first_trade_date
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-relationship-company-id-relationship-type
+      path: /api/v1/relationship/{company_id}/{relationship_type}
+      operations:
+      - name: GetCompaniesbyBusinessRelationships
+        method: GET
+        description: Get the list of current and previous companies that are relationship_type OF company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-relationship-company-id-relationship-type-ticker
+      path: /api/v1/relationship/{company_id}/{relationship_type}/ticker
+      operations:
+      - name: GetTickersbyBusinessRelationships
+        method: GET
+        description: Get the list of current and previous ticker identification triples that are relationship_type OF company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-securities-company-id
+      path: /api/v1/securities/{company_id}
+      operations:
+      - name: GetSecurities
+        method: GET
+        description: Get the list of securities for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-securities-company-id-primary
+      path: /api/v1/securities/{company_id}/primary
+      operations:
+      - name: GetPrimarySecurity
+        method: GET
+        description: Get the primary security for a given company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-segments
+      path: /api/v1/segments/
+      operations:
+      - name: GetSegments
+        method: POST
+        description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and
+          end_quarter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-segments-company-id-segment-type-period-type-start-ye
+      path: /api/v1/segments/{company_id}/{segment_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+      operations:
+      - name: GetSegments_2
+        method: GET
+        description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and
+          end_quarter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-statements
+      path: /api/v1/statements/
+      operations:
+      - name: GetFinancialStatement
+        method: POST
+        description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+          company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-statements-company-id-statement-type-period-type-star
+      path: /api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+      operations:
+      - name: GetFinancialStatement_2
+        method: GET
+        description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+          company_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-exchange-exchange-code
+      path: /api/v1/ticker_groups/exchange/{exchange_code}
+      operations:
+      - name: GetTickersByExchangeCode
+        method: GET
+        description: Get the list of tickers that are traded on exchange_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-filters-geo-iso-code-state-simple-simpl
+      path: /api/v1/ticker_groups/filters/geo/{iso_code}/{state}/simple/{simple_industry}/exchange/{exchange_code}
+      operations:
+      - name: GetTickersByCombinedFilters
+        method: GET
+        description: 'Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and
+          simple_industry'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-geo-country-iso-code
+      path: /api/v1/ticker_groups/geo/country/{iso_code}
+      operations:
+      - name: GetTickersByLocation
+        method: GET
+        description: Get the list of tickers based in a location with filters iso_code and state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-geo-country-iso-code-state
+      path: /api/v1/ticker_groups/geo/country/{iso_code}/{state}
+      operations:
+      - name: GetTickersByLocation_2
+        method: GET
+        description: Get the list of tickers based in a location with filters iso_code and state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-industry-industry-classification-indust
+      path: /api/v1/ticker_groups/industry/{industry_classification}/{industry_code}
+      operations:
+      - name: GetTickersByIndustryCode
+        method: GET
+        description: Get the list of tickers and their associated identification triple that are in the given industry_classification
+          and industry_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-industry-gics-gics-code
+      path: /api/v1/ticker_groups/industry/gics/{gics_code}
+      operations:
+      - name: GetTickersByGICSCode
+        method: GET
+        description: Get the list of tickers that are classified in the gics_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-ticker-groups-industry-simple-simple-industry
+      path: /api/v1/ticker_groups/industry/simple/{simple_industry}
+      operations:
+      - name: GetTickersBySimpleIndustry
+        method: GET
+        description: Get the list of tickers and their associated identification triple that are in the given simple_industry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-trading-item-groups-exchange-exchange-code
+      path: /api/v1/trading_item_groups/exchange/{exchange_code}
+      operations:
+      - name: GetTradingItemsByExchangeCode
+        method: GET
+        description: Get the list of trading items that are traded on an exchange via exchange_code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-trading-items-security-id
+      path: /api/v1/trading_items/{security_id}
+      operations:
+      - name: GetTradingItems
+        method: GET
+        description: Get the list of trading items for a given security_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-trading-items-security-id-primary
+      path: /api/v1/trading_items/{security_id}/primary
+      operations:
+      - name: GetPrimaryTradingItem
+        method: GET
+        description: Get the primary trading item for a given security_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-transcript-key-dev-id
+      path: /api/v1/transcript/{key_dev_id}
+      operations:
+      - name: GetTranscript
+        method: GET
+        description: 'Get the transcript for a given key_dev_id
+
+
+          The transcript is a list of components comprising component_type, person_name,
+
+          and text'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-transcript-key-dev-id-raw
+      path: /api/v1/transcript/{key_dev_id}/raw
+      operations:
+      - name: GetRawTranscript
+        method: GET
+        description: 'Get the raw transcript for a given key_dev_id
+
+
+          The raw transcript is a single string that indicates speakers by
+
+          prepending `[speaker]:` to the transcript of the speaker''s speech'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-users-permissions
+      path: /api/v1/users/permissions
+      operations:
+      - name: users_permissions_retrieve
+        method: GET
+        description: Return a list of all permissions that the request user has
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-users-refresh-access-token
+      path: /api/v1/users/refresh_access_token
+      operations:
+      - name: RefreshAccessToken
+        method: GET
+        description: Refresh a client's access token, given their valid refresh token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: RefreshAccessToken_2
+        method: POST
+        description: Refresh a client's access token, given their valid refresh token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: kensho-llm-ready-api-rest
+    port: 8080
+    description: REST adapter for S&P Global LLM-Ready API.
+    endpoints:
+    - method: POST
+      name: auditors_create
+      description: Get the financial auditors of a given company id
+      call: kensho-llm-ready-api.auditors_create
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: ciqpro_retrieve
+      description: Given a list of company IDs, return a list of those IDs to their CIQ Pro keys
+      call: kensho-llm-ready-api.ciqpro_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompaniesByLocation
+      description: Get the list of companies based in a location with filters iso_code and state
+      call: kensho-llm-ready-api.GetCompaniesByLocation
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompaniesByIndustryCode
+      description: Get the list of companies that are in the given industry_classification and industry_code
+      call: kensho-llm-ready-api.GetCompaniesByIndustryCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompaniesByGICSCode
+      description: Get the list of companies that are classified in the gics_code
+      call: kensho-llm-ready-api.GetCompaniesByGICSCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompaniesBySimpleIndustry
+      description: Get the list of companies that are in the given simple_industry
+      call: kensho-llm-ready-api.GetCompaniesBySimpleIndustry
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompetitorsfromCompany
+      description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+        the competitor_source type
+      call: kensho-llm-ready-api.GetCompetitorsfromCompany
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompetitorsfromCompany_2
+      description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+        the competitor_source type
+      call: kensho-llm-ready-api.GetCompetitorsfromCompany_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCUSIP
+      description: Get the CUSIP for a given security_id
+      call: kensho-llm-ready-api.GetCUSIP
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetEarningsCalls
+      description: Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id
+      call: kensho-llm-ready-api.GetEarningsCalls
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetEarningsCallsDates
+      description: Get the earnings calls in datetime for a given company_id in UTC
+      call: kensho-llm-ready-api.GetEarningsCallsDates
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: GetEstimates
+      description: Get the consensus estimates or guidance for a given company
+      call: kensho-llm-ready-api.GetEstimates
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetAnalystRecommendations
+      description: Get analyst recommendations for a given company_id
+      call: kensho-llm-ready-api.GetAnalystRecommendations
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetConsensusTargetPrice
+      description: Get the consensus target price estimates for a given company_id
+      call: kensho-llm-ready-api.GetConsensusTargetPrice
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: fundinground_info_retrieve
+      description: Get detailed information about a round of funding
+      call: kensho-llm-ready-api.fundinground_info_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: fundinground_info_advisors_investor_retrieve
+      description: Get the advisors and their types for a company buying into a round of funding
+      call: kensho-llm-ready-api.fundinground_info_advisors_investor_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: fundinground_info_advisors_target_retrieve
+      description: Get the advisors and their types for the company raising a round of funding
+      call: kensho-llm-ready-api.fundinground_info_advisors_target_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: fundingrounds_investor_retrieve
+      description: Get the rounds of funding that the specified company invested in
+      call: kensho-llm-ready-api.fundingrounds_investor_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: fundingrounds_target_retrieve
+      description: Get the rounds of funding that the specified company was in
+      call: kensho-llm-ready-api.fundingrounds_target_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: CUSIPtoIdentificationTriple
+      description: Get the most likely trading_item_id, security_id, and company_id with a given CUSIP
+      call: kensho-llm-ready-api.CUSIPtoIdentificationTriple
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: ISINtoIdentificationTriple
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ISIN
+      call: kensho-llm-ready-api.ISINtoIdentificationTriple
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: TickertoIdentificationTriple
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+      call: kensho-llm-ready-api.TickertoIdentificationTriple
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: TickertoIdentificationTriple_2
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+      call: kensho-llm-ready-api.TickertoIdentificationTriple_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: UnifiedIdentificationTriple
+      description: Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP,
+        Company ID, ticker, or company name)
+      call: kensho-llm-ready-api.UnifiedIdentificationTriple
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompanyInformation
+      description: Get the general information of a given company_id, such as name, status, company type, simple industry,
+        number of employees, founding date, webpage, and address
+      call: kensho-llm-ready-api.GetCompanyInformation
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: info_descriptions_retrieve
+      description: Get the company's summary (short description) and description (long description)
+      call: kensho-llm-ready-api.info_descriptions_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: info_names_retrieve
+      description: 'Get the company''s other names: alternate_names (names that a company also goes by), historical_names
+        (names that the company used to go by), and native_names (company names in native language)'
+      call: kensho-llm-ready-api.info_names_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetISIN
+      description: Get the ISIN for a given security_id
+      call: kensho-llm-ready-api.GetISIN
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetLatestDate
+      description: Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in
+        UTC
+      call: kensho-llm-ready-api.GetLatestDate
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: GetFinancialLineItem
+      description: Get a financial line item for a set of company_ids
+      call: kensho-llm-ready-api.GetFinancialLineItem
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetFinancialLineItem_2
+      description: Get a financial line item for a given company_id
+      call: kensho-llm-ready-api.GetFinancialLineItem_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetMarketCaps
+      description: Get the market caps between start and end date inclusive
+      call: kensho-llm-ready-api.GetMarketCaps
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: merger_info_retrieve
+      description: Get information about the specified merger/acquisition transaction
+      call: kensho-llm-ready-api.merger_info_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: merger_info_advisors_retrieve
+      description: Get the advisor companies and their roles for the specified company in the specified merger/acquisition
+        transaction
+      call: kensho-llm-ready-api.merger_info_advisors_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: mergers_retrieve
+      description: Get the merger/acquisition transactions for the specified company
+      call: kensho-llm-ready-api.mergers_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetPriceChart
+      description: Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date
+        inclusive
+      call: kensho-llm-ready-api.GetPriceChart
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetStockPrices
+      description: Get stock prices for a given trading_item_id and its associated currency between start_date and end_date
+        inclusive, with latest available data being from the previous day, and the most recent price will always be the closing
+        price from the day before
+      call: kensho-llm-ready-api.GetStockPrices
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetHistoricalMetadata
+      description: Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type,
+        and first_trade_date
+      call: kensho-llm-ready-api.GetHistoricalMetadata
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetCompaniesbyBusinessRelationships
+      description: Get the list of current and previous companies that are relationship_type OF company_id
+      call: kensho-llm-ready-api.GetCompaniesbyBusinessRelationships
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersbyBusinessRelationships
+      description: Get the list of current and previous ticker identification triples that are relationship_type OF company_id
+      call: kensho-llm-ready-api.GetTickersbyBusinessRelationships
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetSecurities
+      description: Get the list of securities for a given company_id
+      call: kensho-llm-ready-api.GetSecurities
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetPrimarySecurity
+      description: Get the primary security for a given company_id
+      call: kensho-llm-ready-api.GetPrimarySecurity
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: GetSegments
+      description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter
+      call: kensho-llm-ready-api.GetSegments
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetSegments_2
+      description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter
+      call: kensho-llm-ready-api.GetSegments_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: GetFinancialStatement
+      description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id
+      call: kensho-llm-ready-api.GetFinancialStatement
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetFinancialStatement_2
+      description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id
+      call: kensho-llm-ready-api.GetFinancialStatement_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByExchangeCode
+      description: Get the list of tickers that are traded on exchange_code
+      call: kensho-llm-ready-api.GetTickersByExchangeCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByCombinedFilters
+      description: 'Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry'
+      call: kensho-llm-ready-api.GetTickersByCombinedFilters
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByLocation
+      description: Get the list of tickers based in a location with filters iso_code and state
+      call: kensho-llm-ready-api.GetTickersByLocation
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByLocation_2
+      description: Get the list of tickers based in a location with filters iso_code and state
+      call: kensho-llm-ready-api.GetTickersByLocation_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByIndustryCode
+      description: Get the list of tickers and their associated identification triple that are in the given industry_classification
+        and industry_code
+      call: kensho-llm-ready-api.GetTickersByIndustryCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersByGICSCode
+      description: Get the list of tickers that are classified in the gics_code
+      call: kensho-llm-ready-api.GetTickersByGICSCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTickersBySimpleIndustry
+      description: Get the list of tickers and their associated identification triple that are in the given simple_industry
+      call: kensho-llm-ready-api.GetTickersBySimpleIndustry
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTradingItemsByExchangeCode
+      description: Get the list of trading items that are traded on an exchange via exchange_code
+      call: kensho-llm-ready-api.GetTradingItemsByExchangeCode
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTradingItems
+      description: Get the list of trading items for a given security_id
+      call: kensho-llm-ready-api.GetTradingItems
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetPrimaryTradingItem
+      description: Get the primary trading item for a given security_id
+      call: kensho-llm-ready-api.GetPrimaryTradingItem
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetTranscript
+      description: 'Get the transcript for a given key_dev_id
+
+
+        The transcript is a list of components comprising component_type, person_name,
+
+        and text'
+      call: kensho-llm-ready-api.GetTranscript
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: GetRawTranscript
+      description: 'Get the raw transcript for a given key_dev_id
+
+
+        The raw transcript is a single string that indicates speakers by
+
+        prepending `[speaker]:` to the transcript of the speaker''s speech'
+      call: kensho-llm-ready-api.GetRawTranscript
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: users_permissions_retrieve
+      description: Return a list of all permissions that the request user has
+      call: kensho-llm-ready-api.users_permissions_retrieve
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: GET
+      name: RefreshAccessToken
+      description: Refresh a client's access token, given their valid refresh token
+      call: kensho-llm-ready-api.RefreshAccessToken
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - method: POST
+      name: RefreshAccessToken_2
+      description: Refresh a client's access token, given their valid refresh token
+      call: kensho-llm-ready-api.RefreshAccessToken_2
+      with:
+        body: rest.body
+      outputParameters:
+      - type: object
+        mapping: $.
+  - type: mcp
+    namespace: kensho-llm-ready-api-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for S&P Global LLM-Ready API. One tool per consumed operation.
+    tools:
+    - name: get-the-financial-auditors-of-a-given-company-id
+      description: Get the financial auditors of a given company id
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.auditors_create
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: given-a-list-of-company-ids-return-a-list-of-those-ids-to-th
+      description: Given a list of company IDs, return a list of those IDs to their CIQ Pro keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.ciqpro_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-companies-based-in-a-location-with-filters-i
+      description: Get the list of companies based in a location with filters iso_code and state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompaniesByLocation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-companies-that-are-in-the-given-industry-cla
+      description: Get the list of companies that are in the given industry_classification and industry_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompaniesByIndustryCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-companies-that-are-classified-in-the-gics-co
+      description: Get the list of companies that are classified in the gics_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompaniesByGICSCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-companies-that-are-in-the-given-simple-indus
+      description: Get the list of companies that are in the given simple_industry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompaniesBySimpleIndustry
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-company-id-and-company-name-that-are-competi
+      description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+        the competitor_source type
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompetitorsfromCompany
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-company-id-and-company-name-that-are-competi
+      description: Get the list of company_id and company_name that are competitors of company_id, optionally filtered by
+        the competitor_source type
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompetitorsfromCompany_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-cusip-for-a-given-security-id
+      description: Get the CUSIP for a given security_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCUSIP
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-metadata-name-key-dev-id-and-datetime-for-earnings-calls
+      description: Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetEarningsCalls
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-earnings-calls-in-datetime-for-a-given-company-id-in
+      description: Get the earnings calls in datetime for a given company_id in UTC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetEarningsCallsDates
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-consensus-estimates-or-guidance-for-a-given-company
+      description: Get the consensus estimates or guidance for a given company
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.GetEstimates
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-analyst-recommendations-for-a-given-company-id
+      description: Get analyst recommendations for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetAnalystRecommendations
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-consensus-target-price-estimates-for-a-given-company
+      description: Get the consensus target price estimates for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetConsensusTargetPrice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-detailed-information-about-a-round-of-funding
+      description: Get detailed information about a round of funding
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.fundinground_info_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-advisors-and-their-types-for-a-company-buying-into-a
+      description: Get the advisors and their types for a company buying into a round of funding
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.fundinground_info_advisors_investor_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-advisors-and-their-types-for-the-company-raising-a-r
+      description: Get the advisors and their types for the company raising a round of funding
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.fundinground_info_advisors_target_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-rounds-of-funding-that-the-specified-company-investe
+      description: Get the rounds of funding that the specified company invested in
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.fundingrounds_investor_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-rounds-of-funding-that-the-specified-company-was-in
+      description: Get the rounds of funding that the specified company was in
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.fundingrounds_target_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-most-likely-trading-item-id-security-id-and-company-
+      description: Get the most likely trading_item_id, security_id, and company_id with a given CUSIP
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.CUSIPtoIdentificationTriple
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-most-likely-trading-item-id-security-id-and-company-
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ISIN
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.ISINtoIdentificationTriple
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-most-likely-trading-item-id-security-id-and-company-
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.TickertoIdentificationTriple
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-most-likely-trading-item-id-security-id-and-company-
+      description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.TickertoIdentificationTriple_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-most-likely-trading-item-id-security-id-and-company-
+      description: Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP,
+        Company ID, ticker, or company name)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.UnifiedIdentificationTriple
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-general-information-of-a-given-company-id-such-as-na
+      description: Get the general information of a given company_id, such as name, status, company type, simple industry,
+        number of employees, founding date, webpage, and address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompanyInformation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-company-s-summary-short-description-and-description-
+      description: Get the company's summary (short description) and description (long description)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.info_descriptions_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-company-s-other-names-alternate-names-names-that-a-c
+      description: 'Get the company''s other names: alternate_names (names that a company also goes by), historical_names
+        (names that the company used to go by), and native_names (company names in native language)'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.info_names_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-isin-for-a-given-security-id
+      description: Get the ISIN for a given security_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetISIN
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-latest-annual-reporting-year-latest-quarterly-report
+      description: Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in
+        UTC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetLatestDate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-a-financial-line-item-for-a-set-of-company-ids
+      description: Get a financial line item for a set of company_ids
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.GetFinancialLineItem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-a-financial-line-item-for-a-given-company-id
+      description: Get a financial line item for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetFinancialLineItem_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-market-caps-between-start-and-end-date-inclusive
+      description: Get the market caps between start and end date inclusive
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetMarketCaps
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-information-about-the-specified-merger-acquisition-trans
+      description: Get information about the specified merger/acquisition transaction
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.merger_info_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-advisor-companies-and-their-roles-for-the-specified-
+      description: Get the advisor companies and their roles for the specified company in the specified merger/acquisition
+        transaction
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.merger_info_advisors_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-merger-acquisition-transactions-for-the-specified-co
+      description: Get the merger/acquisition transactions for the specified company
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.mergers_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-candlestick-price-chart-as-a-png-image-for-a-given-t
+      description: Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date
+        inclusive
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetPriceChart
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-stock-prices-for-a-given-trading-item-id-and-its-associa
+      description: Get stock prices for a given trading_item_id and its associated currency between start_date and end_date
+        inclusive, with latest available data being from the previous day, and the most recent price will always be the closing
+        price from the day before
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetStockPrices
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-historical-metadata-of-the-trading-item-id-such-as-c
+      description: Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type,
+        and first_trade_date
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetHistoricalMetadata
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-current-and-previous-companies-that-are-rela
+      description: Get the list of current and previous companies that are relationship_type OF company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetCompaniesbyBusinessRelationships
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-current-and-previous-ticker-identification-t
+      description: Get the list of current and previous ticker identification triples that are relationship_type OF company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersbyBusinessRelationships
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-securities-for-a-given-company-id
+      description: Get the list of securities for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetSecurities
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-primary-security-for-a-given-company-id
+      description: Get the primary security for a given company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetPrimarySecurity
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-templated-segments-of-a-given-company-id-for-a-given
+      description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.GetSegments
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-templated-segments-of-a-given-company-id-for-a-given
+      description: Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetSegments_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-a-financial-statement-such-as-a-balance-sheet-income-sta
+      description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.GetFinancialStatement
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-a-financial-statement-such-as-a-balance-sheet-income-sta
+      description: Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetFinancialStatement_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-that-are-traded-on-exchange-code
+      description: Get the list of tickers that are traded on exchange_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByExchangeCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-that-are-traded-on-the-provided-filt
+      description: 'Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByCombinedFilters
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-based-in-a-location-with-filters-iso
+      description: Get the list of tickers based in a location with filters iso_code and state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByLocation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-based-in-a-location-with-filters-iso
+      description: Get the list of tickers based in a location with filters iso_code and state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByLocation_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-and-their-associated-identification-
+      description: Get the list of tickers and their associated identification triple that are in the given industry_classification
+        and industry_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByIndustryCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-that-are-classified-in-the-gics-code
+      description: Get the list of tickers that are classified in the gics_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersByGICSCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-tickers-and-their-associated-identification-
+      description: Get the list of tickers and their associated identification triple that are in the given simple_industry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTickersBySimpleIndustry
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-trading-items-that-are-traded-on-an-exchange
+      description: Get the list of trading items that are traded on an exchange via exchange_code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTradingItemsByExchangeCode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-list-of-trading-items-for-a-given-security-id
+      description: Get the list of trading items for a given security_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTradingItems
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-primary-trading-item-for-a-given-security-id
+      description: Get the primary trading item for a given security_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetPrimaryTradingItem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-transcript-for-a-given-key-dev-id-the-transcript-is-
+      description: 'Get the transcript for a given key_dev_id
+
+
+        The transcript is a list of components comprising component_type, person_name,
+
+        and text'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetTranscript
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-the-raw-transcript-for-a-given-key-dev-id-the-raw-transc
+      description: 'Get the raw transcript for a given key_dev_id
+
+
+        The raw transcript is a single string that indicates speakers by
+
+        prepending `[speaker]:` to the transcript of the speaker''s speech'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.GetRawTranscript
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: return-a-list-of-all-permissions-that-the-request-user-has
+      description: Return a list of all permissions that the request user has
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.users_permissions_retrieve
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: refresh-a-client-s-access-token-given-their-valid-refresh-to
+      description: Refresh a client's access token, given their valid refresh token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kensho-llm-ready-api.RefreshAccessToken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: refresh-a-client-s-access-token-given-their-valid-refresh-to
+      description: Refresh a client's access token, given their valid refresh token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kensho-llm-ready-api.RefreshAccessToken_2
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

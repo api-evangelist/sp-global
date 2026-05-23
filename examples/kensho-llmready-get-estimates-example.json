@@ -1,0 +1,26 @@
+{
+  "operation": "get-estimates",
+  "method": "POST",
+  "path": "/api/v1/estimates/",
+  "summary": "",
+  "request": {
+    "body": {
+      "company_id": 0,
+      "estimate_type": "consensus",
+      "period_type": "quarterly",
+      "fiscal_start_year": 0,
+      "fiscal_end_year": 0,
+      "fiscal_start_quarter": null,
+      "fiscal_end_quarter": null,
+      "num_periods_forward": 0,
+      "num_periods_backward": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

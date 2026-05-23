@@ -1,0 +1,28 @@
+{
+  "operation": "get-tickers-by-business-relationships",
+  "method": "GET",
+  "path": "/api/v1/relationship/{company_id}/{relationship_type}/ticker",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "current": [
+        {
+          "trading_item_id": null,
+          "security_id": null,
+          "company_id": null
+        }
+      ],
+      "previous": [
+        {
+          "trading_item_id": null,
+          "security_id": null,
+          "company_id": null
+        }
+      ]
+    }
+  }
+}

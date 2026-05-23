@@ -1,0 +1,18 @@
+{
+  "operation": "get-v3-extractions-download-url-request-id",
+  "method": "GET",
+  "path": "/v3/extractions/download-url/{request_id}",
+  "summary": "Retrieve The Extracted Document's Download URL",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "error": "string",
+      "output_url": "string",
+      "metadata": {}
+    }
+  }
+}

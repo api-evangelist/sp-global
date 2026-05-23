@@ -1,0 +1,20 @@
+{
+  "operation": "isin-to-identification-triple",
+  "method": "GET",
+  "path": "/api/v1/id/{isin}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "trading_item_id": 0,
+      "security_id": 0,
+      "company_id": 0,
+      "company_name": "string",
+      "ticker": "string",
+      "country": "string"
+    }
+  }
+}

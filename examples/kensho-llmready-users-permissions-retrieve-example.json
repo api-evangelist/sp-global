@@ -1,0 +1,17 @@
+{
+  "operation": "users-permissions-retrieve",
+  "method": "GET",
+  "path": "/api/v1/users/permissions",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "permissions": [
+        "string"
+      ]
+    }
+  }
+}

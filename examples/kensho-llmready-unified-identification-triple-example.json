@@ -1,0 +1,19 @@
+{
+  "operation": "unified-identification-triple",
+  "method": "POST",
+  "path": "/api/v1/ids",
+  "summary": "",
+  "request": {
+    "body": {
+      "identifiers": [
+        "string"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {}
+    }
+  }
+}

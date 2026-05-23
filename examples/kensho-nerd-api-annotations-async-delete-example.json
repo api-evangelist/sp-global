@@ -1,0 +1,15 @@
+{
+  "operation": "api-annotations-async-delete",
+  "method": "DELETE",
+  "path": "/api/v1/annotations-async",
+  "summary": "Delete Annotations For The Specified Job ID",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "message": "Job has been successfully deleted."
+    }
+  }
+}

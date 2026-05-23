@@ -1,0 +1,15 @@
+{
+  "operation": "get-cusip",
+  "method": "GET",
+  "path": "/api/v1/cusip/{security_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "cusip": "string"
+    }
+  }
+}

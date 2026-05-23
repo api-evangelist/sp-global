@@ -1,0 +1,29 @@
+{
+  "operation": "get-financial-line-item",
+  "method": "POST",
+  "path": "/api/v1/line_item/",
+  "summary": "",
+  "request": {
+    "body": {
+      "line_item": "accounts_payable",
+      "company_ids": [
+        0
+      ],
+      "period_type": null,
+      "start_year": 0,
+      "end_year": 0,
+      "start_quarter": null,
+      "end_quarter": null,
+      "calendar_type": null,
+      "num_periods": 0,
+      "num_periods_back": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

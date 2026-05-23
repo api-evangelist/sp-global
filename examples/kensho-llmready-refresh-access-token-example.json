@@ -1,0 +1,15 @@
+{
+  "operation": "refresh-access-token",
+  "method": "GET",
+  "path": "/api/v1/users/refresh_access_token",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "access_token": "string"
+    }
+  }
+}

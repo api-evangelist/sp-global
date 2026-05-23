@@ -1,0 +1,147 @@
+apiCommonsPlansVersion: '0.1'
+providerId: sp-global
+name: S&P Global / Kensho API Plans
+description: |
+  S&P Global's public APIs (LLM-ready API, Extract, NERD, Scribe, Grounding) are sold through enterprise channels via
+  Kensho Technologies and S&P Global Market Intelligence. There is no published self-serve price card; trials and
+  pricing are negotiated through commercial@kensho.com or market.intelligence@spglobal.com. The plan structure below
+  reflects the publicly observable shape of access — trial, subscription, and enterprise — and is grounded in the
+  Kensho/Marketplace documentation pages cited under each plan.
+created: '2026-05-23'
+modified: '2026-05-23'
+sources:
+  - https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29
+  - https://github.com/kensho-technologies/kfinance
+  - https://github.com/kensho-technologies/spglobal-agent-skills
+  - https://docs.kensho.com/llmreadyapi/overview
+  - https://kensho.com/grounding
+  - https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro
+
+plans:
+  - id: trial
+    name: Free Trial
+    description: Time-limited evaluation of the LLM-ready API and Kensho products. Obtained by emailing market.intelligence@spglobal.com.
+    visibility: contact-sales
+    audience: prospective-customer
+    billing:
+      model: free
+      currency: USD
+      amount: 0
+    entitlements:
+      - apis:
+          - kensho-llm-ready-api
+          - kensho-extract-api
+          - kensho-nerd-api
+          - kensho-scribe-batch-v2-api
+        scope: read
+        notes: Subset of dataset coverage and request volume; defined per trial agreement.
+    rateLimits:
+      reference: rate-limits/sp-global-rate-limits.yml
+    contact:
+      email: market.intelligence@spglobal.com
+      url: https://kensho.com/contact
+  - id: llm-ready-api-subscription
+    name: LLM-Ready API Subscription
+    description: Production subscription to the S&P Global LLM-ready API distributed via the S&P Global Marketplace listing.
+    visibility: contact-sales
+    audience: financial-services
+    billing:
+      model: subscription
+      currency: USD
+      cadence: annual
+      pricingDisclosure: not-published
+      notes: Pricing tier negotiated through S&P Global Marketplace and the customer success team.
+    entitlements:
+      - apis:
+          - kensho-llm-ready-api
+        scope: read
+        includes:
+          - REST endpoints (60 documented operations)
+          - kensho-kfinance Python SDK on PyPI
+          - MCP server (stdio, SSE, streamable-http)
+          - Claude Cowork plugin (tearsheets, funding digests, earnings previews)
+          - Capital IQ Financials, Estimates, Transcripts, Mergers, Funding Rounds
+    contact:
+      url: https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29
+  - id: kensho-extract-subscription
+    name: Kensho Extract Subscription
+    description: Subscription access to the Kensho Extract REST API for PDF/image to structured JSON conversion.
+    visibility: contact-sales
+    billing:
+      model: subscription
+      currency: USD
+      cadence: annual
+      pricingDisclosure: not-published
+      notes: Volume-priced based on documents/pages processed; quoted per engagement.
+    entitlements:
+      - apis:
+          - kensho-extract-api
+        scope: read+write
+        includes:
+          - Asynchronous extraction jobs
+          - OCR and Figure Extraction (FigEx) options
+          - Presigned upload and download URLs
+    contact:
+      email: commercial@kensho.com
+      url: https://kensho.com/extract
+  - id: kensho-nerd-subscription
+    name: Kensho NERD Subscription
+    description: Subscription access to the NERD entity-linking API across Wikimedia and Capital IQ knowledge bases.
+    visibility: contact-sales
+    billing:
+      model: subscription
+      pricingDisclosure: not-published
+    entitlements:
+      - apis:
+          - kensho-nerd-api
+        scope: read+write
+    contact:
+      email: commercial@kensho.com
+  - id: kensho-scribe-subscription
+    name: Kensho Scribe Subscription
+    description: Subscription access to the Scribe Batch (v1 and v2) and Real-Time transcription APIs.
+    visibility: contact-sales
+    billing:
+      model: subscription
+      pricingDisclosure: not-published
+      notes: Typically priced per hour of audio processed; Human-in-the-Loop tier priced separately.
+    entitlements:
+      - apis:
+          - kensho-scribe-batch-v2-api
+          - kensho-scribe-batch-v1-api
+        scope: read+write
+    contact:
+      email: commercial@kensho.com
+  - id: grounding-agent-alpha
+    name: Grounding Agent (Alpha)
+    description: Alpha access programme for the Grounding Agent.
+    visibility: invite-only
+    billing:
+      model: free
+      notes: Alpha programme — billing model is not yet defined.
+    entitlements:
+      - apis:
+          - kensho-grounding-agent
+        scope: read
+    contact:
+      email: commercial@kensho.com
+      url: https://kensho.com/grounding
+  - id: capital-iq-pro-enterprise
+    name: S&P Capital IQ Pro Enterprise
+    description: Enterprise subscription bundling the Capital IQ Pro desktop, Office plug-ins, and API access. The LLM-ready API exposes a substantial subset of this dataset for AI-native consumption.
+    visibility: contact-sales
+    billing:
+      model: subscription
+      cadence: annual
+      pricingDisclosure: not-published
+      notes: Priced per named user / seat with bundled data modules.
+    entitlements:
+      - apis:
+          - sp-capital-iq-pro
+        scope: read
+        includes:
+          - Capital IQ Pro desktop and web
+          - Office plug-ins (Excel, Word, PowerPoint)
+          - Enterprise data API access
+    contact:
+      url: https://www.spglobal.com/market-intelligence/en/contact-us

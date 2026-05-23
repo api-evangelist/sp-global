@@ -1,0 +1,21 @@
+{
+  "operation": "auditors-create",
+  "method": "POST",
+  "path": "/api/v1/auditors/",
+  "summary": "",
+  "request": {
+    "body": {
+      "company_id": 0,
+      "start_year": 0,
+      "end_year": 0,
+      "calendar_type": null
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": {},
+      "errors": {}
+    }
+  }
+}

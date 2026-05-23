@@ -1,0 +1,28 @@
+{
+  "operation": "get-stock-prices",
+  "method": "GET",
+  "path": "/api/v1/pricing/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "currency": "string",
+      "prices": [
+        {
+          "date": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "close": null,
+          "volume": null
+        }
+      ],
+      "errors": [
+        "string"
+      ]
+    }
+  }
+}

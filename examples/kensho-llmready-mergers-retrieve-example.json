@@ -1,0 +1,35 @@
+{
+  "operation": "mergers-retrieve",
+  "method": "GET",
+  "path": "/api/v1/mergers/{company_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "target": [
+        {
+          "transaction_id": null,
+          "merger_title": null,
+          "closed_date": null
+        }
+      ],
+      "buyer": [
+        {
+          "transaction_id": null,
+          "merger_title": null,
+          "closed_date": null
+        }
+      ],
+      "seller": [
+        {
+          "transaction_id": null,
+          "merger_title": null,
+          "closed_date": null
+        }
+      ]
+    }
+  }
+}

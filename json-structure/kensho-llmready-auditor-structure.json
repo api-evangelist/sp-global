@@ -1,0 +1,20 @@
+{
+  "entity": "kensho-llmready-auditor",
+  "description": "Auditor entry from /api/v1/auditors/.",
+  "sourceSchema": "json-schema/kensho-llmready-auditor-schema.json",
+  "main": "AuditorEntry",
+  "fields": [
+    {
+      "name": "auditor_company_id",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "auditor_name",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ]
+}

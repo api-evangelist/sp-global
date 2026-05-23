@@ -1,0 +1,26 @@
+{
+  "entity": "kensho-extract-extraction",
+  "description": "Top-level Extract job response.",
+  "sourceSchema": "json-schema/kensho-extract-extraction-schema.json",
+  "main": "Node",
+  "fields": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "children",
+      "type": "array",
+      "description": "",
+      "required": false
+    }
+  ]
+}

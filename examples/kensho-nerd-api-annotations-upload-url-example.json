@@ -1,0 +1,17 @@
+{
+  "operation": "api-annotations-upload-url",
+  "method": "GET",
+  "path": "/api/v1/upload-url",
+  "summary": "Get An Upload URL For Uploading A Text File",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "url": "https://example-bucket.s3.amazonaws.com/",
+      "fields": {},
+      "job_id": "fakeJobId1234567890"
+    }
+  }
+}

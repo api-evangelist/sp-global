@@ -1,0 +1,99 @@
+providerId: sp-global
+name: S&P Global / Kensho API FinOps Mapping
+description: |
+  Maps S&P Global's API billing surface to the FinOps Foundation FOCUS data specification. Because S&P Global / Kensho
+  does not publish per-call or per-document price cards on its public documentation site, this mapping captures the
+  observable cost dimensions — service, product, charge category, billing cadence, and customer-negotiated quantity
+  units — without inventing numbers.
+created: '2026-05-23'
+modified: '2026-05-23'
+specification:
+  name: FOCUS
+  version: '1.0'
+  url: https://focus.finops.org
+
+providers:
+  - providerName: S&P Global
+    publisherName: S&P Global Inc.
+    invoiceIssuer: S&P Global Market Intelligence / Kensho Technologies, LLC
+    billingAccountType: enterprise
+    billingCurrency: USD
+    billingCadence: annual
+
+services:
+  - serviceName: S&P Global LLM-Ready API
+    serviceCategory: AI and Machine Learning
+    serviceSubcategory: Generative AI Data Access
+    chargeCategory: subscription
+    pricingUnit: subscription-tier
+    quantityNotes: Subscription tier defines included dataset breadth and request volume; overage is negotiated.
+    skus:
+      - sku: kensho-llm-ready-api-subscription
+        productName: LLM-Ready API
+  - serviceName: Kensho Extract
+    serviceCategory: AI and Machine Learning
+    serviceSubcategory: Document Intelligence
+    chargeCategory: subscription
+    pricingUnit: pages-per-month-or-subscription
+    quantityNotes: Typically priced on monthly document or page volume; tier-based.
+    skus:
+      - sku: kensho-extract-subscription
+        productName: Extract
+  - serviceName: Kensho NERD
+    serviceCategory: AI and Machine Learning
+    serviceSubcategory: Natural Language Processing
+    chargeCategory: subscription
+    pricingUnit: subscription-tier
+    skus:
+      - sku: kensho-nerd-subscription
+        productName: NERD
+  - serviceName: Kensho Scribe
+    serviceCategory: AI and Machine Learning
+    serviceSubcategory: Speech-to-Text
+    chargeCategory: subscription
+    pricingUnit: hours-of-audio-per-month
+    quantityNotes: Batch and Real-Time tiers; Human-in-the-Loop (HITL) priced separately.
+    skus:
+      - sku: kensho-scribe-batch-subscription
+        productName: Scribe Batch
+      - sku: kensho-scribe-realtime-subscription
+        productName: Scribe Real-Time
+      - sku: kensho-scribe-hitl
+        productName: Scribe HITL
+  - serviceName: Kensho Grounding Agent (Alpha)
+    serviceCategory: AI and Machine Learning
+    serviceSubcategory: Retrieval-Augmented Generation
+    chargeCategory: alpha-evaluation
+    pricingUnit: not-applicable
+    skus:
+      - sku: kensho-grounding-alpha
+        productName: Grounding Agent
+  - serviceName: S&P Capital IQ Pro
+    serviceCategory: Financial Data
+    serviceSubcategory: Market Intelligence Platform
+    chargeCategory: subscription
+    pricingUnit: named-user-seats
+    skus:
+      - sku: capital-iq-pro-enterprise
+        productName: Capital IQ Pro
+
+allocationDimensions:
+  - businessUnit
+  - dataDomain
+  - apiProduct
+  - environment
+  - region
+
+tagging:
+  recommendedTags:
+    - cost-center
+    - project
+    - team
+    - workload-name
+    - dataset
+    - api-product
+
+reportingNotes:
+  - Customers should request itemised usage from S&P Global Market Intelligence for cost-allocation reporting.
+  - MCP-server-fronted consumption can be metered at the adapter using outbound HTTP middleware.
+  - Bundle the LLM-ready API subscription with Capital IQ Pro seats when negotiating volume discounts.

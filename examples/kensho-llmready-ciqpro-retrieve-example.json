@@ -1,0 +1,20 @@
+{
+  "operation": "ciqpro-retrieve",
+  "method": "GET",
+  "path": "/api/v1/ciqpro/{company_ids}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "company_id": null,
+          "ciqpro_key": null
+        }
+      ]
+    }
+  }
+}

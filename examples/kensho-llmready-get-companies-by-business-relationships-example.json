@@ -1,0 +1,26 @@
+{
+  "operation": "get-companies-by-business-relationships",
+  "method": "GET",
+  "path": "/api/v1/relationship/{company_id}/{relationship_type}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "current": [
+        {
+          "company_id": null,
+          "company_name": null
+        }
+      ],
+      "previous": [
+        {
+          "company_id": null,
+          "company_name": null
+        }
+      ]
+    }
+  }
+}

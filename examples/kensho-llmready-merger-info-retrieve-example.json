@@ -1,0 +1,30 @@
+{
+  "operation": "merger-info-retrieve",
+  "method": "GET",
+  "path": "/api/v1/merger/info/{transaction_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "timeline": [
+        {
+          "status": null,
+          "date": null
+        }
+      ],
+      "participants": {
+        "target": null,
+        "buyers": [
+          null
+        ],
+        "sellers": [
+          null
+        ]
+      },
+      "consideration": null
+    }
+  }
+}

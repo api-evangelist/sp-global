@@ -1,0 +1,15 @@
+{
+  "operation": "get-primary-trading-item",
+  "method": "GET",
+  "path": "/api/v1/trading_items/{security_id}/primary",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "primary_trading_item": 0
+    }
+  }
+}

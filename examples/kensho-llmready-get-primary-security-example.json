@@ -1,0 +1,15 @@
+{
+  "operation": "get-primary-security",
+  "method": "GET",
+  "path": "/api/v1/securities/{company_id}/primary",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "primary_security": 0
+    }
+  }
+}

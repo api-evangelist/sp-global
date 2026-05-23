@@ -1,0 +1,26 @@
+{
+  "entity": "kensho-llmready-earnings",
+  "description": "Earnings response from /api/v1/earnings/{company_id}.",
+  "sourceSchema": "json-schema/kensho-llmready-earnings-schema.json",
+  "main": "EarningsEntry",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "key_dev_id",
+      "type": "integer",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "datetime",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ]
+}

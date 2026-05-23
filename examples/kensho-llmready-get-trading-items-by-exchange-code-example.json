@@ -1,0 +1,17 @@
+{
+  "operation": "get-trading-items-by-exchange-code",
+  "method": "GET",
+  "path": "/api/v1/trading_item_groups/exchange/{exchange_code}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "trading_items": [
+        0
+      ]
+    }
+  }
+}

@@ -1,0 +1,131 @@
+extends:
+  - spectral:oas
+formats:
+  - oas3
+
+functions: []
+
+rules:
+  spg-info-title-required:
+    description: Every S&P Global OpenAPI spec must declare an info.title.
+    message: '{{property}} is required.'
+    given: $.info
+    severity: error
+    then:
+      field: title
+      function: truthy
+
+  spg-info-version-required:
+    description: Every S&P Global OpenAPI spec must declare an info.version.
+    given: $.info
+    severity: error
+    then:
+      field: version
+      function: truthy
+
+  spg-servers-https-only:
+    description: All Kensho service servers must use HTTPS (e.g., https://kfinance.kensho.com).
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  spg-server-kensho-domain:
+    description: Kensho service base URLs should resolve to a *.kensho.com host.
+    given: $.servers[*].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '\.kensho\.com(/|$)'
+
+  spg-path-segments-snake-case:
+    description: Path segments use snake_case lowercase per the LLM-ready API convention.
+    given: $.paths.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/(api/v[0-9]+/|v[0-9]+/|me$|me/)?[a-z0-9_/{}.-]+$'
+
+  spg-versioned-path:
+    description: All non-metadata paths are versioned (e.g., /api/v1/... or /v3/...).
+    given: $.paths.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/(api/v[0-9]+|v[0-9]+|me)'
+
+  spg-operation-summary-title-case:
+    description: Operation summaries should use Title Case (first letter of each significant word capitalised).
+    given: $.paths.*.*.summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z]'
+
+  spg-operation-id-required:
+    description: Every operation must declare an operationId for SDK/codegen stability.
+    given: $.paths.*.*
+    severity: warn
+    then:
+      field: operationId
+      function: truthy
+
+  spg-success-response-defined:
+    description: Every operation must define at least one 2xx response.
+    given: $.paths.*.*.responses
+    severity: error
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            '^2[0-9]{2}$': true
+          minProperties: 1
+
+  spg-security-required:
+    description: S&P Global APIs require authenticated access (OIDC bearer or keypair JWT).
+    given: $
+    severity: warn
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            security:
+              type: array
+              minItems: 1
+            components:
+              type: object
+              properties:
+                securitySchemes:
+                  type: object
+                  minProperties: 1
+
+  spg-extract-versioned-v3:
+    description: Kensho Extract paths must be under /v3 (current GA major).
+    given: $.paths.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(/v3/|$)'
+    when:
+      field: $.info.title
+      pattern: 'Kensho Extract'
+
+  spg-no-stage-in-host:
+    description: Production servers must not embed dev/staging/qa/test in the host.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '(dev|staging|stage|qa|test|preview)\.'

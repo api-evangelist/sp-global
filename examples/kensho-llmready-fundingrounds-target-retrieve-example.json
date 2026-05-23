@@ -1,0 +1,22 @@
+{
+  "operation": "fundingrounds-target-retrieve",
+  "method": "GET",
+  "path": "/api/v1/fundingrounds/target/{company_id}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "rounds_of_funding": [
+        {
+          "transaction_id": null,
+          "funding_round_notes": null,
+          "closed_date": null,
+          "funding_type": null
+        }
+      ]
+    }
+  }
+}

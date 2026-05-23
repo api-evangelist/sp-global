@@ -1,0 +1,86 @@
+{
+  "entity": "kensho-llmready-company-info",
+  "description": "Company info envelope from /api/v1/info/{company_id}.",
+  "sourceSchema": "json-schema/kensho-llmready-company-info-schema.json",
+  "main": "CompanyInfoResponse",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "simple_industry",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "number_of_employees",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "founding_date",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "webpage",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "zip_code",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "iso_country",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ]
+}

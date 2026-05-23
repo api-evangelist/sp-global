@@ -1,0 +1,583 @@
+openapi: 3.0.0
+servers:
+- url: https://nerd.kensho.com
+info:
+  description: This page contains the full API reference for Kensho NERD.
+  title: NERD Service API
+  version: '1.0'
+paths:
+  /api/v1/annotations-async:
+    post:
+      tags:
+      - annotations-async
+      summary: Start A NERD Annotation Job
+      operationId: api_annotations_async_post
+      description: Submit a document to NERD to kick off an annotation job that will be processed asynchronously. Endpoint
+        users submit a text document and at least one knowledge base to be used to annotate the detected entities. There are
+        two available knowledge bases, the Wikimedia knowledge base and the Capital IQ knowledge base, denoted `"wikimedia"`
+        and `"capiq"`, respectively.
+      requestBody:
+        $ref: '#/components/requestBodies/nerd_request_post'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  job_id: J1234
+                  request_id: R1234
+                properties:
+                  job_id:
+                    type: string
+                    description: Job identifier associated with the document's NERD processing. Used to retrieve annotation
+                      results at a later time.
+                  request_id:
+                    type: string
+                    description: Optional identifier submitted by the caller to track their own requests. If provided, it
+                      is returned in the response as it was submitted.
+          description: Indicates the job request was successfully received. `job_id` is returned in the response.
+        '400':
+          description: Indicates a bad request because at least one knowledge base and document text must be specified.
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '429':
+          description: Indicates that user request rate has been exceeded.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      x-openapi-router-controller: openapi_server.controllers.async_controller
+      security:
+      - BearerAuth:
+        - token_info
+    put:
+      tags:
+      - annotations-async
+      summary: Start A NERD Annotation Job Given A Provided Job ID
+      operationId: api_annotations_async_put
+      description: Notify NERD to start the annotation job given a provided job ID from uploading a text file using an upload
+        URL. To upload a text file, please see [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url)
+        for more information.
+      requestBody:
+        $ref: '#/components/requestBodies/nerd_request_put'
+      parameters:
+      - in: query
+        name: job_id
+        description: Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request
+          to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.
+        schema:
+          type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  job_id: J1234
+                  request_id: R1234
+                properties:
+                  job_id:
+                    type: string
+                    description: Job identifier associated with the document's NERD processing. Used to retrieve annotation
+                      results at a later time.
+                  request_id:
+                    type: string
+                    description: Optional identifier submitted by the caller to track their own requests. If provided, it
+                      is returned in the response as it was submitted.
+          description: Indicates the job request was successfully received. `job_id` is returned in the response.
+        '400':
+          description: Indicates a bad request because at least one knowledge base must be specified and the document text
+            for the provided `job_id` was not uploaded.
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '429':
+          description: Indicates that user request rate has been exceeded.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      security:
+      - BearerAuth:
+        - token_info
+    get:
+      tags:
+      - annotations-async
+      summary: Get Annotations For The Specified Job ID
+      operationId: api_annotations_async_get
+      description: This endpoint returns the results of a NERD annotations job. The endpoint expects the `job_id` to be specified
+        as the query parameter. The response contains a status, message, and the annotation results.
+      parameters:
+      - in: query
+        name: job_id
+        description: Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request
+          to the async annotations endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nerd_job_response'
+          description: Indicates the request was successfully received and processed. Annotated data is returned in the response.
+        '400':
+          description: Indicates a bad request due to 1) missing knowledge base; 2) missing document text; or 3) missing `job_id`.
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that the job was not found in the system.
+        '429':
+          description: Indicates that user rate has been exceeded.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      x-openapi-router-controller: openapi_server.controllers.async_controller
+      security:
+      - BearerAuth:
+        - token_info
+    delete:
+      tags:
+      - annotations-async
+      summary: Delete Annotations For The Specified Job ID
+      operationId: api_annotations_async_delete
+      description: This endpoint deletes the results of a NERD annotations job. The endpoint expects the `job_id` to be specified
+        as the query parameter. The response contains a status and message
+      parameters:
+      - in: query
+        name: job_id
+        description: Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request
+          to the async annotations endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Job has been successfully deleted.
+                properties:
+                  message:
+                    type: string
+                    description: Additional information
+          description: Indicates the request was successfully received and processed. Annotated data is returned in the response.
+        '400':
+          description: Indicates a bad request due to a missing or invalid `job_id`
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that the job was not found in the system.
+        '409':
+          description: Indicates that the job is pending and therefore cannot be deleted.
+        '429':
+          description: Indicates that user request rate has been exceeded.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      x-openapi-router-controller: openapi_server.controllers.async_controller
+      security:
+      - BearerAuth:
+        - token_info
+  /api/v1/upload-url:
+    get:
+      tags:
+      - upload-url
+      summary: Get An Upload URL For Uploading A Text File
+      operationId: api_annotations_upload_url
+      description: This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15**
+        minutes.
+      responses:
+        '200':
+          description: Indicates that the upload URL was created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nerd_upload_url_response'
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '429':
+          description: Indicates that user request rate has been exceeded.
+        '500':
+          description: Internal server error when generating the upload URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    description: Error message indicating the failure reason.
+                    example: Attempting to generate the upload URL for the user, but failed due to an S3 client error.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      security:
+      - BearerAuth:
+        - token_info
+  /me:
+    get:
+      tags:
+      - user-info
+      operationId: me_get
+      description: Returns information about the authenticated user.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/me_response'
+          description: Indicates that user information was successfully obtained and returned.
+        '403':
+          description: Indicates that an invalid authorization occurred or that user data was not found.
+      summary: Get Current User Information
+      x-openapi-router-controller: openapi_server.__main__
+      security:
+      - BearerAuth:
+        - token_info
+      - APIKey:
+        - kensho_nerd_token
+components:
+  requestBodies:
+    nerd_request_post:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/nerd_request_post'
+      required: true
+    nerd_request_put:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/nerd_request_put'
+      required: true
+  schemas:
+    me_response:
+      example:
+        scopes:
+        - openid
+        - email
+        email: me@legos.com
+        uid: uid value
+        token: super_secret_token
+      properties:
+        scopes:
+          items:
+            type: string
+          type: array
+        email:
+          type: string
+        uid:
+          type: string
+        token:
+          type: string
+    nerd_response_results:
+      example:
+        knowledge_base: capiq
+        annotations:
+        - start_index: 0
+          end_index: 6
+          text: Kensho
+          ner_score: 0.99
+          ned_score: 0.96
+          ner_type: ORG
+          entity_label: Kensho Technologies
+          entity_type: ORG
+          entity_kb_id: 251994106
+        - start_index: 130
+          end_index: 144
+          text: The LEGO Group
+          ner_score: 0.89
+          ned_score: 0.99
+          ner_type: ORG
+          entity_label: LEGO A/S
+          entity_type: ORG
+          entity_kb_id: 701221
+        entity_relevance_scores:
+        - '701221': 0.5
+          '251994106': 0.5
+      properties:
+        knowledge_base:
+          type: string
+        annotations:
+          items:
+            $ref: '#/components/schemas/nerd_response_annotation'
+          type: array
+        entity_relevance_scores:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              relevance_score:
+                type: number
+              entity_id:
+                type: string
+    nerd_request_post:
+      example:
+        knowledge_bases:
+        - capiq
+        tag_people: false
+        text: Kensho announced the release of NERD in 2021....The LEGO Group posted earnings in August....Nairobi was the
+          top destination....the AU made the decision...
+        originating_entity_id: '701221'
+        request_id: R1234
+      properties:
+        knowledge_bases:
+          items:
+            type: string
+          type: array
+          description: Knowledge bases to disambiguate to, e.g., `["capiq"]`, `["wikimedia"]`, or `["capiq", "wikimedia"]`.
+        tag_people:
+          type: boolean
+          description: Whether to tag people on a CapIQ request. Requires access to people tagging.
+        text:
+          type: string
+          description: Content of the source document.
+        originating_entity_id:
+          type: string
+          description: Specifies the Capital IQ ID of the company issuing the source document. For example, the company whose
+            earnings call transcript or 10K filing is passed through NERD would be the originating entity for that document.
+            Used only when submitting documents for linking to the Capital IQ knowledge base. If there isn't an appropriate
+            originating entity for a document, such as in the case of a news article, simply enter `"0"` or omit the field.
+        request_id:
+          type: string
+          description: Optional identifier submitted by the caller to track their own requests. If provided, it is returned
+            in the response as it was submitted.
+      type: object
+    nerd_request_put:
+      example:
+        knowledge_bases:
+        - capiq
+        tag_people: false
+        originating_entity_id: '701221'
+        request_id: R1234
+      properties:
+        knowledge_bases:
+          items:
+            type: string
+          type: array
+          description: Knowledge bases to disambiguate to, e.g., `["capiq"]`, `["wikimedia"]`, or `["capiq", "wikimedia"]`.
+        tag_people:
+          type: boolean
+          description: Whether to tag people on a CapIQ request. Requires access to people tagging.
+        originating_entity_id:
+          type: string
+          description: Specifies the Capital IQ ID of the company issuing the source document. For example, the company whose
+            earnings call transcript or 10K filing is passed through NERD would be the originating entity for that document.
+            Used only when submitting documents for linking to the Capital IQ knowledge base. If there isn't an appropriate
+            originating entity for a document, such as in the case of a news article, simply enter `"0"` or omit the field.
+        request_id:
+          type: string
+          description: Optional identifier submitted by the caller to track their own requests. If provided, it is returned
+            in the response as it was submitted.
+      type: object
+    nerd_response_annotation:
+      example:
+        start_index: 0
+        end_index: 6
+        text: Kensho
+        ner_score: 0.99
+        ned_score: 0.96
+        ner_type: ORG
+        entity_label: Kensho Technologies
+        entity_type: ORG
+        entity_kb_id: '251994106'
+      properties:
+        text:
+          type: string
+          description: Text of the entity mention identified by NERD.
+        start_index:
+          type: integer
+          description: Starting offset of the entity mention in the source document text.
+        end_index:
+          type: integer
+          description: Ending offset of the entity mention in the source document.
+        entity_kb_id:
+          type: string
+          description: Identifier in the chosen knowledge base of the entity that this span was linked to. If no link was
+            found (but the model determined that this span is an entity), this field is returned null.
+        entity_label:
+          type: string
+          description: Name in the chosen knowledge base of the entity that this span was linked to. If no link was found
+            (but the model determined that this span is an entity), this field is returned null.
+        entity_type:
+          type: string
+          description: Predicted entity type in the chosen knowledge base of the entity that this span was linked to. If no
+            link was found (but the model determined that this span is an entity), this field is returned null. Entities linked
+            to the Capital IQ knowledge base will always be of type "ORG" (organization). Entities linked to the Wikimedia
+            knowledge base may be of several types, including "PERSON", "COMPANY", "NGO", and "GOVERNMENT". Wikimedia does
+            not publish entity types, so for Wikimedia annotated entities, this field is merely a prediction and should not
+            be taken as ground truth.
+        ner_score:
+          type: number
+          description: Score that denotes how confident the NERD model is that the span’s text refers to an entity.
+        ned_score:
+          type: number
+          description: Score the denotes the NERD model's confidence in the link between the entity mention and the entry
+            in the knowledge base (i.e., the entity_kb_id). If no link was found (but the model determined that this span
+            is an entity), this field is returned null.
+        ner_type:
+          type: string
+          description: Predicted entity type for the text span corresponding to this annotation. This field is independent
+            of both `entity_type` and `entity_kb_id` and denotes the type of entity that the NERD model predicted for the
+            text span. The value of this field is always "ORG" for Capital IQ NERD and one of {"EVENT", "FAC", "GPE", "LAW",
+            "LOC", "NORP", "ORG", "PERSON", "PRODUCT", "WORK_OF_ART"} for Wikimedia NERD.
+    nerd_response:
+      example:
+        request_id: R1234
+        results:
+        - knowledge_base: capiq
+          annotations:
+          - start_index: 0
+            end_index: 6
+            text: Kensho
+            ner_score: 0.99
+            ned_score: 0.96
+            ner_type: ORG
+            entity_label: Kensho Technologies
+            entity_type: ORG
+            entity_kb_id: '251994106'
+          - start_index: 130
+            end_index: 144
+            text: The LEGO Group
+            ner_score: 0.89
+            ned_score: 0.99
+            ner_type: ORG
+            entity_label: LEGO A/S
+            entity_type: ORG
+            entity_kb_id: '701221'
+          entity_relevance_scores:
+            '701221': 0.5
+            '251994106': 0.5
+        - knowledge_base: wikimedia
+          annotations:
+          - start_index: 1000
+            end_index: 1007
+            text: Nairobi
+            ner_score: 1
+            ned_score: 0.43
+            ner_type: LOC
+            entity_label: Nairobi
+            entity_type: CITY
+            entity_kb_id: '3870'
+          - start_index: 1201
+            end_index: 1203
+            text: AU
+            ner_score: 1
+            ned_score: 0.43
+            ner_type: ORG
+            entity_label: African Union
+            entity_type: NGO
+            entity_kb_id: '7159'
+          entity_relevance_scores:
+            '3870': 0.5
+            '7159': 0.5
+      properties:
+        request_id:
+          type: string
+          description: Optional identifier submitted by the caller to track their own requests. If provided, it is returned
+            in the response as it was submitted.
+        results:
+          items:
+            $ref: '#/components/schemas/nerd_response_results'
+          type: array
+    nerd_job_response:
+      example:
+        status: success
+        message: OK
+        request_id: R1234
+        results:
+        - knowledge_base: capiq
+          annotations:
+          - start_index: 0
+            end_index: 6
+            text: Kensho
+            ner_score: 0.99
+            ned_score: 0.96
+            ner_type: ORG
+            entity_label: Kensho Technologies
+            entity_type: ORG
+            entity_kb_id: '251994106'
+          - start_index: 130
+            end_index: 144
+            text: The LEGO Group
+            ner_score: 0.89
+            ned_score: 0.99
+            ner_type: ORG
+            entity_label: LEGO A/S
+            entity_type: ORG
+            entity_kb_id: '701221'
+          entity_relevance_scores:
+            '701221': 0.5
+            '251994106': 0.5
+        - knowledge_base: wikimedia
+          annotations:
+          - start_index: 1000
+            end_index: 1007
+            text: Nairobi
+            ner_score: 1
+            ned_score: 0.43
+            ner_type: LOC
+            entity_label: Nairobi
+            entity_type: CITY
+            entity_kb_id: '3870'
+          - start_index: 1201
+            end_index: 1203
+            text: AU
+            ner_score: 1
+            ned_score: 0.43
+            ner_type: ORG
+            entity_label: African Union
+            entity_type: NGO
+            entity_kb_id: '7159'
+          entity_relevance_scores:
+            '3870': 0.5
+            '7159': 0.5
+      properties:
+        status:
+          type: string
+          description: Current status of the requested job. `"pending"` denotes that the job is still pending, and `"success"`
+            denotes that the job has completed.
+        message:
+          type: string
+          description: If no errors occurred, the message contains `"OK"`. If errors occurred, then the message contains the
+            error description.
+        request_id:
+          type: string
+          description: Identifier submitted by the caller to track their own requests, returned if and as it was provided.
+        results:
+          items:
+            $ref: '#/components/schemas/nerd_response_results'
+    nerd_upload_url_response:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL to POST the document upload to. Returns 200 on success. Refer to the AWS pre-signed URL documentation
+            for detailed information on specific response codes and their meanings.
+          example: https://example-bucket.s3.amazonaws.com/
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+          description: Fields required in the form data of the POST request for uploading the document to the `url`.
+        job_id:
+          type: string
+          description: A unique identifier for tracking the upload job.
+          example: fakeJobId1234567890
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: openapi_server.controllers.security_controller_.info_from_BearerAuth
+    APIKey:
+      type: apiKey
+      name: kensho_nerd_token
+      in: cookie
+      x-apikeyInfoFunc: openapi_server.controllers.security_controller_.info_from_CookieAuth

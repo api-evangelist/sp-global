@@ -1,0 +1,19 @@
+{
+  "operation": "get-historical-metadata",
+  "method": "GET",
+  "path": "/api/v1/pricing/{trading_item_id}/metadata",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "currency": "string",
+      "symbol": "string",
+      "exchange_name": "string",
+      "instrument_type": "string",
+      "first_trade_date": "2026-05-23"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "operation": "get-companies-by-simple-industry",
+  "method": "GET",
+  "path": "/api/v1/company_groups/industry/simple/{simple_industry}",
+  "summary": "",
+  "request": {
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "companies": [
+        0
+      ]
+    }
+  }
+}

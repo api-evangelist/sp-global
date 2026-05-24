@@ -376,6 +376,8 @@ common:
     description: Automotive intelligence (formerly IHS Markit automotive) covering production, sales, and connected-vehicle
       data.
     url: https://www.spglobal.com/mobility
+- type: LLMsTxt
+  url: https://developer.spglobal.com/llms.txt
 tags:
 - Capital IQ
 - Commodity Insights

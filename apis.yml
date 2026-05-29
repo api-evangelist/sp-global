@@ -9,7 +9,7 @@ image: https://www.spglobal.com/spglobal-corporate-identity/spglobal-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/apis.yml
 humanURL: https://www.spglobal.com
 created: '2026-05-23'
-modified: '2026-05-23'
+modified: '2026-05-29'
 specificationVersion: '0.19'
 kind: contract
 access: 3rd-Party
@@ -154,6 +154,34 @@ apis:
     url: json-ld/sp-global-context.jsonld
   - type: NaftikoCapability
     url: capabilities/kensho-scribe-api.yaml
+- aid: sp-global:kensho-scribe-realtime-api
+  name: Kensho Scribe Real Time API
+  description: Real-time streaming transcription over a WebSocket at wss://scribe.kensho.com/ws. Clients send an Authenticate
+    message with a Kensho OIDC access token, then StartTranscription with an audio_format (RAW pcm_s16le, 16 kHz, mono),
+    followed by base64-encoded AddData chunks of at most 15 seconds each carrying monotonically increasing sequence_numbers,
+    and finally EndOfStream. The server streams TranscriptionStarted, DataAdded, AddTranscript, EndOfTranscript, and Error
+    messages back over the same socket. This is the only public WebSocket surface S&P Global exposes — Capital IQ Pro,
+    Marketplace, and other market-data feeds are delivered via REST, file/SFTP, Snowflake share, and Databricks share.
+  humanURL: https://docs.kensho.com/scribe/v2/developer-guide
+  baseURL: wss://scribe.kensho.com/ws
+  tags:
+  - Speech to Text
+  - Transcription
+  - WebSocket
+  - Streaming
+  - Real Time
+  - AsyncAPI
+  properties:
+  - type: AsyncAPI
+    url: asyncapi/kensho-scribe-realtime-asyncapi.yml
+  - type: Documentation
+    url: https://docs.kensho.com/scribe/v2/developer-guide
+  - type: APIReference
+    url: https://docs.kensho.com/scribe/v2/real-time-api-specification
+  - type: Authentication
+    url: https://docs.kensho.com/authentication
+  - type: JSONLD
+    url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-scribe-batch-v1-api
   name: Kensho Scribe Batch API v1
   description: Legacy v1 batch transcription endpoint (POST /api/v1/transcription). Superseded by the v2 batch API which

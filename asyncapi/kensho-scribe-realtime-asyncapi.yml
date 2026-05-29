@@ -1,0 +1,309 @@
+asyncapi: 2.6.0
+info:
+  title: Kensho Scribe Real Time API
+  version: 2.0.0
+  description: |
+    Real-time streaming transcription WebSocket API from Kensho Technologies
+    (a wholly-owned S&P Global subsidiary). Companion to the Kensho Scribe v2
+    batch REST API. Streams uncompressed PCM audio chunks to the server and
+    receives partial and final transcripts back over the same WebSocket.
+
+    This AsyncAPI document covers only the publicly documented Real Time
+    WebSocket surface at wss://scribe.kensho.com/ws. S&P Global's other public
+    surfaces (LLM-ready API, Extract, NERD, Scribe batch, Capital IQ Pro,
+    Marketplace) are REST, file/SFTP, Snowflake share, or Databricks share and
+    are not modeled here.
+  contact:
+    name: Kensho Technologies (S&P Global)
+    url: https://kensho.com
+    email: commercial@kensho.com
+  license:
+    name: Commercial - Kensho Terms of Service
+    url: https://kensho.com/terms
+  x-source:
+    - https://docs.kensho.com/scribe/v2/developer-guide
+    - https://docs.kensho.com/scribe/v2/real-time-api-specification
+    - https://docs.kensho.com/authentication
+servers:
+  production:
+    url: scribe.kensho.com/ws
+    protocol: wss
+    description: |
+      Production Kensho Scribe Real Time WebSocket endpoint. Clients must
+      complete OIDC/OAuth 2.0 authentication out-of-band (keypair or refresh
+      token grant) to obtain the access token before opening the WebSocket,
+      then send an Authenticate message as the first frame.
+    security:
+      - bearerToken: []
+defaultContentType: application/json
+channels:
+  /:
+    description: |
+      Single bidirectional WebSocket channel. All client and server messages
+      are JSON objects discriminated by the `message` field. The expected
+      lifecycle is Authenticate -> StartTranscription -> AddData (repeating) ->
+      EndOfStream, with the server streaming AddTranscript messages while data
+      is processed and EndOfTranscript when complete. Audio must be sent in
+      segments of at most 15 seconds.
+    publish:
+      operationId: sendClientMessage
+      summary: Messages sent from client to Kensho Scribe Real Time
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Authenticate'
+          - $ref: '#/components/messages/StartTranscription'
+          - $ref: '#/components/messages/AddData'
+          - $ref: '#/components/messages/EndOfStream'
+    subscribe:
+      operationId: receiveServerMessage
+      summary: Messages sent from Kensho Scribe Real Time to client
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Authenticated'
+          - $ref: '#/components/messages/TranscriptionStarted'
+          - $ref: '#/components/messages/DataAdded'
+          - $ref: '#/components/messages/AddTranscript'
+          - $ref: '#/components/messages/EndOfTranscript'
+          - $ref: '#/components/messages/Error'
+components:
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Access token obtained via the Kensho OIDC/OAuth 2.0 flow (keypair grant
+        for production or refresh-token grant for development). The token is
+        delivered to the server inside the Authenticate message, not as an
+        HTTP Authorization header.
+  messages:
+    Authenticate:
+      name: Authenticate
+      title: Authenticate
+      summary: First client message; supplies the Kensho access token.
+      payload:
+        $ref: '#/components/schemas/AuthenticatePayload'
+    Authenticated:
+      name: Authenticated
+      title: Authenticated
+      summary: Server acknowledgement that the access token was accepted.
+      payload:
+        $ref: '#/components/schemas/AuthenticatedPayload'
+    StartTranscription:
+      name: StartTranscription
+      title: StartTranscription
+      summary: Configures the audio format and opens a transcription session.
+      payload:
+        $ref: '#/components/schemas/StartTranscriptionPayload'
+    TranscriptionStarted:
+      name: TranscriptionStarted
+      title: TranscriptionStarted
+      summary: Server confirmation that a transcription session is active.
+      payload:
+        $ref: '#/components/schemas/TranscriptionStartedPayload'
+    AddData:
+      name: AddData
+      title: AddData
+      summary: |
+        Sends one chunk of base64-encoded PCM audio. Chunks must represent
+        at most 15 seconds of audio and carry a monotonically increasing
+        sequence_number.
+      payload:
+        $ref: '#/components/schemas/AddDataPayload'
+    DataAdded:
+      name: DataAdded
+      title: DataAdded
+      summary: Server acknowledgement that an audio chunk was accepted.
+      payload:
+        $ref: '#/components/schemas/DataAddedPayload'
+    AddTranscript:
+      name: AddTranscript
+      title: AddTranscript
+      summary: Server-pushed transcript segment for previously sent audio.
+      payload:
+        $ref: '#/components/schemas/AddTranscriptPayload'
+    EndOfStream:
+      name: EndOfStream
+      title: EndOfStream
+      summary: Client signal that no further audio will be sent.
+      payload:
+        $ref: '#/components/schemas/EndOfStreamPayload'
+    EndOfTranscript:
+      name: EndOfTranscript
+      title: EndOfTranscript
+      summary: Server signal that all transcripts for the stream have been emitted.
+      payload:
+        $ref: '#/components/schemas/EndOfTranscriptPayload'
+    Error:
+      name: Error
+      title: Error
+      summary: Server error response carrying a human-readable reason.
+      payload:
+        $ref: '#/components/schemas/ErrorPayload'
+  schemas:
+    AudioFormat:
+      type: object
+      description: |
+        Audio format descriptor sent in StartTranscription. The publicly
+        documented configuration is RAW PCM signed 16-bit little-endian at
+        16 kHz mono.
+      required:
+        - type
+        - encoding
+        - sample_rate_hz
+        - num_channels
+      properties:
+        type:
+          type: string
+          enum:
+            - RAW
+          description: Container type for the streamed audio.
+        encoding:
+          type: string
+          enum:
+            - pcm_s16le
+          description: Signed 16-bit little-endian PCM.
+        sample_rate_hz:
+          type: integer
+          enum:
+            - 16000
+          description: Sample rate in hertz. Documented value is 16000.
+        num_channels:
+          type: integer
+          enum:
+            - 1
+          description: Number of audio channels. Documented value is 1 (mono).
+    AuthenticatePayload:
+      type: object
+      required:
+        - message
+        - token
+      properties:
+        message:
+          type: string
+          enum:
+            - Authenticate
+        token:
+          type: string
+          description: Kensho OIDC/OAuth 2.0 access token.
+    AuthenticatedPayload:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          enum:
+            - Authenticated
+    StartTranscriptionPayload:
+      type: object
+      required:
+        - message
+        - audio_format
+      properties:
+        message:
+          type: string
+          enum:
+            - StartTranscription
+        audio_format:
+          $ref: '#/components/schemas/AudioFormat'
+    TranscriptionStartedPayload:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          enum:
+            - TranscriptionStarted
+        request_id:
+          type: string
+          description: Unique identifier for the active transcription session.
+    AddDataPayload:
+      type: object
+      required:
+        - message
+        - audio
+        - sequence_number
+      properties:
+        message:
+          type: string
+          enum:
+            - AddData
+        audio:
+          type: string
+          format: byte
+          description: |
+            Base64-encoded PCM audio chunk. Must represent no more than 15
+            seconds of audio at the configured sample rate.
+        sequence_number:
+          type: integer
+          minimum: 0
+          description: |
+            Monotonically increasing chunk index starting at 0. Used by the
+            server to detect dropped or out-of-order chunks.
+    DataAddedPayload:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          enum:
+            - DataAdded
+        sequence_number:
+          type: integer
+          minimum: 0
+          description: Sequence number of the acknowledged chunk.
+    AddTranscriptPayload:
+      type: object
+      required:
+        - message
+        - transcript
+      properties:
+        message:
+          type: string
+          enum:
+            - AddTranscript
+        transcript:
+          type: object
+          description: |
+            Transcript segment object emitted by the server. The exact field
+            set is not exhaustively documented in the public specification;
+            consumers should treat unknown fields permissively.
+    EndOfStreamPayload:
+      type: object
+      required:
+        - message
+        - last_sequence_number
+      properties:
+        message:
+          type: string
+          enum:
+            - EndOfStream
+        last_sequence_number:
+          type: integer
+          minimum: 0
+          description: Sequence number of the final audio chunk sent.
+    EndOfTranscriptPayload:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          enum:
+            - EndOfTranscript
+    ErrorPayload:
+      type: object
+      required:
+        - message
+        - reason
+      properties:
+        message:
+          type: string
+          enum:
+            - Error
+        reason:
+          type: string
+          description: Human-readable description of the failure.

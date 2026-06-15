@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NERD Service API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "annotations-async",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Annotations For The Specified Job ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://nerd.kensho.com/api/v1/annotations-async",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint returns the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status, message, and the annotation results."
+        },
+        {
+          "info": {
+            "name": "Start A NERD Annotation Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://nerd.kensho.com/api/v1/annotations-async",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a document to NERD to kick off an annotation job that will be processed asynchronously. Endpoint users submit a text document and at least one knowledge base to be used to annotate the detected entities. There are two available knowledge bases, the Wikimedia knowledge base and the Capital IQ knowledge base, denoted `\"wikimedia\"` and `\"capiq\"`, respectively."
+        },
+        {
+          "info": {
+            "name": "Start A NERD Annotation Job Given A Provided Job ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://nerd.kensho.com/api/v1/annotations-async",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Notify NERD to start the annotation job given a provided job ID from uploading a text file using an upload URL. To upload a text file, please see [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) for more information."
+        },
+        {
+          "info": {
+            "name": "Delete Annotations For The Specified Job ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://nerd.kensho.com/api/v1/annotations-async",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint deletes the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status and message"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "upload-url",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get An Upload URL For Uploading A Text File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://nerd.kensho.com/api/v1/upload-url",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15** minutes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "user-info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current User Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://nerd.kensho.com/me",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns information about the authenticated user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

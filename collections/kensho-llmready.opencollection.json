@@ -1,0 +1,1625 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LLM-ready API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auditors_create",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/auditors/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the financial auditors of a given company id"
+    },
+    {
+      "info": {
+        "name": "ciqpro_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ciqpro/:company_ids",
+        "params": [
+          {
+            "name": "company_ids",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Given a list of company IDs, return a list of those IDs to their CIQ Pro keys."
+    },
+    {
+      "info": {
+        "name": "Get Companies By Location",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/company_groups/geo/country/:iso_code/:state",
+        "params": [
+          {
+            "name": "iso_code",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "state",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of companies based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country"
+    },
+    {
+      "info": {
+        "name": "Get Companies By Industry Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/:industry_classification/:industry_code",
+        "params": [
+          {
+            "name": "industry_classification",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "industry_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of companies that are in the given industry_classification and industry_code"
+    },
+    {
+      "info": {
+        "name": "Get Companies By GICS Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/gics/:gics_code",
+        "params": [
+          {
+            "name": "gics_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of companies that are classified in the gics_code.\n\nReturns a dictionary of shape {\"companies\": List[<company_id>]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+    },
+    {
+      "info": {
+        "name": "Get Companies By Simple Industry",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/simple/:simple_industry",
+        "params": [
+          {
+            "name": "simple_industry",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of companies that are in the given simple_industry"
+    },
+    {
+      "info": {
+        "name": "Get Competitors from Company",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/competitors/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified' (self-identified), 'named_by_competitor' (from compe"
+    },
+    {
+      "info": {
+        "name": "Get Competitors from Company_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/competitors/:company_id/:competitor_source",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "competitor_source",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified' (self-identified), 'named_by_competitor' (from compe"
+    },
+    {
+      "info": {
+        "name": "Get CUSIP",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/cusip/:security_id",
+        "params": [
+          {
+            "name": "security_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the CUSIP for a given security_id"
+    },
+    {
+      "info": {
+        "name": "Get Earnings Calls",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/earnings/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id.\n\nThe response comprises metadata for all upcoming and past earnings calls in\ndescending order by datetime. The key dev id can be used with the transcript\nendpoints to retrieve the earnings call transcript."
+    },
+    {
+      "info": {
+        "name": "Get Earnings Calls Dates",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/earnings/:company_id/dates",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the earnings calls in datetime for a given company_id in UTC"
+    },
+    {
+      "info": {
+        "name": "Get Estimates",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/estimates/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the consensus estimates or guidance for a given company."
+    },
+    {
+      "info": {
+        "name": "Get Analyst Recommendations",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/estimates/analyst_recommendations/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get analyst recommendations for a given company_id.\n\nReturns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global Market Intelligence\nstandardizes ratings across brokers on a 5-point scale: 1 = Buy, 2 = Outperform, 3 = Hold, 4 = Underperform, 5 = Sell.\nIf an analyst does not provide a recommendation, S&P Global assigns a rating of 'No Opinion'."
+    },
+    {
+      "info": {
+        "name": "Get Consensus Target Price",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/estimates/consensus_target_price/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the consensus target price estimates for a given company_id."
+    },
+    {
+      "info": {
+        "name": "fundinground_info_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id",
+        "params": [
+          {
+            "name": "transaction_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get detailed information about a round of funding."
+    },
+    {
+      "info": {
+        "name": "fundinground_info_advisors_investor_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id/advisors/investor/:advised_company_id",
+        "params": [
+          {
+            "name": "advised_company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "transaction_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the advisors and their types for a company buying into a round of funding."
+    },
+    {
+      "info": {
+        "name": "fundinground_info_advisors_target_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id/advisors/target",
+        "params": [
+          {
+            "name": "transaction_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the advisors and their types for the company raising a round of funding."
+    },
+    {
+      "info": {
+        "name": "fundingrounds_investor_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/fundingrounds/investor/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the rounds of funding that the specified company invested in."
+    },
+    {
+      "info": {
+        "name": "fundingrounds_target_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/fundingrounds/target/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the rounds of funding that the specified company was in."
+    },
+    {
+      "info": {
+        "name": "CUSIP to Identification Triple",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/id/:cusip",
+        "params": [
+          {
+            "name": "cusip",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the most likely trading_item_id, security_id, and company_id with a given CUSIP."
+    },
+    {
+      "info": {
+        "name": "ISIN to Identification Triple",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/id/:isin",
+        "params": [
+          {
+            "name": "isin",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ISIN."
+    },
+    {
+      "info": {
+        "name": "Ticker to Identification Triple",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/id/:ticker",
+        "params": [
+          {
+            "name": "ticker",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+    },
+    {
+      "info": {
+        "name": "Ticker to Identification Triple_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/id/:ticker/exchange_code/:exchange_code",
+        "params": [
+          {
+            "name": "exchange_code",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "ticker",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+    },
+    {
+      "info": {
+        "name": "Unified Identification Triple",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/ids",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP, Company ID, ticker, or company name)."
+    },
+    {
+      "info": {
+        "name": "Get Company Information",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/info/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the general information of a given company_id, such as name, status, company type, simple industry, number of employees, founding date, webpage, and address."
+    },
+    {
+      "info": {
+        "name": "info_descriptions_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/info/:company_id/descriptions",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the company's summary (short description) and description (long description)"
+    },
+    {
+      "info": {
+        "name": "info_names_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/info/:company_id/names",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the company's other names: alternate_names (names that a company also goes by), historical_names (names that the company used to go by), and native_names (company names in native language)"
+    },
+    {
+      "info": {
+        "name": "Get ISIN",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/isin/:security_id",
+        "params": [
+          {
+            "name": "security_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the ISIN for a given security_id"
+    },
+    {
+      "info": {
+        "name": "Get Latest Date",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/latest",
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in UTC. The output is a dictionary with the following schema::\n\n{\n    \"annual\": {\n        \"latest_year\": int\n    },\n    \"quarterly\": {\n        \"latest_quarter\": int,\n        \"latest_year\": int\n    },\n    \"now\": {\n        \"current_year\": int,\n        \"current_quarter\": int,\n        \"current_month\": int,\n        \"current_date\": str # in format Y-m-d\n    }\n}"
+    },
+    {
+      "info": {
+        "name": "Get Financial Line Item",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/line_item/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get a financial line item for a set of company_ids.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+    },
+    {
+      "info": {
+        "name": "Get Financial Line Item_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_year",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "line_item",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "period_type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_year",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get a financial line item for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+    },
+    {
+      "info": {
+        "name": "Get Market Caps",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/market_cap/:company_id/:start_date/:end_date",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_date",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_date",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the market caps between start and end date inclusive.\n\nThe returned data includes market_cap, tev (Total Enterprise Value), shares_outstanding, and its currency."
+    },
+    {
+      "info": {
+        "name": "merger_info_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/merger/info/:transaction_id",
+        "params": [
+          {
+            "name": "transaction_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get information about the specified merger/acquisition transaction.\n\nParameters:\n    transaction_id: The ID of the specified transaction.\n\nReturns:\n    dict: A nested dictionary that contains:\n    - An ordered array of the status changes of the transaction.\n    - A dict with three keys:\n        - target: The company that was merged with or acquired.\n        - buyers: A list of companies that bought or merged with the target company.\n        - sellers: A list of companies that sold or traded the "
+    },
+    {
+      "info": {
+        "name": "merger_info_advisors_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/merger/info/:transaction_id/advisors/:advised_company_id",
+        "params": [
+          {
+            "name": "advised_company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "transaction_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the advisor companies and their roles for the specified company in the specified merger/acquisition transaction."
+    },
+    {
+      "info": {
+        "name": "mergers_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/mergers/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the merger/acquisition transactions for the specified company."
+    },
+    {
+      "info": {
+        "name": "Get Price Chart",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/price_chart/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+        "params": [
+          {
+            "name": "adjusted",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_date",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "periodicity",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_date",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "trading_item_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date inclusive."
+    },
+    {
+      "info": {
+        "name": "Get Stock Prices",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+        "params": [
+          {
+            "name": "adjusted",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_date",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "periodicity",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_date",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "trading_item_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get stock prices for a given trading_item_id and its associated currency between start_date and end_date inclusive, with latest available data being from the previous day, and the most recent price will always be the closing price from the day before. The returned prices include the open, close, high, low prices and volume."
+    },
+    {
+      "info": {
+        "name": "Get Historical Metadata",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/pricing/:trading_item_id/metadata",
+        "params": [
+          {
+            "name": "trading_item_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type, and first_trade_date."
+    },
+    {
+      "info": {
+        "name": "Get Companies by Business Relationships",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/relationship/:company_id/:relationship_type",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "relationship_type",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of current and previous companies that are relationship_type OF company_id.\n\nReturns a dictionary of shape:\n{\n    \"current\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}],\n    \"previous\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}]\n}.\n\nExamples: get_companies_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_companies_by_business_relationship(company_id: 1234, relationship_typ"
+    },
+    {
+      "info": {
+        "name": "Get Tickers by Business Relationships",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/relationship/:company_id/:relationship_type/ticker",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "relationship_type",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of current and previous ticker identification triples that are relationship_type OF company_id.\n\nReturns a dictionary of shape {“current”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}], “previous”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}]}.\n\nExamples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords"
+    },
+    {
+      "info": {
+        "name": "Get Securities",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/securities/:company_id",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of securities for a given company_id. Returns a dictionary of shape {\"securities\": List[<security_id>]}"
+    },
+    {
+      "info": {
+        "name": "Get Primary Security",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/securities/:company_id/primary",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the primary security for a given company_id. Returns a dictionary of shape {\"primary_security\": <security_id>}"
+    },
+    {
+      "info": {
+        "name": "Get Segments",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/segments/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType): The period_type requested for. Can be “annua"
+    },
+    {
+      "info": {
+        "name": "Get Segments_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_year",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "period_type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "segment_type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_year",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType): The period_type requested for. Can be “annua"
+    },
+    {
+      "info": {
+        "name": "Get Financial Statement",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/statements/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        },
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+    },
+    {
+      "info": {
+        "name": "Get Financial Statement_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+        "params": [
+          {
+            "name": "company_id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "end_year",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "period_type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_quarter",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "start_year",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "statement_type",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Exchange Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/exchange/:exchange_code",
+        "params": [
+          {
+            "name": "exchange_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers that are traded on exchange_code"
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Combined Filters",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+        "params": [
+          {
+            "name": "exchange_code",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "iso_code",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "simple_industry",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "state",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry."
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Location",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/geo/country/:iso_code",
+        "params": [
+          {
+            "name": "iso_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. "
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Location_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/geo/country/:iso_code/:state",
+        "params": [
+          {
+            "name": "iso_code",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "state",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. "
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Industry Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+        "params": [
+          {
+            "name": "industry_classification",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "industry_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers and their associated identification triple that are in the given industry_classification and industry_code"
+    },
+    {
+      "info": {
+        "name": "Get Tickers By GICS Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/gics/:gics_code",
+        "params": [
+          {
+            "name": "gics_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers that are classified in the gics_code.\n\nReturns a dictionary of shape {\"tickers\": List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+    },
+    {
+      "info": {
+        "name": "Get Tickers By Simple Industry",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/simple/:simple_industry",
+        "params": [
+          {
+            "name": "simple_industry",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of tickers and their associated identification triple that are in the given simple_industry"
+    },
+    {
+      "info": {
+        "name": "Get Trading Items By Exchange Code",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/trading_item_groups/exchange/:exchange_code",
+        "params": [
+          {
+            "name": "exchange_code",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of trading items that are traded on an exchange via exchange_code"
+    },
+    {
+      "info": {
+        "name": "Get Trading Items",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/trading_items/:security_id",
+        "params": [
+          {
+            "name": "security_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the list of trading items for a given security_id. Returns a dictionary of shape {\"trading_items\": List[<trading_item_id>]}"
+    },
+    {
+      "info": {
+        "name": "Get Primary Trading Item",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/trading_items/:security_id/primary",
+        "params": [
+          {
+            "name": "security_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the primary trading item for a given security_id. Returns a dictionary of shape {\"primary_trading_item\": <trading_item_id>}"
+    },
+    {
+      "info": {
+        "name": "Get Transcript",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/transcript/:key_dev_id",
+        "params": [
+          {
+            "name": "key_dev_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the transcript for a given key_dev_id\n\nThe transcript is a list of components comprising component_type, person_name,\nand text"
+    },
+    {
+      "info": {
+        "name": "Get Raw Transcript",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/transcript/:key_dev_id/raw",
+        "params": [
+          {
+            "name": "key_dev_id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Get the raw transcript for a given key_dev_id\n\nThe raw transcript is a single string that indicates speakers by\nprepending `[speaker]:` to the transcript of the speaker's speech"
+    },
+    {
+      "info": {
+        "name": "users_permissions_retrieve",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/users/permissions",
+        "auth": {
+          "type": "apikey",
+          "key": "sessionid",
+          "value": "{{sessionid}}",
+          "placement": "query"
+        }
+      },
+      "docs": "Return a list of all permissions that the request user has."
+    },
+    {
+      "info": {
+        "name": "Refresh Access Token",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://kfinance.kensho.com/api/v1/users/refresh_access_token"
+      },
+      "docs": "Refresh a client's access token, given their valid refresh token."
+    },
+    {
+      "info": {
+        "name": "Refresh Access Token_2",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://kfinance.kensho.com/api/v1/users/refresh_access_token",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Refresh a client's access token, given their valid refresh token."
+    }
+  ],
+  "bundled": true
+}

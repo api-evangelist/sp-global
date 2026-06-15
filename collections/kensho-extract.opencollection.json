@@ -1,0 +1,232 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "POST /v3/extractions",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://extract.kensho.com/v3/extractions",
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "file",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "document_type",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "ocr",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "enhanced_table_extraction",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "figure_extraction",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "include_images",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "include_relations",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "document_id",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "priority",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "pages",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "return_absolute_pdf_page_numbers",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "output_format",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "token": "{{bearerToken}}"
+        }
+      },
+      "docs": "Submit a document for extraction"
+    },
+    {
+      "info": {
+        "name": "Upload URL To Submit A Document For Extraction.",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://extract.kensho.com/v3/extractions/upload-url",
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "output_format",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "document_type",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "ocr",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "enhanced_table_extraction",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "figure_extraction",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "document_id",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "priority",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "pages",
+              "type": "text",
+              "value": ""
+            },
+            {
+              "name": "num_pages_to_extract",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "token": "{{bearerToken}}"
+        }
+      },
+      "docs": "Creates the request and returns a pre-signed upload URL to upload the document for extraction."
+    },
+    {
+      "info": {
+        "name": "Mark The Upload As Complete To Start Extraction",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://extract.kensho.com/v3/extractions/upload-complete",
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "request_id",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "token": "{{bearerToken}}"
+        }
+      },
+      "docs": "Call this after the document has been uploaded to the pre-signed URL returned by `/v3/extractions/upload-url`. The extraction process will not begin until this endpoint is called."
+    },
+    {
+      "info": {
+        "name": "GET /v3/extractions/{request_id}",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://extract.kensho.com/v3/extractions/:request_id",
+        "params": [
+          {
+            "name": "request_id",
+            "value": "",
+            "type": "path",
+            "description": "request uuid"
+          },
+          {
+            "name": "output_format",
+            "value": "",
+            "type": "query",
+            "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information."
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "token": "{{bearerToken}}"
+        }
+      },
+      "docs": "Retrieve the extracted document"
+    },
+    {
+      "info": {
+        "name": "Retrieve The Extracted Document's Download URL",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://extract.kensho.com/v3/extractions/download-url/:request_id",
+        "params": [
+          {
+            "name": "request_id",
+            "value": "",
+            "type": "path",
+            "description": "request uuid"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "token": "{{bearerToken}}"
+        }
+      },
+      "docs": "GET the `output_url` in the response to download the extracted document."
+    }
+  ],
+  "bundled": true
+}

@@ -1,76 +1,328 @@
-# S&P Global
+# S&P Global (sp-global)
 
-S&P Global (NYSE: SPGI) is the parent of S&P Global Ratings, S&P Global Market Intelligence, S&P Dow Jones Indices, S&P Global Commodity Insights (Platts), S&P Global Mobility, and S&P Global Sustainable1. Its public developer surface is anchored by [Kensho Technologies](https://kensho.com) — S&P Global's wholly-owned AI subsidiary — which ships REST APIs for the **S&P Global LLM-Ready API (kFinance)**, **Extract**, **NERD**, **Scribe**, and the **Grounding Agent** (Alpha), plus the **S&P Capital IQ Pro** and **S&P Global Marketplace** data products distributed through the [S&P Global Marketplace](https://www.marketplace.spglobal.com).
+S&P Global (NYSE SPGI) is the parent of S&P Global Ratings, S&P Global Market Intelligence, S&P Dow Jones Indices, S&P Global Commodity Insights (Platts), S&P Global Mobility, and S&P Global Sustainable1. Its public developer surface is anchored by Kensho Technologies (a wholly-owned S&P Global AI subsidiary) which ships REST APIs for the S&P Global LLM-ready API (kFinance), Extract, NERD, Scribe, and the Grounding Agent, plus the S&P Capital IQ Pro and Marketplace data products distributed through the S&P Global Marketplace.
 
-This repository is the API Evangelist profile for S&P Global. It indexes the public API surface, captures the OpenAPI specs that back each Kensho product, and generates the supporting Naftiko capabilities, JSON Schemas, examples, plans, rate-limits, and FinOps mapping.
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/apis.yml)
 
-- Index file: [`apis.yml`](apis.yml)
-- Master registry entry: [`api-evangelist-network/apis.yml` → `sp-global`](https://github.com/api-evangelist/api-evangelist-network)
+## Scope
+
+- **Position:** Consuming
+- **Access:** 3rd-Party
+
+## Tags
+
+- Capital IQ
+- Commodity Insights
+- Credit Ratings
+- Document Extraction
+- ESG
+- Financial Data
+- Index Data
+- LLM
+- MCP
+- Market Intelligence
+- Mobility
+- Named Entity Recognition
+- Speech to Text
+
+## Timestamps
+
+- **Created:** 2026-05-23
+- **Modified:** 2026-05-29
 
 ## APIs
 
-| API | OpenAPI | Capability | Docs |
-|---|---|---|---|
-| S&P Global LLM-Ready API (kFinance) — 60 endpoints | [openapi/kensho-llmready-openapi.yml](openapi/kensho-llmready-openapi.yml) | [capabilities/kensho-llm-ready-api.yaml](capabilities/kensho-llm-ready-api.yaml) | [docs.kensho.com/llmreadyapi](https://docs.kensho.com/llmreadyapi) |
-| Kensho Extract — 5 endpoints | [openapi/kensho-extract-openapi.yml](openapi/kensho-extract-openapi.yml) | [capabilities/kensho-extract-api.yaml](capabilities/kensho-extract-api.yaml) | [docs.kensho.com/extract](https://docs.kensho.com/extract) |
-| Kensho NERD — 3 endpoints | [openapi/kensho-nerd-openapi.yml](openapi/kensho-nerd-openapi.yml) | [capabilities/kensho-nerd-api.yaml](capabilities/kensho-nerd-api.yaml) | [docs.kensho.com/nerd](https://docs.kensho.com/nerd) |
-| Kensho Scribe Batch v2 — 2 endpoints | [openapi/kensho-scribe-batch-v2-openapi.yml](openapi/kensho-scribe-batch-v2-openapi.yml) | [capabilities/kensho-scribe-api.yaml](capabilities/kensho-scribe-api.yaml) | [docs.kensho.com/scribe/v2](https://docs.kensho.com/scribe/v2/developer-guide) |
-| Kensho Scribe Batch v1 — 1 endpoint (legacy) | [openapi/kensho-scribe-batch-v1-openapi.yml](openapi/kensho-scribe-batch-v1-openapi.yml) | _shared with v2 capability_ | [docs.kensho.com/scribe/v1](https://docs.kensho.com/scribe/v1/overview) |
-| Kensho Grounding Agent (Alpha) | _no public OpenAPI yet_ | _pending_ | [docs.kensho.com/grounding](https://docs.kensho.com/grounding/overview) |
-| S&P Capital IQ Pro | _enterprise data API_ | _via LLM-ready API_ | [spglobal.com/market-intelligence/.../sp-capital-iq-pro](https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro) |
-| S&P Global Marketplace | _data catalog_ | _per dataset_ | [marketplace.spglobal.com](https://www.marketplace.spglobal.com) |
+### S&P Global LLM-Ready API (kFinance)
 
-**Totals: 5 OpenAPI specs, 71 documented REST paths, 78 operations.**
+REST API and Model Context Protocol server exposing S&P Capital IQ Financials, Market Data, Business Relationships, Earnings Call Transcripts, Company Intelligence, M&A Transactions, and Global Securities information to LLMs and agentic AI applications. Distributed via the kensho-kfinance Python library and an MCP server compatible with Claude, ChatGPT, Microsoft Copilot Studio, Amazon QuickSuite, Databricks, and Mistral. 60 documented REST endpoints across companies, securities, statements, estimates, transcripts, mergers, funding rounds, and identifier crosswalks.
 
-## Artifacts
+- **Human URL:** [https://docs.kensho.com/llmreadyapi](https://docs.kensho.com/llmreadyapi)
+- **Base URL:** `https://kfinance.kensho.com`
 
-| Folder | Count | Description |
-|---|---|---|
-| `openapi/` | 5 | OpenAPI 3.x specs lifted from `docs.kensho.com` Next.js SSG data |
-| `capabilities/` | 4 | Naftiko capability definitions with REST and MCP adapters |
-| `json-schema/` | 9 | JSON Schemas for key Kensho entities (company, auditor, earnings, estimate, recommendation, CUSIP, extraction, annotation, transcription) |
-| `json-structure/` | 9 | Field-level summaries of each schema |
-| `json-ld/` | 1 | `sp-global-context.jsonld` — vocabulary bridge to schema.org / Wikidata |
-| `examples/` | 75 | Per-operation request/response examples |
-| `rules/` | 1 | Spectral ruleset enforcing S&P Global / Kensho conventions |
-| `vocabulary/` | 1 | Domain vocabulary spanning business units, data domains, identifiers, capabilities |
-| `plans/` | 1 | API Commons Plans 0.1 (trial + per-product subscriptions; pricing not publicly disclosed) |
-| `rate-limits/` | 1 | API Commons Rate Limits 0.1 (limits negotiated per subscription; structure captured) |
-| `finops/` | 1 | FOCUS-aligned billing mapping for Kensho + Capital IQ Pro |
+#### Tags
 
-## SDKs and Tooling
+- Financial Data
+- Capital IQ
+- LLM
+- MCP
+- Agents
+- Market Intelligence
 
-- **`kensho-kfinance`** — Python SDK on PyPI (`pip install kensho-kfinance`); see [github.com/kensho-technologies/kfinance](https://github.com/kensho-technologies/kfinance).
-- **MCP server** — Ships in the `kfinance` package: `python -m kfinance.mcp` with stdio / SSE / streamable-http transports.
-- **S&P Global Plugin (Claude Cowork)** — Skills for tearsheets, funding digests, earnings previews. See [github.com/kensho-technologies/spglobal-agent-skills](https://github.com/kensho-technologies/spglobal-agent-skills).
-- **LLM-ready API examples** — Notebooks for OpenAI, Anthropic, Google Gemini (function calling, code generation, LangChain). See [github.com/kensho-technologies/llm-ready-api-examples](https://github.com/kensho-technologies/llm-ready-api-examples).
+#### Properties
 
-## Authentication
+- [OpenAPI](openapi/kensho-llmready-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/kensho-llmready.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-llmready.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Documentation](https://docs.kensho.com/llmreadyapi)
+- [API Reference](https://docs.kensho.com/llmreadyapi/api)
+- [Overview](https://docs.kensho.com/llmreadyapi/overview)
+- [SDK](https://pypi.org/project/kensho-kfinance/)
+- [SDK](https://github.com/kensho-technologies/kfinance)
+- [Sandbox](https://github.com/kensho-technologies/llm-ready-api-examples)
+- [M C P Server](https://docs.kensho.com/llmreadyapi/mcp)
+- [SDK](https://github.com/kensho-technologies/spglobal-agent-skills)
+- [Authentication](https://docs.kensho.com/authentication)
+- [Sign Up](https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
-Per [docs.kensho.com/authentication](https://docs.kensho.com/authentication): OpenID Connect (OIDC) over OAuth 2.0. Two flows:
+### Kensho Extract API
 
-1. **Public-private keypair** — recommended for production / long-running unattended workloads.
-2. **Refresh token** — suitable for development and testing.
+Transforms unstructured PDF and image documents into machine-readable JSON, identifying titles, subtitles, paragraphs, tables, and footers in natural reading order. Optional OCR and Figure Extraction (FigEx). REST API at extract.kensho.com with asynchronous extractions and presigned upload/download URLs.
 
-## Notable Findings
+- **Human URL:** [https://docs.kensho.com/extract](https://docs.kensho.com/extract)
+- **Base URL:** `https://extract.kensho.com`
 
-- The `developer.spglobal.com` portal exists but does not host self-serve API references — the canonical developer documentation is `docs.kensho.com`, owned by S&P Global's AI subsidiary.
-- The `SP-Global` GitHub org currently has **0 public repositories**; all open-source artifacts ship under [`kensho-technologies`](https://github.com/kensho-technologies).
-- All five public Kensho REST APIs are documented with OpenAPI 3.x but served via Redocly inside Next.js — the specs are embedded in `_next/data/{buildId}/{slug}.json` rather than at standalone `openapi.json` URLs.
-- The LLM-ready API (`kfinance.kensho.com`) is the broadest surface (60 paths) and is the AI-native re-projection of S&P Capital IQ.
-- Pricing is **not** published publicly for any Kensho product or for Capital IQ Pro; access is gated through commercial@kensho.com and market.intelligence@spglobal.com.
+#### Tags
 
-## Notable Absences
+- Document Extraction
+- OCR
+- PDF
+- Tables
+- Unstructured Data
 
-- No public **Platts / Commodity Insights** OpenAPI on `docs.kensho.com`.
-- No public **Sustainable1 / ESG** OpenAPI.
-- No public **S&P Global Ratings** REST API.
-- No public **S&P Dow Jones Indices** REST API on the developer portal.
-- No published rate-limit numbers, no public price card, no RSS/changelog at `developer.spglobal.com`.
-- `marketplace.spglobal.com` endpoints frequently return 403 to unauthenticated WebFetch — listings appear gated behind a JS client.
+#### Properties
+
+- [OpenAPI](openapi/kensho-extract-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/kensho-extract.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-extract.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Documentation](https://docs.kensho.com/extract)
+- [API Reference](https://docs.kensho.com/extract/api)
+- [Quickstart](https://docs.kensho.com/extract/quickstart)
+- [Tutorials](https://docs.kensho.com/extract/toolkit)
+- [Authentication](https://docs.kensho.com/authentication)
+- [Sign Up](https://kensho.com/extract)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+
+### Kensho NERD API
+
+Named-Entity Recognition and Disambiguation REST service linking text mentions to S&P Capital IQ company identifiers and to Wikimedia entities (people, places, events). Supports asynchronous batch annotation with optional person tagging and originating-entity context for financial documents.
+
+- **Human URL:** [https://docs.kensho.com/nerd](https://docs.kensho.com/nerd)
+- **Base URL:** `https://nerd.kensho.com`
+
+#### Tags
+
+- NER
+- Entity Linking
+- NLP
+- Capital IQ
+- Wikimedia
+
+#### Properties
+
+- [OpenAPI](openapi/kensho-nerd-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/kensho-nerd.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-nerd.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Documentation](https://docs.kensho.com/nerd)
+- [API Reference](https://docs.kensho.com/nerd/api)
+- [Overview](https://docs.kensho.com/nerd/overview)
+- [Tutorials](https://docs.kensho.com/nerd/text-annotation)
+- [Authentication](https://docs.kensho.com/authentication)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+
+### Kensho Scribe Batch API v2
+
+Asynchronous audio and video transcription REST API. POST a media file to start a transcription job, then poll the transcription ID for completion. Optimised for finance and business audio (earnings calls, conferences). Companion real-time WebSocket API and Human-in-the-Loop batch option are documented alongside.
+
+- **Human URL:** [https://docs.kensho.com/scribe/v2/developer-guide](https://docs.kensho.com/scribe/v2/developer-guide)
+- **Base URL:** `https://scribe.kensho.com`
+
+#### Tags
+
+- Speech to Text
+- Transcription
+- Audio
+- Video
+- Batch
+
+#### Properties
+
+- [OpenAPI](openapi/kensho-scribe-batch-v2-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/kensho-scribe-batch-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Documentation](https://docs.kensho.com/scribe/v2/developer-guide)
+- [API Reference](https://docs.kensho.com/scribe/v2/batch-api-specification)
+- [Tutorials](https://docs.kensho.com/scribe/v2/batch-development)
+- [Authentication](https://docs.kensho.com/authentication)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+
+### Kensho Scribe Real Time API
+
+Real-time streaming transcription over a WebSocket at wss://scribe.kensho.com/ws. Clients send an Authenticate message with a Kensho OIDC access token, then StartTranscription with an audio_format (RAW pcm_s16le, 16 kHz, mono), followed by base64-encoded AddData chunks of at most 15 seconds each carrying monotonically increasing sequence_numbers, and finally EndOfStream. The server streams TranscriptionStarted, DataAdded, AddTranscript, EndOfTranscript, and Error messages back over the same socket. This is the only public WebSocket surface S&P Global exposes — Capital IQ Pro, Marketplace, and other market-data feeds are delivered via REST, file/SFTP, Snowflake share, and Databricks share.
+
+- **Human URL:** [https://docs.kensho.com/scribe/v2/developer-guide](https://docs.kensho.com/scribe/v2/developer-guide)
+- **Base URL:** `wss://scribe.kensho.com/ws`
+
+#### Tags
+
+- Speech to Text
+- Transcription
+- WebSocket
+- Streaming
+- Real Time
+- AsyncAPI
+
+#### Properties
+
+- [AsyncAPI](asyncapi/kensho-scribe-realtime-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Documentation](https://docs.kensho.com/scribe/v2/developer-guide)
+- [API Reference](https://docs.kensho.com/scribe/v2/real-time-api-specification)
+- [Authentication](https://docs.kensho.com/authentication)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Postman Collection](collections/kensho-extract.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-extract.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-llmready.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-llmready.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-nerd.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-nerd.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Kensho Scribe Batch API v1
+
+Legacy v1 batch transcription endpoint (POST /api/v1/transcription). Superseded by the v2 batch API which decouples submission from result retrieval. Documented here for customers on the v1 contract.
+
+- **Human URL:** [https://docs.kensho.com/scribe/v1/overview](https://docs.kensho.com/scribe/v1/overview)
+- **Base URL:** `https://scribe.kensho.com`
+
+#### Tags
+
+- Speech to Text
+- Transcription
+- Audio
+- Legacy
+
+#### Properties
+
+- [OpenAPI](openapi/kensho-scribe-batch-v1-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/kensho-scribe-batch-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Documentation](https://docs.kensho.com/scribe/v1/overview)
+- [API Reference](https://docs.kensho.com/scribe/v1/batch-api-specification)
+- [Authentication](https://docs.kensho.com/authentication)
+
+### Kensho Grounding Agent (Alpha)
+
+Data retrieval service that translates natural-language queries into structured retrieval tasks across S&P Global AI-ready datasets. Returns answers with source citations linking back to the underlying S&P Global data. Currently Alpha — access by request to commercial@kensho.com. No public OpenAPI yet.
+
+- **Human URL:** [https://docs.kensho.com/grounding/overview](https://docs.kensho.com/grounding/overview)
+
+#### Tags
+
+- Grounding
+- Agents
+- Retrieval
+- Citations
+- Alpha
+
+#### Properties
+
+- [Documentation](https://docs.kensho.com/grounding/overview)
+- [Getting Started](https://docs.kensho.com/grounding/api-guide)
+- [Sign Up](https://kensho.com/grounding)
+- [Postman Collection](collections/kensho-extract.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-extract.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-llmready.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-llmready.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-nerd.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-nerd.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### S&P Capital IQ Pro
+
+Flagship desktop and API platform for S&P Global Market Intelligence — company fundamentals, ownership, transactions, estimates, news, screening, charting, and Office plug-ins. The Capital IQ Pro API is delivered as part of an enterprise subscription rather than as a self-serve developer signup; the LLM-ready API exposes a substantial subset of the same dataset.
+
+- **Human URL:** [https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro](https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro)
+
+#### Tags
+
+- Capital IQ
+- Market Intelligence
+- Financial Data
+- Enterprise
+
+#### Properties
+
+- [Documentation](https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro)
+- [Sign Up](https://www.spglobal.com/market-intelligence/en/contact-us)
+- [Postman Collection](collections/kensho-extract.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-extract.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-llmready.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-llmready.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-nerd.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-nerd.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### S&P Global Marketplace
+
+Data and analytics catalog spanning S&P Global business units (Market Intelligence, Ratings, Commodity Insights/Platts, Mobility, Sustainable1, Indices, Dow Jones) plus third-party vendors. Distribution mechanisms include Snowflake shares, Databricks shares, file/SFTP delivery, API access, and packaged datasets. The Marketplace is the front door for discovering S&P Global APIs that are sold through enterprise channels.
+
+- **Human URL:** [https://www.marketplace.spglobal.com](https://www.marketplace.spglobal.com)
+
+#### Tags
+
+- Marketplace
+- Data Catalog
+- Distribution
+- Snowflake Share
+- Databricks
+
+#### Properties
+
+- [Documentation](https://www.marketplace.spglobal.com)
+- [Sign Up](https://www.marketplace.spglobal.com/en/sign-up)
+- [Postman Collection](collections/kensho-extract.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-extract.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-llmready.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-llmready.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-nerd.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-nerd.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/kensho-scribe-batch-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/kensho-scribe-batch-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [Portal](https://developer.spglobal.com)
+- [Documentation](https://docs.kensho.com)
+- [Marketplace](https://www.marketplace.spglobal.com)
+- [Authentication](https://docs.kensho.com/authentication)
+- [SDK](https://pypi.org/project/kensho-kfinance/)
+- [SDK](https://github.com/kensho-technologies/kfinance)
+- [SDK](https://github.com/kensho-technologies/spglobal-agent-skills)
+- [Code Examples](https://github.com/kensho-technologies/llm-ready-api-examples)
+- [Git Hub](https://github.com/kensho-technologies)
+- [Git Hub](https://github.com/SP-Global)
+- [Blog](https://www.spglobal.com/en/research-insights)
+- [Blog](https://kensho.com/blog)
+- [Plans](plans/sp-global-plans-pricing.yml)
+- [Rate Limits](rate-limits/sp-global-rate-limits.yml)
+- [Fin Ops](finops/sp-global-finops.yml)
+- [JSON-LD](json-ld/sp-global-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [JSON Schema](json-schema/kensho-llmready-company-info-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/kensho-extract-extraction-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/kensho-nerd-annotation-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Vocabulary](vocabulary/sp-global-vocabulary.yml)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+- [Subsidiaries](undefined)
+- [L L Ms Txt](https://developer.spglobal.com/llms.txt)
 
 ## Maintainers
 
-- Kin Lane — `kin@apievangelist.com`
-- Kensho Technologies (S&P Global) — `commercial@kensho.com`
-- S&P Global Market Intelligence — `market.intelligence@spglobal.com`
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
+**Email:** commercial@kensho.com
+**URL:** https://kensho.com
+**Email:** market.intelligence@spglobal.com
+**URL:** https://www.spglobal.com/market-intelligence

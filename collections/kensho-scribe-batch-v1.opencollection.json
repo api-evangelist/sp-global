@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scribe Batch API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query A Transcription Job",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://scribe.kensho.com/api/v1/transcription",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": ""
+          }
+        ],
+        "params": [
+          {
+            "name": "unique_id",
+            "value": "",
+            "type": "path",
+            "description": "ID of a transcription job"
+          }
+        ]
+      },
+      "docs": "Get the results of a transcription job.\nThis method takes in the unique ID returned from starting a transcription,\nand returns either a JSON (default) or WebVTT response.\n\nIf the `Accept` header is missing or of type `application/json` then this call\nwill return a tuple of status, error, and transcript.\nThe status will be one of \"success\", \"error\", or \"pending\".\nThe transcript field will be present if and only if the status is \"success\".\nThe error field will be present if and only if the status "
+    },
+    {
+      "info": {
+        "name": "Start A Transcription Job",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://scribe.kensho.com/api/v1/transcription",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": ""
+          }
+        ],
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "file",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Starts a transcription job for a single audio or video file.\n\nThe `Content-Type` header in the request must be set to the type of audio or\nvideo being uploaded. The `Content-Type` can be set to any one of the following\nmime types that we support:\n- `application/mp3`\n- `audio/aac`\n- `audio/m4a`\n- `audio/mp3`\n- `audio/mpeg`\n- `audio/mpeg3`\n- `audio/wav`\n- `audio/wave`\n- `audio/x-m4a`\n- `audio/x-mpeg-3`\n- `audio/x-wav`\n- `video/mp4`\n\nMP4 video, as a container, can hold any supported audio type.\nMP3"
+    },
+    {
+      "info": {
+        "name": "Delete A Transcription Job",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://scribe.kensho.com/api/v1/transcription",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": ""
+          }
+        ],
+        "params": [
+          {
+            "name": "unique_id",
+            "value": "",
+            "type": "path",
+            "description": "ID of a transcription job"
+          }
+        ]
+      },
+      "docs": "This method takes in the unique_id returned when starting a transcription,\nand deletes all stored data associated with that transcription job.\n"
+    }
+  ],
+  "bundled": true
+}

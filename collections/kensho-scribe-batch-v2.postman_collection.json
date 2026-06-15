@@ -1,0 +1,1472 @@
+{
+  "item": [
+    {
+      "id": "d8859b17-c720-47a4-a9aa-78cfb0828f68",
+      "name": "Start A New Transcription",
+      "request": {
+        "name": "Start A New Transcription",
+        "description": {
+          "content": "Starts a transcription request for a single audio or video file.\n\nWe support a wide array of audio formats along with their respective compression / codec\noptions including:\n - AAC\n - FLAC\n - MP1\n - MP3\n - WAV\n\nCurrently we only support MP4 video files where the audio streams _must_ be one\nof the supported audio formats.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nMultichannel audio will be merged into a single stream prior to transcription.\nIn very rare cases this can cause transcription issues with stereo audio when\nthe two channels have near identical content that is slightly out of phase.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v2",
+            "transcription"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "media",
+              "type": "file",
+              "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4",
+              "description": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n"
+            },
+            {
+              "key": "options",
+              "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"<string>\"}",
+              "type": "text",
+              "description": ""
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "8f002f07-899d-47a9-8201-de3b4ee2c2bc",
+          "name": "Transcription was successfully started.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n",
+                    "type": "text/plain"
+                  },
+                  "key": "media",
+                  "value": "<binary>",
+                  "type": "text",
+                  "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"Q1 Earnings Call\"}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"transcription_id\": \"76fc238be38d49cda51dd396ca69215d\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c4405f21-3bcd-4ac7-bf63-f30957bdad3c",
+          "name": "An invalid request was made to the server.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n",
+                    "type": "text/plain"
+                  },
+                  "key": "media",
+                  "value": "<binary>",
+                  "type": "text",
+                  "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"Q1 Earnings Call\"}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"detail\": \"Specified content type cannot be returned\",\n  \"msg_code\": \"S2T-BA-0010\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "02b83edb-b081-4d16-9f6c-9398479e4378",
+          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n",
+                    "type": "text/plain"
+                  },
+                  "key": "media",
+                  "value": "<binary>",
+                  "type": "text",
+                  "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"Q1 Earnings Call\"}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "bd07a794-a2a9-43ca-ac9f-7e347e9d487c",
+          "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n",
+                    "type": "text/plain"
+                  },
+                  "key": "media",
+                  "value": "<binary>",
+                  "type": "text",
+                  "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"Q1 Earnings Call\"}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "0c28d63c-167b-4b5d-ae1e-6a77ddf42554",
+          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "(Required) The binary data for the media to transcribe.\nAlong with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,\nand the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:\n- application/mp3\n- audio/aac\n- audio/flac\n- audio/m4a\n- audio/mp3\n- audio/mpeg\n- audio/mpeg3\n- audio/wav\n- audio/wave\n- audio/x-flac\n- audio/x-m4a\n- audio/x-mpeg-3\n- audio/x-wav\n- video/mp4\n",
+                    "type": "text/plain"
+                  },
+                  "key": "media",
+                  "value": "<binary>",
+                  "type": "text",
+                  "contentType": "application/mp3, audio/aac, audio/flac, audio/m4a, audio/mp3, audio/mpeg, audio/mpeg3, audio/wav, audio/wave, audio/x-flac, audio/x-m4a, audio/x-mpeg-3, audio/x-wav, video/mp4"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "options",
+                  "value": "{\"callback_uri\":\"<uri>\",\"transcriber\":\"machine\",\"media_language\":\"en\",\"priority\":\"medium\",\"context\":\"Q1 Earnings Call\"}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "1fdd7da5-e3bf-420b-98d2-b36318e91182",
+      "name": "Query a transcription by ID",
+      "request": {
+        "name": "Query a transcription by ID",
+        "description": {
+          "content": "Determines if a transcript is available for download or not.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v2",
+            "transcription",
+            ":transcription_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "transcription_id",
+              "description": "(Required) ID of a transcription to query for"
+            }
+          ]
+        },
+        "method": "HEAD",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "0ab63d21-08a7-4a8e-95ab-06aabf51d12c",
+          "name": "The transcription, for the `transcription_id` is complete and can be downloaded\nfor the returned `Content-Type`.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "disabled": false,
+              "description": "The date and time, after which, the transcription will no longer be retrievable",
+              "key": "Expires",
+              "value": "1948-07-28T21:46:28.883Z"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "69821a95-c722-4c3c-be01-f0af7e09fafc",
+          "name": "The transcription, for the `transcription_id` is still in progress.  Retrying\nlater will yield a successful result.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Accepted",
+          "code": 202,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "444d0039-fcdd-4f76-88bd-a0702df35431",
+          "name": "An invalid request was made to the server.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "60da2533-d819-4aac-ae8a-f474237229a7",
+          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "00b18bf2-cb73-40e6-9093-b67d93f37df6",
+          "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "b81b4f8b-5fbb-418e-8bda-88b63e80b8e4",
+          "name": "A transcription cannot be queried for the given 'Accept' mime type.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Not Acceptable",
+          "code": 406,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "bd09a4b5-88fa-484e-b4cd-691bf4a57093",
+          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to query for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "HEAD",
+            "body": {}
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "8747c674-f3d8-4282-ba0f-d45f9e9de9a2",
+      "name": "Download A Transcription By ID",
+      "request": {
+        "name": "Download A Transcription By ID",
+        "description": {
+          "content": "Get the resulting transcript from the transcription request.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v2",
+            "transcription",
+            ":transcription_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "transcription_id",
+              "description": "(Required) ID of a transcription to retrieve"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "923e480f-b0c3-482e-a137-ccf1c0b2868f",
+          "name": "Results of a transcription request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "disabled": false,
+              "description": "The date and time, after which, the transcription will no longer be retrievable",
+              "key": "Expires",
+              "value": "1948-07-28T21:46:28.883Z"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"transcript\": \"Hello world\",\n  \"accuracy\": 0.99,\n  \"slice_meta\": [\n    {\n      \"transcript\": \"Hello world\",\n      \"accuracy\": 0.99,\n      \"start_ms\": 0,\n      \"duration_ms\": 2000,\n      \"speaker_id\": 0,\n      \"speaker_accuracy\": 1,\n      \"token_meta\": [\n        {\n          \"transcript\": \"Hello\",\n          \"accuracy\": 0.99,\n          \"start_ms\": 0,\n          \"duration_ms\": 1000,\n          \"align_success\": true\n        },\n        {\n          \"transcript\": \"world\",\n          \"accuracy\": 0.99,\n          \"start_ms\": 1000,\n          \"duration_ms\": 1000,\n          \"align_success\": true\n        }\n      ]\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "fa5cd1d7-a829-4e38-b274-4a7436c1a2f6",
+          "name": "The transcription, with the `transcription_id` is still in progress.  Retrying\nlater will yield a successful result.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Accepted",
+          "code": 202,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "1bd9660f-6f4d-416f-8d35-5ee1b377719a",
+          "name": "An invalid request was made to the server.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"detail\": \"Specified content type cannot be returned\",\n  \"msg_code\": \"S2T-BA-0010\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "43b80779-1ceb-4f11-8cbb-baed946cf2e2",
+          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "27e48f10-b826-4508-8be7-ebf01121edb5",
+          "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "577c7b94-0283-4067-8048-01c06aca9bcc",
+          "name": "A transcription cannot be returned for the given 'Accept' mime type.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Acceptable",
+          "code": 406,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "97cad76c-7a41-4562-9a62-59c52be051eb",
+          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "8ce1cb15-a9c8-41ff-87f7-764b3fe29b24",
+      "name": "Delete All Transcription Data By ID",
+      "request": {
+        "name": "Delete All Transcription Data By ID",
+        "description": {
+          "content": "Attempts to ensure that all stored data for a transcription is no longer available on the system.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v2",
+            "transcription",
+            ":transcription_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "transcription_id",
+              "description": "(Required) ID of a transcription to delete"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "DELETE",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "ef135500-ef86-4c87-9c87-aec689489a86",
+          "name": "All stored data associated with the transcription is no longer available.\nThis could mean that:\n * The transcription data existed and is no longer available.\n * The transcription data did not exist and is still no longer available.\n * The transcription data was not available to you and so, as far as you are concerned, the data is no longer available.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "65783c1f-c577-4e9c-bb33-7b39ed564a97",
+          "name": "An invalid request was made to the server.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"detail\": \"Specified content type cannot be returned\",\n  \"msg_code\": \"S2T-BA-0010\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "0b277559-1bc7-42c8-b22a-ed899646f3d1",
+          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "26ec8349-a5fd-4ab7-a0a8-67ffb9e3edab",
+          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "transcription",
+                ":transcription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transcription_id",
+                  "description": "(Required) ID of a transcription to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://scribe.kensho.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b1898cc-cfda-489a-a967-01bc6163a3b5",
+    "name": "Scribe Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Scribe's Batch API is a RESTful API allowing users to asynchronously transcribe audio or video files.\n",
+      "type": "text/plain"
+    }
+  }
+}

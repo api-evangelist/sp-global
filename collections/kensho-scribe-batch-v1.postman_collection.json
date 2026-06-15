@@ -1,0 +1,846 @@
+{
+  "item": [
+    {
+      "id": "a578334c-4b92-45b6-b440-ba3e4587a839",
+      "name": "Query A Transcription Job",
+      "request": {
+        "name": "Query A Transcription Job",
+        "description": {
+          "content": "Get the results of a transcription job.\nThis method takes in the unique ID returned from starting a transcription,\nand returns either a JSON (default) or WebVTT response.\n\nIf the `Accept` header is missing or of type `application/json` then this call\nwill return a tuple of status, error, and transcript.\nThe status will be one of \"success\", \"error\", or \"pending\".\nThe transcript field will be present if and only if the status is \"success\".\nThe error field will be present if and only if the status is \"error\".\nA status of \"pending\" indicates that the transcription job is still in progress,\nin which case neither the transcript nor error will be present.\n\nIf the `Accept` header is of type `text/vtt` then this call will return\nthe transcription as VTT text tracks.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "transcription"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "unique_id",
+              "description": "ID of a transcription job"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "2e704c65-b89e-4d26-9b32-e330c76b595f",
+          "name": "Results of a transcription job",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"status\": \"string\",\n  \"error\": \"string\",\n  \"data\": {\n    \"transcript\": \"string\",\n    \"accuracy\": 3789.0655724252774,\n    \"slice_meta\": [\n      {\n        \"transcript\": \"string\",\n        \"accuracy\": 4489.476353203672,\n        \"start_ms\": 1213,\n        \"duration_ms\": 4326,\n        \"token_meta\": [\n          {\n            \"transcript\": \"string\",\n            \"accuracy\": 5216.319674125861,\n            \"start_ms\": 929,\n            \"duration_ms\": 7765,\n            \"align_success\": false\n          },\n          {\n            \"transcript\": \"string\",\n            \"accuracy\": 7728.400681968274,\n            \"start_ms\": 2620,\n            \"duration_ms\": 4551,\n            \"align_success\": true\n          }\n        ]\n      },\n      {\n        \"transcript\": \"string\",\n        \"accuracy\": 6148.783245742357,\n        \"start_ms\": 3897,\n        \"duration_ms\": 4362,\n        \"token_meta\": [\n          {\n            \"transcript\": \"string\",\n            \"accuracy\": 7836.100080194136,\n            \"start_ms\": 4644,\n            \"duration_ms\": 5399,\n            \"align_success\": true\n          },\n          {\n            \"transcript\": \"string\",\n            \"accuracy\": 4238.0715940961345,\n            \"start_ms\": 7068,\n            \"duration_ms\": 3227,\n            \"align_success\": true\n          }\n        ]\n      }\n    ]\n  },\n  \"expires\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c724bd0c-1c81-456b-8fc2-38da634c035b",
+          "name": "An invalid request was made to the server.\nThis could occur if the unique_id was not added as a path parameter.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "69a7b84f-1758-40d3-9c24-7edf14c01bd5",
+          "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "b67059af-f1a4-44fd-80f0-90ecad3057dd",
+          "name": "The transcript for the request_id cannot be found.\nIt is possible that the transcription is still going on and that an attempt\nat a later time will result in a 200 response.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "66237623-fd60-4a64-8402-7fe972204c1f",
+          "name": "Indicates that the request was rate limited.\nThis can occur if very frequent polling exists limits on the number of\nallowed requests to the API.\nA 429 response will contain a body describing why the upload was rate limited\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "3acdbc0d-4faa-4c32-8322-291c43668d05",
+          "name": "An error occurred while processing the audio / video uploaded.\nThe response text will have additional details.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "The audio codec 'abc123' is not supported",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "f0c9ce46-ec05-447d-9d71-d852b6f83af5",
+      "name": "Start A Transcription Job",
+      "request": {
+        "name": "Start A Transcription Job",
+        "description": {
+          "content": "Starts a transcription job for a single audio or video file.\n\nThe `Content-Type` header in the request must be set to the type of audio or\nvideo being uploaded. The `Content-Type` can be set to any one of the following\nmime types that we support:\n- `application/mp3`\n- `audio/aac`\n- `audio/m4a`\n- `audio/mp3`\n- `audio/mpeg`\n- `audio/mpeg3`\n- `audio/wav`\n- `audio/wave`\n- `audio/x-m4a`\n- `audio/x-mpeg-3`\n- `audio/x-wav`\n- `video/mp4`\n\nMP4 video, as a container, can hold any supported audio type.\nMP3 and M4A audio support a wide variety of compression and audio codec options.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nThe body of the request can contain a single binary file OR multipart form data.  When\nmultipart form data is submitted there are a few additional options and requirements:\n- The `Content-Type` header of the request must be `multipart/form-data`\n- There must be file field with the name `file` which contains the audio / video data,\n  the mime type for the data and an optional filename.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "transcription"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": ""
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "557f1b95-1765-4856-9275-c278e53e32b6",
+          "name": "Indicates that the audio file was successfully uploaded.\nThis method returns a randomly generated unique ID that the client can\nuse to query the resulting transcript.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"unique_id\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "89a7000c-2680-404a-b8d8-8fb490053718",
+          "name": "An invalid request was made to the server.\nThis could be because of an invalid content type, or an invalid MP3 file.\nA 400 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "ea3b9e07-b23d-4e42-9da7-e35e5bb672a8",
+          "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "e428c705-4ad7-4b41-ba3a-5f70920e7dec",
+          "name": "Indicates the upload was rate limited.\nThis can occur if audio is uploaded too quickly, or if a user's audio\nquota is exceeded.\nA 429 response will contain a body describing why the upload was rate limited\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "5294e748-7e1a-4cbd-ba7c-5c7e18f9f766",
+      "name": "Delete A Transcription Job",
+      "request": {
+        "name": "Delete A Transcription Job",
+        "description": {
+          "content": "This method takes in the unique_id returned when starting a transcription,\nand deletes all stored data associated with that transcription job.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "transcription"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "unique_id",
+              "description": "ID of a transcription job"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "91fba29e-fe01-4920-88f0-6f03fc1f9142",
+          "name": "All stored data associate with the transcription job is no longer available.\nThis could be due to a successful deletion or the transccription job never existed.\nA 200 response does not contain any content body.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "c8dc96c8-0305-4c95-a8cd-3235903816c1",
+          "name": "An invalid request was made to the server.\nThis could occur if the unique_id was not added as a path parameter or the unique_id is invalid.\nA 400 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "65c1260e-7dfc-4a04-9929-2da28d20383c",
+          "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "9578c79f-8c60-4fba-a223-1c674e971731",
+          "name": "The transcription job for the request_id is still in progress.\nThis could occur if the transcription is still going on and that an attempt\nat a later time will result in a 200 response.\nA 409 response will contain a body describing the error.\n",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "ID of a transcription job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication header in the format of \"Authorization: Bearer <YOUR_ACCESS_TOKEN>\"\n",
+                "key": "Authorization",
+                "value": "string"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://scribe.kensho.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2374a78e-8204-44ba-9790-4d0b2d4295ce",
+    "name": "Scribe Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Scribe's Batch API allows users to upload audio files for asynchronous processing.\nOnce a file has been uploaded, and unique, randomly generated ID is returned to the user.\nUsers can then use that ID to poll the Scribe Batch API to get results.\n\nAccessing these APIs requires passing an authentication header in the standard format of\n\"Authorization: Bearer <YOUR_ACCESS_TOKEN>\".\n\nFor individual users accessing the API, see the [authentication guide](../../authentication).\n",
+      "type": "text/plain"
+    }
+  }
+}

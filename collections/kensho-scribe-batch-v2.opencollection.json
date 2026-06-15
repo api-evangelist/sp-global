@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scribe Batch API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Start A New Transcription",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://scribe.kensho.com/api/v2/transcription",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Starts a transcription request for a single audio or video file.\n\nWe support a wide array of audio formats along with their respective compression / codec\noptions including:\n - AAC\n - FLAC\n - MP1\n - MP3\n - WAV\n\nCurrently we only support MP4 video files where the audio streams _must_ be one\nof the supported audio formats.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nMultichannel audio will be merged into a single stream prior to transcri"
+    },
+    {
+      "info": {
+        "name": "Download A Transcription By ID",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+        "params": [
+          {
+            "name": "transcription_id",
+            "value": "",
+            "type": "path",
+            "description": "ID of a transcription to retrieve"
+          }
+        ]
+      },
+      "docs": "Get the resulting transcript from the transcription request."
+    },
+    {
+      "info": {
+        "name": "Delete All Transcription Data By ID",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+        "params": [
+          {
+            "name": "transcription_id",
+            "value": "",
+            "type": "path",
+            "description": "ID of a transcription to delete"
+          }
+        ]
+      },
+      "docs": "Attempts to ensure that all stored data for a transcription is no longer available on the system."
+    },
+    {
+      "info": {
+        "name": "Query a transcription by ID",
+        "type": "http"
+      },
+      "http": {
+        "method": "HEAD",
+        "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+        "params": [
+          {
+            "name": "transcription_id",
+            "value": "",
+            "type": "path",
+            "description": "ID of a transcription to query for"
+          }
+        ]
+      },
+      "docs": "Determines if a transcript is available for download or not."
+    }
+  ],
+  "bundled": true
+}

@@ -3,16 +3,15 @@
   "feeds": [
     {
       "source": "https://www.spglobal.com/en/research-insights",
-      "error": "HTTPError"
+      "saved": 0,
+      "error": "HTTP 403 Forbidden"
     },
     {
-      "source": "https://github.com/SP-Global",
-      "feed_url": "https://github.com/SP-Global",
-      "title": "",
+      "source": "https://kensho.com/blog",
       "saved": 0,
-      "method": "none"
+      "error": "HTTP 404 Not Found"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:12:30Z"
 }

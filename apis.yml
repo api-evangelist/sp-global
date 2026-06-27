@@ -43,10 +43,10 @@ apis:
         url: https://docs.kensho.com/llmreadyapi/api
       - type: Overview
         url: https://docs.kensho.com/llmreadyapi/overview
-      - type: SDK
+      - type: SDKs
         url: https://pypi.org/project/kensho-kfinance/
         title: kensho-kfinance Python library
-      - type: SDK
+      - type: SDKs
         url: https://github.com/kensho-technologies/kfinance
         title: kFinance source on GitHub
       - type: Sandbox
@@ -55,13 +55,13 @@ apis:
       - type: MCPServer
         url: https://docs.kensho.com/llmreadyapi/mcp
         title: kFinance MCP server (stdio, SSE, streamable-http transports)
-      - type: SDK
+      - type: SDKs
         url: https://github.com/kensho-technologies/spglobal-agent-skills
         title: S&P Global Plugin for Claude Cowork (tearsheets, funding digests, earnings previews)
       - type: Authentication
         url: https://docs.kensho.com/authentication
         title: OIDC / OAuth 2.0 with public-private keypairs or refresh tokens
-      - type: SignUp
+      - type: Signup
         url: >-
           https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29
       - type: JSONLD
@@ -87,13 +87,13 @@ apis:
         url: https://docs.kensho.com/extract
       - type: APIReference
         url: https://docs.kensho.com/extract/api
-      - type: Quickstart
+      - type: GettingStarted
         url: https://docs.kensho.com/extract/quickstart
       - type: Tutorials
         url: https://docs.kensho.com/extract/toolkit
       - type: Authentication
         url: https://docs.kensho.com/authentication
-      - type: SignUp
+      - type: Signup
         url: https://kensho.com/extract
       - type: JSONLD
         url: json-ld/sp-global-context.jsonld
@@ -222,7 +222,7 @@ apis:
         url: https://docs.kensho.com/grounding/overview
       - type: GettingStarted
         url: https://docs.kensho.com/grounding/api-guide
-      - type: SignUp
+      - type: Signup
         url: https://kensho.com/grounding
   - aid: sp-global:sp-capital-iq-pro
     name: S&P Capital IQ Pro
@@ -240,7 +240,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro
-      - type: SignUp
+      - type: Signup
         url: https://www.spglobal.com/market-intelligence/en/contact-us
   - aid: sp-global:sp-marketplace
     name: S&P Global Marketplace
@@ -259,7 +259,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.marketplace.spglobal.com
-      - type: SignUp
+      - type: Signup
         url: https://www.marketplace.spglobal.com/en/sign-up
 common:
   - type: Portal
@@ -274,13 +274,13 @@ common:
   - type: Authentication
     url: https://docs.kensho.com/authentication
     title: OIDC / OAuth 2.0 with keypair or refresh-token grants
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/kensho-kfinance/
     title: kensho-kfinance Python library
-  - type: SDK
+  - type: SDKs
     url: https://github.com/kensho-technologies/kfinance
     title: kFinance Python library source
-  - type: SDK
+  - type: SDKs
     url: https://github.com/kensho-technologies/spglobal-agent-skills
     title: S&P Global Plugin (Claude Cowork skills)
   - type: CodeExamples
@@ -421,7 +421,7 @@ common:
           Automotive intelligence (formerly IHS Markit automotive) covering production, sales, and connected-vehicle
           data.
         url: https://www.spglobal.com/mobility
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.spglobal.com/llms.txt
 tags:
   - Capital IQ

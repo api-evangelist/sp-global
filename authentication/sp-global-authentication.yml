@@ -1,0 +1,32 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/kensho-extract-openapi.yml, openapi/kensho-llmready-openapi.yml, openapi/kensho-nerd-openapi.yml,
+  openapi/kensho-scribe-batch-v2-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - cookie
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/kensho-extract-openapi.yml
+  - openapi/kensho-llmready-openapi.yml
+  - openapi/kensho-nerd-openapi.yml
+  - openapi/kensho-scribe-batch-v2-openapi.yml
+- name: cookieAuth
+  type: apiKey
+  in: cookie
+  parameter: sessionid
+  sources:
+  - openapi/kensho-llmready-openapi.yml
+- name: APIKey
+  type: apiKey
+  in: cookie
+  parameter: kensho_nerd_token
+  sources:
+  - openapi/kensho-nerd-openapi.yml

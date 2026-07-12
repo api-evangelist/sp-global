@@ -262,6 +262,10 @@ apis:
       - type: Signup
         url: https://www.marketplace.spglobal.com/en/sign-up
 common:
+  - type: DomainSecurity
+    url: security/sp-global-domain-security.yml
+  - type: Authentication
+    url: authentication/sp-global-authentication.yml
   - type: Portal
     url: https://developer.spglobal.com
     title: S&P Global Developer Portal (root)

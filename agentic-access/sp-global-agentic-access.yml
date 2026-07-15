@@ -1,0 +1,917 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/kensho-extract-openapi.yml, openapi/kensho-llmready-openapi.yml, openapi/kensho-nerd-openapi.yml,
+  openapi/kensho-scribe-batch-v1-openapi.yml, openapi/kensho-scribe-batch-v2-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 79
+  by_action_class:
+    acting: 17
+    connected: 62
+  by_consequence:
+    write: 17
+    read: 62
+  human_in_the_loop_required: 0
+operations:
+- path: /v3/extractions
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/upload-url
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/upload-complete
+  method: put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/{request_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/extractions/download-url/{request_id}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/auditors/
+  method: post
+  operationId: auditors_create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/ciqpro/{company_ids}
+  method: get
+  operationId: ciqpro_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/company_groups/geo/country/{iso_code}/{state}
+  method: get
+  operationId: Get Companies By Location
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/company_groups/industry/{industry_classification}/{industry_code}
+  method: get
+  operationId: Get Companies By Industry Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/company_groups/industry/gics/{gics_code}
+  method: get
+  operationId: Get Companies By GICS Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/company_groups/industry/simple/{simple_industry}
+  method: get
+  operationId: Get Companies By Simple Industry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/competitors/{company_id}
+  method: get
+  operationId: Get Competitors from Company
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/competitors/{company_id}/{competitor_source}
+  method: get
+  operationId: Get Competitors from Company_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/cusip/{security_id}
+  method: get
+  operationId: Get CUSIP
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/earnings/{company_id}
+  method: get
+  operationId: Get Earnings Calls
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/earnings/{company_id}/dates
+  method: get
+  operationId: Get Earnings Calls Dates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/estimates/
+  method: post
+  operationId: Get Estimates
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/estimates/analyst_recommendations/{company_id}
+  method: get
+  operationId: Get Analyst Recommendations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/estimates/consensus_target_price/{company_id}
+  method: get
+  operationId: Get Consensus Target Price
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundinground/info/{transaction_id}
+  method: get
+  operationId: fundinground_info_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundinground/info/{transaction_id}/advisors/investor/{advised_company_id}
+  method: get
+  operationId: fundinground_info_advisors_investor_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundinground/info/{transaction_id}/advisors/target
+  method: get
+  operationId: fundinground_info_advisors_target_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundingrounds/investor/{company_id}
+  method: get
+  operationId: fundingrounds_investor_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundingrounds/target/{company_id}
+  method: get
+  operationId: fundingrounds_target_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/id/{cusip}
+  method: get
+  operationId: CUSIP to Identification Triple
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/id/{isin}
+  method: get
+  operationId: ISIN to Identification Triple
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/id/{ticker}
+  method: get
+  operationId: Ticker to Identification Triple
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/id/{ticker}/exchange_code/{exchange_code}
+  method: get
+  operationId: Ticker to Identification Triple_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ids
+  method: post
+  operationId: Unified Identification Triple
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/info/{company_id}
+  method: get
+  operationId: Get Company Information
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/info/{company_id}/descriptions
+  method: get
+  operationId: info_descriptions_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/info/{company_id}/names
+  method: get
+  operationId: info_names_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/isin/{security_id}
+  method: get
+  operationId: Get ISIN
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/latest
+  method: get
+  operationId: Get Latest Date
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/line_item/
+  method: post
+  operationId: Get Financial Line Item
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/line_item/{company_id}/{line_item}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+  method: get
+  operationId: Get Financial Line Item_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/market_cap/{company_id}/{start_date}/{end_date}
+  method: get
+  operationId: Get Market Caps
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/merger/info/{transaction_id}
+  method: get
+  operationId: merger_info_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/merger/info/{transaction_id}/advisors/{advised_company_id}
+  method: get
+  operationId: merger_info_advisors_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/mergers/{company_id}
+  method: get
+  operationId: mergers_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/price_chart/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}
+  method: get
+  operationId: Get Price Chart
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/pricing/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}
+  method: get
+  operationId: Get Stock Prices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/pricing/{trading_item_id}/metadata
+  method: get
+  operationId: Get Historical Metadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/relationship/{company_id}/{relationship_type}
+  method: get
+  operationId: Get Companies by Business Relationships
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/relationship/{company_id}/{relationship_type}/ticker
+  method: get
+  operationId: Get Tickers by Business Relationships
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/securities/{company_id}
+  method: get
+  operationId: Get Securities
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/securities/{company_id}/primary
+  method: get
+  operationId: Get Primary Security
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/segments/
+  method: post
+  operationId: Get Segments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/segments/{company_id}/{segment_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+  method: get
+  operationId: Get Segments_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/statements/
+  method: post
+  operationId: Get Financial Statement
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
+  method: get
+  operationId: Get Financial Statement_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/exchange/{exchange_code}
+  method: get
+  operationId: Get Tickers By Exchange Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/filters/geo/{iso_code}/{state}/simple/{simple_industry}/exchange/{exchange_code}
+  method: get
+  operationId: Get Tickers By Combined Filters
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/geo/country/{iso_code}
+  method: get
+  operationId: Get Tickers By Location
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/geo/country/{iso_code}/{state}
+  method: get
+  operationId: Get Tickers By Location_2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/industry/{industry_classification}/{industry_code}
+  method: get
+  operationId: Get Tickers By Industry Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/industry/gics/{gics_code}
+  method: get
+  operationId: Get Tickers By GICS Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ticker_groups/industry/simple/{simple_industry}
+  method: get
+  operationId: Get Tickers By Simple Industry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/trading_item_groups/exchange/{exchange_code}
+  method: get
+  operationId: Get Trading Items By Exchange Code
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/trading_items/{security_id}
+  method: get
+  operationId: Get Trading Items
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/trading_items/{security_id}/primary
+  method: get
+  operationId: Get Primary Trading Item
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/transcript/{key_dev_id}
+  method: get
+  operationId: Get Transcript
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/transcript/{key_dev_id}/raw
+  method: get
+  operationId: Get Raw Transcript
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/permissions
+  method: get
+  operationId: users_permissions_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/refresh_access_token
+  method: get
+  operationId: Refresh Access Token
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/refresh_access_token
+  method: post
+  operationId: Refresh Access Token_2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/annotations-async
+  method: post
+  operationId: api_annotations_async_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - token_info
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/annotations-async
+  method: put
+  operationId: api_annotations_async_put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - token_info
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/annotations-async
+  method: get
+  operationId: api_annotations_async_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - token_info
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/annotations-async
+  method: delete
+  operationId: api_annotations_async_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - token_info
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/upload-url
+  method: get
+  operationId: api_annotations_upload_url
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - token_info
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /me
+  method: get
+  operationId: me_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - kensho_nerd_token
+    - token_info
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/transcription
+  method: get
+  operationId: queryTranscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/transcription
+  method: post
+  operationId: startTranscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/transcription
+  method: delete
+  operationId: deleteTranscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v2/transcription
+  method: post
+  operationId: startTranscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v2/transcription/{transcription_id}
+  method: head
+  operationId: queryTranscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v2/transcription/{transcription_id}
+  method: get
+  operationId: downloadTranscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v2/transcription/{transcription_id}
+  method: delete
+  operationId: deleteTranscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

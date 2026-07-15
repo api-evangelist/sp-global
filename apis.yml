@@ -262,6 +262,8 @@ apis:
       - type: Signup
         url: https://www.marketplace.spglobal.com/en/sign-up
 common:
+  - type: AgenticAccess
+    url: agentic-access/sp-global-agentic-access.yml
   - type: DomainSecurity
     url: security/sp-global-domain-security.yml
   - type: Authentication

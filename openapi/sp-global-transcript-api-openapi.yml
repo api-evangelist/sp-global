@@ -1,0 +1,152 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Transcript API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Transcript
+paths:
+  /api/v1/transcript/{key_dev_id}:
+    get:
+      operationId: Get Transcript
+      description: 'Get the transcript for a given key_dev_id
+
+
+        The transcript is a list of components comprising component_type, person_name,
+
+        and text'
+      parameters:
+      - in: path
+        name: key_dev_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptResponse'
+              examples:
+                TranscriptExample:
+                  value:
+                    transcript:
+                    - component_type: Presentation Operator Message
+                      person_name: Operator
+                      text: Good morning, and welcome to S&P Global's Fourth Quarter and Full Year 2024 Earnings Conference
+                        Call. I'd like to inform you that this call is being recorded for broadcast. [Operator Instructions]
+                        To access the webcast and slides, go to investor.spglobal.com. [Operator Instructions] I would now
+                        like to introduce Mr. Mark Grant, Senior Vice President of Investor Relations for S&P Global. Sir,
+                        you may begin.
+                  summary: '1916266380'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that request parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no transcript was found for the given key_dev_id.
+      tags:
+      - Transcript
+  /api/v1/transcript/{key_dev_id}/raw:
+    get:
+      operationId: Get Raw Transcript
+      description: 'Get the raw transcript for a given key_dev_id
+
+
+        The raw transcript is a single string that indicates speakers by
+
+        prepending `[speaker]:` to the transcript of the speaker''s speech'
+      parameters:
+      - in: path
+        name: key_dev_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RawTranscriptResponse'
+              examples:
+                RawTranscriptExample:
+                  value:
+                    transcript: 'Operator: Good morning, and welcome to S&P Global''s Fourth Quarter and Full Year 2024 Earnings
+                      Conference Call. I''d like to inform you that this call is being recorded for broadcast. [Operator Instructions]
+                      To access the webcast and slides, go to investor.spglobal.com. [Operator Instructions] I would now like
+                      to introduce Mr. Mark Grant, Senior Vice President of Investor Relations for S&P Global. Sir, you may
+                      begin.
+
+
+                      Mark Grant: Good morning, and thank you for joining today''s S&P Global Fourth Quarter and Full Year
+                      2024 Earnings Call. Presenting on today''s call …'
+                  summary: '1916266380'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that request parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no transcript was found for the given key_dev_id.
+      tags:
+      - Transcript
+components:
+  schemas:
+    RawTranscriptResponse:
+      type: object
+      description: Response fields for get_raw_transcript.
+      properties:
+        transcript:
+          type: string
+      required:
+      - transcript
+    TranscriptEntry:
+      type: object
+      description: Serializer for individual transcript entries.
+      properties:
+        component_type:
+          type: string
+        person_name:
+          type: string
+          maxLength: 255
+        text:
+          type: string
+          maxLength: 255
+      required:
+      - component_type
+      - person_name
+      - text
+    TranscriptResponse:
+      type: object
+      description: Response fields for get_transcript.
+      properties:
+        transcript:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptEntry'
+      required:
+      - transcript
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

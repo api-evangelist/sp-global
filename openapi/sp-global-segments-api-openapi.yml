@@ -1,0 +1,459 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Segments API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Segments
+paths:
+  /api/v1/segments/:
+    post:
+      operationId: Get Segments
+      description: "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\
+        \nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic\
+        \ Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The\
+        \ segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType):\
+        \ The period_type requested for. Can be “annual”, “quarterly”, \"ytd\". Defaults to “annual” when start_quarter and\
+        \ end_quarter are None.\nstart_year (int): The starting year\nstart_quarter (int): The starting quarter\nend_year\
+        \ (int): The ending year\nend_quarter (int): The ending quarter\ncalendar_type (CalendarType): The type of calendar\
+        \ lookup to use, either \"fiscal\" or \"calendar\". Defaults to \"fiscal\".\nnum_periods (int): Instead of using absolute\
+        \ time lookup, you can look up segments by time relative to now. Defaults to 5 if no other time parameters are present.\n\
+        num_periods_back (int): Instead of using absolute time lookup, you can look up segments by time relative to now. Defaults\
+        \ to 0.\n\nReturns:\n    dict: A nested dictionary where the first-level keys are \"results\" and \"errors\".\n  \
+        \  Within \"results\", there is one key per company ID, with a metadata value \"currency\" under that, and \"periods\"\
+        \n    Within the \"periods\" dictionary,\n    - The first-level keys are strings representing the time period of either\
+        \ calendar years or quarters (e.g., 'FY2024' for a fiscal year, or 'FY2024Q1', 'FY2024Q2' for fiscal quarters).\n\
+        \    - Each period contains 'period_end_date', 'num_months', and a 'segments' array.\n    - Each segment in the array\
+        \ has a 'name' (either line of business segment names specific to a company's organization or geographic segment like\
+        \ 'Asia', 'United States', 'Rest of World') and 'line_items' array.\n    - Each line item in the array contains 'name'\
+        \ (e.g., 'Revenue', 'Operating Income') and 'value' fields."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SegmentsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SegmentsRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentsResponse'
+              examples:
+                SegmentsExample:
+                  value:
+                    results:
+                      '21719':
+                        currency: USD
+                        periods:
+                          CY2024Q1:
+                            period_end_date: '2024-03-31'
+                            num_months: 3
+                            segments:
+                            - name: Commodity Insights
+                              line_items:
+                              - name: Operating Income
+                                value: 263000000
+                              - name: Revenue
+                                value: 559000000
+                            - name: Corporate
+                              line_items:
+                              - name: Operating Income
+                                value: -35000000
+                            - name: Indices
+                              line_items:
+                              - name: Operating Income
+                                value: 283000000
+                              - name: Revenue
+                                value: 387000000
+                            - name: Intersegment Elimination
+                              line_items:
+                              - name: Revenue
+                                value: -45000000
+                            - name: Market Intelligence
+                              line_items:
+                              - name: Operating Income
+                                value: 374000000
+                              - name: Revenue
+                                value: 1142000000
+                            - name: Mobility
+                              line_items:
+                              - name: Operating Income
+                                value: 147000000
+                              - name: Revenue
+                                value: 386000000
+                            - name: Ratings
+                              line_items:
+                              - name: Operating Income
+                                value: 688000000
+                              - name: Revenue
+                                value: 1062000000
+                          CY2024Q2:
+                            period_end_date: '2024-06-30'
+                            num_months: 3
+                            segments:
+                            - name: Commodity Insights
+                              line_items:
+                              - name: Operating Income
+                                value: 245000000
+                              - name: Revenue
+                                value: 516000000
+                            - name: Corporate
+                              line_items:
+                              - name: Operating Income
+                                value: -38000000
+                            - name: Indices
+                              line_items:
+                              - name: Operating Income
+                                value: 275000000
+                              - name: Revenue
+                                value: 389000000
+                            - name: Intersegment Elimination
+                              line_items:
+                              - name: Revenue
+                                value: -46000000
+                            - name: Market Intelligence
+                              line_items:
+                              - name: Operating Income
+                                value: 379000000
+                              - name: Revenue
+                                value: 1155000000
+                            - name: Mobility
+                              line_items:
+                              - name: Operating Income
+                                value: 164000000
+                              - name: Revenue
+                                value: 400000000
+                            - name: Ratings
+                              line_items:
+                              - name: Operating Income
+                                value: 747000000
+                              - name: Revenue
+                                value: 1135000000
+                    errors: {}
+                  summary: 21719, business, quarterly
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Segments
+  /api/v1/segments/{company_id}/{segment_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
+    get:
+      operationId: Get Segments_2
+      description: "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\
+        \nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic\
+        \ Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The\
+        \ segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType):\
+        \ The period_type requested for. Can be “annual”, “quarterly”, \"ytd\". Defaults to “annual” when start_quarter and\
+        \ end_quarter are None.\nstart_year (int): The starting calendar year\nstart_quarter (int): The starting calendar\
+        \ quarter\nend_year (int): The ending calendar year\nend_quarter (int): The ending calendar quarter\n\nReturns:\n\
+        \    dict: A nested dictionary where the first-level keys are \"calendar_type\" and \"segments\".\n    Within the\
+        \ \"segments\" dictionary,\n    - The first-level keys are strings representing the time period of either calendar\
+        \ years or quarters (e.g., '2024' for a year, or '2024Q1', '2024Q2' for quarters).\n    - The second-level keys are\
+        \ the segment names, either line of business segment names specific to a company's organization or geographic segment\
+        \ (e.g., 'Asia', 'United States', 'Rest of World').\n    - Each segment contains the value of the line item (e.g.,\
+        \ 'Revenue', 'Operating Income')\n\n    An example response:\n    {\n        \"calendar_type\": \"CALENDAR\",\n  \
+        \      \"currency\": \"USD\",\n        \"segments\": {\n            \"2024Q1\": {\n                \"Commodity Insights\"\
+        : {\n                    \"Operating Income\": 263000000.0,\n                    \"Revenue\": 559000000.0\n      \
+        \          },\n                \"Corporate\": {\n                    \"Operating Income\": -35000000.0\n         \
+        \       },\n            },\n            \"2024Q2\": {\n                \"Commodity Insights\": {\n               \
+        \     \"Operating Income\": 245000000.0,\n                    \"Revenue\": 516000000.0\n                },\n     \
+        \           \"Corporate\": {\n                    \"Operating Income\": -38000000.0\n                },\n        \
+        \    }\n        }..."
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: end_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: end_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: period_type
+        schema:
+          type: string
+          pattern: ^(?i:annual)|(?i:quarterly)|(?i:ytd)|(?i:ltm)|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: segment_type
+        schema:
+          type: string
+          pattern: ^(?i:business)|(?i:geographic)$
+        required: true
+      - in: path
+        name: start_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentsResponse'
+              examples:
+                SegmentsExample:
+                  value:
+                    calendar_type: CALENDAR
+                    currency: USD
+                    segments:
+                      2024Q1:
+                        Commodity Insights:
+                          Operating Income: 263000000
+                          Revenue: 559000000
+                        Corporate:
+                          Operating Income: -35000000
+                        Indices:
+                          Operating Income: 283000000
+                          Revenue: 387000000
+                        Intersegment Elimination:
+                          Revenue: -45000000
+                        Market Intelligence:
+                          Operating Income: 374000000
+                          Revenue: 1142000000
+                        Mobility:
+                          Operating Income: 147000000
+                          Revenue: 386000000
+                        Ratings:
+                          Operating Income: 688000000
+                          Revenue: 1062000000
+                      2024Q2:
+                        Commodity Insights:
+                          Operating Income: 245000000
+                          Revenue: 516000000
+                        Corporate:
+                          Operating Income: -38000000
+                  summary: 21719, business, quarterly
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Segments
+components:
+  schemas:
+    SegmentsCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type: string
+          nullable: true
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    NullEnum:
+      enum:
+      - null
+    SegmentTypeEnum:
+      enum:
+      - business
+      - geographic
+      type: string
+      description: '* `business` - business
+
+        * `geographic` - geographic'
+    Period:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        num_months:
+          type: integer
+          nullable: true
+        line_item:
+          $ref: '#/components/schemas/LineItem'
+      required:
+      - line_item
+      - num_months
+      - period_end_date
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    StartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    SegmentsRequest:
+      type: object
+      description: Request fields for post_segments
+      properties:
+        segment_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/SegmentTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        period_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/PeriodTypeBe5Enum'
+          - $ref: '#/components/schemas/NullEnum'
+        company_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+        start_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        end_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        start_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/StartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        end_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/EndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        calendar_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CalendarTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods:
+          type: integer
+          maximum: 99
+          minimum: 1
+          nullable: true
+        num_periods_back:
+          type: integer
+          maximum: 99
+          minimum: 0
+          nullable: true
+      required:
+      - company_ids
+    SegmentsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SegmentsCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

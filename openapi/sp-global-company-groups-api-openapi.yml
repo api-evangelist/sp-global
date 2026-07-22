@@ -1,0 +1,225 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Company Groups API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Company Groups
+paths:
+  /api/v1/company_groups/geo/country/{iso_code}/{state}:
+    get:
+      operationId: Get Companies By Location
+      description: "Get the list of companies based in a location with filters iso_code and state.\n\nParameters:\n    iso_code\
+        \ (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three\
+        \ letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"\
+        FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing\
+        \ a state, province, or region within the specified country. This code identifies the subdivision without repeating\
+        \ the country code. Example: \"CA\" for California, \"MH\" for Maharashtra."
+      parameters:
+      - in: path
+        name: iso_code
+        schema:
+          type: string
+          pattern: ^(?i:[A-Z]{2,3})$
+        required: true
+      - in: path
+        name: state
+        schema:
+          type: string
+          pattern: ^(?i:[A-Z]{2,3})$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+              examples:
+                GetCompaniesByLocationExample:
+                  value:
+                    companies:
+                    - 557556508
+                    - 915908
+                    - 326636850
+                    - 13757207
+                    - 1780112191
+                    - 291946353
+                    - 658420583
+                    - 408856966
+                  summary: Country GB
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Company Groups
+  /api/v1/company_groups/industry/{industry_classification}/{industry_code}:
+    get:
+      operationId: Get Companies By Industry Code
+      description: Get the list of companies that are in the given industry_classification and industry_code
+      parameters:
+      - in: path
+        name: industry_classification
+        schema:
+          type: string
+          pattern: ^(?i:ANZSIC)|(?i:NACE)|(?i:NAICS)|(?i:SIC)|(?i:SPCAPIQETF)|(?i:SPRATINGS)$
+        required: true
+      - in: path
+        name: industry_code
+        schema:
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,12}$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+              examples:
+                GetCompaniesByIndustryCodeExample:
+                  value:
+                    companies:
+                    - 669200555
+                    - 1755802872
+                    - 304098666
+                    - 20342986
+                    - 106768890
+                    - 104931852
+                    - 1832449314
+                    - 1841209336
+                    - 600549462
+                    - 20374017
+                    - 3711189
+                  summary: SIC, 6141
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Company Groups
+  /api/v1/company_groups/industry/gics/{gics_code}:
+    get:
+      operationId: Get Companies By GICS Code
+      description: 'Get the list of companies that are classified in the gics_code.
+
+
+        Returns a dictionary of shape {"companies": List[<company_id>]}.
+
+        The gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit
+        Sub-industry code.'
+      parameters:
+      - in: path
+        name: gics_code
+        schema:
+          type: string
+          pattern: ^([0-9]{2}|[0-9]{4}|[0-9]{6}|[0-9]{8})$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+              examples:
+                GetCompaniesByGICSCodeExample:
+                  value:
+                    companies:
+                    - 1905805991
+                    - 1865646430
+                    - 1872949585
+                    - 1813054728
+                    - 20934664
+                    - 657206722
+                    - 718559668
+                    - 371363826
+                  summary: '25301010'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Company Groups
+  /api/v1/company_groups/industry/simple/{simple_industry}:
+    get:
+      operationId: Get Companies By Simple Industry
+      description: Get the list of companies that are in the given simple_industry
+      parameters:
+      - in: path
+        name: simple_industry
+        schema:
+          type: string
+          pattern: ^(?i:aerospace_and_defense)|(?i:air_freight_and_logistics)|(?i:automobile_components)|(?i:automobiles)|(?i:banks)|(?i:beverages)|(?i:biotechnology)|(?i:broadline_retail)|(?i:building_products)|(?i:capital_markets)|(?i:chemicals)|(?i:commercial_services_and_supplies)|(?i:communications_equipment)|(?i:construction_and_engineering)|(?i:construction_materials)|(?i:consumer_finance)|(?i:consumer_staples_distribution_and_retail)|(?i:containers_and_packaging)|(?i:distributors)|(?i:diversified_consumer_services)|(?i:diversified_reits)|(?i:diversified_telecommunication_services)|(?i:electric_utilities)|(?i:electrical_equipment)|(?i:electronic_equipment_instruments_and_components)|(?i:energy_equipment_and_services)|(?i:entertainment)|(?i:financial_services)|(?i:food_products)|(?i:gas_utilities)|(?i:ground_transportation)|(?i:health_care_equipment_and_supplies)|(?i:health_care_providers_and_services)|(?i:health_care_reits)|(?i:health_care_technology)|(?i:hotel_and_resort_reits)|(?i:hotels_restaurants_and_leisure)|(?i:household_durables)|(?i:household_products)|(?i:independent_power_and_renewable_electricity_producers)|(?i:industrial_conglomerates)|(?i:industrial_reits)|(?i:insurance)|(?i:interactive_media_and_services)|(?i:it_services)|(?i:leisure_products)|(?i:life_sciences_tools_and_services)|(?i:machinery)|(?i:marine_transportation)|(?i:media)|(?i:metals_and_mining)|(?i:mortgage_real_estate_investment_trusts)|(?i:multi_utilities)|(?i:office_reits)|(?i:oil_gas_and_consumable_fuels)|(?i:paper_and_forest_products)|(?i:passenger_airlines)|(?i:personal_care_products)|(?i:pharmaceuticals)|(?i:professional_services)|(?i:real_estate_management_and_development)|(?i:residential_reits)|(?i:retail_reits)|(?i:semiconductors_and_semiconductor_equipment)|(?i:software)|(?i:specialized_reits)|(?i:specialty_retail)|(?i:technology_hardware_storage_and_peripherals)|(?i:textiles_apparel_and_luxury_goods)|(?i:tobacco)|(?i:trading_companies_and_distributors)|(?i:transportation_infrastructure)|(?i:water_utilities)|(?i:wireless_telecommunication_services)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+              examples:
+                GetCompaniesBySimpleIndustryExample:
+                  value:
+                    companies:
+                    - 557556508
+                    - 915908
+                    - 326636850
+                    - 13757207
+                    - 1780112191
+                    - 291946353
+                    - 658420583
+                    - 408856966
+                  summary: aerospace_and_defense
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Company Groups
+components:
+  schemas:
+    CompanyListResponse:
+      type: object
+      description: Response fields for get_companies_by_location, get_companies_by_simple_industry, get_companies_by_industry_code,
+        get_companies_by_gics_code
+      properties:
+        companies:
+          type: array
+          items:
+            type: integer
+            title: company_id
+      required:
+      - companies
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,24 @@
+generated: '2026-07-22'
+method: searched
+source: https://pypi.org/pypi/kensho-kfinance/json + npm registry search + github.com/kensho-technologies
+notes: >-
+  The only first-party API client package is the kensho-kfinance Python library (SDK, tool-calling
+  layer, and local MCP server in one). npm carries no first-party Kensho/S&P Global API SDK — the
+  @kensho-technologies npm scope holds internal tooling (eslint-config etc.), and the various
+  "kensho" npm packages belong to an unrelated test-reporting project. No first-party packages
+  found on Maven Central, NuGet, RubyGems, Packagist, or crates.io.
+packages:
+  - language: python
+    registry: pypi
+    name: kensho-kfinance
+    version: 7.0.2
+    released: '2026-07-21'
+    url: https://pypi.org/project/kensho-kfinance/
+    install: pip install kensho-kfinance
+    source: https://github.com/kensho-technologies/kfinance
+    docs: https://docs.kensho.com/llmreadyapi/python-library
+    changelog: https://github.com/kensho-technologies/kfinance/blob/main/kfinance/CHANGELOG.md
+    official: true
+    notes: >-
+      Python client for the S&P Global LLM-Ready API: typed client, LLM tool-calling integrations
+      (LangChain, OpenAI, Anthropic, Gemini), and the local MCP server (python -m kfinance.mcp).

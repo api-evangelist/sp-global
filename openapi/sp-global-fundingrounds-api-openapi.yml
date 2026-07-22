@@ -1,0 +1,132 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Fundingrounds API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Fundingrounds
+paths:
+  /api/v1/fundingrounds/investor/{company_id}:
+    get:
+      operationId: fundingrounds_investor_retrieve
+      description: Get the rounds of funding that the specified company invested in.
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundsOfFunding'
+              examples:
+                GetTheRoundsOfFundingThatTheSpecifiedCompanyBoughtInto.:
+                  value:
+                    rounds_of_funding:
+                    - transaction_id: 444715
+                      funding_round_notes: e-Builder, Inc. announced a strategic round of funding from new investor The McGraw-Hill
+                        Companies, Inc. on May 1, 2000.
+                      closed_date: '2000-05-01'
+                      funding_type: Venture
+                    - transaction_id: 383751
+                      funding_round_notes: Gather, Inc. announced that it will raise $2,400,000 through the issuance of equity
+                        shares on November 17, 2010. The securities will be issued pursuant to Regulation D.
+                      closed_date: '2010-11-24'
+                      funding_type: Series E
+                  summary: 'company id: 21719'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Fundingrounds
+  /api/v1/fundingrounds/target/{company_id}:
+    get:
+      operationId: fundingrounds_target_retrieve
+      description: Get the rounds of funding that the specified company was in.
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundsOfFunding'
+              examples:
+                RoundsOfFundingForCompanyExample:
+                  value:
+                    rounds_of_funding:
+                    - transaction_id: 334220
+                      funding_round_notes: Kensho Technologies Inc. announced that it has received funding from new investor,
+                        Impresa Management LLC in 2013.
+                      closed_date: '2013-12-31'
+                      funding_type: Seed
+                    - transaction_id: 242311
+                      funding_round_notes: Kensho Technologies Inc. announced that it will receive $740,000 in funding on
+                        January 29, 2014. The company will issue convertible debt securities in the transaction. The company
+                        will issue securities pursuant to exemption provided under Regulation D.
+                      closed_date: '2014-02-13'
+                      funding_type: Debt
+                  summary: 'company id: 251994106'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Fundingrounds
+components:
+  schemas:
+    RoundOfFunding:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        funding_round_notes:
+          type: string
+        closed_date:
+          type: string
+          format: date
+          nullable: true
+        funding_type:
+          type: string
+      required:
+      - funding_round_notes
+      - funding_type
+      - transaction_id
+    RoundsOfFunding:
+      type: object
+      properties:
+        rounds_of_funding:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFunding'
+      required:
+      - rounds_of_funding
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

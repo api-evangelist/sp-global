@@ -1,0 +1,186 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Relationship API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Relationship
+paths:
+  /api/v1/relationship/{company_id}/{relationship_type}:
+    get:
+      operationId: Get Companies by Business Relationships
+      description: "Get the list of current and previous companies that are relationship_type OF company_id.\n\nReturns a\
+        \ dictionary of shape:\n{\n    \"current\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}],\n\
+        \    \"previous\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}]\n}.\n\nExamples: get_companies_by_business_relationship(company_id:\
+        \ 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_companies_by_business_relationship(company_id:\
+        \ 1234, relationship_type: tenant) returns company 1234's tenants.\nget_companies_by_business_relationship(company_id:\
+        \ 1234, relationship_type: supplier) returns company 1234's suppliers,\nand get_companies_by_business_relationship(company_id:\
+        \ 1234, relationship_type: distributor) returns company 1234's distributors."
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: relationship_type
+        schema:
+          type: string
+          pattern: ^(?i:borrower)|(?i:client_services)|(?i:creditor)|(?i:customer)|(?i:distributor)|(?i:franchisee)|(?i:franchisor)|(?i:investor_relations_client)|(?i:investor_relations_firm)|(?i:landlord)|(?i:lessee)|(?i:lessor)|(?i:licensee)|(?i:licensor)|(?i:strategic_alliance)|(?i:supplier)|(?i:tenant)|(?i:transfer_agent)|(?i:transfer_agent_client)|(?i:vendor)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompaniesRelationshipResponse'
+              examples:
+                GetCompaniesByBusinessRelationships:
+                  value:
+                    current:
+                    - company_id: 286180590
+                      company_name: Barnes & Noble Education, Inc.
+                    previous: []
+                  summary: 21719, Distributor
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Relationship
+  /api/v1/relationship/{company_id}/{relationship_type}/ticker:
+    get:
+      operationId: Get Tickers by Business Relationships
+      description: 'Get the list of current and previous ticker identification triples that are relationship_type OF company_id.
+
+
+        Returns a dictionary of shape {“current”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”:
+        <trading_item_id>}], “previous”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”:
+        <trading_item_id>}]}.
+
+
+        Examples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234''s
+        landlords,
+
+        and get_tickers_by_business_relationship(company_id: 1234, relationship_type: tenant) returns company 1234''s tenants.
+
+        get_tickers_by_business_relationship(company_id: 1234, relationship_type: supplier) returns company 1234''s suppliers,
+
+        and get_tickers_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234''s
+        distributors.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: relationship_type
+        schema:
+          type: string
+          pattern: ^(?i:borrower)|(?i:client_services)|(?i:creditor)|(?i:customer)|(?i:distributor)|(?i:franchisee)|(?i:franchisor)|(?i:investor_relations_client)|(?i:investor_relations_firm)|(?i:landlord)|(?i:lessee)|(?i:lessor)|(?i:licensee)|(?i:licensor)|(?i:strategic_alliance)|(?i:supplier)|(?i:tenant)|(?i:transfer_agent)|(?i:transfer_agent_client)|(?i:vendor)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickerRelationshipResponse'
+              examples:
+                GetTickersByBusinessRelationships:
+                  value:
+                    current:
+                    - company_id: 883103
+                      security_id: 20027635
+                      trading_item_id: 46355579
+                    previous: []
+                  summary: 21719, Tenant
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Relationship
+components:
+  schemas:
+    IdentificationTripleResponse:
+      type: object
+      description: Response fields serializing an identification triple
+      properties:
+        trading_item_id:
+          type: integer
+          nullable: true
+        security_id:
+          type: integer
+          nullable: true
+        company_id:
+          type: integer
+      required:
+      - company_id
+      - security_id
+      - trading_item_id
+    TickerRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+      required:
+      - current
+      - previous
+    CompaniesRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+      required:
+      - current
+      - previous
+    CompanyResponse:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

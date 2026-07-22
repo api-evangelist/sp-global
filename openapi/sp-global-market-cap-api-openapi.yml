@@ -1,0 +1,121 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Market Cap API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Market Cap
+paths:
+  /api/v1/market_cap/{company_id}/{start_date}/{end_date}:
+    get:
+      operationId: Get Market Caps
+      description: 'Get the market caps between start and end date inclusive.
+
+
+        The returned data includes market_cap, tev (Total Enterprise Value), shares_outstanding, and its currency.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: end_date
+        schema:
+          type: string
+          pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_date
+        schema:
+          type: string
+          pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2})|(?i:none)|(?i:null)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketCapsResponse'
+              examples:
+                GetMarketCapsExample:
+                  value:
+                    currency: USD
+                    market_caps:
+                    - date: '2025-02-16'
+                      market_cap: '3674399055800.000000'
+                      tev: '3629830055800.000000'
+                      shares_outstanding: 15022073000
+                  summary: '2590360'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Market Cap
+components:
+  schemas:
+    MarketCapsResponse:
+      type: object
+      description: Response fields for get_market_caps
+      properties:
+        currency:
+          type: string
+          nullable: true
+        market_caps:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketCap'
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - currency
+      - market_caps
+    MarketCap:
+      type: object
+      description: 'Serializer for a single market cap.
+
+
+        Note: The market cap response includes TEV and shares outstanding.'
+      properties:
+        date:
+          type: string
+          format: date
+        market_cap:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        tev:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        shares_outstanding:
+          type: integer
+      required:
+      - date
+      - market_cap
+      - shares_outstanding
+      - tev
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

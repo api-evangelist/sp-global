@@ -1,0 +1,1 @@
+{"resource":"https://kfinance.kensho.com/integrations/mcp","authorization_servers":["https://kfinance.kensho.com/integrations"],"scopes_supported":["kensho:app:kfinance","offline_access"],"bearer_methods_supported":["header"]}

@@ -1,0 +1,25 @@
+generated: '2026-07-22'
+method: searched
+source: https://status.kensho.com + https://docs.kensho.com/scribe/v1/overview + kfinance CHANGELOG + openapi/ specs
+versioning:
+  scheme: uri-path
+  examples:
+    - Kensho LLM-Ready API — /api/v1/... (kfinance.kensho.com)
+    - Kensho Extract — /v3/extractions (extract.kensho.com, currently v3)
+    - Kensho Scribe — /api/v1/transcription (v1, legacy) and /v2 batch endpoints (scribe.kensho.com)
+  sdk_scheme: semver (kensho-kfinance, current 7.0.2 — see changelog/sp-global-changelog.yml)
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    No published deprecation policy or RFC 8594 Sunset-header support found. Supersession is
+    handled by versioned paths and docs: Scribe Batch v1 is documented as legacy, "superseded by
+    the v2 batch API", and kept for customers on the v1 contract. Development refresh tokens
+    expire after 7 days. No operation carries deprecated: true in any published spec.
+sla:
+  url: null
+  notes: No public SLA; Kensho/S&P Global API access is sold via enterprise Marketplace subscription.
+status_page: https://status.kensho.com
+status_page_api: https://status.kensho.com/api/v2/status.json
+status_page_provider: Atlassian Statuspage
+deprecated_operations: []

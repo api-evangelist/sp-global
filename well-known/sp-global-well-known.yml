@@ -1,0 +1,105 @@
+generated: '2026-07-22'
+method: searched
+source: live probes of /.well-known/ on every apis.yml + OpenAPI servers[] host
+notes: >-
+  Only kfinance.kensho.com publishes real well-known documents — the RFC 8414 OAuth authorization
+  server metadata and the RFC 9728 OAuth protected resource metadata for the hosted kFinance MCP
+  server (resource https://kfinance.kensho.com/integrations/mcp). All other 200 responses on
+  extract/nerd/scribe.kensho.com, developer.spglobal.com, and www.marketplace.spglobal.com are SPA
+  HTML shells, not well-known documents (recorded below as shell: true). www.spglobal.com returns
+  403 (Akamai bot protection) to automated probes.
+hosts:
+  - host: https://kfinance.kensho.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: sp-global-oauth-authorization-server.json
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: sp-global-oauth-protected-resource.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://extract.kensho.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 200
+        shell: true
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        shell: true
+      - path: /.well-known/api-catalog
+        status: 200
+        shell: true
+  - host: https://nerd.kensho.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 200
+        shell: true
+      - path: /.well-known/api-catalog
+        status: 200
+        shell: true
+  - host: https://scribe.kensho.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 200
+        shell: true
+      - path: /.well-known/api-catalog
+        status: 200
+        shell: true
+  - host: https://docs.kensho.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://kensho.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: https://www.spglobal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+  - host: https://developer.spglobal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        shell: true
+      - path: /.well-known/api-catalog
+        status: 200
+        shell: true
+      - path: /llms.txt
+        status: 200
+        shell: true
+  - host: https://www.marketplace.spglobal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        shell: true
+      - path: /.well-known/api-catalog
+        status: 200
+        shell: true

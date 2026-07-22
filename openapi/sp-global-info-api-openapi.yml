@@ -1,0 +1,247 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Info API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Info
+paths:
+  /api/v1/info/{company_id}:
+    get:
+      operationId: Get Company Information
+      description: Get the general information of a given company_id, such as name, status, company type, simple industry,
+        number of employees, founding date, webpage, and address.
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyInfoResponse'
+              examples:
+                CompanyInfoExample:
+                  value:
+                    name: Apple Inc.
+                    status: Operating
+                    type: Public Company
+                    simple_industry: Technology Hardware, Storage and Peripherals
+                    number_of_employees: '161000.0000'
+                    founding_date: '1976-01-01'
+                    webpage: www.apple.com
+                    address: One Apple Park Way
+                    city: Cupertino
+                    zip_code: '95014'
+                    state: California
+                    country: United States
+                    iso_country: USA
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that request parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no company info was found for the given company_id.
+      tags:
+      - Info
+  /api/v1/info/{company_id}/descriptions:
+    get:
+      operationId: info_descriptions_retrieve
+      description: Get the company's summary (short description) and description (long description)
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDescriptionsResponse'
+              examples:
+                CompanyDescriptionsExample:
+                  value:
+                    summary: 'S&P Global Inc., together with its subsidiaries, provides credit ratings, benchmarks, analytics,
+                      and workflow solutions in the global capital, commodity, and automotive markets. It operates through
+                      five segments: S&P Global Market Intelligence, S&P Global Ratings, S&P Global Commodity Insights, S&P
+                      Global Mobility, and S&P Dow Jones Indices...[truncated]. The summary (also called the short description)  consists
+                      of a single paragraph up to 8,000 characters (including spaces). Short descriptions include: Primary
+                      business; Products and services offered and their applications; Business segment details; Client/customer
+                      groups served; Geographic markets served; Distribution channels; Strategic alliances/partnerships; Founded/incorporated
+                      year; Latest former name; Headquarters and additional offices'
+                    description: "S&P Global Inc. (S&P Global), together with its subsidiaries, provides credit ratings, benchmarks,\
+                      \ analytics, and workflow solutions in the global capital, commodity, and automotive markets.\r\n\r\n\
+                      The capital markets include asset managers, investment banks, commercial banks, insurance companies,\
+                      \ exchanges, trading firms, and issuers...[truncated]. The description (also called the long description)\
+                      \ contains an extensive profile of a company with no character limit and divided into sections that\
+                      \ may include: Primary business; Segments (including Products and Services for each); Competition; Significant\
+                      \ events; History"
+                  summary: '21719'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization is missing or invalid.
+        '404':
+          description: Indicates that no company summary nor description were found for the given company_id.
+      tags:
+      - Info
+  /api/v1/info/{company_id}/names:
+    get:
+      operationId: info_names_retrieve
+      description: 'Get the company''s other names: alternate_names (names that a company also goes by), historical_names
+        (names that the company used to go by), and native_names (company names in native language)'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyOtherNamesResponse'
+              examples:
+                CompanyOtherNamesExample:
+                  value:
+                    alternate_names:
+                    - ANOBAKA Co Ltd
+                    historical_names:
+                    - KVP Co., Ltd.
+                    - KLab Venture Partners Co., Ltd.
+                    native_names:
+                    - name: KLab Venture Partners 株式会社
+                      language: Japanese
+                    - name: 株式会社KVP
+                      language: Japanese
+                    - name: 株式会社ANOBAKA
+                      language: Japanese
+                  summary: '314900269'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization is missing or invalid.
+      tags:
+      - Info
+components:
+  schemas:
+    CompanyNativeNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+      required:
+      - language
+      - name
+    CompanyOtherNamesResponse:
+      type: object
+      properties:
+        alternate_names:
+          type: array
+          items:
+            type: string
+            title: alternate_name
+        historical_names:
+          type: array
+          items:
+            type: string
+            title: historical_name
+        native_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyNativeNameResponse'
+      required:
+      - alternate_names
+      - historical_names
+      - native_names
+    CompanyDescriptionsResponse:
+      type: object
+      properties:
+        summary:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - summary
+    CompanyInfoResponse:
+      type: object
+      description: Response fields for get_company_info
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        type:
+          type: string
+        simple_industry:
+          type: string
+        number_of_employees:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
+        founding_date:
+          type: string
+          format: date
+        webpage:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        zip_code:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        iso_country:
+          type: string
+      required:
+      - address
+      - city
+      - country
+      - founding_date
+      - iso_country
+      - name
+      - number_of_employees
+      - simple_industry
+      - state
+      - status
+      - type
+      - webpage
+      - zip_code
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

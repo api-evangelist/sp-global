@@ -1,0 +1,160 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/sp-global-*-openapi.yml (35 per-tag specs derived from the 5 harvested Kensho originals)
+format: http-status
+notes: Kensho APIs return conventional HTTP status codes with JSON error bodies; no RFC 9457 application/problem+json
+  media type is declared in any published spec. 429 responses on Extract, NERD, and Scribe signal rate limiting.
+problems:
+- status: '400'
+  descriptions:
+  - An invalid request was made to the server.
+  - 'An invalid request was made to the server.
+
+    This could be because of an invalid content type, or an invalid MP3 file.
+
+    A 400 response will contain a body describing the error.'
+  - 'An invalid request was made to the server.
+
+    This could occur if the unique_id was not added as a path parameter or the unique_id is invalid.
+
+    A 400 response will contain a body describing the error.'
+  - 'An invalid request was made to the server.
+
+    This could occur if the unique_id was not added as a path parameter.'
+  - Indicates a bad request because at least one knowledge base and document text must be specified.
+  - Indicates a bad request because at least one knowledge base must be specified and the document text for the
+    provided `job_id` was not uploaded.
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_post
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_put
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-company-groups-api-openapi.yml#Get Companies By Location
+  - openapi/sp-global-company-groups-api-openapi.yml#Get Companies By Industry Code
+- status: '401'
+  descriptions:
+  - 'Authentication information was not provided - check to ensure that `Authorization`
+
+    header is present.'
+  - Indicates that the authentication information is missing or invalid.
+  - The authentication token is missing or invalid.
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_post
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_put
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-extractions-api-openapi.yml#post /v3/extractions
+  - openapi/sp-global-extractions-api-openapi.yml#post /v3/extractions/upload-url
+- status: '403'
+  descriptions:
+  - Indicates that an invalid authorization occurred or that user data was not found.
+  - Indicates that the authorization information is missing or invalid.
+  - Indicates that the authorization is missing or invalid.
+  - 'The request was not authorized.
+
+    This could be due to credentials that are missing, expired, or invalid.
+
+    A 403 response will contain a body describing the error.'
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_post
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_put
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-auditors-api-openapi.yml#auditors_create
+  - openapi/sp-global-ciqpro-api-openapi.yml#ciqpro_retrieve
+- status: '404'
+  descriptions:
+  - Indicates that history metadata was not found for the given trading_item_id.
+  - Indicates that no CUSIP was found for the given security_id.
+  - Indicates that no ISIN was found for the given security_id.
+  - Indicates that no company info was found for the given company_id.
+  - Indicates that no company summary nor description were found for the given company_id.
+  - Indicates that no merger info was found for the given transaction_id.
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-cusip-api-openapi.yml#Get CUSIP
+  - openapi/sp-global-extractions-api-openapi.yml#put /v3/extractions/upload-complete
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/{request_id}
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/download-url/{request_id}
+- status: '405'
+  descriptions:
+  - The request is on a different API version than the POST request that created the request, the document has not
+    been uploaded, or /v3/extractions/upload-complete has not been called to marked the upload complete.
+  - The request is on a different API version than the POST request that created the request.
+  example_operations:
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/{request_id}
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/download-url/{request_id}
+- status: '406'
+  descriptions:
+  - A transcription cannot be returned for the given 'Accept' mime type.
+  example_operations:
+  - openapi/sp-global-transcription-api-openapi.yml#downloadTranscription
+- status: '409'
+  descriptions:
+  - Indicates that the job is pending and therefore cannot be deleted.
+  - 'The transcription job for the request_id is still in progress.
+
+    This could occur if the transcription is still going on and that an attempt
+
+    at a later time will result in a 200 response.
+
+    A 409 response will contain a body describing the error.'
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-transcription-api-openapi.yml#deleteTranscription
+- status: '429'
+  descriptions:
+  - 'Indicates that the request was rate limited.
+
+    This can occur if very frequent polling exists limits on the number of
+
+    allowed requests to the API.
+
+    A 429 response will contain a body describing why the upload was rate limited'
+  - Indicates that user rate has been exceeded.
+  - Indicates that user request rate has been exceeded.
+  - 'Indicates the upload was rate limited.
+
+    This can occur if audio is uploaded too quickly, or if a user''s audio
+
+    quota is exceeded.
+
+    A 429 response will contain a body describing why the upload was rate limited'
+  - 'The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid
+
+    getting this.'
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_post
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_put
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-transcription-api-openapi.yml#queryTranscription
+  - openapi/sp-global-transcription-api-openapi.yml#startTranscription
+- status: '500'
+  descriptions:
+  - 'An error occurred while processing the audio / video uploaded.
+
+    The response text will have additional details.'
+  - Internal server error when generating the upload URL.
+  example_operations:
+  - openapi/sp-global-transcription-api-openapi.yml#queryTranscription
+  - openapi/sp-global-upload-url-api-openapi.yml#api_annotations_upload_url
+- status: 5XX
+  descriptions:
+  - Indicates that an unexpected error occurred and should be further investigated.
+  example_operations:
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_post
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_put
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_get
+  - openapi/sp-global-annotations-async-api-openapi.yml#api_annotations_async_delete
+  - openapi/sp-global-upload-url-api-openapi.yml#api_annotations_upload_url
+- status: default
+  descriptions:
+  - An unexpected error occurred.
+  example_operations:
+  - openapi/sp-global-extractions-api-openapi.yml#post /v3/extractions
+  - openapi/sp-global-extractions-api-openapi.yml#post /v3/extractions/upload-url
+  - openapi/sp-global-extractions-api-openapi.yml#put /v3/extractions/upload-complete
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/{request_id}
+  - openapi/sp-global-extractions-api-openapi.yml#get /v3/extractions/download-url/{request_id}

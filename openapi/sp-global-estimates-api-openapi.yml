@@ -1,0 +1,434 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Estimates API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Estimates
+paths:
+  /api/v1/estimates/:
+    post:
+      operationId: Get Estimates
+      description: Get the consensus estimates or guidance for a given company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatesRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EstimatesRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EstimatesRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstimatesResponse'
+              examples:
+                ConsensusEstimatesQuarterlyExample:
+                  value:
+                    results:
+                      '24937':
+                        estimate_type: consensus
+                        currency: USD
+                        period_type: quarterly
+                        periods:
+                          FY2025Q4:
+                            period_end_date: '2025-12-31'
+                            estimates:
+                            - name: Revenue Consensus High
+                              value: '3955000000.000000'
+                            - name: Revenue Consensus Low
+                              value: '3806400000.000000'
+                            - name: Revenue Consensus Mean
+                              value: '3881725460.000000'
+                            - name: Revenue Consensus Median
+                              value: '3883000000.000000'
+                    errors: {}
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Estimates
+  /api/v1/estimates/analyst_recommendations/{company_id}:
+    get:
+      operationId: Get Analyst Recommendations
+      description: 'Get analyst recommendations for a given company_id.
+
+
+        Returns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global
+        Market Intelligence
+
+        standardizes ratings across brokers on a 5-point scale: 1 = Buy, 2 = Outperform, 3 = Hold, 4 = Underperform, 5 = Sell.
+
+        If an analyst does not provide a recommendation, S&P Global assigns a rating of ''No Opinion''.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalystRecommendationsResponse'
+              examples:
+                ConsensusTargetPriceExample:
+                  value:
+                    results:
+                      '24937':
+                        effective_date: '2026-03-03'
+                        estimates:
+                        - name: Consensus Recommendation
+                          value: '1.936170'
+                        - name: '# of Analysts No Opinion Recommendation - (In-Consensus)'
+                          value: '2.000000'
+                        - name: '# of Analysts Buy Recommendation - (In-Consensus)'
+                          value: '24.000000'
+                        - name: '# of Analysts Sell Recommendation - (In-Consensus)'
+                          value: '1.000000'
+                        - name: '# of Analysts Hold Recommendation - (In-Consensus)'
+                          value: '16.000000'
+                        - name: '# of Analysts Outperform Recommendation - (In-Consensus)'
+                          value: '5.000000'
+                        - name: '# of Analysts Underperform Recommendation - (In-Consensus)'
+                          value: '1.000000'
+                    errors: {}
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Estimates
+  /api/v1/estimates/consensus_target_price/{company_id}:
+    get:
+      operationId: Get Consensus Target Price
+      description: Get the consensus target price estimates for a given company_id.
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsensusTargetPriceResponse'
+              examples:
+                ConsensusTargetPriceExample:
+                  value:
+                    results:
+                      '24937':
+                        currency: USD
+                        effective_date: '2026-03-03'
+                        estimates:
+                        - name: Target Price Consensus Mean
+                          value: '293.289020'
+                        - name: Target Price Consensus Median
+                          value: '300.000000'
+                        - name: Target Price Consensus High
+                          value: '350.000000'
+                        - name: Target Price Consensus Low
+                          value: '205.000000'
+                        - name: 'Target Price - # of Estimates'
+                          value: '41.000000'
+                        - name: Target Price - Standard Deviation
+                          value: '32.468260'
+                    errors: {}
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Estimates
+components:
+  schemas:
+    EstimatesRequest:
+      type: object
+      description: Request fields for get_estimates
+      properties:
+        company_id:
+          type: integer
+        estimate_type:
+          nullable: true
+          default: consensus
+          oneOf:
+          - $ref: '#/components/schemas/EstimateTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        period_type:
+          nullable: true
+          default: quarterly
+          oneOf:
+          - $ref: '#/components/schemas/EstimatesRequestPeriodTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        fiscal_start_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        fiscal_end_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        fiscal_start_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/FiscalStartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        fiscal_end_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/FiscalEndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods_forward:
+          type: integer
+          maximum: 99
+          minimum: 0
+          nullable: true
+        num_periods_backward:
+          type: integer
+          maximum: 99
+          minimum: 0
+          nullable: true
+      required:
+      - company_id
+    FiscalStartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    ConsensusTargetPrice:
+      type: object
+      properties:
+        currency:
+          type: string
+          nullable: true
+        effective_date:
+          type: string
+          format: date
+          nullable: true
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsensusTargetPriceItem'
+      required:
+      - currency
+      - effective_date
+      - estimates
+    EstimatesRequestPeriodTypeEnum:
+      enum:
+      - annual
+      - quarterly
+      - semi_annual
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `semi_annual` - semi_annual'
+    FiscalEndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    AnalystRecommendationsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AnalystRecommendations'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    AnalystRecommendations:
+      type: object
+      properties:
+        effective_date:
+          type: string
+          format: date
+          nullable: true
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalystRecommendationsItem'
+      required:
+      - effective_date
+      - estimates
+    AnalystRecommendationsItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+      required:
+      - name
+      - value
+    EstimatesPeriod:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstimatesLineItem'
+      required:
+      - estimates
+      - period_end_date
+    EstimateTypeEnum:
+      enum:
+      - consensus
+      - guidance
+      type: string
+      description: '* `consensus` - consensus
+
+        * `guidance` - guidance'
+    EstimatesItemResponse:
+      type: object
+      properties:
+        estimate_type:
+          $ref: '#/components/schemas/EstimateTypeEnum'
+        currency:
+          type: string
+          nullable: true
+        period_type:
+          type: string
+          nullable: true
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EstimatesPeriod'
+      required:
+      - currency
+      - period_type
+      - periods
+    EstimatesLineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+      required:
+      - name
+      - value
+    ConsensusTargetPriceItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+      required:
+      - name
+      - value
+    ConsensusTargetPriceResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ConsensusTargetPrice'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    EstimatesResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EstimatesItemResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    NullEnum:
+      enum:
+      - null
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

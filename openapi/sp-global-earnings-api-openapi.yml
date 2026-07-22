@@ -1,0 +1,137 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Earnings API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Earnings
+paths:
+  /api/v1/earnings/{company_id}:
+    get:
+      operationId: Get Earnings Calls
+      description: 'Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id.
+
+
+        The response comprises metadata for all upcoming and past earnings calls in
+
+        descending order by datetime. The key dev id can be used with the transcript
+
+        endpoints to retrieve the earnings call transcript.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EarningsResponse'
+              examples:
+                EarningsExample:
+                  value:
+                    earnings:
+                    - name: S&P Global Inc., Q1 2025 Earnings Call, Apr 29, 2025
+                      key_dev_id: 1916266380
+                      datetime: '2025-02-11 13:30:00.000'
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that request parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Earnings
+  /api/v1/earnings/{company_id}/dates:
+    get:
+      operationId: Get Earnings Calls Dates
+      description: Get the earnings calls in datetime for a given company_id in UTC
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EarningsDatesResponse'
+              examples:
+                EarningsDatesExample:
+                  value:
+                    earnings:
+                    - '2024-02-01T22:00:00.000'
+                    - '2023-11-02T21:00:00.000'
+                    - '2023-08-03T21:00:00.000'
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that request parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Earnings
+components:
+  schemas:
+    EarningsEntry:
+      type: object
+      description: Serializer for individual earnings entries.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        key_dev_id:
+          type: integer
+        datetime:
+          type: string
+          format: date-time
+      required:
+      - datetime
+      - key_dev_id
+      - name
+    EarningsDatesResponse:
+      type: object
+      description: Response fields for get_earnings_dates
+      properties:
+        earnings:
+          type: array
+          items: {}
+      required:
+      - earnings
+    EarningsResponse:
+      type: object
+      description: Response fields for get_earnings.
+      properties:
+        earnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/EarningsEntry'
+      required:
+      - earnings
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

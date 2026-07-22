@@ -1,0 +1,414 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Fundinground API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Fundinground
+paths:
+  /api/v1/fundinground/info/{transaction_id}:
+    get:
+      operationId: fundinground_info_retrieve
+      description: Get detailed information about a round of funding.
+      parameters:
+      - in: path
+        name: transaction_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundOfFundingInfo'
+              examples:
+                RoundOfFundingInformationExample:
+                  value:
+                    timeline:
+                      announced_date: '2017-02-09'
+                      closed_date: '2016-12-31'
+                    participants:
+                      target:
+                        company_id: 251994106
+                        company_name: Kensho Technologies, Inc.
+                      investors:
+                      - company_id: 21719
+                        company_name: S&P Global Inc.
+                        lead_investor: true
+                        investment_value: null
+                      - company_id: 292891
+                        company_name: Wells Fargo & Company
+                        lead_investor: false
+                        investment_value: null
+                    transaction:
+                      funding_type: Series B
+                      amount_offered: '50000000.00000000'
+                      currency: USD
+                      legal_fees: null
+                      other_fees: null
+                      initial_gross_amount_offered: '50000000.00000000'
+                      offering_size_change: Unchanged
+                      upsized_amount: '0.00000000'
+                      upsized_amount_percent: '0.00000000'
+                      pre_money_valuation: '450000000.00000000'
+                      post_money_valuation: '500000000.00000000'
+                      aggregate_amount_raised: '104961538.00000000'
+                      liquidation_preference: null
+                      anti_dilution_method: null
+                      liquidation_price: null
+                      option_pool: null
+                      participating_preferred_cap: null
+                      liquidation_preference_multiple: null
+                      use_of_proceeds: Kensho Technologies Inc. will use the proceeds in part toward buying more data sets
+                        to supplement its current pool of information and toward bringing its technology to other industries.
+                      pre_deal_situation: null
+                      redemption: null
+                      cumulative_dividends: null
+                      reorganization: null
+                      pay_to_play: null
+                      pay_to_play_penalties: null
+                    security:
+                      dividend_per_share: null
+                      annualized_dividend_rate: null
+                      seniority_level: null
+                      coupon_type: null
+                      funding_convertible_type: null
+                      security_description: Undisclosed
+                      class_series_tranche: null
+                  summary: 'transaction id: 273766'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no round of funding info was found for the given transaction_id.
+      tags:
+      - Fundinground
+  /api/v1/fundinground/info/{transaction_id}/advisors/investor/{advised_company_id}:
+    get:
+      operationId: fundinground_info_advisors_investor_retrieve
+      description: Get the advisors and their types for a company buying into a round of funding.
+      parameters:
+      - in: path
+        name: advised_company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: transaction_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvisorsResponse'
+              examples:
+                AdvisorsForRoundOfFundingInvestorCompanyExample:
+                  value:
+                    advisors:
+                    - advisor_company_id: 22439
+                      advisor_company_name: DLA Piper LLP (US)
+                      advisor_type_name: Legal Counsel
+                      advisor_fee_amount: '3750000.0000'
+                      advisor_fee_currency: USD
+                      is_lead: true
+                  summary: 'transaction id: 4299145, company id: 21719'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Fundinground
+  /api/v1/fundinground/info/{transaction_id}/advisors/target:
+    get:
+      operationId: fundinground_info_advisors_target_retrieve
+      description: Get the advisors and their types for the company raising a round of funding.
+      parameters:
+      - in: path
+        name: transaction_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvisorsResponse'
+              examples:
+                AdvisorsForCompanyRaisingRoundOfFundingExample:
+                  value:
+                    advisors:
+                    - advisor_company_id: 286743412
+                      advisor_company_name: PJT Partners Inc.
+                      advisor_type_name: Financial Adviser
+                      advisor_fee_amount: '2500000.0000'
+                      advisor_fee_currency: USD
+                      is_lead: true
+                    - advisor_company_id: 106880
+                      advisor_company_name: Simpson Thacher & Bartlett LLP
+                      advisor_type_name: Legal Counsel
+                      advisor_fee_amount: '1200000.0000'
+                      advisor_fee_currency: USD
+                      is_lead: false
+                  summary: 'transaction id: 4299145'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Fundinground
+components:
+  schemas:
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    RoundOfFundingInfoSecurity:
+      type: object
+      properties:
+        dividend_per_share:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        annualized_dividend_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        seniority_level:
+          type: string
+        coupon_type:
+          type: string
+        funding_convertible_type:
+          type: string
+        security_description:
+          type: string
+        class_series_tranche:
+          type: string
+    RoundOfFundingInfo:
+      type: object
+      properties:
+        timeline:
+          $ref: '#/components/schemas/RoundOfFundingInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/RoundOfFundingInfoParticipants'
+        transaction:
+          $ref: '#/components/schemas/RoundOfFundingInfoTransaction'
+        security:
+          $ref: '#/components/schemas/RoundOfFundingInfoSecurity'
+      required:
+      - participants
+      - security
+      - timeline
+      - transaction
+    RoundOfFundingInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        investors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
+      required:
+      - investors
+      - target
+    RoundOfFundingInfoTimeline:
+      type: object
+      properties:
+        announced_date:
+          type: string
+          format: date
+          nullable: true
+        closed_date:
+          type: string
+          format: date
+          nullable: true
+    RoundOfFundingInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+        lead_investor:
+          type: boolean
+        investment_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        currency:
+          type: string
+          nullable: true
+          description: Currency of the investment value
+        ownership_percentage_pre:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          nullable: true
+          description: Ownership percentage before the transaction
+        ownership_percentage_post:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          nullable: true
+          description: Ownership percentage after the transaction
+        board_seat_granted:
+          type: boolean
+          nullable: true
+          description: Whether a board seat was granted to this investor
+      required:
+      - company_id
+      - company_name
+    AdvisorsResponse:
+      type: object
+      properties:
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
+      required:
+      - advisors
+    AdvisorResponse:
+      type: object
+      description: Advisor response with fee information added to original fields.
+      properties:
+        advisor_company_id:
+          type: integer
+        advisor_company_name:
+          type: string
+        advisor_type_name:
+          type: string
+        is_lead:
+          type: boolean
+          nullable: true
+          description: Whether this is a lead advisor
+        advisor_fee_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
+          nullable: true
+          description: Advisor fee amount
+        advisor_fee_currency:
+          type: string
+          nullable: true
+          description: Currency of the advisor fee (ISO-4217 code)
+      required:
+      - advisor_company_id
+      - advisor_company_name
+      - advisor_type_name
+    RoundOfFundingInfoTransaction:
+      type: object
+      properties:
+        funding_type:
+          type: string
+        amount_offered:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        currency:
+          type: string
+        legal_fees:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        other_fees:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        initial_gross_amount_offered:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        offering_size_change:
+          type: string
+        upsized_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        upsized_amount_percent:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+          title: upsized_amount_ercent
+        pre_money_valuation:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        post_money_valuation:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        aggregate_amount_raised:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        liquidation_preference:
+          type: string
+        anti_dilution_method:
+          type: string
+        liquidation_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        option_pool:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        participating_preferred_cap:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        liquidation_preference_multiple:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        use_of_proceeds:
+          type: string
+        pre_deal_situation:
+          type: string
+        redemption:
+          type: string
+        cumulative_dividends:
+          type: string
+        reorganization:
+          type: string
+        pay_to_play:
+          type: string
+        pay_to_play_penalties:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

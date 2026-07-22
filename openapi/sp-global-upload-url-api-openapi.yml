@@ -1,0 +1,81 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async upload-url API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://nerd.kensho.com
+tags:
+- name: upload-url
+paths:
+  /api/v1/upload-url:
+    get:
+      tags:
+      - upload-url
+      summary: Get An Upload URL For Uploading A Text File
+      operationId: api_annotations_upload_url
+      description: This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15**
+        minutes.
+      responses:
+        '200':
+          description: Indicates that the upload URL was created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nerd_upload_url_response'
+        '401':
+          description: Indicates that the authentication information is missing or invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '429':
+          description: Indicates that user request rate has been exceeded.
+        '500':
+          description: Internal server error when generating the upload URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    description: Error message indicating the failure reason.
+                    example: Attempting to generate the upload URL for the user, but failed due to an S3 client error.
+        5XX:
+          description: Indicates that an unexpected error occurred and should be further investigated.
+      security:
+      - BearerAuth:
+        - token_info
+components:
+  schemas:
+    nerd_upload_url_response:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL to POST the document upload to. Returns 200 on success. Refer to the AWS pre-signed URL documentation
+            for detailed information on specific response codes and their meanings.
+          example: https://example-bucket.s3.amazonaws.com/
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+          description: Fields required in the form data of the POST request for uploading the document to the `url`.
+        job_id:
+          type: string
+          description: A unique identifier for tracking the upload job.
+          example: fakeJobId1234567890
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

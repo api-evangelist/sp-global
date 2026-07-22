@@ -1,0 +1,111 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Latest API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Latest
+paths:
+  /api/v1/latest:
+    get:
+      operationId: Get Latest Date
+      description: "Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in\
+        \ UTC. The output is a dictionary with the following schema::\n\n{\n    \"annual\": {\n        \"latest_year\": int\n\
+        \    },\n    \"quarterly\": {\n        \"latest_quarter\": int,\n        \"latest_year\": int\n    },\n    \"now\"\
+        : {\n        \"current_year\": int,\n        \"current_quarter\": int,\n        \"current_month\": int,\n        \"\
+        current_date\": str # in format Y-m-d\n    }\n}"
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestResponse'
+              examples:
+                GetLatestExample:
+                  value:
+                    annual:
+                      latest_year: 2023
+                    quarterly:
+                      latest_quarter: 3
+                      latest_year: 2024
+                    now:
+                      current_year: 2024
+                      current_quarter: 4
+                      current_month: 10
+                      current_date: '2024-10-24'
+                  summary: Get Latest example
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Latest
+components:
+  schemas:
+    Quarterly:
+      type: object
+      properties:
+        latest_quarter:
+          type: integer
+        latest_year:
+          type: integer
+      required:
+      - latest_quarter
+      - latest_year
+    LatestResponse:
+      type: object
+      description: Response fields for latest
+      properties:
+        annual:
+          $ref: '#/components/schemas/Annual'
+        quarterly:
+          $ref: '#/components/schemas/Quarterly'
+        now:
+          $ref: '#/components/schemas/Now'
+      required:
+      - annual
+      - now
+      - quarterly
+    Now:
+      type: object
+      properties:
+        current_year:
+          type: integer
+        current_quarter:
+          type: integer
+        current_month:
+          type: integer
+        current_date:
+          type: string
+          format: date
+      required:
+      - current_date
+      - current_month
+      - current_quarter
+      - current_year
+    Annual:
+      type: object
+      properties:
+        latest_year:
+          type: integer
+      required:
+      - latest_year
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

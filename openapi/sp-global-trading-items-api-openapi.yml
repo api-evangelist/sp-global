@@ -1,0 +1,122 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Trading Items API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Trading Items
+paths:
+  /api/v1/trading_items/{security_id}:
+    get:
+      operationId: Get Trading Items
+      description: 'Get the list of trading items for a given security_id. Returns a dictionary of shape {"trading_items":
+        List[<trading_item_id>]}'
+      parameters:
+      - in: path
+        name: security_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradingItemListResponse'
+              examples:
+                GetTradingItemsExample:
+                  value:
+                    trading_items:
+                    - 261650546
+                    - 20241713
+                    - 20241714
+                    - 32517177
+                    - 6163311
+                    - 419702702
+                    - 27568602
+                    - 267867699
+                  summary: '20231631'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no trading items were found for the given security_id.
+      tags:
+      - Trading Items
+  /api/v1/trading_items/{security_id}/primary:
+    get:
+      operationId: Get Primary Trading Item
+      description: 'Get the primary trading item for a given security_id. Returns a dictionary of shape {"primary_trading_item":
+        <trading_item_id>}'
+      parameters:
+      - in: path
+        name: security_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrimaryTradingItemResponse'
+              examples:
+                GetPrimaryTradingItemExample:
+                  value:
+                    primary_trading_item: 2610695
+                  summary: '2610694'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no primary trading item was found for the given security_id.
+      tags:
+      - Trading Items
+components:
+  schemas:
+    PrimaryTradingItemResponse:
+      type: object
+      description: Response fields for get_primary_trading_item
+      properties:
+        primary_trading_item:
+          type: integer
+      required:
+      - primary_trading_item
+    TradingItemListResponse:
+      type: object
+      description: Response fields for get_trading_item_by_exchange_code, get_trading_items
+      properties:
+        trading_items:
+          type: array
+          items:
+            type: integer
+            title: trading_item_id
+      required:
+      - trading_items
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,51 @@
+generated: '2026-07-22'
+method: searched
+source: https://github.com/kensho-technologies/spglobal-agent-skills (plugins/spglobal-plugin/skills/, saved verbatim)
+notes: Provider-published Agent Skills — the S&P Global Plugin for Claude Cowork / Codex, shipped by Kensho (S&P Global). Skills are grounded
+  in the hosted kFinance MCP server (https://kfinance.kensho.com/integrations/mcp, see mcp/sp-global-mcp.yml) and require an S&P Global LLM-ready
+  API or Capital IQ Pro subscription. SKILL.md files are verbatim copies; provenance lives here, not in the files.
+plugin:
+  name: S&P Global Plugin
+  marketplace: https://github.com/kensho-technologies/spglobal-agent-skills
+  mcp_server: https://kfinance.kensho.com/integrations/mcp
+skills:
+- file: sp-global-tear-sheet.md
+  name: tear-sheet
+  description: Generate professional company tear sheets (equity research, IB/M&A, corp dev, sales/BD audiences) from live S&P Capital IQ data.
+  api: mcp/sp-global-mcp.yml
+  operations: []
+  notes: Grounded in the spglobal MCP server generally; the SKILL.md does not pin specific tool names.
+- file: sp-global-funding-digest.md
+  name: funding-digest
+  description: One-page PowerPoint digest of funding activity for a sector or company from S&P Capital IQ transaction data.
+  api: mcp/sp-global-mcp.yml
+  operations:
+  - get_company_summary_from_identifiers
+  - get_competitors_from_identifiers
+  - get_funding_summary_from_identifiers
+  - get_info_from_identifiers
+  - get_rounds_of_funding_from_identifiers
+  - get_rounds_of_funding_info_from_transaction_ids
+- file: sp-global-earnings-preview-beta.md
+  name: earnings-preview-single
+  description: 4-5 page equity-research earnings preview with consensus estimates, guidance, analyst sentiment.
+  api: mcp/sp-global-mcp.yml
+  operations:
+  - get_capitalization_from_identifiers
+  - get_company_summary_from_identifiers
+  - get_competitors_from_identifiers
+  - get_consensus_estimates_from_identifiers
+  - get_earnings_from_identifiers
+  - get_financial_line_item_from_identifiers
+  - get_info_from_identifiers
+  - get_latest
+  - get_latest_earnings_from_identifiers
+  - get_next_earnings_from_identifiers
+  - get_prices_from_identifiers
+  - get_segments_from_identifiers
+  - get_transcript_from_key_dev_id
+- file: sp-global-sp-capital-iq-excel-pro.md
+  name: sp-capital-iq-excel-pro
+  description: Build Excel models using S&P Capital IQ Pro Office formulas (SPG functions) with the official reference workbook.
+  api: https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro
+  operations: []

@@ -1,0 +1,281 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Merger API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Merger
+paths:
+  /api/v1/merger/info/{transaction_id}:
+    get:
+      operationId: merger_info_retrieve
+      description: "Get information about the specified merger/acquisition transaction.\n\nParameters:\n    transaction_id:\
+        \ The ID of the specified transaction.\n\nReturns:\n    dict: A nested dictionary that contains:\n    - An ordered\
+        \ array of the status changes of the transaction.\n    - A dict with three keys:\n        - target: The company that\
+        \ was merged with or acquired.\n        - buyers: A list of companies that bought or merged with the target company.\n\
+        \        - sellers: A list of companies that sold or traded the target company.\n    - Optionally the primary consideration\
+        \ (which is the one that happened or was most recently proposed), where the consideration contains:\n        - The\
+        \ currency of the consideration.\n        - The current gross total value of the consideration.\n        - The current\
+        \ implied equity value of the consideration.\n        - The current implied enterprise value of the consideration.\n\
+        \        - A list of the consideration's details (sub-components of the consideration), where each consideration detail\
+        \ contains:\n            - The detail scenario.\n            - The detail subtype.\n            - The cash or ash\
+        \ equivalent offered per share.\n            - The number of shares in the target company.\n            - The current\
+        \ gross total of the consideration detail."
+      parameters:
+      - in: path
+        name: transaction_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MergerInfo'
+              examples:
+                MergerInfoExample:
+                  value:
+                    timeline:
+                    - status: Announced
+                      date: '2018-03-06'
+                    - status: Closed
+                      date: '2018-04-08'
+                    participants:
+                      target:
+                        company_id: 251994106
+                        company_name: Kensho Technologies, Inc.
+                      buyers:
+                      - company_id: 21719
+                        company_name: S&P Global Inc.
+                      sellers:
+                      - company_id: 18561
+                        company_name: Accel Partners
+                      - company_id: 22049
+                        company_name: New Enterprise Associates, Inc.
+                    consideration:
+                      currency_name: US Dollar
+                      current_calculated_gross_total_transaction_value: '550000000.000000'
+                      current_calculated_implied_equity_value: null
+                      current_calculated_implied_enterprise_value: null
+                      details:
+                      - scenario: Stock Lump Sum
+                        subtype: Combination Consideration - Equity Component
+                        cash_or_cash_equivalent_per_target_share_unit: null
+                        number_of_target_shares_sought: null
+                        current_calculated_gross_value_of_consideration: null
+                      - scenario: Cash Lump Sum
+                        subtype: Combination Consideration - Cash Component
+                        cash_or_cash_equivalent_per_target_share_unit: null
+                        number_of_target_shares_sought: null
+                        current_calculated_gross_value_of_consideration: null
+                  summary: '554979212'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that no merger info was found for the given transaction_id.
+      tags:
+      - Merger
+  /api/v1/merger/info/{transaction_id}/advisors/{advised_company_id}:
+    get:
+      operationId: merger_info_advisors_retrieve
+      description: Get the advisor companies and their roles for the specified company in the specified merger/acquisition
+        transaction.
+      parameters:
+      - in: path
+        name: advised_company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: transaction_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvisorsResponse'
+              examples:
+                AdvisorsForCompanyInMergerExample:
+                  value:
+                    advisors:
+                    - advisor_company_id: 1062800
+                      advisor_company_name: Goodwin Procter LLP
+                      advisor_type_name: Legal Advisor
+                  summary: 'transaction id: 554979212, company id: 251994106'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Merger
+components:
+  schemas:
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    MergerInfoConsideration:
+      type: object
+      properties:
+        currency_name:
+          type: string
+        current_calculated_gross_total_transaction_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        current_calculated_implied_equity_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        current_calculated_implied_enterprise_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MergerInfoConsiderationDetail'
+      required:
+      - details
+    MergerInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        buyers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+        sellers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+      required:
+      - buyers
+      - sellers
+      - target
+    MergerInfo:
+      type: object
+      properties:
+        timeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/MergerInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/MergerInfoParticipants'
+        consideration:
+          allOf:
+          - $ref: '#/components/schemas/MergerInfoConsideration'
+          nullable: true
+      required:
+      - consideration
+      - participants
+      - timeline
+    AdvisorsResponse:
+      type: object
+      properties:
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
+      required:
+      - advisors
+    AdvisorResponse:
+      type: object
+      description: Advisor response with fee information added to original fields.
+      properties:
+        advisor_company_id:
+          type: integer
+        advisor_company_name:
+          type: string
+        advisor_type_name:
+          type: string
+        is_lead:
+          type: boolean
+          nullable: true
+          description: Whether this is a lead advisor
+        advisor_fee_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
+          nullable: true
+          description: Advisor fee amount
+        advisor_fee_currency:
+          type: string
+          nullable: true
+          description: Currency of the advisor fee (ISO-4217 code)
+      required:
+      - advisor_company_id
+      - advisor_company_name
+      - advisor_type_name
+    MergerInfoConsiderationDetail:
+      type: object
+      properties:
+        scenario:
+          type: string
+        subtype:
+          type: string
+        cash_or_cash_equivalent_per_target_share_unit:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        number_of_target_shares_sought:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        current_calculated_gross_value_of_consideration:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+    MergerInfoTimeline:
+      type: object
+      properties:
+        status:
+          type: string
+        date:
+          type: string
+          format: date
+      required:
+      - date
+      - status
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

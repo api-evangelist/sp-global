@@ -1,0 +1,59 @@
+generated: '2026-07-22'
+method: searched
+source: https://github.com/kensho-technologies/kfinance/blob/main/kfinance/CHANGELOG.md
+notes: >-
+  The public, dated change surface for the S&P Global developer platform is the kensho-kfinance
+  library changelog (SDK + tool-calling + MCP server for the LLM-Ready API). Entries are
+  versioned (semver) but not dated in the changelog itself; release dates come from PyPI. The
+  REST APIs themselves version by URI path (v1/v2/v3) — see lifecycle/sp-global-lifecycle.yml.
+scheme: semver
+current_version: 7.0.2
+current_released: '2026-07-21'
+entries:
+  - version: 7.0.2
+    date: '2026-07-21'
+    breaking: false
+    highlights:
+      - Modify GetIssuerRatingsFromIdentifiers tool description.
+  - version: 7.0.1
+    breaking: false
+    highlights:
+      - Add 'source' to GetIssuerRatingsFromIdentifiers.
+  - version: 7.0.0
+    breaking: true
+    highlights:
+      - Include status, start_date, target, and buyers fields in get_mergers_from_identifiers response and MergerOrAcquisition object.
+      - Replace merger info tool with batch get_mergers_info_from_transaction_ids (optional advisors).
+      - 'Breaking: remove get_merger_info_from_transaction_id and get_advisors_for_company_in_transaction_from_identifier tools; remove merger_title field.'
+  - version: 6.7.0
+    breaking: false
+    highlights:
+      - Add GetIssuerRatingsFromIdentifiers (issuer credit ratings tool).
+  - version: 6.6.0
+    breaking: false
+    highlights:
+      - Add Visible Alpha consensus estimates, financial line item, and segments tools.
+  - version: 6.4.0
+    breaking: false
+    highlights:
+      - Add MCP proxy integration example.
+  - version: 6.3.0
+    breaking: false
+    highlights:
+      - Add GetProfessionalsFromIdentifiers and GetProfessionalsFromPersonIds tools.
+  - version: 6.2.1
+    breaking: false
+    highlights:
+      - Add streamable-http option to local MCP server.
+  - version: 6.2.0
+    breaking: false
+    highlights:
+      - Add GetKeyDevsFromIdentifier (key developments tool).
+  - version: 6.1.0
+    breaking: false
+    highlights:
+      - Add GetFinancialAuditorsFromIdentifiers.
+  - version: 6.0.0
+    breaking: true
+    highlights:
+      - Tool call results updated to include company information.

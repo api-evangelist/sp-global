@@ -1,0 +1,131 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Auditors API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Auditors
+paths:
+  /api/v1/auditors/:
+    post:
+      operationId: auditors_create
+      description: Get the financial auditors of a given company id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuditorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuditorRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditorResponse'
+              examples:
+                AuditorExample:
+                  value:
+                    '21719':
+                      CY2025/FY2025:
+                      - auditor_company_id: '97518'
+                        auditor_name: Ernst & Young LLP
+                      CY2024/FY2024:
+                      - auditor_company_id: '97518'
+                        auditor_name: Ernst & Young LLP
+                  summary: '21719'
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization is missing or invalid.
+      tags:
+      - Auditors
+components:
+  schemas:
+    AuditorResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/AuditorEntry'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    AuditorEntry:
+      type: object
+      properties:
+        auditor_company_id:
+          type: string
+        auditor_name:
+          type: string
+      required:
+      - auditor_company_id
+      - auditor_name
+    AuditorRequest:
+      type: object
+      description: Request fields for post_financial_auditors
+      properties:
+        company_id:
+          type: integer
+        start_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        end_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        calendar_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CalendarTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - company_id
+    NullEnum:
+      enum:
+      - null
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

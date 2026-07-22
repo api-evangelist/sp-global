@@ -1,0 +1,133 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Competitors API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Competitors
+paths:
+  /api/v1/competitors/{company_id}:
+    get:
+      operationId: Get Competitors from Company
+      description: "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by\
+        \ the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source\
+        \ (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from\
+        \ key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified'\
+        \ (self-identified), 'named_by_competitor' (from competitor's perspective).\"\nReturns a dictionary of shape {\"competitors\"\
+        : List[{“company_id”: <company_id>, \"company_name\": <company_name>}]},"
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Competitors'
+              examples:
+                CompetitorsExample:
+                  value:
+                    competitors:
+                    - company_id: 8122148
+                      company_name: Experian plc
+                    - company_id: 109450
+                      company_name: MarketAxess Holdings Inc.
+                    - company_id: 4973712
+                      company_name: Stride, Inc.
+                  summary: 21719, named_by_competitor
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Competitors
+  /api/v1/competitors/{company_id}/{competitor_source}:
+    get:
+      operationId: Get Competitors from Company_2
+      description: "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by\
+        \ the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source\
+        \ (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from\
+        \ key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified'\
+        \ (self-identified), 'named_by_competitor' (from competitor's perspective).\"\nReturns a dictionary of shape {\"competitors\"\
+        : List[{“company_id”: <company_id>, \"company_name\": <company_name>}]},"
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: competitor_source
+        schema:
+          type: string
+          pattern: ^(?i:filing)|(?i:key_dev)|(?i:contact)|(?i:third_party)|(?i:self_identified)|(?i:named_by_competitor)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Competitors'
+              examples:
+                CompetitorsExample:
+                  value:
+                    competitors:
+                    - company_id: 8122148
+                      company_name: Experian plc
+                    - company_id: 109450
+                      company_name: MarketAxess Holdings Inc.
+                    - company_id: 4973712
+                      company_name: Stride, Inc.
+                  summary: 21719, named_by_competitor
+          description: Indicates a successful request.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Competitors
+components:
+  schemas:
+    CompanyResponse:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    Competitors:
+      type: object
+      description: Response fields for get_competitors_by_company
+      properties:
+        competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+      required:
+      - competitors
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

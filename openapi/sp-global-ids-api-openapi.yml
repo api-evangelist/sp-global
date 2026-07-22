@@ -1,0 +1,173 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Ids API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Ids
+paths:
+  /api/v1/ids:
+    post:
+      operationId: Unified Identification Triple
+      description: Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP,
+        Company ID, ticker, or company name).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnifiedIdentificationTripleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UnifiedIdentificationTripleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UnifiedIdentificationTripleRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedIdentificationTripleResponse'
+              examples:
+                MultipleIdentifierTypes:
+                  value:
+                    '37833100':
+                      trading_item_id: 2590360
+                      security_id: 2590359
+                      company_id: 24937
+                      company_name: Apple, Inc.
+                      ticker: NasdaqGS:AAPL
+                    AAPL:
+                      trading_item_id: 2590360
+                      security_id: 2590359
+                      company_id: 24937
+                      company_name: Apple, Inc.
+                      ticker: NasdaqGS:AAPL
+                    US0378331005:
+                      trading_item_id: 2590360
+                      security_id: 2590359
+                      company_id: 24937
+                      company_name: Apple, Inc.
+                      ticker: NasdaqGS:AAPL
+                    Apple Inc.:
+                      trading_item_id: 2590360
+                      security_id: 2590359
+                      company_id: 24937
+                      company_name: Apple, Inc.
+                      ticker: NasdaqGS:AAPL
+                    C_874695:
+                      trading_item_id: 2590360
+                      security_id: 2590359
+                      company_id: 24937
+                      company_name: Apple, Inc.
+                      ticker: NasdaqGS:AAPL
+                  summary: POST with ticker, ISIN, CUSIP, company name, and company ID
+                EdgeCases:PrivateCompaniesAndFailedSearches:
+                  value:
+                    Private Company LLC:
+                      company_id: 12345
+                      security_id: null
+                      trading_item_id: null
+                      company_name: Private Company LLC
+                      ticker: null
+                    NonExistentCompany:
+                      error: 'No identification triple found for the provided identifier: NonExistentCompany of type: ticker_or_company_name'
+                  summary: POST showing how private companies and not-found identifiers are handled
+          description: Indicates a successful request. Returns a mapping of identifiers to their identification triples.
+        '400':
+          description: Indicates that the request is invalid or missing required parameters.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Ids
+components:
+  schemas:
+    UnifiedIdentificationTripleResponse:
+      type: object
+      description: 'Response fields for unified_identification_triple.
+
+
+        Maps identifiers to either identification triples or error messages.'
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoOrError'
+          readOnly: true
+      required:
+      - data
+    UnifiedIdentificationTripleRequest:
+      type: object
+      description: Request fields for unified_identification_triple
+      properties:
+        identifiers:
+          type: array
+          items:
+            type: string
+            maxLength: 255
+          description: List of identifiers to resolve (can include ISINs, CUSIPs, company names, company IDs, tickers, or
+            company names)
+          maxItems: 100
+          minItems: 1
+      required:
+      - identifiers
+    IdentificationTripleError:
+      type: object
+      description: Serializer for error response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    IdentificationTripleWithCompanyInfoOrError:
+      oneOf:
+      - $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoResponse'
+      - $ref: '#/components/schemas/IdentificationTripleError'
+    IdentificationTripleWithCompanyInfoResponse:
+      type: object
+      description: Response fields for a request returning an identification triple with company info
+      properties:
+        trading_item_id:
+          type: integer
+          nullable: true
+        security_id:
+          type: integer
+          nullable: true
+        company_id:
+          type: integer
+        company_name:
+          type: string
+        ticker:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+      required:
+      - company_id
+      - company_name
+      - country
+      - security_id
+      - ticker
+      - trading_item_id
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

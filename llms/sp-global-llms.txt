@@ -1,0 +1,42 @@
+# S&P Global
+
+> S&P Global's public developer surface is anchored by Kensho Technologies (its AI subsidiary): the S&P Global LLM-Ready API (kFinance) exposing S&P Capital IQ financials, market data, transcripts, M&A, and funding rounds to LLMs and agents (REST + hosted MCP server), plus the Kensho Extract, NERD, and Scribe document/NLP/transcription APIs. Enterprise data products are distributed through the S&P Global Marketplace.
+
+Authentication is OIDC on OAuth 2.0 (keypair for production, 7-day refresh tokens for development); every API accepts the resulting JWT as a Bearer token. The hosted MCP server at https://kfinance.kensho.com/integrations/mcp uses OAuth with dynamic client registration and PKCE.
+
+## APIs
+
+- [S&P Global LLM-Ready API (kFinance)](https://docs.kensho.com/llmreadyapi): S&P Capital IQ companies, securities, statements, estimates, transcripts, mergers, funding rounds, and identifier crosswalks. Base https://kfinance.kensho.com
+- [Kensho Extract](https://docs.kensho.com/extract): PDF/image to structured JSON (tables, OCR). Base https://extract.kensho.com
+- [Kensho NERD](https://docs.kensho.com/nerd): named-entity recognition and disambiguation to Capital IQ IDs. Base https://nerd.kensho.com
+- [Kensho Scribe](https://docs.kensho.com/scribe/v2/developer-guide): batch and real-time (WebSocket) finance-tuned transcription. Base https://scribe.kensho.com
+- [Kensho Grounding Agent (Alpha)](https://docs.kensho.com/grounding/overview): retrieval with citations over S&P Global datasets.
+- [S&P Capital IQ Pro](https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro): enterprise desktop + API platform.
+- [S&P Global Marketplace](https://www.marketplace.spglobal.com): catalog for enterprise data products (API, Snowflake/Databricks shares, SFTP).
+
+## Docs
+
+- [Documentation home](https://docs.kensho.com)
+- [Authentication (OIDC)](https://docs.kensho.com/authentication)
+- [MCP server](https://docs.kensho.com/llmreadyapi/mcp)
+- [Python library (kensho-kfinance)](https://docs.kensho.com/llmreadyapi/python-library)
+- [Status page](https://status.kensho.com)
+
+## Specs and artifacts (this repository)
+
+- [APIs.json profile](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/apis.yml)
+- [OpenAPI (per-tag, 35 files)](https://github.com/api-evangelist/sp-global/tree/main/openapi)
+- [AsyncAPI — Scribe real-time WebSocket](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/asyncapi/kensho-scribe-realtime-asyncapi.yml)
+- [MCP server manifest](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/mcp/sp-global-mcp.yml)
+- [Agent Skills (provider-published S&P Global Plugin)](https://github.com/api-evangelist/sp-global/tree/main/skills)
+- [OAuth scopes](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/scopes/sp-global-scopes.yml)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/authentication/sp-global-authentication.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/errors/sp-global-problem-types.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/conventions/sp-global-conventions.yml)
+
+## SDKs
+
+- [kensho-kfinance on PyPI](https://pypi.org/project/kensho-kfinance/) — Python SDK, tool-calling, local MCP server
+- [kfinance source](https://github.com/kensho-technologies/kfinance)
+- [S&P Global Plugin (Claude Cowork / Codex skills)](https://github.com/kensho-technologies/spglobal-agent-skills)
+- [Example notebooks](https://github.com/kensho-technologies/llm-ready-api-examples)

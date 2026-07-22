@@ -1,0 +1,52 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for S&P Global LLM-Ready API (kFinance)
+  version: 1.0.0
+extends: openapi/_original/kensho-llmready-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      generated: '2026-07-22'
+      method: generated
+      provider: sp-global
+      refined-per-tag-specs:
+      - openapi/sp-global-auditors-api-openapi.yml
+      - openapi/sp-global-ciqpro-api-openapi.yml
+      - openapi/sp-global-company-groups-api-openapi.yml
+      - openapi/sp-global-competitors-api-openapi.yml
+      - openapi/sp-global-cusip-api-openapi.yml
+      - openapi/sp-global-earnings-api-openapi.yml
+      - openapi/sp-global-estimates-api-openapi.yml
+      - openapi/sp-global-fundinground-api-openapi.yml
+      - openapi/sp-global-fundingrounds-api-openapi.yml
+      - openapi/sp-global-id-api-openapi.yml
+      - openapi/sp-global-ids-api-openapi.yml
+      - openapi/sp-global-info-api-openapi.yml
+      - openapi/sp-global-isin-api-openapi.yml
+      - openapi/sp-global-latest-api-openapi.yml
+      - openapi/sp-global-line-item-api-openapi.yml
+      - openapi/sp-global-market-cap-api-openapi.yml
+      - openapi/sp-global-merger-api-openapi.yml
+      - openapi/sp-global-mergers-api-openapi.yml
+      - openapi/sp-global-price-chart-api-openapi.yml
+      - openapi/sp-global-pricing-api-openapi.yml
+      - openapi/sp-global-relationship-api-openapi.yml
+      - openapi/sp-global-securities-api-openapi.yml
+      - openapi/sp-global-segments-api-openapi.yml
+      - openapi/sp-global-statements-api-openapi.yml
+      - openapi/sp-global-ticker-groups-api-openapi.yml
+      - openapi/sp-global-trading-item-groups-api-openapi.yml
+      - openapi/sp-global-trading-items-api-openapi.yml
+      - openapi/sp-global-transcript-api-openapi.yml
+      - openapi/sp-global-users-api-openapi.yml
+      artifacts:
+        authentication: authentication/sp-global-authentication.yml
+        errors: errors/sp-global-problem-types.yml
+        conventions: conventions/sp-global-conventions.yml
+        lifecycle: lifecycle/sp-global-lifecycle.yml
+        mcp: mcp/sp-global-mcp.yml
+- target: $.servers
+  description: Confirmed production host for this service (the per-tag refined splits carry the corrected servers).
+  update:
+  - url: https://kfinance.kensho.com

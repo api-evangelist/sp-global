@@ -1,0 +1,464 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Statements API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Statements
+paths:
+  /api/v1/statements/:
+    post:
+      operationId: Get Financial Statement
+      description: 'Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id.
+
+
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
+        period_type returns annual fiscal year values.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinancialStatementRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FinancialStatementRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FinancialStatementRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialStatementResponse'
+              examples:
+                IncomeStatementExample:
+                  value:
+                    results:
+                      '24937':
+                        currency: USD
+                        periods:
+                          FY2023:
+                            period_end_date: '2023-09-30'
+                            num_months: 12
+                            statements:
+                            - name: Income Statement
+                              line_items:
+                              - name: Revenues
+                                value: '383285000000.000000'
+                              - name: Total Revenues
+                                value: '383285000000.000000'
+                              - name: Cost Of Revenues
+                                value: '214137000000.000000'
+                              - name: Cost of Goods Sold, Total
+                                value: '214137000000.000000'
+                              - name: Gross Profit
+                                value: '169148000000.000000'
+                              - name: Selling General & Admin Expenses (Summary Subtotal)
+                                value: '24932000000.000000'
+                              - name: Selling General & Admin Expenses, Total
+                                value: '24932000000.000000'
+                              - name: R&D Expenses
+                                value: '29915000000.000000'
+                              - name: Other Operating Expenses, Total
+                                value: '54847000000.000000'
+                              - name: Operating Income
+                                value: '114301000000.000000'
+                              - name: Other Non Operating Expenses, Total
+                                value: '-565000000.000000'
+                              - name: Other Non Operating Income (Expenses)
+                                value: '-565000000.000000'
+                              - name: EBT, Excl. Unusual Items
+                                value: '113736000000.000000'
+                              - name: EBT, Incl. Unusual Items
+                                value: '113736000000.000000'
+                              - name: Income Tax Expense
+                                value: '16741000000.000000'
+                              - name: Earnings From Continuing Operations
+                                value: '96995000000.000000'
+                              - name: Net Income to Company
+                                value: '96995000000.000000'
+                              - name: Net Income - (IS)
+                                value: '96995000000.000000'
+                              - name: Net Income to Common Incl Extra Items
+                                value: '96995000000.000000'
+                              - name: Net Income to Common Excl. Extra Items
+                                value: '96995000000.000000'
+                      '1861276':
+                        currency: SEK
+                        periods:
+                          PED2023-08-31:
+                            period_end_date: '2023-08-31'
+                            num_months: 12
+                            statements:
+                            - name: Income Statement
+                              line_items:
+                              - name: Revenues
+                                value: '34550436000.000000'
+                              - name: Other Revenues, Total
+                                value: '118932000.000000'
+                              - name: Total Revenues
+                                value: '34669368000.000000'
+                              - name: Cost of Goods Sold, Total
+                                value: '11526445000.000000'
+                              - name: Gross Profit
+                                value: '23142923000.000000'
+                              - name: Selling General & Admin Expenses, Total
+                                value: '7228026000.000000'
+                              - name: Depreciation & Amortization - (IS)
+                                value: '976888000.000000'
+                              - name: Other Operating Expenses
+                                value: '14427229000.000000'
+                              - name: Other Operating Expenses, Total
+                                value: '22632143000.000000'
+                              - name: Operating Income
+                                value: '510780000.000000'
+                              - name: Interest Expense, Total
+                                value: '-200817000.000000'
+                              - name: Interest And Investment Income
+                                value: '1475000.000000'
+                              - name: Net Interest Expenses
+                                value: '-199342000.000000'
+                              - name: Other Non Operating Expenses, Total
+                                value: '69466000.000000'
+                              - name: Income (Loss) On Equity Invest.
+                                value: '83747000.000000'
+                              - name: Other Non Operating Income (Expenses)
+                                value: '-14281000.000000'
+                              - name: EBT, Excl. Unusual Items
+                                value: '380904000.000000'
+                              - name: EBT, Incl. Unusual Items
+                                value: '380904000.000000'
+                              - name: Income Tax Expense
+                                value: '94020000.000000'
+                              - name: Earnings From Continuing Operations
+                                value: '286884000.000000'
+                              - name: Extraordinary Item & Accounting Change
+                                value: '-31544000.000000'
+                              - name: Net Income to Company
+                                value: '255340000.000000'
+                              - name: Net Income - (IS)
+                                value: '255340000.000000'
+                    errors: {}
+                  summary: 24937, 1861276
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Statements
+  /api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
+    get:
+      operationId: Get Financial Statement_2
+      description: 'Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given
+        company_id.
+
+
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
+        period_type returns annual fiscal year values.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: end_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: end_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: period_type
+        schema:
+          type: string
+          pattern: ^(?i:annual)|(?i:quarterly)|(?i:ytd)|(?i:ltm)|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: statement_type
+        schema:
+          type: string
+          pattern: ^(?i:balance_sheet)|(?i:cash_flow)|(?i:income_statement)|(?i:bs)|(?i:cashflow)|(?i:cf)|(?i:income_stmt)|(?i:is)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialStatementResponse'
+              examples:
+                IncomeStatementExample:
+                  value:
+                    calendar_type: CALENDAR
+                    currency: USD
+                    statements:
+                      '2023':
+                        Revenues: '383285000000.000000'
+                        Total Revenues: '383285000000.000000'
+                        Cost Of Revenues: '214137000000.000000'
+                        Cost of Goods Sold, Total: '214137000000.000000'
+                        Gross Profit: '169148000000.000000'
+                        Selling General & Admin Expenses (Summary Subtotal): '24932000000.000000'
+                        Selling General & Admin Expenses, Total: '24932000000.000000'
+                        R&D Expenses: '29915000000.000000'
+                        Other Operating Expenses, Total: '54847000000.000000'
+                        Operating Income: '114301000000.000000'
+                        Interest Expense, Total: '-3933000000.000000'
+                        Interest And Investment Income: '3750000000.000000'
+                        Net Interest Expenses: '-183000000.000000'
+                        Other Non Operating Expenses, Total: '-382000000.000000'
+                        Other Non Operating Income (Expenses): '-382000000.000000'
+                        EBT, Excl. Unusual Items: '113736000000.000000'
+                        EBT, Incl. Unusual Items: '113736000000.000000'
+                        Income Tax Expense: '16741000000.000000'
+                        Earnings From Continuing Operations: '96995000000.000000'
+                        Net Income to Company: '96995000000.000000'
+                        Net Income - (IS): '96995000000.000000'
+                        Net Income to Common Incl Extra Items: '96995000000.000000'
+                        Net Income to Common Excl. Extra Items: '96995000000.000000'
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Statements
+components:
+  schemas:
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    FinancialStatementRequest:
+      type: object
+      description: Request fields for get_financial_statement
+      properties:
+        statement_type:
+          $ref: '#/components/schemas/StatementTypeEnum'
+        period_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/PeriodTypeBe5Enum'
+          - $ref: '#/components/schemas/NullEnum'
+        company_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+        start_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        end_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        start_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/StartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        end_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/EndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        calendar_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CalendarTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods:
+          type: integer
+          maximum: 99
+          minimum: 1
+          nullable: true
+        num_periods_back:
+          type: integer
+          maximum: 99
+          minimum: 0
+          nullable: true
+      required:
+      - company_ids
+      - statement_type
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    Period:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        num_months:
+          type: integer
+          nullable: true
+        line_item:
+          $ref: '#/components/schemas/LineItem'
+      required:
+      - line_item
+      - num_months
+      - period_end_date
+    StatementTypeEnum:
+      enum:
+      - balance_sheet
+      - bs
+      - cash_flow
+      - cashflow
+      - cf
+      - income_statement
+      - income_stmt
+      - is
+      type: string
+      description: '* `balance_sheet` - balance_sheet
+
+        * `bs` - bs
+
+        * `cash_flow` - cash_flow
+
+        * `cashflow` - cashflow
+
+        * `cf` - cf
+
+        * `income_statement` - income_statement
+
+        * `income_stmt` - income_stmt
+
+        * `is` - is'
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    StartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    FinancialStatementResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FinancialStatementCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    FinancialStatementCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type: string
+          nullable: true
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    NullEnum:
+      enum:
+      - null
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

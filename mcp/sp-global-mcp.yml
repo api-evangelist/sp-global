@@ -1,0 +1,116 @@
+generated: '2026-07-22'
+method: searched
+status: published
+source: >-
+  https://docs.kensho.com/llmreadyapi/mcp + https://kfinance.kensho.com/.well-known/oauth-protected-resource +
+  https://github.com/kensho-technologies/kfinance (kfinance/integrations/tool_calling/all_tools.py, v7.0.2)
+server:
+  name: spglobal-kfinance
+  description: >-
+    Hosted (remote) MCP server for the S&P Global LLM-Ready API (kFinance), operated by Kensho.
+    Documented first-class integrations: Claude (Desktop/Cowork/Code), ChatGPT, Microsoft Copilot
+    Studio, Amazon Quick Suite, Databricks, and Mistral (Beta). The kensho-kfinance Python package
+    also runs a local MCP server (python -m kfinance.mcp) with stdio, SSE, and streamable-http
+    transports.
+  transport: http
+  url: https://kfinance.kensho.com/integrations/mcp
+  local:
+    install: pip install kensho-kfinance
+    run: python -m kfinance.mcp [--stdio|-s] [--sse] [--streamable-http]
+    transports: [stdio, sse, streamable-http]
+  authentication:
+    type: oauth2
+    authorization_server: https://kfinance.kensho.com/integrations
+    metadata: well-known/sp-global-oauth-authorization-server.json
+    protected_resource_metadata: well-known/sp-global-oauth-protected-resource.json
+    dynamic_client_registration: https://kfinance.kensho.com/integrations/register
+    pkce: S256
+    scopes: ['kensho:app:kfinance', offline_access]
+    notes: >-
+      Live tools/list introspection on the hosted endpoint returns 401 invalid_token (OAuth-gated);
+      clients auto-register via RFC 7591 dynamic client registration and complete an
+      authorization_code + PKCE flow. Local server auth: refresh token (development, expires after
+      7 days) or client-id + private-key keypair (production).
+  registry_config:
+    source: https://github.com/kensho-technologies/spglobal-agent-skills/blob/main/plugins/spglobal-plugin/.mcp.json
+    mcpServers:
+      spglobal:
+        type: http
+        url: https://kfinance.kensho.com/integrations/mcp
+tools:
+  # Tool inventory from the published kfinance library tool registry (all_tools.py, v7.0.2).
+  # Live inputSchema introspection requires an authenticated MCP session.
+  - name: get_latest
+    group: static
+  - name: get_n_quarters_ago
+    group: static
+  - name: get_business_relationship_from_identifiers
+    group: business-relationships
+  - name: get_capitalization_from_identifiers
+    group: capitalizations
+  - name: get_info_from_identifiers
+    group: companies
+  - name: get_company_other_names_from_identifiers
+    group: company-intelligence
+  - name: get_company_summary_from_identifiers
+    group: company-intelligence
+  - name: get_company_description_from_identifiers
+    group: company-intelligence
+  - name: get_financial_auditors_from_identifiers
+    group: company-intelligence
+  - name: get_competitors_from_identifiers
+    group: competitors
+  - name: get_cusip_from_identifiers
+    group: cusip-and-isin
+  - name: get_isin_from_identifiers
+    group: cusip-and-isin
+  - name: get_earnings_from_identifiers
+    group: earnings
+  - name: get_latest_earnings_from_identifiers
+    group: earnings
+  - name: get_next_earnings_from_identifiers
+    group: earnings
+  - name: get_transcript_from_key_dev_id
+    group: earnings
+  - name: get_key_devs_from_identifier
+    group: key-developments
+  - name: get_financial_line_item_from_identifiers
+    group: line-items
+  - name: get_visible_alpha_financial_line_item_from_identifiers
+    group: line-items
+  - name: get_prices_from_identifiers
+    group: prices
+  - name: get_history_metadata_from_identifiers
+    group: prices
+  - name: get_professionals_from_identifiers
+    group: professionals
+  - name: get_professionals_from_person_ids
+    group: professionals
+  - name: get_segments_from_identifiers
+    group: segments
+  - name: get_visible_alpha_segments_from_identifiers
+    group: segments
+  - name: get_financial_statement_from_identifiers
+    group: statements
+  - name: get_mergers_info_from_transaction_ids
+    group: mergers-and-acquisitions
+  - name: get_mergers_from_identifiers
+    group: mergers-and-acquisitions
+  - name: get_rounds_of_funding_from_identifiers
+    group: rounds-of-funding
+  - name: get_rounds_of_funding_info_from_transaction_ids
+    group: rounds-of-funding
+  - name: get_funding_summary_from_identifiers
+    group: rounds-of-funding
+  - name: get_consensus_estimates_from_identifiers
+    group: estimates
+  - name: get_visible_alpha_consensus_estimates_from_identifiers
+    group: estimates
+  - name: get_guidance_from_identifiers
+    group: estimates
+  - name: get_consensus_target_price_from_identifiers
+    group: estimates
+  - name: get_analyst_recommendations_from_identifiers
+    group: estimates
+  - name: get_issuer_ratings_from_identifiers
+    group: ratings

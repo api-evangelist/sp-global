@@ -1,0 +1,46 @@
+generated: '2026-07-22'
+method: searched
+source: https://docs.kensho.com + openapi/ specs + https://kfinance.kensho.com/.well-known/oauth-authorization-server
+authentication:
+  style: OIDC / OAuth 2.0 access token sent as Authorization Bearer JWT on every Kensho host
+  production: client-id + private-key keypair (server-to-server)
+  development: refresh token (expires after 7 days)
+  artifact: authentication/sp-global-authentication.yml
+idempotency:
+  supported: false
+  notes: No Idempotency-Key header or equivalent documented in any spec or docs page.
+pagination:
+  style: none
+  notes: >-
+    No cursor/offset pagination parameters in the published specs. The LLM-Ready API favors
+    batch-by-identifiers requests (POST a list of tickers/CIQ identifiers) and bounded
+    date-range query parameters instead of paging.
+batching:
+  style: identifiers[] batch requests
+  notes: kFinance endpoints and MCP tools accept multiple company/security identifiers per call (ticker, CIQ ID, CUSIP, ISIN crosswalks).
+async_jobs:
+  style: submit-then-poll
+  notes: >-
+    Extract (POST /v3/extractions then GET /v3/extractions/{request_id}), NERD
+    (annotations-async), and Scribe v2 (start transcription then poll transcription ID) all use
+    asynchronous job submission with 202 Accepted and polling; large payloads move via presigned
+    upload/download URLs.
+file_transfer:
+  style: presigned URLs
+  notes: Extract and NERD issue presigned upload URLs for documents and download URLs for results.
+request_tracing:
+  header: null
+  notes: No documented request-id tracing header.
+versioning:
+  style: uri-path (v1/v2/v3 per service)
+  artifact: lifecycle/sp-global-lifecycle.yml
+error_envelope:
+  shape: JSON body; Scribe declares {detail, msg_code}; other services return JSON error descriptions per status
+  format: http-status (no RFC 9457 problem+json)
+  artifact: errors/sp-global-problem-types.yml
+rate_limiting:
+  signal: 429 Too Many Requests (Extract, NERD, Scribe)
+  artifact: rate-limits/sp-global-rate-limits.yml
+streaming:
+  style: WebSocket (wss://scribe.kensho.com/ws) with message-sequence protocol for real-time transcription
+  artifact: asyncapi/kensho-scribe-realtime-asyncapi.yml

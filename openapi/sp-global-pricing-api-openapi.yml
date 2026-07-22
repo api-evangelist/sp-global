@@ -1,0 +1,206 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Pricing API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Pricing
+paths:
+  /api/v1/pricing/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}:
+    get:
+      operationId: Get Stock Prices
+      description: Get stock prices for a given trading_item_id and its associated currency between start_date and end_date
+        inclusive, with latest available data being from the previous day, and the most recent price will always be the closing
+        price from the day before. The returned prices include the open, close, high, low prices and volume.
+      parameters:
+      - in: path
+        name: adjusted
+        schema:
+          type: string
+          pattern: ^(un)?adjusted$
+        required: true
+      - in: path
+        name: end_date
+        schema:
+          type: string
+          pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: periodicity
+        schema:
+          type: string
+          pattern: ^(?i:day)|(?i:week)|(?i:month)|(?i:year)|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_date
+        schema:
+          type: string
+          pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: trading_item_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricesResponse'
+              examples:
+                GetPricesExample:
+                  value:
+                    currency: USD
+                    prices:
+                    - date: '2021-01-04T00:00:00.000'
+                      open: '133.520000'
+                      high: '133.611600'
+                      low: '126.760000'
+                      close: '129.410000'
+                      volume: '143301900'
+                    - date: '2021-01-05T00:00:00.000'
+                      open: '128.890000'
+                      high: '131.740000'
+                      low: '128.430000'
+                      close: '131.010000'
+                      volume: '97664900'
+                  summary: '2590360'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Pricing
+  /api/v1/pricing/{trading_item_id}/metadata:
+    get:
+      operationId: Get Historical Metadata
+      description: Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type,
+        and first_trade_date.
+      parameters:
+      - in: path
+        name: trading_item_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryMetadataResponse'
+              examples:
+                HistoryMetadataExample:
+                  value:
+                    currency: USD
+                    symbol: AAPL
+                    exchange_name: NasdaqGS
+                    instrument_type: Equity
+                    first_trade_date: '1980-12-12'
+                  summary: '2590360'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the query is invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+        '404':
+          description: Indicates that history metadata was not found for the given trading_item_id.
+      tags:
+      - Pricing
+components:
+  schemas:
+    HistoryMetadataResponse:
+      type: object
+      description: Response fields for get_history_metadata
+      properties:
+        currency:
+          type: string
+        symbol:
+          type: string
+        exchange_name:
+          type: string
+        instrument_type:
+          type: string
+        first_trade_date:
+          type: string
+          format: date
+      required:
+      - currency
+      - exchange_name
+      - first_trade_date
+      - instrument_type
+      - symbol
+    Prices:
+      type: object
+      description: Response fields a single price
+      properties:
+        date:
+          type: string
+        open:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        high:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        low:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        close:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        volume:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,19}(?:\.\d{0,0})?$
+      required:
+      - close
+      - date
+      - high
+      - low
+      - open
+      - volume
+    PricesResponse:
+      type: object
+      description: Response fields for get_prices
+      properties:
+        currency:
+          type: string
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prices'
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - currency
+      - prices
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

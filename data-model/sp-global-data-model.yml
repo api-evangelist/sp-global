@@ -1,0 +1,77 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/_original/kensho-llmready-openapi.yml (+ extract/nerd/scribe originals) and json-schema/ artifacts
+notes: >-
+  The LLM-Ready API is organized around the S&P Capital IQ identification triple —
+  company_id / security_id / trading_item_id — resolvable from tickers, CUSIPs, and ISINs via the
+  id/ids crosswalk endpoints. Transactions (mergers, funding rounds) and people (professionals)
+  hang off companies via transaction_id and person_id. Extract, NERD, and Scribe are job-oriented
+  services keyed by request/annotation/transcription ids.
+entities:
+  - name: Company
+    id_field: company_id
+    domain: capital-iq
+  - name: Security
+    id_field: security_id
+    domain: capital-iq
+  - name: TradingItem
+    id_field: trading_item_id
+    domain: capital-iq
+  - name: IdentificationTriple
+    id_field: [company_id, security_id, trading_item_id]
+    domain: capital-iq
+    notes: Crosswalk resolved from ticker, CUSIP, or ISIN.
+  - name: FinancialStatement
+    domain: fundamentals
+  - name: FinancialLineItem
+    domain: fundamentals
+  - name: Segment
+    domain: fundamentals
+  - name: Estimate
+    domain: estimates
+  - name: EarningsCall
+    id_field: key_dev_id
+    domain: earnings
+  - name: Transcript
+    domain: earnings
+  - name: KeyDevelopment
+    id_field: key_dev_id
+    domain: company-intelligence
+  - name: MergerOrAcquisition
+    id_field: transaction_id
+    domain: transactions
+  - name: FundingRound
+    id_field: transaction_id
+    domain: transactions
+  - name: Professional
+    id_field: person_id
+    domain: people
+  - name: IssuerRating
+    domain: ratings
+  - name: Extraction
+    id_field: request_id
+    domain: kensho-extract
+  - name: Annotation
+    domain: kensho-nerd
+  - name: Transcription
+    domain: kensho-scribe
+relationships:
+  - {from: Company, to: Security, kind: has_many, via: company_id}
+  - {from: Security, to: TradingItem, kind: has_many, via: security_id}
+  - {from: Security, to: Company, kind: belongs_to, via: company_id}
+  - {from: Company, to: Company, kind: has_many, via: competitors}
+  - {from: Company, to: Company, kind: has_many, via: business_relationships}
+  - {from: Company, to: FinancialStatement, kind: has_many, via: company_id}
+  - {from: Company, to: FinancialLineItem, kind: has_many, via: company_id}
+  - {from: Company, to: Segment, kind: has_many, via: company_id}
+  - {from: Company, to: Estimate, kind: has_many, via: company_id}
+  - {from: Company, to: EarningsCall, kind: has_many, via: company_id}
+  - {from: EarningsCall, to: Transcript, kind: has_one, via: key_dev_id}
+  - {from: Company, to: KeyDevelopment, kind: has_many, via: company_id}
+  - {from: Company, to: MergerOrAcquisition, kind: has_many, via: transaction_id, notes: as target or buyer, with advisors}
+  - {from: Company, to: FundingRound, kind: has_many, via: transaction_id, notes: as target or investor, with advisors}
+  - {from: Company, to: Professional, kind: has_many, via: person_id}
+  - {from: Company, to: IssuerRating, kind: has_many, via: company_id}
+  - {from: TradingItem, to: PriceHistory, kind: has_many, via: trading_item_id}
+  - {from: Extraction, to: PresignedURL, kind: has_one, via: request_id}
+  - {from: Annotation, to: Company, kind: belongs_to, via: capital-iq entity link}

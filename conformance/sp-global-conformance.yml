@@ -1,0 +1,52 @@
+generated: '2026-07-22'
+method: searched
+source: live well-known probes on kfinance.kensho.com + docs.kensho.com/authentication + openapi/ specs
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      Live RFC 8414 authorization-server metadata at
+      https://kfinance.kensho.com/.well-known/oauth-authorization-server (authorization_code +
+      refresh_token grants); docs.kensho.com/authentication documents OAuth 2.0 token issuance.
+  - id: oidc
+    conforms: true
+    evidence: docs.kensho.com/authentication — "OpenID Connect (OIDC)" built on OAuth 2.0 is the platform auth model.
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    evidence: 200 application/json at /.well-known/oauth-authorization-server on kfinance.kensho.com (saved in well-known/).
+  - id: rfc9728-protected-resource-metadata
+    conforms: true
+    evidence: 200 application/json at /.well-known/oauth-protected-resource declaring the MCP resource (saved in well-known/).
+  - id: rfc7636-pkce
+    conforms: true
+    evidence: code_challenge_methods_supported [S256] in authorization-server metadata.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: registration_endpoint https://kfinance.kensho.com/integrations/register in authorization-server metadata; MCP 401 guidance says clients "automatically re-register".
+  - id: mcp
+    conforms: true
+    evidence: Hosted streamable-http MCP server at https://kfinance.kensho.com/integrations/mcp plus local stdio/SSE/streamable-http server in kensho-kfinance.
+  - id: jwt-bearer-auth
+    conforms: true
+    evidence: All five OpenAPI specs declare http bearer with bearerFormat JWT.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No application/problem+json media type in any published spec; errors are conventional HTTP statuses with JSON bodies.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt 404 on all kensho.com hosts; 403 (bot-blocked) on www.spglobal.com.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      The Scribe real-time WebSocket protocol is documented prose (captured in
+      asyncapi/kensho-scribe-realtime-asyncapi.yml as our generated model); Kensho publishes no
+      AsyncAPI document.
+  - id: websocket-streaming
+    conforms: true
+    evidence: wss://scribe.kensho.com/ws real-time transcription protocol documented at docs.kensho.com/scribe/v2/real-time-api-specification.
+  - id: rate-limit-signaling
+    conforms: true
+    evidence: 429 Too Many Requests responses declared in Extract, NERD, and Scribe specs.
+  - id: idempotency-key
+    conforms: false
+    evidence: No idempotency-key header or parameter in any spec or docs page found.

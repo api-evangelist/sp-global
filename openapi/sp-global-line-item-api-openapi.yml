@@ -1,0 +1,1920 @@
+openapi: 3.0.2
+info:
+  version: 3.0.0
+  title: Kensho Extract annotations-async Line Item API
+  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
+    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
+    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
+    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
+    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
+    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
+    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
+    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
+    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
+    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
+    \ GET `output_url` provided in the response\n"
+servers:
+- url: https://kfinance.kensho.com
+tags:
+- name: Line Item
+paths:
+  /api/v1/line_item/:
+    post:
+      operationId: Get Financial Line Item
+      description: 'Get a financial line item for a set of company_ids.
+
+
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
+        period_type returns annual fiscal year values.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinancialItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FinancialItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FinancialItemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialItemResponse'
+              examples:
+                Plant,Property,AndEquipmentLineItemExample:
+                  value:
+                    results:
+                      '24937':
+                        currency: USD
+                        periods:
+                          FY2023Q1:
+                            period_end_date: '2022-12-31'
+                            num_months: 3
+                            line_item:
+                              name: Net Property Plant And Equipment
+                              value: '42951000000.000000'
+                              sources:
+                              - type: doc-viewer line item
+                                url: https://www.capitaliq.spglobal.com/apisv3/spg-webplatform-core/docviewer?mid=217403557&uctSearch=42951.000000
+                          FY2023Q2:
+                            period_end_date: '2023-04-01'
+                            num_months: 3
+                            line_item:
+                              name: Net Property Plant And Equipment
+                              value: '43398000000.000000'
+                              sources:
+                              - type: doc-viewer line item
+                                url: https://www.capitaliq.spglobal.com/apisv3/spg-webplatform-core/docviewer?mid=222795059&uctSearch=43398.000000
+                          FY2023Q3:
+                            period_end_date: '2023-07-01'
+                            num_months: 3
+                            line_item:
+                              name: Net Property Plant And Equipment
+                              value: '43550000000.000000'
+                              sources:
+                              - type: doc-viewer line item
+                                url: https://www.capitaliq.spglobal.com/apisv3/spg-webplatform-core/docviewer?mid=228080297&uctSearch=43550.000000
+                          FY2023Q4:
+                            period_end_date: '2023-09-30'
+                            num_months: 3
+                            line_item:
+                              name: Net Property Plant And Equipment
+                              value: '43715000000.000000'
+                              sources:
+                              - type: doc-viewer statement
+                                url: https://www.capitaliq.spglobal.com/apisv3/spg-webplatform-core/docviewer?mid=232134583
+                    errors: {}
+                  summary: '24937'
+                PrivateCompanyRevenueExample:
+                  value:
+                    results:
+                      '1861276':
+                        currency: SEK
+                        periods:
+                          PED2023-08-31:
+                            period_end_date: '2023-08-31'
+                            num_months: 12
+                            line_item:
+                              name: Revenues
+                              value: '34550436000.000000'
+                              sources: []
+                    errors: {}
+                  summary: '1861276'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Line Item
+  /api/v1/line_item/{company_id}/{line_item}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
+    get:
+      operationId: Get Financial Line Item_2
+      description: 'Get a financial line item for a given company_id.
+
+
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
+        period_type returns annual fiscal year values.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: end_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: end_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: line_item
+        schema:
+          type: string
+          pattern: ^(?i:accounts_payable)|(?i:accounts_receivable)|(?i:accrued_expenses)|(?i:accumulated_depreciation)|(?i:additional_paid_in_capital)|(?i:adjustments_to_cash_flow_net_income)|(?i:amortization_of_goodwill_and_intangibles)|(?i:asset_writedown)|(?i:basic_eps)|(?i:basic_eps_excluding_extra_items)|(?i:basic_eps_from_accounting_change)|(?i:basic_eps_from_accounting_change_and_extraordinary_items)|(?i:basic_eps_from_extraordinary_items)|(?i:capital_expenditure)|(?i:capital_leases)|(?i:cash_acquisitions)|(?i:cash_and_equivalents)|(?i:cash_from_financing)|(?i:cash_from_investing)|(?i:cash_from_operations)|(?i:change_in_accounts_payable)|(?i:change_in_accounts_receivable)|(?i:change_in_deferred_taxes)|(?i:change_in_income_taxes)|(?i:change_in_inventories)|(?i:change_in_net_operating_assets)|(?i:change_in_net_working_capital)|(?i:change_in_other_net_operating_assets)|(?i:change_in_trading_asset_securities)|(?i:change_in_unearned_revenue)|(?i:common_dividends_paid)|(?i:common_shares_outstanding)|(?i:common_stock)|(?i:cost_of_goods_sold)|(?i:cost_of_revenue)|(?i:currency_exchange_gains)|(?i:current_deferred_tax_liability)|(?i:current_income_taxes_payable)|(?i:current_portion_of_capital_leases)|(?i:current_portion_of_long_term_debt)|(?i:current_portion_of_long_term_debt_and_capital_leases)|(?i:current_ratio)|(?i:current_unearned_revenue)|(?i:deferred_tax_asset_current_portion)|(?i:depreciation)|(?i:depreciation_and_amortization)|(?i:depreciation_of_rental_assets)|(?i:diluted_eps)|(?i:diluted_eps_excluding_extra_items)|(?i:diluted_eps_from_accounting_change)|(?i:diluted_eps_from_accounting_change_and_extraordinary_items)|(?i:diluted_eps_from_discontinued_operations)|(?i:diluted_eps_from_extraordinary_items)|(?i:distributable_cash_per_share)|(?i:divestitures)|(?i:dividends_per_share)|(?i:earnings_from_continued_operations)|(?i:earnings_from_discontinued_operations)|(?i:ebit)|(?i:ebita)|(?i:ebitda)|(?i:ebitdar)|(?i:ebt_excluding_unusual_items)|(?i:ebt_including_unusual_items)|(?i:effective_tax_rate)|(?i:ev_to_employees)|(?i:ev_to_total_revenue)|(?i:exploration_and_drilling_costs)|(?i:extraordinary_item_and_accounting_change)|(?i:fees_and_other_income)|(?i:finance_division_debt_current_portion)|(?i:finance_division_debt_non_current_portion)|(?i:finance_division_interest_expense)|(?i:finance_division_loans_and_leases_long_term)|(?i:finance_division_loans_and_leases_short_term)|(?i:finance_division_operating_expense)|(?i:finance_division_other_current_assets)|(?i:finance_division_other_current_liabilities)|(?i:finance_division_other_non_current_assets)|(?i:finance_division_other_non_current_liabilities)|(?i:finance_division_revenue)|(?i:foreign_exchange_rate_adjustments)|(?i:funds_from_operations)|(?i:gain_from_sale_of_assets)|(?i:gain_from_sale_of_investments)|(?i:goodwill)|(?i:gross_profit)|(?i:gross_property_plant_and_equipment)|(?i:impairment_of_goodwill)|(?i:impairment_of_oil_gas_and_mineral_properties)|(?i:in_process_research_and_development_expense)|(?i:income_from_affiliates)|(?i:income_tax_expense)|(?i:insurance_division_operating_expense)|(?i:insurance_division_revenue)|(?i:insurance_settlements)|(?i:interest_and_investment_income)|(?i:interest_expense)|(?i:inventory)|(?i:issuance_of_common_stock)|(?i:issuance_of_preferred_stock)|(?i:last_close_tev_to_ebit)|(?i:last_close_tev_to_ebitda)|(?i:legal_settlements)|(?i:loans_held_for_sale)|(?i:long_term_accounts_receivable)|(?i:long_term_debt)|(?i:long_term_debt_issued)|(?i:long_term_debt_repaid)|(?i:long_term_deferred_charges)|(?i:long_term_deferred_tax_assets)|(?i:long_term_investments)|(?i:long_term_loans_receivable)|(?i:loss_on_equity_investments)|(?i:merger_and_restructuring_charges)|(?i:merger_charges)|(?i:minority_interest_in_earnings)|(?i:miscellaneous_cash_flow_adjustments)|(?i:net_cash_from_discontinued_operation)|(?i:net_cash_from_investments)|(?i:net_change_in_cash)|(?i:net_debt)|(?i:net_decrease_in_investment_loans_originated_and_sold)|(?i:net_decrease_in_loans_originated_and_sold)|(?i:net_income)|(?i:net_income_allocable_to_general_partner)|(?i:net_income_to_common_shareholders_excluding_extra_items)|(?i:net_income_to_common_shareholders_including_extra_items)|(?i:net_income_to_company)|(?i:net_interest_expense)|(?i:net_property_plant_and_equipment)|(?i:net_working_capital)|(?i:non_current_deferred_tax_liability)|(?i:non_current_unearned_revenue)|(?i:normalized_basic_eps)|(?i:normalized_diluted_eps)|(?i:notes_receivable)|(?i:operating_income)|(?i:other_adjustments_to_net_income)|(?i:other_amortization)|(?i:other_current_assets)|(?i:other_current_liability)|(?i:other_equity)|(?i:other_financing_activities)|(?i:other_intangibles)|(?i:other_investing_activities)|(?i:other_long_term_assets)|(?i:other_non_current_liabilities)|(?i:other_non_operating_income)|(?i:other_operating_activities)|(?i:other_operating_expense)|(?i:other_preferred_stock_adjustments)|(?i:other_receivables)|(?i:other_revenue)|(?i:other_unusual_items)|(?i:pension_and_other_post_retirement_benefit)|(?i:pre_opening_costs)|(?i:preferred_dividends_and_other_adjustments)|(?i:preferred_dividends_paid)|(?i:preferred_stock_additional_paid_in_capital)|(?i:preferred_stock_convertible)|(?i:preferred_stock_dividend)|(?i:preferred_stock_equity_adjustment)|(?i:preferred_stock_non_redeemable)|(?i:preferred_stock_other)|(?i:preferred_stock_redeemable)|(?i:premium_on_redemption_of_preferred_stock)|(?i:prepaid_expense)|(?i:provision_for_bad_debts)|(?i:provision_for_credit_losses)|(?i:quick_ratio)|(?i:repurchase_of_common_stock)|(?i:repurchase_of_preferred_stock)|(?i:research_and_development_expense)|(?i:restricted_cash)|(?i:restructuring_charges)|(?i:retained_earnings)|(?i:revenue)|(?i:revenue_from_interest_and_investment_income)|(?i:revenue_from_sale_of_assets)|(?i:revenue_from_sale_of_investments)|(?i:sale_of_intangible_assets)|(?i:sale_of_property_plant_and_equipment)|(?i:sale_of_real_estate)|(?i:sale_proceeds_from_rental_assets)|(?i:selling_general_and_admin_expense)|(?i:short_term_borrowings)|(?i:short_term_debt_issued)|(?i:short_term_debt_repaid)|(?i:short_term_investments)|(?i:special_dividends_paid)|(?i:stock_based_compensation)|(?i:tax_benefit_from_stock_options)|(?i:total_assets)|(?i:total_cash_and_short_term_investments)|(?i:total_common_equity)|(?i:total_current_assets)|(?i:total_current_liabilities)|(?i:total_debt)|(?i:total_debt_issued)|(?i:total_debt_repaid)|(?i:total_debt_to_capital)|(?i:total_debt_to_equity_ratio)|(?i:total_depreciation_and_amortization)|(?i:total_dividends_paid)|(?i:total_equity)|(?i:total_liabilities)|(?i:total_liabilities_and_equity)|(?i:total_operating_expense)|(?i:total_other_investing_activities)|(?i:total_other_non_cash_items)|(?i:total_other_non_operating_income)|(?i:total_other_operating_expense)|(?i:total_other_revenue)|(?i:total_other_unusual_items)|(?i:total_preferred_equity)|(?i:total_receivables)|(?i:total_revenue)|(?i:total_selling_general_and_admin_expense)|(?i:total_unusual_items)|(?i:trading_asset_securities)|(?i:treasury_stock)|(?i:treasury_stock_preferred_stock_convertible)|(?i:treasury_stock_preferred_stock_non_redeemable)|(?i:treasury_stock_preferred_stock_redeemable)|(?i:weighted_average_basic_shares_outstanding)|(?i:weighted_average_diluted_shares_outstanding)|(?i:working_capital)|(?i:additional_paid_in_capital_preferred_stock)|(?i:assets)|(?i:basic_earning_per_share)|(?i:basic_earning_per_share_excluding_extra_items)|(?i:basic_earning_per_share_from_accounting_change)|(?i:basic_earning_per_share_from_accounting_change_and_extraordinary_items)|(?i:basic_earning_per_share_from_extraordinary_items)|(?i:basic_earning_per_share_including_extra_items)|(?i:basic_eps_including_extra_items)|(?i:capex)|(?i:capital_expenditures)|(?i:capitalized_leases)|(?i:cash)|(?i:cash_and_cash_equivalents)|(?i:cash_and_short_term_investments)|(?i:cash_flow_from_operations)|(?i:cash_from_discontinued_operation)|(?i:cash_from_financing_activities)|(?i:cash_from_investing_activities)|(?i:cash_from_operating_activities)|(?i:cashflow_from_financing)|(?i:cashflow_from_financing_activities)|(?i:cashflow_from_investing)|(?i:cashflow_from_investing_activities)|(?i:change_in_cash)|(?i:cogs)|(?i:common_equity)|(?i:continued_operations_earnings)|(?i:convertible_preferred_stock)|(?i:cor)|(?i:current_accounts_receivable)|(?i:current_assets)|(?i:current_borrowing)|(?i:current_borrowings)|(?i:current_debt_issued)|(?i:current_debt_repaid)|(?i:current_deferred_tax_asset)|(?i:current_liabilities)|(?i:current_notes_receivable)|(?i:current_other_receivables)|(?i:current_portion_of_cap_leases)|(?i:current_portion_of_capitalized_leases)|(?i:current_portion_of_income_taxes_payable)|(?i:current_portion_of_leases)|(?i:current_portion_of_long_term_debt_and_capitalized_leases)|(?i:current_portion_of_lt_debt)|(?i:current_portion_of_lt_debt_and_cap_leases)|(?i:current_portion_of_non_current_debt)|(?i:current_portion_of_non_current_debt_and_capital_leases)|(?i:current_portion_of_non_current_debt_and_capitalized_leases)|(?i:current_portion_of_unearned_revenue)|(?i:current_total_receivable)|(?i:current_total_receivables)|(?i:d_and_a)|(?i:debt_ratio)|(?i:diluted_earning_per_share)|(?i:diluted_earning_per_share_excluding_extra_items)|(?i:diluted_earning_per_share_from_accounting_change)|(?i:diluted_earning_per_share_from_accounting_change_and_extraordinary_items)|(?i:diluted_earning_per_share_from_discontinued_operations)|(?i:diluted_earning_per_share_from_extraordinary_items)|(?i:diluted_earning_per_share_including_extra_items)|(?i:diluted_eps_including_extra_items)|(?i:discontinued_operations_earnings)|(?i:dividends_paid)|(?i:dna)|(?i:earnings_before_interest_and_taxes)|(?i:earnings_before_interest_taxes_and_amortization)|(?i:earnings_before_interest_taxes_depreciation_amortization_and_rental_expense)|(?i:earnings_before_interest_taxes_depreciation_and_amortization)|(?i:earnings_before_taxes_excluding_unusual_items)|(?i:earnings_before_taxes_including_unusual_items)|(?i:enterprise_value_to_earnings_before_interest_and_taxes)|(?i:enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:enterprise_value_to_ebit)|(?i:enterprise_value_to_ebitda)|(?i:enterprise_value_to_employee_count)|(?i:enterprise_value_to_employees)|(?i:enterprise_value_to_headcount)|(?i:enterprise_value_to_total_revenue)|(?i:equity)|(?i:equity_adjustment_preferred_stock)|(?i:ev_to_ebit)|(?i:ev_to_ebitda)|(?i:ev_to_employee_count)|(?i:ev_to_headcount)|(?i:exploration_and_drilling_expense)|(?i:ffo)|(?i:finance_division_debt_long_term_portion)|(?i:finance_division_long_term_debt)|(?i:finance_division_long_term_loans_and_leases)|(?i:finance_division_non_current_debt)|(?i:finance_division_other_long_term_assets)|(?i:finance_division_other_long_term_liabilities)|(?i:finance_division_other_short_term_assets)|(?i:finance_division_short_term_loans_and_leases)|(?i:foreign_exchange_adjustments)|(?i:fx_adjustments)|(?i:gppe)|(?i:gross_ppe)|(?i:impairment_o_and_g)|(?i:impairment_of_oil_and_gas)|(?i:in_process_r_and_d_cost)|(?i:in_process_r_and_d_expense)|(?i:in_process_research_and_development_cost)|(?i:in_process_rnd_cost)|(?i:in_process_rnd_expense)|(?i:income_tax)|(?i:income_taxes)|(?i:interest_expense_finance_division)|(?i:inventories)|(?i:last_close_enterprise_value_to_earnings_before_interest_and_taxes)|(?i:last_close_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:last_close_enterprise_value_to_ebit)|(?i:last_close_enterprise_value_to_ebitda)|(?i:last_close_enterprise_value_to_employee_count)|(?i:last_close_enterprise_value_to_employees)|(?i:last_close_enterprise_value_to_headcount)|(?i:last_close_enterprise_value_to_total_revenue)|(?i:last_close_ev_to_ebit)|(?i:last_close_ev_to_employee_count)|(?i:last_close_ev_to_employees)|(?i:last_close_ev_to_headcount)|(?i:last_close_ev_to_total_revenue)|(?i:last_close_tev_to_employee_count)|(?i:last_close_tev_to_employees)|(?i:last_close_tev_to_headcount)|(?i:last_close_tev_to_total_revenue)|(?i:last_close_total_enterprise_value_to_earnings_before_interest_and_taxes)|(?i:last_close_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:last_close_total_enterprise_value_to_ebit)|(?i:last_close_total_enterprise_value_to_ebitda)|(?i:last_close_total_enterprise_value_to_employee_count)|(?i:last_close_total_enterprise_value_to_employees)|(?i:last_close_total_enterprise_value_to_headcount)|(?i:last_close_total_ev_to_ebit)|(?i:last_close_total_ev_to_ebitda)|(?i:last_close_total_ev_to_employee_count)|(?i:last_close_total_ev_to_employees)|(?i:last_close_total_ev_to_headcount)|(?i:last_enterprise_value_to_earnings_before_interest_and_taxes)|(?i:last_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:last_enterprise_value_to_ebit)|(?i:last_enterprise_value_to_ebitda)|(?i:last_enterprise_value_to_employee_count)|(?i:last_enterprise_value_to_employees)|(?i:last_enterprise_value_to_headcount)|(?i:last_enterprise_value_to_total_revenue)|(?i:last_ev_to_employee_count)|(?i:last_ev_to_employees)|(?i:last_ev_to_headcount)|(?i:last_ev_to_total_revenue)|(?i:last_tev_to_ebit)|(?i:last_tev_to_ebitda)|(?i:last_tev_to_employee_count)|(?i:last_tev_to_employees)|(?i:last_tev_to_headcount)|(?i:last_tev_to_total_revenue)|(?i:last_total_enterprise_value_to_earnings_before_interest_and_taxes)|(?i:last_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:last_total_enterprise_value_to_ebit)|(?i:last_total_enterprise_value_to_ebitda)|(?i:last_total_enterprise_value_to_employee_count)|(?i:last_total_enterprise_value_to_employees)|(?i:last_total_enterprise_value_to_headcount)|(?i:last_total_ev_to_ebit)|(?i:last_total_ev_to_ebitda)|(?i:last_total_ev_to_employee_count)|(?i:last_total_ev_to_employees)|(?i:last_total_ev_to_headcount)|(?i:liabilities)|(?i:liabilities_and_equity)|(?i:loans_receivable)|(?i:long_term_finance_division_loans_and_leases)|(?i:long_term_leases)|(?i:long_term_loans_and_leases_of_the_finance_division)|(?i:long_term_other_assets)|(?i:long_term_other_liabilities)|(?i:long_term_unearned_revenue)|(?i:misc_cash_flow_adj)|(?i:net_income_to_minority_interest)|(?i:net_ppe)|(?i:non_current_accounts_receivable)|(?i:non_current_debt)|(?i:non_current_debt_issued)|(?i:non_current_debt_repaid)|(?i:non_current_deferred_charges)|(?i:non_current_deferred_tax_assets)|(?i:non_current_investments)|(?i:non_current_loans_receivable)|(?i:non_current_other_assets)|(?i:non_current_other_liabilities)|(?i:non_redeemable_preferred_stock)|(?i:normal_revenue)|(?i:normalized_basic_earning_per_share)|(?i:normalized_diluted_earning_per_share)|(?i:nppe)|(?i:operating_expense)|(?i:operating_expense_finance_division)|(?i:operating_expense_insurance_division)|(?i:other_current_assets_of_the_finance_division)|(?i:other_current_liabilities)|(?i:other_long_term_assets_of_the_finance_division)|(?i:other_long_term_liabilities)|(?i:other_non_current_assets)|(?i:other_non_current_assets_of_the_finance_division)|(?i:other_preferred_stock)|(?i:other_short_term_assets_of_the_finance_division)|(?i:ppe)|(?i:pre_opening_expense)|(?i:preferred_equity)|(?i:preferred_stock)|(?i:prepaid_expenses)|(?i:property_plant_and_equipment)|(?i:provision_for_bad_debt)|(?i:r_and_d_cost)|(?i:r_and_d_expense)|(?i:redeemable_preferred_stock)|(?i:regular_revenue)|(?i:research_and_development_cost)|(?i:rnd_cost)|(?i:rnd_expense)|(?i:sale_of_intangible_asset)|(?i:sale_of_intangibles)|(?i:sale_of_ppe)|(?i:sale_of_real_estate_properties)|(?i:sale_of_real_properties)|(?i:selling_general_and_admin)|(?i:selling_general_and_admin_cost)|(?i:sg_and_a)|(?i:sga)|(?i:shareholders_equity)|(?i:short_term_accounts_receivable)|(?i:short_term_assets)|(?i:short_term_borrowing)|(?i:short_term_deferred_tax_asset)|(?i:short_term_finance_division_loans_and_leases)|(?i:short_term_loans_and_leases_of_the_finance_division)|(?i:short_term_notes_receivable)|(?i:short_term_other_receivables)|(?i:short_term_total_receivable)|(?i:short_term_total_receivables)|(?i:tax_rate)|(?i:tev_to_ebit)|(?i:tev_to_ebitda)|(?i:tev_to_employee_count)|(?i:tev_to_employees)|(?i:tev_to_headcount)|(?i:tev_to_total_revenue)|(?i:total_current_portion_of_long_term_debt_and_capital_leases)|(?i:total_current_portion_of_long_term_debt_and_capitalized_leases)|(?i:total_current_portion_of_lt_debt_and_cap_leases)|(?i:total_current_portion_of_non_current_debt_and_capital_leases)|(?i:total_current_portion_of_non_current_debt_and_capitalized_leases)|(?i:total_d_and_a)|(?i:total_debt_ratio)|(?i:total_debt_to_equity)|(?i:total_debt_to_total_equity)|(?i:total_dna)|(?i:total_enterprise_value_to_earnings_before_interest_and_taxes)|(?i:total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization)|(?i:total_enterprise_value_to_ebit)|(?i:total_enterprise_value_to_ebitda)|(?i:total_enterprise_value_to_employee_count)|(?i:total_enterprise_value_to_employees)|(?i:total_enterprise_value_to_headcount)|(?i:total_enterprise_value_to_total_revenue)|(?i:total_ev_to_ebit)|(?i:total_ev_to_ebitda)|(?i:total_ev_to_employee_count)|(?i:total_ev_to_employees)|(?i:total_ev_to_headcount)|(?i:total_preferred_stock)|(?i:total_receivable)|(?i:total_selling_general_and_admin)|(?i:total_selling_general_and_admin_cost)|(?i:total_sga)|(?i:total_shareholders_equity)|(?i:total_short_term_assets)|(?i:treasury_convertible_preferred_stock)|(?i:treasury_non_redeemable_preferred_stock)|(?i:treasury_preferred_stock_convertible)|(?i:treasury_preferred_stock_non_redeemable)|(?i:treasury_preferred_stock_redeemable)|(?i:treasury_redeemable_preferred_stock)|(?i:treasury_stock_convertible_preferred_stock)|(?i:treasury_stock_non_redeemable_preferred_stock)|(?i:treasury_stock_redeemable_preferred_stock)|(?i:unusual_items)$
+        required: true
+      - in: path
+        name: period_type
+        schema:
+          type: string
+          pattern: ^(?i:annual)|(?i:quarterly)|(?i:ytd)|(?i:ltm)|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_quarter
+        schema:
+          type: string
+          pattern: ^([1-4])|(?i:none)|(?i:null)$
+        required: true
+      - in: path
+        name: start_year
+        schema:
+          type: string
+          pattern: ^([0-9]{4})|(?i:none)|(?i:null)$
+        required: true
+      security:
+      - cookieAuth: []
+      - Kensho_JWT_Auth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialItemResponse'
+              examples:
+                Plant,Property,AndEquipmentLineItemExample:
+                  value:
+                    calendar_type: CALENDAR
+                    currency: USD
+                    line_item:
+                      '2019': '95957000000.000000'
+                      '2020': '112096000000.000000'
+                      '2021': '119810000000.000000'
+                      '2022': '124874000000.000000'
+                      '2023': '125260000000.000000'
+                  summary: '24937'
+          description: Indicates a successful request.
+        '400':
+          description: Indicates that the input parameters are invalid.
+        '403':
+          description: Indicates that the authorization information is missing or invalid.
+      tags:
+      - Line Item
+components:
+  schemas:
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+          nullable: true
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
+    FinancialItemResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FinancialItemCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    FinancialItemCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type: string
+          nullable: true
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    FinancialItemRequest:
+      type: object
+      description: Request fields for get_financial_item
+      properties:
+        line_item:
+          $ref: '#/components/schemas/LineItemEnum'
+        company_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+        period_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/PeriodTypeBe5Enum'
+          - $ref: '#/components/schemas/NullEnum'
+        start_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        end_year:
+          type: integer
+          maximum: 9999
+          minimum: 1000
+          nullable: true
+        start_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/StartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        end_quarter:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/EndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        calendar_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CalendarTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods:
+          type: integer
+          maximum: 99
+          minimum: 1
+          nullable: true
+        num_periods_back:
+          type: integer
+          maximum: 99
+          minimum: 0
+          nullable: true
+      required:
+      - company_ids
+      - line_item
+    LineItemEnum:
+      enum:
+      - accounts_payable
+      - accounts_receivable
+      - accrued_expenses
+      - accumulated_depreciation
+      - additional_paid_in_capital
+      - additional_paid_in_capital_preferred_stock
+      - adjustments_to_cash_flow_net_income
+      - amortization_of_goodwill_and_intangibles
+      - asset_writedown
+      - assets
+      - basic_earning_per_share
+      - basic_earning_per_share_excluding_extra_items
+      - basic_earning_per_share_from_accounting_change
+      - basic_earning_per_share_from_accounting_change_and_extraordinary_items
+      - basic_earning_per_share_from_extraordinary_items
+      - basic_earning_per_share_including_extra_items
+      - basic_eps
+      - basic_eps_excluding_extra_items
+      - basic_eps_from_accounting_change
+      - basic_eps_from_accounting_change_and_extraordinary_items
+      - basic_eps_from_extraordinary_items
+      - basic_eps_including_extra_items
+      - capex
+      - capital_expenditure
+      - capital_expenditures
+      - capital_leases
+      - capitalized_leases
+      - cash
+      - cash_acquisitions
+      - cash_and_cash_equivalents
+      - cash_and_equivalents
+      - cash_and_short_term_investments
+      - cash_flow_from_operations
+      - cash_from_discontinued_operation
+      - cash_from_financing
+      - cash_from_financing_activities
+      - cash_from_investing
+      - cash_from_investing_activities
+      - cash_from_operating_activities
+      - cash_from_operations
+      - cashflow_from_financing
+      - cashflow_from_financing_activities
+      - cashflow_from_investing
+      - cashflow_from_investing_activities
+      - change_in_accounts_payable
+      - change_in_accounts_receivable
+      - change_in_cash
+      - change_in_deferred_taxes
+      - change_in_income_taxes
+      - change_in_inventories
+      - change_in_net_operating_assets
+      - change_in_net_working_capital
+      - change_in_other_net_operating_assets
+      - change_in_trading_asset_securities
+      - change_in_unearned_revenue
+      - cogs
+      - common_dividends_paid
+      - common_equity
+      - common_shares_outstanding
+      - common_stock
+      - continued_operations_earnings
+      - convertible_preferred_stock
+      - cor
+      - cost_of_goods_sold
+      - cost_of_revenue
+      - currency_exchange_gains
+      - current_accounts_receivable
+      - current_assets
+      - current_borrowing
+      - current_borrowings
+      - current_debt_issued
+      - current_debt_repaid
+      - current_deferred_tax_asset
+      - current_deferred_tax_liability
+      - current_income_taxes_payable
+      - current_liabilities
+      - current_notes_receivable
+      - current_other_receivables
+      - current_portion_of_cap_leases
+      - current_portion_of_capital_leases
+      - current_portion_of_capitalized_leases
+      - current_portion_of_income_taxes_payable
+      - current_portion_of_leases
+      - current_portion_of_long_term_debt
+      - current_portion_of_long_term_debt_and_capital_leases
+      - current_portion_of_long_term_debt_and_capitalized_leases
+      - current_portion_of_lt_debt
+      - current_portion_of_lt_debt_and_cap_leases
+      - current_portion_of_non_current_debt
+      - current_portion_of_non_current_debt_and_capital_leases
+      - current_portion_of_non_current_debt_and_capitalized_leases
+      - current_portion_of_unearned_revenue
+      - current_ratio
+      - current_total_receivable
+      - current_total_receivables
+      - current_unearned_revenue
+      - d_and_a
+      - debt_ratio
+      - deferred_tax_asset_current_portion
+      - depreciation
+      - depreciation_and_amortization
+      - depreciation_of_rental_assets
+      - diluted_earning_per_share
+      - diluted_earning_per_share_excluding_extra_items
+      - diluted_earning_per_share_from_accounting_change
+      - diluted_earning_per_share_from_accounting_change_and_extraordinary_items
+      - diluted_earning_per_share_from_discontinued_operations
+      - diluted_earning_per_share_from_extraordinary_items
+      - diluted_earning_per_share_including_extra_items
+      - diluted_eps
+      - diluted_eps_excluding_extra_items
+      - diluted_eps_from_accounting_change
+      - diluted_eps_from_accounting_change_and_extraordinary_items
+      - diluted_eps_from_discontinued_operations
+      - diluted_eps_from_extraordinary_items
+      - diluted_eps_including_extra_items
+      - discontinued_operations_earnings
+      - distributable_cash_per_share
+      - divestitures
+      - dividends_paid
+      - dividends_per_share
+      - dna
+      - earnings_before_interest_and_taxes
+      - earnings_before_interest_taxes_and_amortization
+      - earnings_before_interest_taxes_depreciation_amortization_and_rental_expense
+      - earnings_before_interest_taxes_depreciation_and_amortization
+      - earnings_before_taxes_excluding_unusual_items
+      - earnings_before_taxes_including_unusual_items
+      - earnings_from_continued_operations
+      - earnings_from_discontinued_operations
+      - ebit
+      - ebita
+      - ebitda
+      - ebitdar
+      - ebt_excluding_unusual_items
+      - ebt_including_unusual_items
+      - effective_tax_rate
+      - enterprise_value_to_earnings_before_interest_and_taxes
+      - enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - enterprise_value_to_ebit
+      - enterprise_value_to_ebitda
+      - enterprise_value_to_employee_count
+      - enterprise_value_to_employees
+      - enterprise_value_to_headcount
+      - enterprise_value_to_total_revenue
+      - equity
+      - equity_adjustment_preferred_stock
+      - ev_to_ebit
+      - ev_to_ebitda
+      - ev_to_employee_count
+      - ev_to_employees
+      - ev_to_headcount
+      - ev_to_total_revenue
+      - exploration_and_drilling_costs
+      - exploration_and_drilling_expense
+      - extraordinary_item_and_accounting_change
+      - fees_and_other_income
+      - ffo
+      - finance_division_debt_current_portion
+      - finance_division_debt_long_term_portion
+      - finance_division_debt_non_current_portion
+      - finance_division_interest_expense
+      - finance_division_loans_and_leases_long_term
+      - finance_division_loans_and_leases_short_term
+      - finance_division_long_term_debt
+      - finance_division_long_term_loans_and_leases
+      - finance_division_non_current_debt
+      - finance_division_operating_expense
+      - finance_division_other_current_assets
+      - finance_division_other_current_liabilities
+      - finance_division_other_long_term_assets
+      - finance_division_other_long_term_liabilities
+      - finance_division_other_non_current_assets
+      - finance_division_other_non_current_liabilities
+      - finance_division_other_short_term_assets
+      - finance_division_revenue
+      - finance_division_short_term_loans_and_leases
+      - foreign_exchange_adjustments
+      - foreign_exchange_rate_adjustments
+      - funds_from_operations
+      - fx_adjustments
+      - gain_from_sale_of_assets
+      - gain_from_sale_of_investments
+      - goodwill
+      - gppe
+      - gross_ppe
+      - gross_profit
+      - gross_property_plant_and_equipment
+      - impairment_o_and_g
+      - impairment_of_goodwill
+      - impairment_of_oil_and_gas
+      - impairment_of_oil_gas_and_mineral_properties
+      - in_process_r_and_d_cost
+      - in_process_r_and_d_expense
+      - in_process_research_and_development_cost
+      - in_process_research_and_development_expense
+      - in_process_rnd_cost
+      - in_process_rnd_expense
+      - income_from_affiliates
+      - income_tax
+      - income_tax_expense
+      - income_taxes
+      - insurance_division_operating_expense
+      - insurance_division_revenue
+      - insurance_settlements
+      - interest_and_investment_income
+      - interest_expense
+      - interest_expense_finance_division
+      - inventories
+      - inventory
+      - issuance_of_common_stock
+      - issuance_of_preferred_stock
+      - last_close_enterprise_value_to_earnings_before_interest_and_taxes
+      - last_close_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - last_close_enterprise_value_to_ebit
+      - last_close_enterprise_value_to_ebitda
+      - last_close_enterprise_value_to_employee_count
+      - last_close_enterprise_value_to_employees
+      - last_close_enterprise_value_to_headcount
+      - last_close_enterprise_value_to_total_revenue
+      - last_close_ev_to_ebit
+      - last_close_ev_to_employee_count
+      - last_close_ev_to_employees
+      - last_close_ev_to_headcount
+      - last_close_ev_to_total_revenue
+      - last_close_tev_to_ebit
+      - last_close_tev_to_ebitda
+      - last_close_tev_to_employee_count
+      - last_close_tev_to_employees
+      - last_close_tev_to_headcount
+      - last_close_tev_to_total_revenue
+      - last_close_total_enterprise_value_to_earnings_before_interest_and_taxes
+      - last_close_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - last_close_total_enterprise_value_to_ebit
+      - last_close_total_enterprise_value_to_ebitda
+      - last_close_total_enterprise_value_to_employee_count
+      - last_close_total_enterprise_value_to_employees
+      - last_close_total_enterprise_value_to_headcount
+      - last_close_total_ev_to_ebit
+      - last_close_total_ev_to_ebitda
+      - last_close_total_ev_to_employee_count
+      - last_close_total_ev_to_employees
+      - last_close_total_ev_to_headcount
+      - last_enterprise_value_to_earnings_before_interest_and_taxes
+      - last_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - last_enterprise_value_to_ebit
+      - last_enterprise_value_to_ebitda
+      - last_enterprise_value_to_employee_count
+      - last_enterprise_value_to_employees
+      - last_enterprise_value_to_headcount
+      - last_enterprise_value_to_total_revenue
+      - last_ev_to_employee_count
+      - last_ev_to_employees
+      - last_ev_to_headcount
+      - last_ev_to_total_revenue
+      - last_tev_to_ebit
+      - last_tev_to_ebitda
+      - last_tev_to_employee_count
+      - last_tev_to_employees
+      - last_tev_to_headcount
+      - last_tev_to_total_revenue
+      - last_total_enterprise_value_to_earnings_before_interest_and_taxes
+      - last_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - last_total_enterprise_value_to_ebit
+      - last_total_enterprise_value_to_ebitda
+      - last_total_enterprise_value_to_employee_count
+      - last_total_enterprise_value_to_employees
+      - last_total_enterprise_value_to_headcount
+      - last_total_ev_to_ebit
+      - last_total_ev_to_ebitda
+      - last_total_ev_to_employee_count
+      - last_total_ev_to_employees
+      - last_total_ev_to_headcount
+      - legal_settlements
+      - liabilities
+      - liabilities_and_equity
+      - loans_held_for_sale
+      - loans_receivable
+      - long_term_accounts_receivable
+      - long_term_debt
+      - long_term_debt_issued
+      - long_term_debt_repaid
+      - long_term_deferred_charges
+      - long_term_deferred_tax_assets
+      - long_term_finance_division_loans_and_leases
+      - long_term_investments
+      - long_term_leases
+      - long_term_loans_and_leases_of_the_finance_division
+      - long_term_loans_receivable
+      - long_term_other_assets
+      - long_term_other_liabilities
+      - long_term_unearned_revenue
+      - loss_on_equity_investments
+      - merger_and_restructuring_charges
+      - merger_charges
+      - minority_interest_in_earnings
+      - misc_cash_flow_adj
+      - miscellaneous_cash_flow_adjustments
+      - net_cash_from_discontinued_operation
+      - net_cash_from_investments
+      - net_change_in_cash
+      - net_debt
+      - net_decrease_in_investment_loans_originated_and_sold
+      - net_decrease_in_loans_originated_and_sold
+      - net_income
+      - net_income_allocable_to_general_partner
+      - net_income_to_common_shareholders_excluding_extra_items
+      - net_income_to_common_shareholders_including_extra_items
+      - net_income_to_company
+      - net_income_to_minority_interest
+      - net_interest_expense
+      - net_ppe
+      - net_property_plant_and_equipment
+      - net_working_capital
+      - non_current_accounts_receivable
+      - non_current_debt
+      - non_current_debt_issued
+      - non_current_debt_repaid
+      - non_current_deferred_charges
+      - non_current_deferred_tax_assets
+      - non_current_deferred_tax_liability
+      - non_current_investments
+      - non_current_loans_receivable
+      - non_current_other_assets
+      - non_current_other_liabilities
+      - non_current_unearned_revenue
+      - non_redeemable_preferred_stock
+      - normal_revenue
+      - normalized_basic_earning_per_share
+      - normalized_basic_eps
+      - normalized_diluted_earning_per_share
+      - normalized_diluted_eps
+      - notes_receivable
+      - nppe
+      - operating_expense
+      - operating_expense_finance_division
+      - operating_expense_insurance_division
+      - operating_income
+      - other_adjustments_to_net_income
+      - other_amortization
+      - other_current_assets
+      - other_current_assets_of_the_finance_division
+      - other_current_liabilities
+      - other_current_liability
+      - other_equity
+      - other_financing_activities
+      - other_intangibles
+      - other_investing_activities
+      - other_long_term_assets
+      - other_long_term_assets_of_the_finance_division
+      - other_long_term_liabilities
+      - other_non_current_assets
+      - other_non_current_assets_of_the_finance_division
+      - other_non_current_liabilities
+      - other_non_operating_income
+      - other_operating_activities
+      - other_operating_expense
+      - other_preferred_stock
+      - other_preferred_stock_adjustments
+      - other_receivables
+      - other_revenue
+      - other_short_term_assets_of_the_finance_division
+      - other_unusual_items
+      - pension_and_other_post_retirement_benefit
+      - ppe
+      - pre_opening_costs
+      - pre_opening_expense
+      - preferred_dividends_and_other_adjustments
+      - preferred_dividends_paid
+      - preferred_equity
+      - preferred_stock
+      - preferred_stock_additional_paid_in_capital
+      - preferred_stock_convertible
+      - preferred_stock_dividend
+      - preferred_stock_equity_adjustment
+      - preferred_stock_non_redeemable
+      - preferred_stock_other
+      - preferred_stock_redeemable
+      - premium_on_redemption_of_preferred_stock
+      - prepaid_expense
+      - prepaid_expenses
+      - property_plant_and_equipment
+      - provision_for_bad_debt
+      - provision_for_bad_debts
+      - provision_for_credit_losses
+      - quick_ratio
+      - r_and_d_cost
+      - r_and_d_expense
+      - redeemable_preferred_stock
+      - regular_revenue
+      - repurchase_of_common_stock
+      - repurchase_of_preferred_stock
+      - research_and_development_cost
+      - research_and_development_expense
+      - restricted_cash
+      - restructuring_charges
+      - retained_earnings
+      - revenue
+      - revenue_from_interest_and_investment_income
+      - revenue_from_sale_of_assets
+      - revenue_from_sale_of_investments
+      - rnd_cost
+      - rnd_expense
+      - sale_of_intangible_asset
+      - sale_of_intangible_assets
+      - sale_of_intangibles
+      - sale_of_ppe
+      - sale_of_property_plant_and_equipment
+      - sale_of_real_estate
+      - sale_of_real_estate_properties
+      - sale_of_real_properties
+      - sale_proceeds_from_rental_assets
+      - selling_general_and_admin
+      - selling_general_and_admin_cost
+      - selling_general_and_admin_expense
+      - sg_and_a
+      - sga
+      - shareholders_equity
+      - short_term_accounts_receivable
+      - short_term_assets
+      - short_term_borrowing
+      - short_term_borrowings
+      - short_term_debt_issued
+      - short_term_debt_repaid
+      - short_term_deferred_tax_asset
+      - short_term_finance_division_loans_and_leases
+      - short_term_investments
+      - short_term_loans_and_leases_of_the_finance_division
+      - short_term_notes_receivable
+      - short_term_other_receivables
+      - short_term_total_receivable
+      - short_term_total_receivables
+      - special_dividends_paid
+      - stock_based_compensation
+      - tax_benefit_from_stock_options
+      - tax_rate
+      - tev_to_ebit
+      - tev_to_ebitda
+      - tev_to_employee_count
+      - tev_to_employees
+      - tev_to_headcount
+      - tev_to_total_revenue
+      - total_assets
+      - total_cash_and_short_term_investments
+      - total_common_equity
+      - total_current_assets
+      - total_current_liabilities
+      - total_current_portion_of_long_term_debt_and_capital_leases
+      - total_current_portion_of_long_term_debt_and_capitalized_leases
+      - total_current_portion_of_lt_debt_and_cap_leases
+      - total_current_portion_of_non_current_debt_and_capital_leases
+      - total_current_portion_of_non_current_debt_and_capitalized_leases
+      - total_d_and_a
+      - total_debt
+      - total_debt_issued
+      - total_debt_ratio
+      - total_debt_repaid
+      - total_debt_to_capital
+      - total_debt_to_equity
+      - total_debt_to_equity_ratio
+      - total_debt_to_total_equity
+      - total_depreciation_and_amortization
+      - total_dividends_paid
+      - total_dna
+      - total_enterprise_value_to_earnings_before_interest_and_taxes
+      - total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+      - total_enterprise_value_to_ebit
+      - total_enterprise_value_to_ebitda
+      - total_enterprise_value_to_employee_count
+      - total_enterprise_value_to_employees
+      - total_enterprise_value_to_headcount
+      - total_enterprise_value_to_total_revenue
+      - total_equity
+      - total_ev_to_ebit
+      - total_ev_to_ebitda
+      - total_ev_to_employee_count
+      - total_ev_to_employees
+      - total_ev_to_headcount
+      - total_liabilities
+      - total_liabilities_and_equity
+      - total_operating_expense
+      - total_other_investing_activities
+      - total_other_non_cash_items
+      - total_other_non_operating_income
+      - total_other_operating_expense
+      - total_other_revenue
+      - total_other_unusual_items
+      - total_preferred_equity
+      - total_preferred_stock
+      - total_receivable
+      - total_receivables
+      - total_revenue
+      - total_selling_general_and_admin
+      - total_selling_general_and_admin_cost
+      - total_selling_general_and_admin_expense
+      - total_sga
+      - total_shareholders_equity
+      - total_short_term_assets
+      - total_unusual_items
+      - trading_asset_securities
+      - treasury_convertible_preferred_stock
+      - treasury_non_redeemable_preferred_stock
+      - treasury_preferred_stock_convertible
+      - treasury_preferred_stock_non_redeemable
+      - treasury_preferred_stock_redeemable
+      - treasury_redeemable_preferred_stock
+      - treasury_stock
+      - treasury_stock_convertible_preferred_stock
+      - treasury_stock_non_redeemable_preferred_stock
+      - treasury_stock_preferred_stock_convertible
+      - treasury_stock_preferred_stock_non_redeemable
+      - treasury_stock_preferred_stock_redeemable
+      - treasury_stock_redeemable_preferred_stock
+      - unusual_items
+      - weighted_average_basic_shares_outstanding
+      - weighted_average_diluted_shares_outstanding
+      - working_capital
+      type: string
+      description: '* `accounts_payable` - accounts_payable
+
+        * `accounts_receivable` - accounts_receivable
+
+        * `accrued_expenses` - accrued_expenses
+
+        * `accumulated_depreciation` - accumulated_depreciation
+
+        * `additional_paid_in_capital` - additional_paid_in_capital
+
+        * `additional_paid_in_capital_preferred_stock` - additional_paid_in_capital_preferred_stock
+
+        * `adjustments_to_cash_flow_net_income` - adjustments_to_cash_flow_net_income
+
+        * `amortization_of_goodwill_and_intangibles` - amortization_of_goodwill_and_intangibles
+
+        * `asset_writedown` - asset_writedown
+
+        * `assets` - assets
+
+        * `basic_earning_per_share` - basic_earning_per_share
+
+        * `basic_earning_per_share_excluding_extra_items` - basic_earning_per_share_excluding_extra_items
+
+        * `basic_earning_per_share_from_accounting_change` - basic_earning_per_share_from_accounting_change
+
+        * `basic_earning_per_share_from_accounting_change_and_extraordinary_items` - basic_earning_per_share_from_accounting_change_and_extraordinary_items
+
+        * `basic_earning_per_share_from_extraordinary_items` - basic_earning_per_share_from_extraordinary_items
+
+        * `basic_earning_per_share_including_extra_items` - basic_earning_per_share_including_extra_items
+
+        * `basic_eps` - basic_eps
+
+        * `basic_eps_excluding_extra_items` - basic_eps_excluding_extra_items
+
+        * `basic_eps_from_accounting_change` - basic_eps_from_accounting_change
+
+        * `basic_eps_from_accounting_change_and_extraordinary_items` - basic_eps_from_accounting_change_and_extraordinary_items
+
+        * `basic_eps_from_extraordinary_items` - basic_eps_from_extraordinary_items
+
+        * `basic_eps_including_extra_items` - basic_eps_including_extra_items
+
+        * `capex` - capex
+
+        * `capital_expenditure` - capital_expenditure
+
+        * `capital_expenditures` - capital_expenditures
+
+        * `capital_leases` - capital_leases
+
+        * `capitalized_leases` - capitalized_leases
+
+        * `cash` - cash
+
+        * `cash_acquisitions` - cash_acquisitions
+
+        * `cash_and_cash_equivalents` - cash_and_cash_equivalents
+
+        * `cash_and_equivalents` - cash_and_equivalents
+
+        * `cash_and_short_term_investments` - cash_and_short_term_investments
+
+        * `cash_flow_from_operations` - cash_flow_from_operations
+
+        * `cash_from_discontinued_operation` - cash_from_discontinued_operation
+
+        * `cash_from_financing` - cash_from_financing
+
+        * `cash_from_financing_activities` - cash_from_financing_activities
+
+        * `cash_from_investing` - cash_from_investing
+
+        * `cash_from_investing_activities` - cash_from_investing_activities
+
+        * `cash_from_operating_activities` - cash_from_operating_activities
+
+        * `cash_from_operations` - cash_from_operations
+
+        * `cashflow_from_financing` - cashflow_from_financing
+
+        * `cashflow_from_financing_activities` - cashflow_from_financing_activities
+
+        * `cashflow_from_investing` - cashflow_from_investing
+
+        * `cashflow_from_investing_activities` - cashflow_from_investing_activities
+
+        * `change_in_accounts_payable` - change_in_accounts_payable
+
+        * `change_in_accounts_receivable` - change_in_accounts_receivable
+
+        * `change_in_cash` - change_in_cash
+
+        * `change_in_deferred_taxes` - change_in_deferred_taxes
+
+        * `change_in_income_taxes` - change_in_income_taxes
+
+        * `change_in_inventories` - change_in_inventories
+
+        * `change_in_net_operating_assets` - change_in_net_operating_assets
+
+        * `change_in_net_working_capital` - change_in_net_working_capital
+
+        * `change_in_other_net_operating_assets` - change_in_other_net_operating_assets
+
+        * `change_in_trading_asset_securities` - change_in_trading_asset_securities
+
+        * `change_in_unearned_revenue` - change_in_unearned_revenue
+
+        * `cogs` - cogs
+
+        * `common_dividends_paid` - common_dividends_paid
+
+        * `common_equity` - common_equity
+
+        * `common_shares_outstanding` - common_shares_outstanding
+
+        * `common_stock` - common_stock
+
+        * `continued_operations_earnings` - continued_operations_earnings
+
+        * `convertible_preferred_stock` - convertible_preferred_stock
+
+        * `cor` - cor
+
+        * `cost_of_goods_sold` - cost_of_goods_sold
+
+        * `cost_of_revenue` - cost_of_revenue
+
+        * `currency_exchange_gains` - currency_exchange_gains
+
+        * `current_accounts_receivable` - current_accounts_receivable
+
+        * `current_assets` - current_assets
+
+        * `current_borrowing` - current_borrowing
+
+        * `current_borrowings` - current_borrowings
+
+        * `current_debt_issued` - current_debt_issued
+
+        * `current_debt_repaid` - current_debt_repaid
+
+        * `current_deferred_tax_asset` - current_deferred_tax_asset
+
+        * `current_deferred_tax_liability` - current_deferred_tax_liability
+
+        * `current_income_taxes_payable` - current_income_taxes_payable
+
+        * `current_liabilities` - current_liabilities
+
+        * `current_notes_receivable` - current_notes_receivable
+
+        * `current_other_receivables` - current_other_receivables
+
+        * `current_portion_of_cap_leases` - current_portion_of_cap_leases
+
+        * `current_portion_of_capital_leases` - current_portion_of_capital_leases
+
+        * `current_portion_of_capitalized_leases` - current_portion_of_capitalized_leases
+
+        * `current_portion_of_income_taxes_payable` - current_portion_of_income_taxes_payable
+
+        * `current_portion_of_leases` - current_portion_of_leases
+
+        * `current_portion_of_long_term_debt` - current_portion_of_long_term_debt
+
+        * `current_portion_of_long_term_debt_and_capital_leases` - current_portion_of_long_term_debt_and_capital_leases
+
+        * `current_portion_of_long_term_debt_and_capitalized_leases` - current_portion_of_long_term_debt_and_capitalized_leases
+
+        * `current_portion_of_lt_debt` - current_portion_of_lt_debt
+
+        * `current_portion_of_lt_debt_and_cap_leases` - current_portion_of_lt_debt_and_cap_leases
+
+        * `current_portion_of_non_current_debt` - current_portion_of_non_current_debt
+
+        * `current_portion_of_non_current_debt_and_capital_leases` - current_portion_of_non_current_debt_and_capital_leases
+
+        * `current_portion_of_non_current_debt_and_capitalized_leases` - current_portion_of_non_current_debt_and_capitalized_leases
+
+        * `current_portion_of_unearned_revenue` - current_portion_of_unearned_revenue
+
+        * `current_ratio` - current_ratio
+
+        * `current_total_receivable` - current_total_receivable
+
+        * `current_total_receivables` - current_total_receivables
+
+        * `current_unearned_revenue` - current_unearned_revenue
+
+        * `d_and_a` - d_and_a
+
+        * `debt_ratio` - debt_ratio
+
+        * `deferred_tax_asset_current_portion` - deferred_tax_asset_current_portion
+
+        * `depreciation` - depreciation
+
+        * `depreciation_and_amortization` - depreciation_and_amortization
+
+        * `depreciation_of_rental_assets` - depreciation_of_rental_assets
+
+        * `diluted_earning_per_share` - diluted_earning_per_share
+
+        * `diluted_earning_per_share_excluding_extra_items` - diluted_earning_per_share_excluding_extra_items
+
+        * `diluted_earning_per_share_from_accounting_change` - diluted_earning_per_share_from_accounting_change
+
+        * `diluted_earning_per_share_from_accounting_change_and_extraordinary_items` - diluted_earning_per_share_from_accounting_change_and_extraordinary_items
+
+        * `diluted_earning_per_share_from_discontinued_operations` - diluted_earning_per_share_from_discontinued_operations
+
+        * `diluted_earning_per_share_from_extraordinary_items` - diluted_earning_per_share_from_extraordinary_items
+
+        * `diluted_earning_per_share_including_extra_items` - diluted_earning_per_share_including_extra_items
+
+        * `diluted_eps` - diluted_eps
+
+        * `diluted_eps_excluding_extra_items` - diluted_eps_excluding_extra_items
+
+        * `diluted_eps_from_accounting_change` - diluted_eps_from_accounting_change
+
+        * `diluted_eps_from_accounting_change_and_extraordinary_items` - diluted_eps_from_accounting_change_and_extraordinary_items
+
+        * `diluted_eps_from_discontinued_operations` - diluted_eps_from_discontinued_operations
+
+        * `diluted_eps_from_extraordinary_items` - diluted_eps_from_extraordinary_items
+
+        * `diluted_eps_including_extra_items` - diluted_eps_including_extra_items
+
+        * `discontinued_operations_earnings` - discontinued_operations_earnings
+
+        * `distributable_cash_per_share` - distributable_cash_per_share
+
+        * `divestitures` - divestitures
+
+        * `dividends_paid` - dividends_paid
+
+        * `dividends_per_share` - dividends_per_share
+
+        * `dna` - dna
+
+        * `earnings_before_interest_and_taxes` - earnings_before_interest_and_taxes
+
+        * `earnings_before_interest_taxes_and_amortization` - earnings_before_interest_taxes_and_amortization
+
+        * `earnings_before_interest_taxes_depreciation_amortization_and_rental_expense` - earnings_before_interest_taxes_depreciation_amortization_and_rental_expense
+
+        * `earnings_before_interest_taxes_depreciation_and_amortization` - earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `earnings_before_taxes_excluding_unusual_items` - earnings_before_taxes_excluding_unusual_items
+
+        * `earnings_before_taxes_including_unusual_items` - earnings_before_taxes_including_unusual_items
+
+        * `earnings_from_continued_operations` - earnings_from_continued_operations
+
+        * `earnings_from_discontinued_operations` - earnings_from_discontinued_operations
+
+        * `ebit` - ebit
+
+        * `ebita` - ebita
+
+        * `ebitda` - ebitda
+
+        * `ebitdar` - ebitdar
+
+        * `ebt_excluding_unusual_items` - ebt_excluding_unusual_items
+
+        * `ebt_including_unusual_items` - ebt_including_unusual_items
+
+        * `effective_tax_rate` - effective_tax_rate
+
+        * `enterprise_value_to_earnings_before_interest_and_taxes` - enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `enterprise_value_to_ebit` - enterprise_value_to_ebit
+
+        * `enterprise_value_to_ebitda` - enterprise_value_to_ebitda
+
+        * `enterprise_value_to_employee_count` - enterprise_value_to_employee_count
+
+        * `enterprise_value_to_employees` - enterprise_value_to_employees
+
+        * `enterprise_value_to_headcount` - enterprise_value_to_headcount
+
+        * `enterprise_value_to_total_revenue` - enterprise_value_to_total_revenue
+
+        * `equity` - equity
+
+        * `equity_adjustment_preferred_stock` - equity_adjustment_preferred_stock
+
+        * `ev_to_ebit` - ev_to_ebit
+
+        * `ev_to_ebitda` - ev_to_ebitda
+
+        * `ev_to_employee_count` - ev_to_employee_count
+
+        * `ev_to_employees` - ev_to_employees
+
+        * `ev_to_headcount` - ev_to_headcount
+
+        * `ev_to_total_revenue` - ev_to_total_revenue
+
+        * `exploration_and_drilling_costs` - exploration_and_drilling_costs
+
+        * `exploration_and_drilling_expense` - exploration_and_drilling_expense
+
+        * `extraordinary_item_and_accounting_change` - extraordinary_item_and_accounting_change
+
+        * `fees_and_other_income` - fees_and_other_income
+
+        * `ffo` - ffo
+
+        * `finance_division_debt_current_portion` - finance_division_debt_current_portion
+
+        * `finance_division_debt_long_term_portion` - finance_division_debt_long_term_portion
+
+        * `finance_division_debt_non_current_portion` - finance_division_debt_non_current_portion
+
+        * `finance_division_interest_expense` - finance_division_interest_expense
+
+        * `finance_division_loans_and_leases_long_term` - finance_division_loans_and_leases_long_term
+
+        * `finance_division_loans_and_leases_short_term` - finance_division_loans_and_leases_short_term
+
+        * `finance_division_long_term_debt` - finance_division_long_term_debt
+
+        * `finance_division_long_term_loans_and_leases` - finance_division_long_term_loans_and_leases
+
+        * `finance_division_non_current_debt` - finance_division_non_current_debt
+
+        * `finance_division_operating_expense` - finance_division_operating_expense
+
+        * `finance_division_other_current_assets` - finance_division_other_current_assets
+
+        * `finance_division_other_current_liabilities` - finance_division_other_current_liabilities
+
+        * `finance_division_other_long_term_assets` - finance_division_other_long_term_assets
+
+        * `finance_division_other_long_term_liabilities` - finance_division_other_long_term_liabilities
+
+        * `finance_division_other_non_current_assets` - finance_division_other_non_current_assets
+
+        * `finance_division_other_non_current_liabilities` - finance_division_other_non_current_liabilities
+
+        * `finance_division_other_short_term_assets` - finance_division_other_short_term_assets
+
+        * `finance_division_revenue` - finance_division_revenue
+
+        * `finance_division_short_term_loans_and_leases` - finance_division_short_term_loans_and_leases
+
+        * `foreign_exchange_adjustments` - foreign_exchange_adjustments
+
+        * `foreign_exchange_rate_adjustments` - foreign_exchange_rate_adjustments
+
+        * `funds_from_operations` - funds_from_operations
+
+        * `fx_adjustments` - fx_adjustments
+
+        * `gain_from_sale_of_assets` - gain_from_sale_of_assets
+
+        * `gain_from_sale_of_investments` - gain_from_sale_of_investments
+
+        * `goodwill` - goodwill
+
+        * `gppe` - gppe
+
+        * `gross_ppe` - gross_ppe
+
+        * `gross_profit` - gross_profit
+
+        * `gross_property_plant_and_equipment` - gross_property_plant_and_equipment
+
+        * `impairment_o_and_g` - impairment_o_and_g
+
+        * `impairment_of_goodwill` - impairment_of_goodwill
+
+        * `impairment_of_oil_and_gas` - impairment_of_oil_and_gas
+
+        * `impairment_of_oil_gas_and_mineral_properties` - impairment_of_oil_gas_and_mineral_properties
+
+        * `in_process_r_and_d_cost` - in_process_r_and_d_cost
+
+        * `in_process_r_and_d_expense` - in_process_r_and_d_expense
+
+        * `in_process_research_and_development_cost` - in_process_research_and_development_cost
+
+        * `in_process_research_and_development_expense` - in_process_research_and_development_expense
+
+        * `in_process_rnd_cost` - in_process_rnd_cost
+
+        * `in_process_rnd_expense` - in_process_rnd_expense
+
+        * `income_from_affiliates` - income_from_affiliates
+
+        * `income_tax` - income_tax
+
+        * `income_tax_expense` - income_tax_expense
+
+        * `income_taxes` - income_taxes
+
+        * `insurance_division_operating_expense` - insurance_division_operating_expense
+
+        * `insurance_division_revenue` - insurance_division_revenue
+
+        * `insurance_settlements` - insurance_settlements
+
+        * `interest_and_investment_income` - interest_and_investment_income
+
+        * `interest_expense` - interest_expense
+
+        * `interest_expense_finance_division` - interest_expense_finance_division
+
+        * `inventories` - inventories
+
+        * `inventory` - inventory
+
+        * `issuance_of_common_stock` - issuance_of_common_stock
+
+        * `issuance_of_preferred_stock` - issuance_of_preferred_stock
+
+        * `last_close_enterprise_value_to_earnings_before_interest_and_taxes` - last_close_enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `last_close_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - last_close_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `last_close_enterprise_value_to_ebit` - last_close_enterprise_value_to_ebit
+
+        * `last_close_enterprise_value_to_ebitda` - last_close_enterprise_value_to_ebitda
+
+        * `last_close_enterprise_value_to_employee_count` - last_close_enterprise_value_to_employee_count
+
+        * `last_close_enterprise_value_to_employees` - last_close_enterprise_value_to_employees
+
+        * `last_close_enterprise_value_to_headcount` - last_close_enterprise_value_to_headcount
+
+        * `last_close_enterprise_value_to_total_revenue` - last_close_enterprise_value_to_total_revenue
+
+        * `last_close_ev_to_ebit` - last_close_ev_to_ebit
+
+        * `last_close_ev_to_employee_count` - last_close_ev_to_employee_count
+
+        * `last_close_ev_to_employees` - last_close_ev_to_employees
+
+        * `last_close_ev_to_headcount` - last_close_ev_to_headcount
+
+        * `last_close_ev_to_total_revenue` - last_close_ev_to_total_revenue
+
+        * `last_close_tev_to_ebit` - last_close_tev_to_ebit
+
+        * `last_close_tev_to_ebitda` - last_close_tev_to_ebitda
+
+        * `last_close_tev_to_employee_count` - last_close_tev_to_employee_count
+
+        * `last_close_tev_to_employees` - last_close_tev_to_employees
+
+        * `last_close_tev_to_headcount` - last_close_tev_to_headcount
+
+        * `last_close_tev_to_total_revenue` - last_close_tev_to_total_revenue
+
+        * `last_close_total_enterprise_value_to_earnings_before_interest_and_taxes` - last_close_total_enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `last_close_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - last_close_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `last_close_total_enterprise_value_to_ebit` - last_close_total_enterprise_value_to_ebit
+
+        * `last_close_total_enterprise_value_to_ebitda` - last_close_total_enterprise_value_to_ebitda
+
+        * `last_close_total_enterprise_value_to_employee_count` - last_close_total_enterprise_value_to_employee_count
+
+        * `last_close_total_enterprise_value_to_employees` - last_close_total_enterprise_value_to_employees
+
+        * `last_close_total_enterprise_value_to_headcount` - last_close_total_enterprise_value_to_headcount
+
+        * `last_close_total_ev_to_ebit` - last_close_total_ev_to_ebit
+
+        * `last_close_total_ev_to_ebitda` - last_close_total_ev_to_ebitda
+
+        * `last_close_total_ev_to_employee_count` - last_close_total_ev_to_employee_count
+
+        * `last_close_total_ev_to_employees` - last_close_total_ev_to_employees
+
+        * `last_close_total_ev_to_headcount` - last_close_total_ev_to_headcount
+
+        * `last_enterprise_value_to_earnings_before_interest_and_taxes` - last_enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `last_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - last_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `last_enterprise_value_to_ebit` - last_enterprise_value_to_ebit
+
+        * `last_enterprise_value_to_ebitda` - last_enterprise_value_to_ebitda
+
+        * `last_enterprise_value_to_employee_count` - last_enterprise_value_to_employee_count
+
+        * `last_enterprise_value_to_employees` - last_enterprise_value_to_employees
+
+        * `last_enterprise_value_to_headcount` - last_enterprise_value_to_headcount
+
+        * `last_enterprise_value_to_total_revenue` - last_enterprise_value_to_total_revenue
+
+        * `last_ev_to_employee_count` - last_ev_to_employee_count
+
+        * `last_ev_to_employees` - last_ev_to_employees
+
+        * `last_ev_to_headcount` - last_ev_to_headcount
+
+        * `last_ev_to_total_revenue` - last_ev_to_total_revenue
+
+        * `last_tev_to_ebit` - last_tev_to_ebit
+
+        * `last_tev_to_ebitda` - last_tev_to_ebitda
+
+        * `last_tev_to_employee_count` - last_tev_to_employee_count
+
+        * `last_tev_to_employees` - last_tev_to_employees
+
+        * `last_tev_to_headcount` - last_tev_to_headcount
+
+        * `last_tev_to_total_revenue` - last_tev_to_total_revenue
+
+        * `last_total_enterprise_value_to_earnings_before_interest_and_taxes` - last_total_enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `last_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - last_total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `last_total_enterprise_value_to_ebit` - last_total_enterprise_value_to_ebit
+
+        * `last_total_enterprise_value_to_ebitda` - last_total_enterprise_value_to_ebitda
+
+        * `last_total_enterprise_value_to_employee_count` - last_total_enterprise_value_to_employee_count
+
+        * `last_total_enterprise_value_to_employees` - last_total_enterprise_value_to_employees
+
+        * `last_total_enterprise_value_to_headcount` - last_total_enterprise_value_to_headcount
+
+        * `last_total_ev_to_ebit` - last_total_ev_to_ebit
+
+        * `last_total_ev_to_ebitda` - last_total_ev_to_ebitda
+
+        * `last_total_ev_to_employee_count` - last_total_ev_to_employee_count
+
+        * `last_total_ev_to_employees` - last_total_ev_to_employees
+
+        * `last_total_ev_to_headcount` - last_total_ev_to_headcount
+
+        * `legal_settlements` - legal_settlements
+
+        * `liabilities` - liabilities
+
+        * `liabilities_and_equity` - liabilities_and_equity
+
+        * `loans_held_for_sale` - loans_held_for_sale
+
+        * `loans_receivable` - loans_receivable
+
+        * `long_term_accounts_receivable` - long_term_accounts_receivable
+
+        * `long_term_debt` - long_term_debt
+
+        * `long_term_debt_issued` - long_term_debt_issued
+
+        * `long_term_debt_repaid` - long_term_debt_repaid
+
+        * `long_term_deferred_charges` - long_term_deferred_charges
+
+        * `long_term_deferred_tax_assets` - long_term_deferred_tax_assets
+
+        * `long_term_finance_division_loans_and_leases` - long_term_finance_division_loans_and_leases
+
+        * `long_term_investments` - long_term_investments
+
+        * `long_term_leases` - long_term_leases
+
+        * `long_term_loans_and_leases_of_the_finance_division` - long_term_loans_and_leases_of_the_finance_division
+
+        * `long_term_loans_receivable` - long_term_loans_receivable
+
+        * `long_term_other_assets` - long_term_other_assets
+
+        * `long_term_other_liabilities` - long_term_other_liabilities
+
+        * `long_term_unearned_revenue` - long_term_unearned_revenue
+
+        * `loss_on_equity_investments` - loss_on_equity_investments
+
+        * `merger_and_restructuring_charges` - merger_and_restructuring_charges
+
+        * `merger_charges` - merger_charges
+
+        * `minority_interest_in_earnings` - minority_interest_in_earnings
+
+        * `misc_cash_flow_adj` - misc_cash_flow_adj
+
+        * `miscellaneous_cash_flow_adjustments` - miscellaneous_cash_flow_adjustments
+
+        * `net_cash_from_discontinued_operation` - net_cash_from_discontinued_operation
+
+        * `net_cash_from_investments` - net_cash_from_investments
+
+        * `net_change_in_cash` - net_change_in_cash
+
+        * `net_debt` - net_debt
+
+        * `net_decrease_in_investment_loans_originated_and_sold` - net_decrease_in_investment_loans_originated_and_sold
+
+        * `net_decrease_in_loans_originated_and_sold` - net_decrease_in_loans_originated_and_sold
+
+        * `net_income` - net_income
+
+        * `net_income_allocable_to_general_partner` - net_income_allocable_to_general_partner
+
+        * `net_income_to_common_shareholders_excluding_extra_items` - net_income_to_common_shareholders_excluding_extra_items
+
+        * `net_income_to_common_shareholders_including_extra_items` - net_income_to_common_shareholders_including_extra_items
+
+        * `net_income_to_company` - net_income_to_company
+
+        * `net_income_to_minority_interest` - net_income_to_minority_interest
+
+        * `net_interest_expense` - net_interest_expense
+
+        * `net_ppe` - net_ppe
+
+        * `net_property_plant_and_equipment` - net_property_plant_and_equipment
+
+        * `net_working_capital` - net_working_capital
+
+        * `non_current_accounts_receivable` - non_current_accounts_receivable
+
+        * `non_current_debt` - non_current_debt
+
+        * `non_current_debt_issued` - non_current_debt_issued
+
+        * `non_current_debt_repaid` - non_current_debt_repaid
+
+        * `non_current_deferred_charges` - non_current_deferred_charges
+
+        * `non_current_deferred_tax_assets` - non_current_deferred_tax_assets
+
+        * `non_current_deferred_tax_liability` - non_current_deferred_tax_liability
+
+        * `non_current_investments` - non_current_investments
+
+        * `non_current_loans_receivable` - non_current_loans_receivable
+
+        * `non_current_other_assets` - non_current_other_assets
+
+        * `non_current_other_liabilities` - non_current_other_liabilities
+
+        * `non_current_unearned_revenue` - non_current_unearned_revenue
+
+        * `non_redeemable_preferred_stock` - non_redeemable_preferred_stock
+
+        * `normal_revenue` - normal_revenue
+
+        * `normalized_basic_earning_per_share` - normalized_basic_earning_per_share
+
+        * `normalized_basic_eps` - normalized_basic_eps
+
+        * `normalized_diluted_earning_per_share` - normalized_diluted_earning_per_share
+
+        * `normalized_diluted_eps` - normalized_diluted_eps
+
+        * `notes_receivable` - notes_receivable
+
+        * `nppe` - nppe
+
+        * `operating_expense` - operating_expense
+
+        * `operating_expense_finance_division` - operating_expense_finance_division
+
+        * `operating_expense_insurance_division` - operating_expense_insurance_division
+
+        * `operating_income` - operating_income
+
+        * `other_adjustments_to_net_income` - other_adjustments_to_net_income
+
+        * `other_amortization` - other_amortization
+
+        * `other_current_assets` - other_current_assets
+
+        * `other_current_assets_of_the_finance_division` - other_current_assets_of_the_finance_division
+
+        * `other_current_liabilities` - other_current_liabilities
+
+        * `other_current_liability` - other_current_liability
+
+        * `other_equity` - other_equity
+
+        * `other_financing_activities` - other_financing_activities
+
+        * `other_intangibles` - other_intangibles
+
+        * `other_investing_activities` - other_investing_activities
+
+        * `other_long_term_assets` - other_long_term_assets
+
+        * `other_long_term_assets_of_the_finance_division` - other_long_term_assets_of_the_finance_division
+
+        * `other_long_term_liabilities` - other_long_term_liabilities
+
+        * `other_non_current_assets` - other_non_current_assets
+
+        * `other_non_current_assets_of_the_finance_division` - other_non_current_assets_of_the_finance_division
+
+        * `other_non_current_liabilities` - other_non_current_liabilities
+
+        * `other_non_operating_income` - other_non_operating_income
+
+        * `other_operating_activities` - other_operating_activities
+
+        * `other_operating_expense` - other_operating_expense
+
+        * `other_preferred_stock` - other_preferred_stock
+
+        * `other_preferred_stock_adjustments` - other_preferred_stock_adjustments
+
+        * `other_receivables` - other_receivables
+
+        * `other_revenue` - other_revenue
+
+        * `other_short_term_assets_of_the_finance_division` - other_short_term_assets_of_the_finance_division
+
+        * `other_unusual_items` - other_unusual_items
+
+        * `pension_and_other_post_retirement_benefit` - pension_and_other_post_retirement_benefit
+
+        * `ppe` - ppe
+
+        * `pre_opening_costs` - pre_opening_costs
+
+        * `pre_opening_expense` - pre_opening_expense
+
+        * `preferred_dividends_and_other_adjustments` - preferred_dividends_and_other_adjustments
+
+        * `preferred_dividends_paid` - preferred_dividends_paid
+
+        * `preferred_equity` - preferred_equity
+
+        * `preferred_stock` - preferred_stock
+
+        * `preferred_stock_additional_paid_in_capital` - preferred_stock_additional_paid_in_capital
+
+        * `preferred_stock_convertible` - preferred_stock_convertible
+
+        * `preferred_stock_dividend` - preferred_stock_dividend
+
+        * `preferred_stock_equity_adjustment` - preferred_stock_equity_adjustment
+
+        * `preferred_stock_non_redeemable` - preferred_stock_non_redeemable
+
+        * `preferred_stock_other` - preferred_stock_other
+
+        * `preferred_stock_redeemable` - preferred_stock_redeemable
+
+        * `premium_on_redemption_of_preferred_stock` - premium_on_redemption_of_preferred_stock
+
+        * `prepaid_expense` - prepaid_expense
+
+        * `prepaid_expenses` - prepaid_expenses
+
+        * `property_plant_and_equipment` - property_plant_and_equipment
+
+        * `provision_for_bad_debt` - provision_for_bad_debt
+
+        * `provision_for_bad_debts` - provision_for_bad_debts
+
+        * `provision_for_credit_losses` - provision_for_credit_losses
+
+        * `quick_ratio` - quick_ratio
+
+        * `r_and_d_cost` - r_and_d_cost
+
+        * `r_and_d_expense` - r_and_d_expense
+
+        * `redeemable_preferred_stock` - redeemable_preferred_stock
+
+        * `regular_revenue` - regular_revenue
+
+        * `repurchase_of_common_stock` - repurchase_of_common_stock
+
+        * `repurchase_of_preferred_stock` - repurchase_of_preferred_stock
+
+        * `research_and_development_cost` - research_and_development_cost
+
+        * `research_and_development_expense` - research_and_development_expense
+
+        * `restricted_cash` - restricted_cash
+
+        * `restructuring_charges` - restructuring_charges
+
+        * `retained_earnings` - retained_earnings
+
+        * `revenue` - revenue
+
+        * `revenue_from_interest_and_investment_income` - revenue_from_interest_and_investment_income
+
+        * `revenue_from_sale_of_assets` - revenue_from_sale_of_assets
+
+        * `revenue_from_sale_of_investments` - revenue_from_sale_of_investments
+
+        * `rnd_cost` - rnd_cost
+
+        * `rnd_expense` - rnd_expense
+
+        * `sale_of_intangible_asset` - sale_of_intangible_asset
+
+        * `sale_of_intangible_assets` - sale_of_intangible_assets
+
+        * `sale_of_intangibles` - sale_of_intangibles
+
+        * `sale_of_ppe` - sale_of_ppe
+
+        * `sale_of_property_plant_and_equipment` - sale_of_property_plant_and_equipment
+
+        * `sale_of_real_estate` - sale_of_real_estate
+
+        * `sale_of_real_estate_properties` - sale_of_real_estate_properties
+
+        * `sale_of_real_properties` - sale_of_real_properties
+
+        * `sale_proceeds_from_rental_assets` - sale_proceeds_from_rental_assets
+
+        * `selling_general_and_admin` - selling_general_and_admin
+
+        * `selling_general_and_admin_cost` - selling_general_and_admin_cost
+
+        * `selling_general_and_admin_expense` - selling_general_and_admin_expense
+
+        * `sg_and_a` - sg_and_a
+
+        * `sga` - sga
+
+        * `shareholders_equity` - shareholders_equity
+
+        * `short_term_accounts_receivable` - short_term_accounts_receivable
+
+        * `short_term_assets` - short_term_assets
+
+        * `short_term_borrowing` - short_term_borrowing
+
+        * `short_term_borrowings` - short_term_borrowings
+
+        * `short_term_debt_issued` - short_term_debt_issued
+
+        * `short_term_debt_repaid` - short_term_debt_repaid
+
+        * `short_term_deferred_tax_asset` - short_term_deferred_tax_asset
+
+        * `short_term_finance_division_loans_and_leases` - short_term_finance_division_loans_and_leases
+
+        * `short_term_investments` - short_term_investments
+
+        * `short_term_loans_and_leases_of_the_finance_division` - short_term_loans_and_leases_of_the_finance_division
+
+        * `short_term_notes_receivable` - short_term_notes_receivable
+
+        * `short_term_other_receivables` - short_term_other_receivables
+
+        * `short_term_total_receivable` - short_term_total_receivable
+
+        * `short_term_total_receivables` - short_term_total_receivables
+
+        * `special_dividends_paid` - special_dividends_paid
+
+        * `stock_based_compensation` - stock_based_compensation
+
+        * `tax_benefit_from_stock_options` - tax_benefit_from_stock_options
+
+        * `tax_rate` - tax_rate
+
+        * `tev_to_ebit` - tev_to_ebit
+
+        * `tev_to_ebitda` - tev_to_ebitda
+
+        * `tev_to_employee_count` - tev_to_employee_count
+
+        * `tev_to_employees` - tev_to_employees
+
+        * `tev_to_headcount` - tev_to_headcount
+
+        * `tev_to_total_revenue` - tev_to_total_revenue
+
+        * `total_assets` - total_assets
+
+        * `total_cash_and_short_term_investments` - total_cash_and_short_term_investments
+
+        * `total_common_equity` - total_common_equity
+
+        * `total_current_assets` - total_current_assets
+
+        * `total_current_liabilities` - total_current_liabilities
+
+        * `total_current_portion_of_long_term_debt_and_capital_leases` - total_current_portion_of_long_term_debt_and_capital_leases
+
+        * `total_current_portion_of_long_term_debt_and_capitalized_leases` - total_current_portion_of_long_term_debt_and_capitalized_leases
+
+        * `total_current_portion_of_lt_debt_and_cap_leases` - total_current_portion_of_lt_debt_and_cap_leases
+
+        * `total_current_portion_of_non_current_debt_and_capital_leases` - total_current_portion_of_non_current_debt_and_capital_leases
+
+        * `total_current_portion_of_non_current_debt_and_capitalized_leases` - total_current_portion_of_non_current_debt_and_capitalized_leases
+
+        * `total_d_and_a` - total_d_and_a
+
+        * `total_debt` - total_debt
+
+        * `total_debt_issued` - total_debt_issued
+
+        * `total_debt_ratio` - total_debt_ratio
+
+        * `total_debt_repaid` - total_debt_repaid
+
+        * `total_debt_to_capital` - total_debt_to_capital
+
+        * `total_debt_to_equity` - total_debt_to_equity
+
+        * `total_debt_to_equity_ratio` - total_debt_to_equity_ratio
+
+        * `total_debt_to_total_equity` - total_debt_to_total_equity
+
+        * `total_depreciation_and_amortization` - total_depreciation_and_amortization
+
+        * `total_dividends_paid` - total_dividends_paid
+
+        * `total_dna` - total_dna
+
+        * `total_enterprise_value_to_earnings_before_interest_and_taxes` - total_enterprise_value_to_earnings_before_interest_and_taxes
+
+        * `total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization` - total_enterprise_value_to_earnings_before_interest_taxes_depreciation_and_amortization
+
+        * `total_enterprise_value_to_ebit` - total_enterprise_value_to_ebit
+
+        * `total_enterprise_value_to_ebitda` - total_enterprise_value_to_ebitda
+
+        * `total_enterprise_value_to_employee_count` - total_enterprise_value_to_employee_count
+
+        * `total_enterprise_value_to_employees` - total_enterprise_value_to_employees
+
+        * `total_enterprise_value_to_headcount` - total_enterprise_value_to_headcount
+
+        * `total_enterprise_value_to_total_revenue` - total_enterprise_value_to_total_revenue
+
+        * `total_equity` - total_equity
+
+        * `total_ev_to_ebit` - total_ev_to_ebit
+
+        * `total_ev_to_ebitda` - total_ev_to_ebitda
+
+        * `total_ev_to_employee_count` - total_ev_to_employee_count
+
+        * `total_ev_to_employees` - total_ev_to_employees
+
+        * `total_ev_to_headcount` - total_ev_to_headcount
+
+        * `total_liabilities` - total_liabilities
+
+        * `total_liabilities_and_equity` - total_liabilities_and_equity
+
+        * `total_operating_expense` - total_operating_expense
+
+        * `total_other_investing_activities` - total_other_investing_activities
+
+        * `total_other_non_cash_items` - total_other_non_cash_items
+
+        * `total_other_non_operating_income` - total_other_non_operating_income
+
+        * `total_other_operating_expense` - total_other_operating_expense
+
+        * `total_other_revenue` - total_other_revenue
+
+        * `total_other_unusual_items` - total_other_unusual_items
+
+        * `total_preferred_equity` - total_preferred_equity
+
+        * `total_preferred_stock` - total_preferred_stock
+
+        * `total_receivable` - total_receivable
+
+        * `total_receivables` - total_receivables
+
+        * `total_revenue` - total_revenue
+
+        * `total_selling_general_and_admin` - total_selling_general_and_admin
+
+        * `total_selling_general_and_admin_cost` - total_selling_general_and_admin_cost
+
+        * `total_selling_general_and_admin_expense` - total_selling_general_and_admin_expense
+
+        * `total_sga` - total_sga
+
+        * `total_shareholders_equity` - total_shareholders_equity
+
+        * `total_short_term_assets` - total_short_term_assets
+
+        * `total_unusual_items` - total_unusual_items
+
+        * `trading_asset_securities` - trading_asset_securities
+
+        * `treasury_convertible_preferred_stock` - treasury_convertible_preferred_stock
+
+        * `treasury_non_redeemable_preferred_stock` - treasury_non_redeemable_preferred_stock
+
+        * `treasury_preferred_stock_convertible` - treasury_preferred_stock_convertible
+
+        * `treasury_preferred_stock_non_redeemable` - treasury_preferred_stock_non_redeemable
+
+        * `treasury_preferred_stock_redeemable` - treasury_preferred_stock_redeemable
+
+        * `treasury_redeemable_preferred_stock` - treasury_redeemable_preferred_stock
+
+        * `treasury_stock` - treasury_stock
+
+        * `treasury_stock_convertible_preferred_stock` - treasury_stock_convertible_preferred_stock
+
+        * `treasury_stock_non_redeemable_preferred_stock` - treasury_stock_non_redeemable_preferred_stock
+
+        * `treasury_stock_preferred_stock_convertible` - treasury_stock_preferred_stock_convertible
+
+        * `treasury_stock_preferred_stock_non_redeemable` - treasury_stock_preferred_stock_non_redeemable
+
+        * `treasury_stock_preferred_stock_redeemable` - treasury_stock_preferred_stock_redeemable
+
+        * `treasury_stock_redeemable_preferred_stock` - treasury_stock_redeemable_preferred_stock
+
+        * `unusual_items` - unusual_items
+
+        * `weighted_average_basic_shares_outstanding` - weighted_average_basic_shares_outstanding
+
+        * `weighted_average_diluted_shares_outstanding` - weighted_average_diluted_shares_outstanding
+
+        * `working_capital` - working_capital'
+    Period:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        num_months:
+          type: integer
+          nullable: true
+        line_item:
+          $ref: '#/components/schemas/LineItem'
+      required:
+      - line_item
+      - num_months
+      - period_end_date
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    StartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    NullEnum:
+      enum:
+      - null
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

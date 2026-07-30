@@ -5,6 +5,19 @@ description: S&P Global (NYSE SPGI) is the parent of S&P Global Ratings, S&P Glo
   anchored by Kensho Technologies (a wholly-owned S&P Global AI subsidiary) which ships REST APIs for the S&P Global LLM-ready
   API (kFinance), Extract, NERD, Scribe, and the Grounding Agent, plus the S&P Capital IQ Pro and Marketplace data products
   distributed through the S&P Global Marketplace.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.spglobal.com/spglobal-corporate-identity/spglobal-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/sp-global/refs/heads/main/apis.yml
 humanURL: https://www.spglobal.com
@@ -334,6 +347,8 @@ apis:
   - type: Signup
     url: https://www.marketplace.spglobal.com/en/sign-up
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/sp-global/overview
 - type: AgenticAccess
   url: agentic-access/sp-global-agentic-access.yml
 - type: DomainSecurity

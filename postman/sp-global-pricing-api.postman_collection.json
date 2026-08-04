@@ -1,0 +1,531 @@
+{
+  "info": {
+    "_postman_id": "b9f00063-c5f7-47de-bd5e-d22a7eff6418",
+    "name": "Kensho Extract annotations-async Pricing API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:47.000Z",
+    "updatedAt": "2026-07-28T02:59:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b9f00063-c5f7-47de-bd5e-d22a7eff6418"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "pricing",
+              "item": [
+                {
+                  "name": "{trading_item_id}",
+                  "item": [
+                    {
+                      "name": "{start_date}",
+                      "item": [
+                        {
+                          "name": "{end_date}",
+                          "item": [
+                            {
+                              "name": "{periodicity}",
+                              "item": [
+                                {
+                                  "name": "{adjusted}",
+                                  "item": [
+                                    {
+                                      "name": "Get Stock Prices",
+                                      "id": "9ad1946d-511c-4bff-aaec-3f6f1c3066cf",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "pricing",
+                                            ":trading_item_id",
+                                            ":start_date",
+                                            ":end_date",
+                                            ":periodicity",
+                                            ":adjusted"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "2a55613a-29e0-454a-9b79-218780cbdb73",
+                                              "key": "trading_item_id",
+                                              "value": "<integer>",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "279dba0f-5286-4515-90c1-b71fc1e5704a",
+                                              "key": "start_date",
+                                              "value": "",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "164aab9b-c548-4bbd-bef5-e919731ac2f3",
+                                              "key": "end_date",
+                                              "value": "",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "1d154329-59ec-4404-9d79-68d7063e5898",
+                                              "key": "periodicity",
+                                              "value": "",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "591cac69-572e-4a19-b232-6058c7a17f4c",
+                                              "key": "adjusted",
+                                              "value": "unadjusted",
+                                              "description": "(Required) "
+                                            }
+                                          ]
+                                        },
+                                        "description": "Get stock prices for a given trading_item_id and its associated currency between start_date and end_date inclusive, with latest available data being from the previous day, and the most recent price will always be the closing price from the day before. The returned prices include the open, close, high, low prices and volume."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "e23a7578-6cac-4f43-80ed-18770335ae1f",
+                                          "name": "Indicates a successful request.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "pricing",
+                                                ":trading_item_id",
+                                                ":start_date",
+                                                ":end_date",
+                                                ":periodicity",
+                                                ":adjusted"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "trading_item_id"
+                                                },
+                                                {
+                                                  "key": "start_date"
+                                                },
+                                                {
+                                                  "key": "end_date"
+                                                },
+                                                {
+                                                  "key": "periodicity"
+                                                },
+                                                {
+                                                  "key": "adjusted"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"currency\": \"<string>\",\n  \"prices\": [\n    {\n      \"close\": \"-212177898648423203792\",\n      \"date\": \"<string>\",\n      \"high\": \"026882142\",\n      \"low\": \"-1\",\n      \"open\": \"447904558.56310\",\n      \"volume\": \"-9.\"\n    },\n    {\n      \"close\": \"303\",\n      \"date\": \"<string>\",\n      \"high\": \"-0935464797898315.\",\n      \"low\": \"-899545800750877427.24\",\n      \"open\": \"136032896372679236775\",\n      \"volume\": \"-5267672516505\"\n    }\n  ],\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:59:48.000Z",
+                                          "updatedAt": "2026-07-28T02:59:48.000Z",
+                                          "uid": "35240-e23a7578-6cac-4f43-80ed-18770335ae1f"
+                                        },
+                                        {
+                                          "id": "77a40fab-776d-46b8-b556-2165fe5b55a2",
+                                          "name": "Indicates that the query is invalid.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "pricing",
+                                                ":trading_item_id",
+                                                ":start_date",
+                                                ":end_date",
+                                                ":periodicity",
+                                                ":adjusted"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "trading_item_id"
+                                                },
+                                                {
+                                                  "key": "start_date"
+                                                },
+                                                {
+                                                  "key": "end_date"
+                                                },
+                                                {
+                                                  "key": "periodicity"
+                                                },
+                                                {
+                                                  "key": "adjusted"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:59:48.000Z",
+                                          "updatedAt": "2026-07-28T02:59:48.000Z",
+                                          "uid": "35240-77a40fab-776d-46b8-b556-2165fe5b55a2"
+                                        },
+                                        {
+                                          "id": "5db1b79f-6780-48b4-b0b8-13ad2956d5b6",
+                                          "name": "Indicates that the authorization information is missing or invalid.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "pricing",
+                                                ":trading_item_id",
+                                                ":start_date",
+                                                ":end_date",
+                                                ":periodicity",
+                                                ":adjusted"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "trading_item_id"
+                                                },
+                                                {
+                                                  "key": "start_date"
+                                                },
+                                                {
+                                                  "key": "end_date"
+                                                },
+                                                {
+                                                  "key": "periodicity"
+                                                },
+                                                {
+                                                  "key": "adjusted"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:59:48.000Z",
+                                          "updatedAt": "2026-07-28T02:59:48.000Z",
+                                          "uid": "35240-5db1b79f-6780-48b4-b0b8-13ad2956d5b6"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:59:48.000Z",
+                                      "updatedAt": "2026-07-28T02:59:48.000Z",
+                                      "uid": "35240-9ad1946d-511c-4bff-aaec-3f6f1c3066cf"
+                                    }
+                                  ],
+                                  "id": "47201f8e-78fb-4fa3-a8b5-fc857a4edfad",
+                                  "createdAt": "2026-07-28T02:59:48.000Z",
+                                  "updatedAt": "2026-07-28T02:59:48.000Z",
+                                  "uid": "35240-47201f8e-78fb-4fa3-a8b5-fc857a4edfad"
+                                }
+                              ],
+                              "id": "dee45c7a-d012-4308-88a3-7188d69c4db4",
+                              "createdAt": "2026-07-28T02:59:48.000Z",
+                              "updatedAt": "2026-07-28T02:59:48.000Z",
+                              "uid": "35240-dee45c7a-d012-4308-88a3-7188d69c4db4"
+                            }
+                          ],
+                          "id": "50b7e60c-ab3f-42e5-aaed-abdbbfc280ff",
+                          "createdAt": "2026-07-28T02:59:48.000Z",
+                          "updatedAt": "2026-07-28T02:59:48.000Z",
+                          "uid": "35240-50b7e60c-ab3f-42e5-aaed-abdbbfc280ff"
+                        }
+                      ],
+                      "id": "22bba6b0-4202-4744-8d4d-f22eba19fe3c",
+                      "createdAt": "2026-07-28T02:59:48.000Z",
+                      "updatedAt": "2026-07-28T02:59:48.000Z",
+                      "uid": "35240-22bba6b0-4202-4744-8d4d-f22eba19fe3c"
+                    },
+                    {
+                      "name": "metadata",
+                      "item": [
+                        {
+                          "name": "Get Historical Metadata",
+                          "id": "824b9927-8c5d-40b3-820b-b7e2beec2c1d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/metadata",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "pricing",
+                                ":trading_item_id",
+                                "metadata"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "779d256e-6bb3-4967-a996-e9457faf4473",
+                                  "key": "trading_item_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type, and first_trade_date."
+                          },
+                          "response": [
+                            {
+                              "id": "da346e3c-468c-4d99-a47f-62ad7c522fd7",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/metadata",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "pricing",
+                                    ":trading_item_id",
+                                    "metadata"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "trading_item_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"currency\": \"<string>\",\n  \"exchange_name\": \"<string>\",\n  \"first_trade_date\": \"<date>\",\n  \"instrument_type\": \"<string>\",\n  \"symbol\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:59:48.000Z",
+                              "updatedAt": "2026-07-28T02:59:48.000Z",
+                              "uid": "35240-da346e3c-468c-4d99-a47f-62ad7c522fd7"
+                            },
+                            {
+                              "id": "56d5bbb1-4cc4-4fe6-a12f-7c351b11821c",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/metadata",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "pricing",
+                                    ":trading_item_id",
+                                    "metadata"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "trading_item_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:48.000Z",
+                              "updatedAt": "2026-07-28T02:59:48.000Z",
+                              "uid": "35240-56d5bbb1-4cc4-4fe6-a12f-7c351b11821c"
+                            },
+                            {
+                              "id": "087e4308-cf1d-4e74-9b4f-9e6b1f94331c",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/metadata",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "pricing",
+                                    ":trading_item_id",
+                                    "metadata"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "trading_item_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:48.000Z",
+                              "updatedAt": "2026-07-28T02:59:48.000Z",
+                              "uid": "35240-087e4308-cf1d-4e74-9b4f-9e6b1f94331c"
+                            },
+                            {
+                              "id": "6f694e73-2819-4590-82e9-5f22b5f97146",
+                              "name": "Indicates that history metadata was not found for the given trading_item_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/pricing/:trading_item_id/metadata",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "pricing",
+                                    ":trading_item_id",
+                                    "metadata"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "trading_item_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:48.000Z",
+                              "updatedAt": "2026-07-28T02:59:48.000Z",
+                              "uid": "35240-6f694e73-2819-4590-82e9-5f22b5f97146"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:48.000Z",
+                          "updatedAt": "2026-07-28T02:59:48.000Z",
+                          "uid": "35240-824b9927-8c5d-40b3-820b-b7e2beec2c1d"
+                        }
+                      ],
+                      "id": "95a3701f-378e-4b85-95f5-697a79eada64",
+                      "createdAt": "2026-07-28T02:59:48.000Z",
+                      "updatedAt": "2026-07-28T02:59:48.000Z",
+                      "uid": "35240-95a3701f-378e-4b85-95f5-697a79eada64"
+                    }
+                  ],
+                  "id": "520542a1-278b-4ed3-a608-952f3f450b63",
+                  "createdAt": "2026-07-28T02:59:48.000Z",
+                  "updatedAt": "2026-07-28T02:59:48.000Z",
+                  "uid": "35240-520542a1-278b-4ed3-a608-952f3f450b63"
+                }
+              ],
+              "id": "48ea05bf-b5cf-4ad7-87a4-747b7b8d7ec1",
+              "createdAt": "2026-07-28T02:59:48.000Z",
+              "updatedAt": "2026-07-28T02:59:48.000Z",
+              "uid": "35240-48ea05bf-b5cf-4ad7-87a4-747b7b8d7ec1"
+            }
+          ],
+          "id": "524bc91a-d8e4-46d5-ae42-6c2230bed6e8",
+          "createdAt": "2026-07-28T02:59:48.000Z",
+          "updatedAt": "2026-07-28T02:59:48.000Z",
+          "uid": "35240-524bc91a-d8e4-46d5-ae42-6c2230bed6e8"
+        }
+      ],
+      "id": "753d8ec4-bf96-411a-8a9a-a97f9c17669e",
+      "createdAt": "2026-07-28T02:59:48.000Z",
+      "updatedAt": "2026-07-28T02:59:48.000Z",
+      "uid": "35240-753d8ec4-bf96-411a-8a9a-a97f9c17669e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

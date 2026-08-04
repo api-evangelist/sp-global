@@ -1,0 +1,333 @@
+{
+  "info": {
+    "_postman_id": "e56d6efc-ffb8-497e-8a2a-62232f014e33",
+    "name": "Kensho Extract annotations-async Fundingrounds API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:34.000Z",
+    "updatedAt": "2026-07-28T02:59:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e56d6efc-ffb8-497e-8a2a-62232f014e33"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "fundingrounds",
+              "item": [
+                {
+                  "name": "investor",
+                  "item": [
+                    {
+                      "name": "{company_id}",
+                      "item": [
+                        {
+                          "name": "fundingrounds investor retrieve",
+                          "id": "0df4b907-52f0-43b3-ada1-47993a5e857b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/fundingrounds/investor/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "fundingrounds",
+                                "investor",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "049ae7fe-df5c-4f7e-a1b3-6fa591ef96ec",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the rounds of funding that the specified company invested in."
+                          },
+                          "response": [
+                            {
+                              "id": "fcfb90e7-0f69-4e56-b9c5-ec3bb82701b6",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundingrounds/investor/:company_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundingrounds",
+                                    "investor",
+                                    ":company_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"rounds_of_funding\": [\n    {\n      \"funding_round_notes\": \"<string>\",\n      \"funding_type\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    },\n    {\n      \"funding_round_notes\": \"<string>\",\n      \"funding_type\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:35.000Z",
+                              "updatedAt": "2026-07-28T02:59:35.000Z",
+                              "uid": "35240-fcfb90e7-0f69-4e56-b9c5-ec3bb82701b6"
+                            },
+                            {
+                              "id": "e371f387-deae-47ed-98c9-231684879e1f",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundingrounds/investor/:company_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundingrounds",
+                                    "investor",
+                                    ":company_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:35.000Z",
+                              "updatedAt": "2026-07-28T02:59:35.000Z",
+                              "uid": "35240-e371f387-deae-47ed-98c9-231684879e1f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-0df4b907-52f0-43b3-ada1-47993a5e857b"
+                        }
+                      ],
+                      "id": "258819ac-b447-4add-a391-967fb6a1681c",
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-258819ac-b447-4add-a391-967fb6a1681c"
+                    }
+                  ],
+                  "id": "89673042-4990-4f83-9d3f-24412a75bc14",
+                  "createdAt": "2026-07-28T02:59:35.000Z",
+                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                  "uid": "35240-89673042-4990-4f83-9d3f-24412a75bc14"
+                },
+                {
+                  "name": "target",
+                  "item": [
+                    {
+                      "name": "{company_id}",
+                      "item": [
+                        {
+                          "name": "fundingrounds target retrieve",
+                          "id": "3fe3c060-6320-47a6-9db8-a2245ee9ed89",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/fundingrounds/target/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "fundingrounds",
+                                "target",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6d882813-f00a-4c6a-80a3-bdad6b30a0a1",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the rounds of funding that the specified company was in."
+                          },
+                          "response": [
+                            {
+                              "id": "c4e65625-efac-4813-80eb-a3a9ed834353",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundingrounds/target/:company_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundingrounds",
+                                    "target",
+                                    ":company_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"rounds_of_funding\": [\n    {\n      \"funding_round_notes\": \"<string>\",\n      \"funding_type\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    },\n    {\n      \"funding_round_notes\": \"<string>\",\n      \"funding_type\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:35.000Z",
+                              "updatedAt": "2026-07-28T02:59:35.000Z",
+                              "uid": "35240-c4e65625-efac-4813-80eb-a3a9ed834353"
+                            },
+                            {
+                              "id": "cc2261c3-6df5-419b-b64e-c7a3eb97b52d",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundingrounds/target/:company_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundingrounds",
+                                    "target",
+                                    ":company_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:35.000Z",
+                              "updatedAt": "2026-07-28T02:59:35.000Z",
+                              "uid": "35240-cc2261c3-6df5-419b-b64e-c7a3eb97b52d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-3fe3c060-6320-47a6-9db8-a2245ee9ed89"
+                        }
+                      ],
+                      "id": "0eac1583-f62c-4850-80f8-e1f7bf3f8689",
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-0eac1583-f62c-4850-80f8-e1f7bf3f8689"
+                    }
+                  ],
+                  "id": "fb9f31ae-6b72-47d6-9800-843bcb7a896b",
+                  "createdAt": "2026-07-28T02:59:35.000Z",
+                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                  "uid": "35240-fb9f31ae-6b72-47d6-9800-843bcb7a896b"
+                }
+              ],
+              "id": "a695c4c3-dfad-4359-babf-52f864f17986",
+              "createdAt": "2026-07-28T02:59:35.000Z",
+              "updatedAt": "2026-07-28T02:59:35.000Z",
+              "uid": "35240-a695c4c3-dfad-4359-babf-52f864f17986"
+            }
+          ],
+          "id": "fa63d67d-12b4-4b56-a715-38002a7f0d35",
+          "createdAt": "2026-07-28T02:59:35.000Z",
+          "updatedAt": "2026-07-28T02:59:35.000Z",
+          "uid": "35240-fa63d67d-12b4-4b56-a715-38002a7f0d35"
+        }
+      ],
+      "id": "3e229b1e-4a34-4a76-ac29-2d703bfa3b42",
+      "createdAt": "2026-07-28T02:59:35.000Z",
+      "updatedAt": "2026-07-28T02:59:35.000Z",
+      "uid": "35240-3e229b1e-4a34-4a76-ac29-2d703bfa3b42"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

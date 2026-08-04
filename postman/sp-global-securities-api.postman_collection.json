@@ -1,0 +1,454 @@
+{
+  "info": {
+    "_postman_id": "1f1e0c42-4411-4f50-a2cf-e8a3195b5ef4",
+    "name": "Kensho Extract annotations-async Securities API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:49.000Z",
+    "updatedAt": "2026-07-28T02:59:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1f1e0c42-4411-4f50-a2cf-e8a3195b5ef4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "securities",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "primary",
+                      "item": [
+                        {
+                          "name": "Get Primary Security",
+                          "id": "09cc4b03-11d3-45db-ae54-0c735190dd49",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/securities/:company_id/primary",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "securities",
+                                ":company_id",
+                                "primary"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0bed1ef4-9e80-4265-8493-ad92ea161fc7",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the primary security for a given company_id. Returns a dictionary of shape {\"primary_security\": <security_id>}"
+                          },
+                          "response": [
+                            {
+                              "id": "49bcc511-4915-407e-aba4-4054f3be738c",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/securities/:company_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "securities",
+                                    ":company_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"primary_security\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T02:59:50.000Z",
+                              "updatedAt": "2026-07-28T02:59:50.000Z",
+                              "uid": "35240-49bcc511-4915-407e-aba4-4054f3be738c"
+                            },
+                            {
+                              "id": "e2ea06d6-74e1-48aa-8386-d0b2127e4f43",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/securities/:company_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "securities",
+                                    ":company_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:50.000Z",
+                              "updatedAt": "2026-07-28T02:59:50.000Z",
+                              "uid": "35240-e2ea06d6-74e1-48aa-8386-d0b2127e4f43"
+                            },
+                            {
+                              "id": "f1dfc71c-a1b2-44d9-baf7-5e44d44cc6a1",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/securities/:company_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "securities",
+                                    ":company_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:50.000Z",
+                              "updatedAt": "2026-07-28T02:59:50.000Z",
+                              "uid": "35240-f1dfc71c-a1b2-44d9-baf7-5e44d44cc6a1"
+                            },
+                            {
+                              "id": "3ca8ca05-2305-4079-b61e-0c83aa08c43e",
+                              "name": "Indicates that no primary security was found for the given company_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/securities/:company_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "securities",
+                                    ":company_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:50.000Z",
+                              "updatedAt": "2026-07-28T02:59:50.000Z",
+                              "uid": "35240-3ca8ca05-2305-4079-b61e-0c83aa08c43e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:50.000Z",
+                          "updatedAt": "2026-07-28T02:59:50.000Z",
+                          "uid": "35240-09cc4b03-11d3-45db-ae54-0c735190dd49"
+                        }
+                      ],
+                      "id": "5e76e6e5-c151-49d8-8ac0-30d2d76d4314",
+                      "createdAt": "2026-07-28T02:59:50.000Z",
+                      "updatedAt": "2026-07-28T02:59:50.000Z",
+                      "uid": "35240-5e76e6e5-c151-49d8-8ac0-30d2d76d4314"
+                    },
+                    {
+                      "name": "Get Securities",
+                      "id": "1e47e064-5842-4ab1-b764-eaacdc048ac6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/securities/:company_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "securities",
+                            ":company_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "058b7881-8050-4bb1-9ce2-a15a7cf2bb2a",
+                              "key": "company_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the list of securities for a given company_id. Returns a dictionary of shape {\"securities\": List[<security_id>]}"
+                      },
+                      "response": [
+                        {
+                          "id": "d81c311a-eaaf-41b7-8ce8-162ad25ab39e",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/securities/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "securities",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"securities\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:50.000Z",
+                          "updatedAt": "2026-07-28T02:59:50.000Z",
+                          "uid": "35240-d81c311a-eaaf-41b7-8ce8-162ad25ab39e"
+                        },
+                        {
+                          "id": "3d0c0d0d-e110-4704-9b15-b7bcc00a9e2b",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/securities/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "securities",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:50.000Z",
+                          "updatedAt": "2026-07-28T02:59:50.000Z",
+                          "uid": "35240-3d0c0d0d-e110-4704-9b15-b7bcc00a9e2b"
+                        },
+                        {
+                          "id": "da7d0965-b4fa-4bcd-9398-45a8539b64d9",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/securities/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "securities",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:50.000Z",
+                          "updatedAt": "2026-07-28T02:59:50.000Z",
+                          "uid": "35240-da7d0965-b4fa-4bcd-9398-45a8539b64d9"
+                        },
+                        {
+                          "id": "822b0c50-afee-433c-89da-bd6de194a0a8",
+                          "name": "Indicates that no securities were found for the given company_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/securities/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "securities",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:50.000Z",
+                          "updatedAt": "2026-07-28T02:59:50.000Z",
+                          "uid": "35240-822b0c50-afee-433c-89da-bd6de194a0a8"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:50.000Z",
+                      "updatedAt": "2026-07-28T02:59:50.000Z",
+                      "uid": "35240-1e47e064-5842-4ab1-b764-eaacdc048ac6"
+                    }
+                  ],
+                  "id": "c9907126-960e-423a-ba65-06c61923235f",
+                  "createdAt": "2026-07-28T02:59:50.000Z",
+                  "updatedAt": "2026-07-28T02:59:50.000Z",
+                  "uid": "35240-c9907126-960e-423a-ba65-06c61923235f"
+                }
+              ],
+              "id": "a02139c7-b60a-498c-be1f-9d461225c597",
+              "createdAt": "2026-07-28T02:59:50.000Z",
+              "updatedAt": "2026-07-28T02:59:50.000Z",
+              "uid": "35240-a02139c7-b60a-498c-be1f-9d461225c597"
+            }
+          ],
+          "id": "81082d50-64ef-46fa-a08a-c86eba27662c",
+          "createdAt": "2026-07-28T02:59:50.000Z",
+          "updatedAt": "2026-07-28T02:59:50.000Z",
+          "uid": "35240-81082d50-64ef-46fa-a08a-c86eba27662c"
+        }
+      ],
+      "id": "2fa9fe04-2c6a-403d-8b29-93501cb972b4",
+      "createdAt": "2026-07-28T02:59:50.000Z",
+      "updatedAt": "2026-07-28T02:59:50.000Z",
+      "uid": "35240-2fa9fe04-2c6a-403d-8b29-93501cb972b4"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

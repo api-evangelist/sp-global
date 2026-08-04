@@ -1,0 +1,226 @@
+{
+  "info": {
+    "_postman_id": "283cc133-8513-4297-aba0-761c217f0610",
+    "name": "Kensho Extract annotations-async Trading Item Groups API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:53.000Z",
+    "updatedAt": "2026-07-28T02:59:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-283cc133-8513-4297-aba0-761c217f0610"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "trading_item_groups",
+              "item": [
+                {
+                  "name": "exchange",
+                  "item": [
+                    {
+                      "name": "{exchange_code}",
+                      "item": [
+                        {
+                          "name": "Get Trading Items By Exchange Code",
+                          "id": "05c6cdba-dc2d-4e34-a5dc-d91e311bf668",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_item_groups/exchange/:exchange_code",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_item_groups",
+                                "exchange",
+                                ":exchange_code"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0d29bc00-c65c-4b00-a471-bf0ed59dd462",
+                                  "key": "exchange_code",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the list of trading items that are traded on an exchange via exchange_code"
+                          },
+                          "response": [
+                            {
+                              "id": "1b5ea623-d4bf-4144-8906-66b8772be775",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_item_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_item_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"trading_items\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:54.000Z",
+                              "updatedAt": "2026-07-28T02:59:54.000Z",
+                              "uid": "35240-1b5ea623-d4bf-4144-8906-66b8772be775"
+                            },
+                            {
+                              "id": "d4e372d4-9dd4-4ff9-b55d-680ef04c1073",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_item_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_item_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:54.000Z",
+                              "updatedAt": "2026-07-28T02:59:54.000Z",
+                              "uid": "35240-d4e372d4-9dd4-4ff9-b55d-680ef04c1073"
+                            },
+                            {
+                              "id": "dabffd32-4f21-40d2-8a0e-9b687aab0ccb",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_item_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_item_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:54.000Z",
+                              "updatedAt": "2026-07-28T02:59:54.000Z",
+                              "uid": "35240-dabffd32-4f21-40d2-8a0e-9b687aab0ccb"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:54.000Z",
+                          "updatedAt": "2026-07-28T02:59:54.000Z",
+                          "uid": "35240-05c6cdba-dc2d-4e34-a5dc-d91e311bf668"
+                        }
+                      ],
+                      "id": "a9f2549f-2335-4c16-8310-3e9b6f64dfd3",
+                      "createdAt": "2026-07-28T02:59:54.000Z",
+                      "updatedAt": "2026-07-28T02:59:54.000Z",
+                      "uid": "35240-a9f2549f-2335-4c16-8310-3e9b6f64dfd3"
+                    }
+                  ],
+                  "id": "c0399584-4075-43d3-ba21-a9ab91fd2249",
+                  "createdAt": "2026-07-28T02:59:54.000Z",
+                  "updatedAt": "2026-07-28T02:59:54.000Z",
+                  "uid": "35240-c0399584-4075-43d3-ba21-a9ab91fd2249"
+                }
+              ],
+              "id": "5d6b11fb-28ec-44a7-9066-a84b5d3ca1b7",
+              "createdAt": "2026-07-28T02:59:54.000Z",
+              "updatedAt": "2026-07-28T02:59:54.000Z",
+              "uid": "35240-5d6b11fb-28ec-44a7-9066-a84b5d3ca1b7"
+            }
+          ],
+          "id": "90b4acd2-9b29-49b9-8aff-003aaac36a4b",
+          "createdAt": "2026-07-28T02:59:54.000Z",
+          "updatedAt": "2026-07-28T02:59:54.000Z",
+          "uid": "35240-90b4acd2-9b29-49b9-8aff-003aaac36a4b"
+        }
+      ],
+      "id": "09775d5e-d3c6-4470-a103-f9bb9e8b14ff",
+      "createdAt": "2026-07-28T02:59:54.000Z",
+      "updatedAt": "2026-07-28T02:59:54.000Z",
+      "uid": "35240-09775d5e-d3c6-4470-a103-f9bb9e8b14ff"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

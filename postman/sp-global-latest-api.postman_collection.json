@@ -1,0 +1,148 @@
+{
+  "info": {
+    "_postman_id": "a4f04bcf-09c4-4efb-9991-af79ffde7fe0",
+    "name": "Kensho Extract annotations-async Latest API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:41.000Z",
+    "updatedAt": "2026-07-28T02:59:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a4f04bcf-09c4-4efb-9991-af79ffde7fe0"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "latest",
+              "item": [
+                {
+                  "name": "Get Latest Date",
+                  "id": "7f3b9e90-f2df-4115-930c-1515c2e9943d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/latest",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "latest"
+                      ]
+                    },
+                    "description": "Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in UTC. The output is a dictionary with the following schema::\n\n{\n    \"annual\": {\n        \"latest_year\": int\n    },\n    \"quarterly\": {\n        \"latest_quarter\": int,\n        \"latest_year\": int\n    },\n    \"now\": {\n        \"current_year\": int,\n        \"current_quarter\": int,\n        \"current_month\": int,\n        \"current_date\": str # in format Y-m-d\n    }\n}"
+                  },
+                  "response": [
+                    {
+                      "id": "6f09bce4-8743-4156-ae5e-01f0a5847aa7",
+                      "name": "Indicates a successful request.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/latest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "latest"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"annual\": {\n    \"latest_year\": \"<integer>\"\n  },\n  \"now\": {\n    \"current_date\": \"<date>\",\n    \"current_month\": \"<integer>\",\n    \"current_quarter\": \"<integer>\",\n    \"current_year\": \"<integer>\"\n  },\n  \"quarterly\": {\n    \"latest_quarter\": \"<integer>\",\n    \"latest_year\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:42.000Z",
+                      "updatedAt": "2026-07-28T02:59:42.000Z",
+                      "uid": "35240-6f09bce4-8743-4156-ae5e-01f0a5847aa7"
+                    },
+                    {
+                      "id": "0ed01ef9-8429-4715-8d1b-d38f505bf266",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/latest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "latest"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:42.000Z",
+                      "updatedAt": "2026-07-28T02:59:42.000Z",
+                      "uid": "35240-0ed01ef9-8429-4715-8d1b-d38f505bf266"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:42.000Z",
+                  "updatedAt": "2026-07-28T02:59:42.000Z",
+                  "uid": "35240-7f3b9e90-f2df-4115-930c-1515c2e9943d"
+                }
+              ],
+              "id": "0a69f0ae-a498-4d4b-b59e-6381aede0c2c",
+              "createdAt": "2026-07-28T02:59:42.000Z",
+              "updatedAt": "2026-07-28T02:59:42.000Z",
+              "uid": "35240-0a69f0ae-a498-4d4b-b59e-6381aede0c2c"
+            }
+          ],
+          "id": "54b42ed8-219b-45e0-a791-f08c183e541f",
+          "createdAt": "2026-07-28T02:59:42.000Z",
+          "updatedAt": "2026-07-28T02:59:42.000Z",
+          "uid": "35240-54b42ed8-219b-45e0-a791-f08c183e541f"
+        }
+      ],
+      "id": "17b97112-880a-45a7-8402-d0316bc7ce6d",
+      "createdAt": "2026-07-28T02:59:42.000Z",
+      "updatedAt": "2026-07-28T02:59:42.000Z",
+      "uid": "35240-17b97112-880a-45a7-8402-d0316bc7ce6d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

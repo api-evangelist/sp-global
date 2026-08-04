@@ -1,0 +1,1969 @@
+{
+  "info": {
+    "_postman_id": "1dca2fae-798b-448a-aa73-5fe60398f3e5",
+    "name": "NERD Service API",
+    "description": "This page contains the full API reference for Kensho NERD.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:37.000Z",
+    "updatedAt": "2026-07-28T03:00:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1dca2fae-798b-448a-aa73-5fe60398f3e5"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "annotations-async",
+              "item": [
+                {
+                  "name": "Start A NERD Annotation Job",
+                  "id": "2582a56d-81cf-434b-b28b-0de62610c273",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ]
+                    },
+                    "description": "Submit a document to NERD to kick off an annotation job that will be processed asynchronously. Endpoint users submit a text document and at least one knowledge base to be used to annotate the detected entities. There are two available knowledge bases, the Wikimedia knowledge base and the Capital IQ knowledge base, denoted `\"wikimedia\"` and `\"capiq\"`, respectively."
+                  },
+                  "response": [
+                    {
+                      "id": "af947917-dfc4-4071-8520-c13368bf1032",
+                      "name": "Indicates the job request was successfully received. `job_id` is returned in the response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"job_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-af947917-dfc4-4071-8520-c13368bf1032"
+                    },
+                    {
+                      "id": "a28df35a-83e8-4eb5-bc6f-9c359047fd3e",
+                      "name": "Indicates a bad request because at least one knowledge base and document text must be specified.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-a28df35a-83e8-4eb5-bc6f-9c359047fd3e"
+                    },
+                    {
+                      "id": "e8b8dcb9-a94d-49c9-9218-a8da33f35f8b",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-e8b8dcb9-a94d-49c9-9218-a8da33f35f8b"
+                    },
+                    {
+                      "id": "3550a313-5994-478a-87b3-c89b5066ebaf",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-3550a313-5994-478a-87b3-c89b5066ebaf"
+                    },
+                    {
+                      "id": "853de717-1415-4a1a-bf40-dcdbd6b2ecc6",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-853de717-1415-4a1a-bf40-dcdbd6b2ecc6"
+                    },
+                    {
+                      "id": "bfc46ce2-1f63-45fa-84d8-999cff827c2b",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-bfc46ce2-1f63-45fa-84d8-999cff827c2b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:38.000Z",
+                  "updatedAt": "2026-07-28T03:00:38.000Z",
+                  "uid": "35240-2582a56d-81cf-434b-b28b-0de62610c273"
+                },
+                {
+                  "name": "Start A NERD Annotation Job Given A Provided Job ID",
+                  "id": "cc96eed7-fe7c-4913-84b4-df72f9364898",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Notify NERD to start the annotation job given a provided job ID from uploading a text file using an upload URL. To upload a text file, please see [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) for more information."
+                  },
+                  "response": [
+                    {
+                      "id": "20adbc00-892c-4ae1-be26-459fa3fabec2",
+                      "name": "Indicates the job request was successfully received. `job_id` is returned in the response.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"job_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-20adbc00-892c-4ae1-be26-459fa3fabec2"
+                    },
+                    {
+                      "id": "6b3f3d96-713c-4b12-90de-15cbc5caae2f",
+                      "name": "Indicates a bad request because at least one knowledge base must be specified and the document text for the provided `job_id` was not uploaded.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-6b3f3d96-713c-4b12-90de-15cbc5caae2f"
+                    },
+                    {
+                      "id": "89f518fc-d55e-4b67-8b54-c47078be20ac",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-89f518fc-d55e-4b67-8b54-c47078be20ac"
+                    },
+                    {
+                      "id": "0196a4f1-63b7-4e5e-b450-21d8fb17aaa3",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-0196a4f1-63b7-4e5e-b450-21d8fb17aaa3"
+                    },
+                    {
+                      "id": "f4d3c7c1-abb6-4642-8472-ebef7070b709",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-f4d3c7c1-abb6-4642-8472-ebef7070b709"
+                    },
+                    {
+                      "id": "f6849c7e-edc3-439f-a52c-d40f811c95e6",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-f6849c7e-edc3-439f-a52c-d40f811c95e6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:38.000Z",
+                  "updatedAt": "2026-07-28T03:00:38.000Z",
+                  "uid": "35240-cc96eed7-fe7c-4913-84b4-df72f9364898"
+                },
+                {
+                  "name": "Get Annotations For The Specified Job ID",
+                  "id": "68419e99-ed00-4cb5-a0f0-b2db0229d8c6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint returns the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status, message, and the annotation results."
+                  },
+                  "response": [
+                    {
+                      "id": "b921f268-fa39-409b-a385-ee0c50eb57a5",
+                      "name": "Indicates the request was successfully received and processed. Annotated data is returned in the response.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-b921f268-fa39-409b-a385-ee0c50eb57a5"
+                    },
+                    {
+                      "id": "d1f306e1-79ea-47cc-8ab6-28e5be92bad8",
+                      "name": "Indicates a bad request due to 1) missing knowledge base; 2) missing document text; or 3) missing `job_id`.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-d1f306e1-79ea-47cc-8ab6-28e5be92bad8"
+                    },
+                    {
+                      "id": "ad2b735a-5e3e-43be-b2a4-6f6e81867450",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-ad2b735a-5e3e-43be-b2a4-6f6e81867450"
+                    },
+                    {
+                      "id": "87868192-19d6-474e-9831-7dc067b4d189",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-87868192-19d6-474e-9831-7dc067b4d189"
+                    },
+                    {
+                      "id": "b4c2dfab-1f93-4f21-ab8b-cf8f9acc4108",
+                      "name": "Indicates that the job was not found in the system.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-b4c2dfab-1f93-4f21-ab8b-cf8f9acc4108"
+                    },
+                    {
+                      "id": "19bd20a6-6a94-4053-8511-266957d67793",
+                      "name": "Indicates that user rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-19bd20a6-6a94-4053-8511-266957d67793"
+                    },
+                    {
+                      "id": "7e7dbd84-98f8-448d-a7fa-63b433ab33e5",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-7e7dbd84-98f8-448d-a7fa-63b433ab33e5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:38.000Z",
+                  "updatedAt": "2026-07-28T03:00:38.000Z",
+                  "uid": "35240-68419e99-ed00-4cb5-a0f0-b2db0229d8c6"
+                },
+                {
+                  "name": "Delete Annotations For The Specified Job ID",
+                  "id": "93907a2f-1072-49d4-9266-314ec058d8b2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint deletes the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status and message"
+                  },
+                  "response": [
+                    {
+                      "id": "0390880d-dcf4-4ad0-bf97-9f15a991b292",
+                      "name": "Indicates the request was successfully received and processed. Annotated data is returned in the response.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-0390880d-dcf4-4ad0-bf97-9f15a991b292"
+                    },
+                    {
+                      "id": "c880d198-1d45-4de6-83b6-dade262c61a2",
+                      "name": "Indicates a bad request due to a missing or invalid `job_id`",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-c880d198-1d45-4de6-83b6-dade262c61a2"
+                    },
+                    {
+                      "id": "1126cd29-1c77-49f2-a71f-f8788222a54d",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-1126cd29-1c77-49f2-a71f-f8788222a54d"
+                    },
+                    {
+                      "id": "d25254f2-f2be-4d8b-93b0-c7994a4fba93",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-d25254f2-f2be-4d8b-93b0-c7994a4fba93"
+                    },
+                    {
+                      "id": "25301891-2f2d-4dd1-84fa-ebd5e613194c",
+                      "name": "Indicates that the job was not found in the system.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-25301891-2f2d-4dd1-84fa-ebd5e613194c"
+                    },
+                    {
+                      "id": "1880a6bc-76e8-4373-a667-cafd3b47b703",
+                      "name": "Indicates that the job is pending and therefore cannot be deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-1880a6bc-76e8-4373-a667-cafd3b47b703"
+                    },
+                    {
+                      "id": "76652fae-20ea-41da-b7c6-196e801eff5d",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-76652fae-20ea-41da-b7c6-196e801eff5d"
+                    },
+                    {
+                      "id": "e044bdba-18de-4802-8675-9380f5ea1c30",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-e044bdba-18de-4802-8675-9380f5ea1c30"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:38.000Z",
+                  "updatedAt": "2026-07-28T03:00:38.000Z",
+                  "uid": "35240-93907a2f-1072-49d4-9266-314ec058d8b2"
+                }
+              ],
+              "id": "cbafbd26-8a2b-42db-ac7e-270429a8fc74",
+              "createdAt": "2026-07-28T03:00:38.000Z",
+              "updatedAt": "2026-07-28T03:00:38.000Z",
+              "uid": "35240-cbafbd26-8a2b-42db-ac7e-270429a8fc74"
+            },
+            {
+              "name": "upload-url",
+              "item": [
+                {
+                  "name": "Get An Upload URL For Uploading A Text File",
+                  "id": "bc1018f0-194d-46e7-9f84-8d0da59a7534",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/upload-url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "upload-url"
+                      ]
+                    },
+                    "description": "This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15** minutes."
+                  },
+                  "response": [
+                    {
+                      "id": "794bee4c-0c08-4856-b32b-d222735ee117",
+                      "name": "Indicates that the upload URL was created successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"url\": \"<string>\",\n  \"fields\": {\n    \"sunt_0_e\": \"<string>\"\n  },\n  \"job_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-794bee4c-0c08-4856-b32b-d222735ee117"
+                    },
+                    {
+                      "id": "e1a07817-eeb6-4d6a-9eba-bcea2dae22d3",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-e1a07817-eeb6-4d6a-9eba-bcea2dae22d3"
+                    },
+                    {
+                      "id": "aa7765a3-acef-48a5-aa43-a0e3ef651ad5",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-aa7765a3-acef-48a5-aa43-a0e3ef651ad5"
+                    },
+                    {
+                      "id": "664c2134-7bc0-4d06-b168-66c5d85779fd",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-664c2134-7bc0-4d06-b168-66c5d85779fd"
+                    },
+                    {
+                      "id": "c85d5c1c-e109-4f32-ba1a-99f4e14d35ab",
+                      "name": "Internal server error when generating the upload URL.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-c85d5c1c-e109-4f32-ba1a-99f4e14d35ab"
+                    },
+                    {
+                      "id": "b65ed1d1-3718-40f8-9ee6-9abf0a78ab5f",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:38.000Z",
+                      "updatedAt": "2026-07-28T03:00:38.000Z",
+                      "uid": "35240-b65ed1d1-3718-40f8-9ee6-9abf0a78ab5f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:38.000Z",
+                  "updatedAt": "2026-07-28T03:00:38.000Z",
+                  "uid": "35240-bc1018f0-194d-46e7-9f84-8d0da59a7534"
+                }
+              ],
+              "id": "1755204c-fc04-4e5c-be0b-c4f462bd82c4",
+              "createdAt": "2026-07-28T03:00:38.000Z",
+              "updatedAt": "2026-07-28T03:00:38.000Z",
+              "uid": "35240-1755204c-fc04-4e5c-be0b-c4f462bd82c4"
+            }
+          ],
+          "id": "eba72cba-a9ed-461a-9f2f-ffd731f5b505",
+          "createdAt": "2026-07-28T03:00:38.000Z",
+          "updatedAt": "2026-07-28T03:00:38.000Z",
+          "uid": "35240-eba72cba-a9ed-461a-9f2f-ffd731f5b505"
+        }
+      ],
+      "id": "c8d35f1f-2999-4fcb-afd9-d7a262c72620",
+      "createdAt": "2026-07-28T03:00:38.000Z",
+      "updatedAt": "2026-07-28T03:00:38.000Z",
+      "uid": "35240-c8d35f1f-2999-4fcb-afd9-d7a262c72620"
+    },
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "Get Current User Information",
+          "id": "efbc2e8f-ff4e-41b8-ad86-17199d27e3fc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "Returns information about the authenticated user."
+          },
+          "response": [
+            {
+              "id": "67d54213-1c04-497e-971e-bf2afeae1283",
+              "name": "Indicates that user information was successfully obtained and returned.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"uid\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:00:38.000Z",
+              "updatedAt": "2026-07-28T03:00:38.000Z",
+              "uid": "35240-67d54213-1c04-497e-971e-bf2afeae1283"
+            },
+            {
+              "id": "3b1bf41d-8eca-4ad7-9408-95c2f94c8b54",
+              "name": "Indicates that an invalid authorization occurred or that user data was not found.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:00:38.000Z",
+              "updatedAt": "2026-07-28T03:00:38.000Z",
+              "uid": "35240-3b1bf41d-8eca-4ad7-9408-95c2f94c8b54"
+            }
+          ],
+          "createdAt": "2026-07-28T03:00:38.000Z",
+          "updatedAt": "2026-07-28T03:00:38.000Z",
+          "uid": "35240-efbc2e8f-ff4e-41b8-ad86-17199d27e3fc"
+        }
+      ],
+      "id": "a2f19e66-bbfe-4486-bf99-c646ec2f5e33",
+      "createdAt": "2026-07-28T03:00:38.000Z",
+      "updatedAt": "2026-07-28T03:00:38.000Z",
+      "uid": "35240-a2f19e66-bbfe-4486-bf99-c646ec2f5e33"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://nerd.kensho.com"
+    }
+  ]
+}

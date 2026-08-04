@@ -1,0 +1,743 @@
+{
+  "info": {
+    "_postman_id": "212f2f07-2a0d-4313-8366-f39f93f311d4",
+    "name": "Kensho Extract annotations-async Id API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:35.000Z",
+    "updatedAt": "2026-07-28T02:59:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-212f2f07-2a0d-4313-8366-f39f93f311d4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "id",
+              "item": [
+                {
+                  "name": "{cusip}",
+                  "item": [
+                    {
+                      "name": "CUSIP to Identification Triple",
+                      "id": "919490e3-17c1-4299-9e54-c26fef7c6611",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/id/:cusip",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "id",
+                            ":cusip"
+                          ],
+                          "variable": [
+                            {
+                              "id": "687c9852-d273-4382-acd9-7e9b3ff022a3",
+                              "key": "cusip",
+                              "value": "Zb0XAE966",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the most likely trading_item_id, security_id, and company_id with a given CUSIP."
+                      },
+                      "response": [
+                        {
+                          "id": "44549c9e-0905-4c1f-8e54-61eb10f65463",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:cusip",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":cusip"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "cusip"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"company_id\": \"<integer>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"security_id\": \"<integer>\",\n  \"ticker\": \"<string>\",\n  \"trading_item_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-44549c9e-0905-4c1f-8e54-61eb10f65463"
+                        },
+                        {
+                          "id": "2ddf8614-b0de-4307-ba41-8ecc9665459b",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:cusip",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":cusip"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "cusip"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-2ddf8614-b0de-4307-ba41-8ecc9665459b"
+                        },
+                        {
+                          "id": "94013e94-92c4-48bd-8b10-5e54960099fc",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:cusip",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":cusip"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "cusip"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-94013e94-92c4-48bd-8b10-5e54960099fc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-919490e3-17c1-4299-9e54-c26fef7c6611"
+                    }
+                  ],
+                  "id": "8d7b2ec9-2de9-4a26-86d8-5df756ab1bf1",
+                  "createdAt": "2026-07-28T02:59:35.000Z",
+                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                  "uid": "35240-8d7b2ec9-2de9-4a26-86d8-5df756ab1bf1"
+                },
+                {
+                  "name": "{isin}",
+                  "item": [
+                    {
+                      "name": "ISIN to Identification Triple",
+                      "id": "c48de6c4-efc3-4cfa-aea1-72043f6f6fd1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/id/:isin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "id",
+                            ":isin"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0f112b1b-a853-4210-a072-79d3523f4a5b",
+                              "key": "isin",
+                              "value": "uWGHwX4z0eu3",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the most likely trading_item_id, security_id, and company_id with a given ISIN."
+                      },
+                      "response": [
+                        {
+                          "id": "afa8a347-d57e-4431-82a3-56d47f7928a5",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:isin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":isin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "isin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"company_id\": \"<integer>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"security_id\": \"<integer>\",\n  \"ticker\": \"<string>\",\n  \"trading_item_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-afa8a347-d57e-4431-82a3-56d47f7928a5"
+                        },
+                        {
+                          "id": "e3a10564-8ff6-403b-888a-9e1869f7bd3e",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:isin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":isin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "isin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-e3a10564-8ff6-403b-888a-9e1869f7bd3e"
+                        },
+                        {
+                          "id": "29e38d59-59f7-4326-9d79-6a243dccf24a",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:isin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":isin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "isin"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-29e38d59-59f7-4326-9d79-6a243dccf24a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-c48de6c4-efc3-4cfa-aea1-72043f6f6fd1"
+                    }
+                  ],
+                  "id": "6fe2295e-647f-4344-8abd-15397dd6c518",
+                  "createdAt": "2026-07-28T02:59:35.000Z",
+                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                  "uid": "35240-6fe2295e-647f-4344-8abd-15397dd6c518"
+                },
+                {
+                  "name": "{ticker}",
+                  "item": [
+                    {
+                      "name": "exchange_code",
+                      "item": [
+                        {
+                          "name": "{exchange_code}",
+                          "item": [
+                            {
+                              "name": "Ticker to Identification Triple 2",
+                              "id": "f2062d9b-b868-433d-b268-1dbf7c07c34a",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/id/:ticker/exchange_code/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "id",
+                                    ":ticker",
+                                    "exchange_code",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8f201dcf-fd95-42fc-b91a-cd838ffdf1c5",
+                                      "key": "ticker",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "3a146c8d-1843-4362-8195-557d50a844ef",
+                                      "key": "exchange_code",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+                              },
+                              "response": [
+                                {
+                                  "id": "96f1dd2c-49a8-45e0-8f71-a20ae90f1320",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/id/:ticker/exchange_code/:exchange_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "id",
+                                        ":ticker",
+                                        "exchange_code",
+                                        ":exchange_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ticker"
+                                        },
+                                        {
+                                          "key": "exchange_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"company_id\": \"<integer>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"security_id\": \"<integer>\",\n  \"ticker\": \"<string>\",\n  \"trading_item_id\": \"<integer>\"\n}",
+                                  "createdAt": "2026-07-28T02:59:35.000Z",
+                                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                                  "uid": "35240-96f1dd2c-49a8-45e0-8f71-a20ae90f1320"
+                                },
+                                {
+                                  "id": "2c989c11-baa2-41ce-a4c1-e6fcc6193799",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/id/:ticker/exchange_code/:exchange_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "id",
+                                        ":ticker",
+                                        "exchange_code",
+                                        ":exchange_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ticker"
+                                        },
+                                        {
+                                          "key": "exchange_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:35.000Z",
+                                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                                  "uid": "35240-2c989c11-baa2-41ce-a4c1-e6fcc6193799"
+                                },
+                                {
+                                  "id": "0adfbf46-ff34-40d3-831d-3b95cc97f15e",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/id/:ticker/exchange_code/:exchange_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "id",
+                                        ":ticker",
+                                        "exchange_code",
+                                        ":exchange_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ticker"
+                                        },
+                                        {
+                                          "key": "exchange_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:35.000Z",
+                                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                                  "uid": "35240-0adfbf46-ff34-40d3-831d-3b95cc97f15e"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:35.000Z",
+                              "updatedAt": "2026-07-28T02:59:35.000Z",
+                              "uid": "35240-f2062d9b-b868-433d-b268-1dbf7c07c34a"
+                            }
+                          ],
+                          "id": "a7e6ff8d-400a-456e-9283-24c6388564de",
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-a7e6ff8d-400a-456e-9283-24c6388564de"
+                        }
+                      ],
+                      "id": "bd061d42-cc50-4032-ac44-0a2235de96e1",
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-bd061d42-cc50-4032-ac44-0a2235de96e1"
+                    },
+                    {
+                      "name": "Ticker to Identification Triple",
+                      "id": "2cce1e24-6823-4148-b70c-dd8ed576c90d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/id/:ticker",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "id",
+                            ":ticker"
+                          ],
+                          "variable": [
+                            {
+                              "id": "aefdb7ee-60a7-4529-971f-6d6c443331e1",
+                              "key": "ticker",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+                      },
+                      "response": [
+                        {
+                          "id": "a0cb096c-7515-47b6-9922-b7caa7e1c2d0",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:ticker",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":ticker"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ticker"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"company_id\": \"<integer>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"security_id\": \"<integer>\",\n  \"ticker\": \"<string>\",\n  \"trading_item_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-a0cb096c-7515-47b6-9922-b7caa7e1c2d0"
+                        },
+                        {
+                          "id": "27caa4b7-9c73-4b5b-9b89-3493509707b8",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:ticker",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":ticker"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ticker"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-27caa4b7-9c73-4b5b-9b89-3493509707b8"
+                        },
+                        {
+                          "id": "cb41ffa7-7e90-49e2-b903-1134b530fb43",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/id/:ticker",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "id",
+                                ":ticker"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ticker"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:35.000Z",
+                          "updatedAt": "2026-07-28T02:59:35.000Z",
+                          "uid": "35240-cb41ffa7-7e90-49e2-b903-1134b530fb43"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:35.000Z",
+                      "updatedAt": "2026-07-28T02:59:35.000Z",
+                      "uid": "35240-2cce1e24-6823-4148-b70c-dd8ed576c90d"
+                    }
+                  ],
+                  "id": "e9ca5a9a-4e43-4429-a9fa-a0d063bba092",
+                  "createdAt": "2026-07-28T02:59:35.000Z",
+                  "updatedAt": "2026-07-28T02:59:35.000Z",
+                  "uid": "35240-e9ca5a9a-4e43-4429-a9fa-a0d063bba092"
+                }
+              ],
+              "id": "99c80e2e-3a14-495d-9bdf-8d0c466570eb",
+              "createdAt": "2026-07-28T02:59:35.000Z",
+              "updatedAt": "2026-07-28T02:59:35.000Z",
+              "uid": "35240-99c80e2e-3a14-495d-9bdf-8d0c466570eb"
+            }
+          ],
+          "id": "e5e1e67d-61dc-41a4-aed7-4a1735bb81e6",
+          "createdAt": "2026-07-28T02:59:35.000Z",
+          "updatedAt": "2026-07-28T02:59:35.000Z",
+          "uid": "35240-e5e1e67d-61dc-41a4-aed7-4a1735bb81e6"
+        }
+      ],
+      "id": "b6d30f55-eb6c-49b2-9758-42ee0d1b4234",
+      "createdAt": "2026-07-28T02:59:35.000Z",
+      "updatedAt": "2026-07-28T02:59:35.000Z",
+      "uid": "35240-b6d30f55-eb6c-49b2-9758-42ee0d1b4234"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

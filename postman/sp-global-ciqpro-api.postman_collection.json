@@ -1,0 +1,178 @@
+{
+  "info": {
+    "_postman_id": "62ca4971-28ae-4c6c-be79-1634a5c96073",
+    "name": "Kensho Extract annotations-async Ciqpro API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:27.000Z",
+    "updatedAt": "2026-07-28T02:59:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-62ca4971-28ae-4c6c-be79-1634a5c96073"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "ciqpro",
+              "item": [
+                {
+                  "name": "{company_ids}",
+                  "item": [
+                    {
+                      "name": "ciqpro retrieve",
+                      "id": "b6110755-b8fe-447c-90e6-cee4ce6de39b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/ciqpro/:company_ids",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "ciqpro",
+                            ":company_ids"
+                          ],
+                          "variable": [
+                            {
+                              "id": "352727ed-72dc-472d-a42f-935cf8df41a2",
+                              "key": "company_ids",
+                              "value": "44692,516587681,8308,0692165120,908074",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Given a list of company IDs, return a list of those IDs to their CIQ Pro keys."
+                      },
+                      "response": [
+                        {
+                          "id": "10b0134a-f44d-4be4-ba98-0e2e1ecf9d93",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/ciqpro/:company_ids",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "ciqpro",
+                                ":company_ids"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_ids"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"results\": [\n    {\n      \"ciqpro_key\": \"<integer>\",\n      \"company_id\": \"<integer>\"\n    },\n    {\n      \"ciqpro_key\": \"<integer>\",\n      \"company_id\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:27.000Z",
+                          "updatedAt": "2026-07-28T02:59:27.000Z",
+                          "uid": "35240-10b0134a-f44d-4be4-ba98-0e2e1ecf9d93"
+                        },
+                        {
+                          "id": "ec321226-01dc-4441-b2fc-cf62101251c7",
+                          "name": "Indicates that the authorization is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/ciqpro/:company_ids",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "ciqpro",
+                                ":company_ids"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_ids"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:27.000Z",
+                          "updatedAt": "2026-07-28T02:59:27.000Z",
+                          "uid": "35240-ec321226-01dc-4441-b2fc-cf62101251c7"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:27.000Z",
+                      "updatedAt": "2026-07-28T02:59:27.000Z",
+                      "uid": "35240-b6110755-b8fe-447c-90e6-cee4ce6de39b"
+                    }
+                  ],
+                  "id": "a28af009-c0d1-4d44-9215-f873677a9228",
+                  "createdAt": "2026-07-28T02:59:27.000Z",
+                  "updatedAt": "2026-07-28T02:59:27.000Z",
+                  "uid": "35240-a28af009-c0d1-4d44-9215-f873677a9228"
+                }
+              ],
+              "id": "545591a3-2fa1-4c40-9e3a-dc94664eeb96",
+              "createdAt": "2026-07-28T02:59:27.000Z",
+              "updatedAt": "2026-07-28T02:59:27.000Z",
+              "uid": "35240-545591a3-2fa1-4c40-9e3a-dc94664eeb96"
+            }
+          ],
+          "id": "c0e1de9d-3253-40fb-b493-4c09a89fae1e",
+          "createdAt": "2026-07-28T02:59:27.000Z",
+          "updatedAt": "2026-07-28T02:59:27.000Z",
+          "uid": "35240-c0e1de9d-3253-40fb-b493-4c09a89fae1e"
+        }
+      ],
+      "id": "25b1bad8-cc76-41cd-a52c-5892ffbf8b70",
+      "createdAt": "2026-07-28T02:59:27.000Z",
+      "updatedAt": "2026-07-28T02:59:27.000Z",
+      "uid": "35240-25b1bad8-cc76-41cd-a52c-5892ffbf8b70"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

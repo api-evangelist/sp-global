@@ -1,0 +1,1748 @@
+{
+  "info": {
+    "_postman_id": "eba18608-a506-4f77-acf6-083729271a3c",
+    "name": "Kensho Extract annotations-async Transcription API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:41.000Z",
+    "updatedAt": "2026-07-28T03:00:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eba18608-a506-4f77-acf6-083729271a3c"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "transcription",
+              "item": [
+                {
+                  "name": "Query A Transcription Job",
+                  "id": "ee0a22f4-d139-4396-bf33-010c2d80ecce",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/transcription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "transcription"
+                      ],
+                      "variable": [
+                        {
+                          "id": "59e2f3ac-9a18-476a-b334-8c3d0ce35a1f",
+                          "key": "unique_id",
+                          "value": "<string>",
+                          "description": "ID of a transcription job"
+                        }
+                      ]
+                    },
+                    "description": "Get the results of a transcription job.\nThis method takes in the unique ID returned from starting a transcription,\nand returns either a JSON (default) or WebVTT response.\n\nIf the `Accept` header is missing or of type `application/json` then this call\nwill return a tuple of status, error, and transcript.\nThe status will be one of \"success\", \"error\", or \"pending\".\nThe transcript field will be present if and only if the status is \"success\".\nThe error field will be present if and only if the status is \"error\".\nA status of \"pending\" indicates that the transcription job is still in progress,\nin which case neither the transcript nor error will be present.\n\nIf the `Accept` header is of type `text/vtt` then this call will return\nthe transcription as VTT text tracks.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "55282bae-87ff-45b4-b02a-539c99f7a30c",
+                      "name": "Results of a transcription job",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error\": \"<string>\",\n  \"data\": {\n    \"transcript\": \"<string>\",\n    \"accuracy\": \"<number>\",\n    \"slice_meta\": [\n      {\n        \"transcript\": \"<string>\",\n        \"accuracy\": \"<number>\",\n        \"start_ms\": \"<integer>\",\n        \"duration_ms\": \"<integer>\",\n        \"token_meta\": [\n          {\n            \"transcript\": \"<string>\",\n            \"accuracy\": \"<number>\",\n            \"start_ms\": \"<integer>\",\n            \"duration_ms\": \"<integer>\",\n            \"align_success\": \"<boolean>\"\n          },\n          {\n            \"transcript\": \"<string>\",\n            \"accuracy\": \"<number>\",\n            \"start_ms\": \"<integer>\",\n            \"duration_ms\": \"<integer>\",\n            \"align_success\": \"<boolean>\"\n          }\n        ]\n      },\n      {\n        \"transcript\": \"<string>\",\n        \"accuracy\": \"<number>\",\n        \"start_ms\": \"<integer>\",\n        \"duration_ms\": \"<integer>\",\n        \"token_meta\": [\n          {\n            \"transcript\": \"<string>\",\n            \"accuracy\": \"<number>\",\n            \"start_ms\": \"<integer>\",\n            \"duration_ms\": \"<integer>\",\n            \"align_success\": \"<boolean>\"\n          },\n          {\n            \"transcript\": \"<string>\",\n            \"accuracy\": \"<number>\",\n            \"start_ms\": \"<integer>\",\n            \"duration_ms\": \"<integer>\",\n            \"align_success\": \"<boolean>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"expires\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-55282bae-87ff-45b4-b02a-539c99f7a30c"
+                    },
+                    {
+                      "id": "663eaa41-e8b4-41ff-8223-9aa7745178ae",
+                      "name": "An invalid request was made to the server.\nThis could occur if the unique_id was not added as a path parameter.\n",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-663eaa41-e8b4-41ff-8223-9aa7745178ae"
+                    },
+                    {
+                      "id": "6757e9a1-b31c-4510-865e-ab1f6a92e907",
+                      "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-6757e9a1-b31c-4510-865e-ab1f6a92e907"
+                    },
+                    {
+                      "id": "d5e19f38-8d85-4df8-9a24-70ffcf4f20e2",
+                      "name": "The transcript for the request_id cannot be found.\nIt is possible that the transcription is still going on and that an attempt\nat a later time will result in a 200 response.\n",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-d5e19f38-8d85-4df8-9a24-70ffcf4f20e2"
+                    },
+                    {
+                      "id": "60e79656-6b4f-4b31-9b4e-3ccecfeec018",
+                      "name": "Indicates that the request was rate limited.\nThis can occur if very frequent polling exists limits on the number of\nallowed requests to the API.\nA 429 response will contain a body describing why the upload was rate limited\n",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-60e79656-6b4f-4b31-9b4e-3ccecfeec018"
+                    },
+                    {
+                      "id": "71cbab40-b68e-42d4-a69c-342d490fb69c",
+                      "name": "An error occurred while processing the audio / video uploaded.\nThe response text will have additional details.\n",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-71cbab40-b68e-42d4-a69c-342d490fb69c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:41.000Z",
+                  "updatedAt": "2026-07-28T03:00:41.000Z",
+                  "uid": "35240-ee0a22f4-d139-4396-bf33-010c2d80ecce"
+                },
+                {
+                  "name": "Start A Transcription Job",
+                  "id": "139deab1-938f-45df-944d-bcdbe4fc50a6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/transcription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "transcription"
+                      ]
+                    },
+                    "description": "Starts a transcription job for a single audio or video file.\n\nThe `Content-Type` header in the request must be set to the type of audio or\nvideo being uploaded. The `Content-Type` can be set to any one of the following\nmime types that we support:\n- `application/mp3`\n- `audio/aac`\n- `audio/m4a`\n- `audio/mp3`\n- `audio/mpeg`\n- `audio/mpeg3`\n- `audio/wav`\n- `audio/wave`\n- `audio/x-m4a`\n- `audio/x-mpeg-3`\n- `audio/x-wav`\n- `video/mp4`\n\nMP4 video, as a container, can hold any supported audio type.\nMP3 and M4A audio support a wide variety of compression and audio codec options.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nThe body of the request can contain a single binary file OR multipart form data.  When\nmultipart form data is submitted there are a few additional options and requirements:\n- The `Content-Type` header of the request must be `multipart/form-data`\n- There must be file field with the name `file` which contains the audio / video data,\n  the mime type for the data and an optional filename.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "54422c2d-4be5-44f8-946c-9cb77c7aa075",
+                      "name": "Indicates that the audio file was successfully uploaded.\nThis method returns a randomly generated unique ID that the client can\nuse to query the resulting transcript.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"unique_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-54422c2d-4be5-44f8-946c-9cb77c7aa075"
+                    },
+                    {
+                      "id": "d1d9fe5a-907b-4527-8095-1385289dba39",
+                      "name": "An invalid request was made to the server.\nThis could be because of an invalid content type, or an invalid MP3 file.\nA 400 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-d1d9fe5a-907b-4527-8095-1385289dba39"
+                    },
+                    {
+                      "id": "08adef84-3a53-49e0-aa97-4e3e0ea158e2",
+                      "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-08adef84-3a53-49e0-aa97-4e3e0ea158e2"
+                    },
+                    {
+                      "id": "5bb03dfc-d18b-413b-8a29-a93c4971f5a4",
+                      "name": "Indicates the upload was rate limited.\nThis can occur if audio is uploaded too quickly, or if a user's audio\nquota is exceeded.\nA 429 response will contain a body describing why the upload was rate limited\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-5bb03dfc-d18b-413b-8a29-a93c4971f5a4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:41.000Z",
+                  "updatedAt": "2026-07-28T03:00:41.000Z",
+                  "uid": "35240-139deab1-938f-45df-944d-bcdbe4fc50a6"
+                },
+                {
+                  "name": "Delete A Transcription Job",
+                  "id": "c07989d1-de5c-4095-9565-37743f98157c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/transcription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "transcription"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0fa0cd85-abb6-4e35-a3b9-ce1b09573fa8",
+                          "key": "unique_id",
+                          "value": "<string>",
+                          "description": "ID of a transcription job"
+                        }
+                      ]
+                    },
+                    "description": "This method takes in the unique_id returned when starting a transcription,\nand deletes all stored data associated with that transcription job.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c39f6e98-f17c-4efb-91e6-a09c6f3538f3",
+                      "name": "All stored data associate with the transcription job is no longer available.\nThis could be due to a successful deletion or the transccription job never existed.\nA 200 response does not contain any content body.\n",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-c39f6e98-f17c-4efb-91e6-a09c6f3538f3"
+                    },
+                    {
+                      "id": "b58a2bb3-2387-4ee2-936e-4a5039461754",
+                      "name": "An invalid request was made to the server.\nThis could occur if the unique_id was not added as a path parameter or the unique_id is invalid.\nA 400 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-b58a2bb3-2387-4ee2-936e-4a5039461754"
+                    },
+                    {
+                      "id": "04bc2422-7618-4de1-b778-34cd6655f7ec",
+                      "name": "The request was not authorized.\nThis could be due to credentials that are missing, expired, or invalid.\nA 403 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-04bc2422-7618-4de1-b778-34cd6655f7ec"
+                    },
+                    {
+                      "id": "7165f25f-5197-4d7c-b5c7-ae938f95e8ff",
+                      "name": "The transcription job for the request_id is still in progress.\nThis could occur if the transcription is still going on and that an attempt\nat a later time will result in a 200 response.\nA 409 response will contain a body describing the error.\n",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-7165f25f-5197-4d7c-b5c7-ae938f95e8ff"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:41.000Z",
+                  "updatedAt": "2026-07-28T03:00:41.000Z",
+                  "uid": "35240-c07989d1-de5c-4095-9565-37743f98157c"
+                }
+              ],
+              "id": "f809e546-5273-4118-b551-9061b1a7c7e7",
+              "createdAt": "2026-07-28T03:00:41.000Z",
+              "updatedAt": "2026-07-28T03:00:41.000Z",
+              "uid": "35240-f809e546-5273-4118-b551-9061b1a7c7e7"
+            }
+          ],
+          "id": "254d97bc-8366-45d1-9327-477d640deb7f",
+          "createdAt": "2026-07-28T03:00:41.000Z",
+          "updatedAt": "2026-07-28T03:00:41.000Z",
+          "uid": "35240-254d97bc-8366-45d1-9327-477d640deb7f"
+        },
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "transcription",
+              "item": [
+                {
+                  "name": "{transcription_id}",
+                  "item": [
+                    {
+                      "name": "Query a transcription by ID",
+                      "id": "1a3ca5fb-f564-4a44-acf3-d4df5e9b5cec",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "HEAD",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription",
+                            ":transcription_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1ae421a4-d423-4ca1-af58-b5448ed16a3a",
+                              "key": "transcription_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of a transcription to query for"
+                            }
+                          ]
+                        },
+                        "description": "Determines if a transcript is available for download or not."
+                      },
+                      "response": [
+                        {
+                          "id": "b3948fdc-7239-448f-92db-2d7d8d1ec6cf",
+                          "name": "The transcription, for the `transcription_id` is complete and can be downloaded\nfor the returned `Content-Type`.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "The date and time, after which, the transcription will no longer be retrievable",
+                                "type": "text/plain"
+                              },
+                              "key": "Expires",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-b3948fdc-7239-448f-92db-2d7d8d1ec6cf"
+                        },
+                        {
+                          "id": "cec61a88-72c9-46f0-a0c6-bb5bd4a501a7",
+                          "name": "The transcription, for the `transcription_id` is still in progress.  Retrying\nlater will yield a successful result.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-cec61a88-72c9-46f0-a0c6-bb5bd4a501a7"
+                        },
+                        {
+                          "id": "1998ccdc-dfd7-4a8c-9c42-b3be398caf9a",
+                          "name": "An invalid request was made to the server.",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-1998ccdc-dfd7-4a8c-9c42-b3be398caf9a"
+                        },
+                        {
+                          "id": "b00719b5-61cc-4f29-a780-9ba3a699b32c",
+                          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-b00719b5-61cc-4f29-a780-9ba3a699b32c"
+                        },
+                        {
+                          "id": "b26be4f7-9094-4c7d-bee1-4fde41cca167",
+                          "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-b26be4f7-9094-4c7d-bee1-4fde41cca167"
+                        },
+                        {
+                          "id": "99164bfb-ff7f-41a6-8cea-6dcd02bcd18f",
+                          "name": "A transcription cannot be queried for the given 'Accept' mime type.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-99164bfb-ff7f-41a6-8cea-6dcd02bcd18f"
+                        },
+                        {
+                          "id": "5f41c984-2eed-497b-9f21-34e37be1ec1a",
+                          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+                          "originalRequest": {
+                            "method": "HEAD",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-5f41c984-2eed-497b-9f21-34e37be1ec1a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-1a3ca5fb-f564-4a44-acf3-d4df5e9b5cec"
+                    },
+                    {
+                      "name": "Download A Transcription By ID",
+                      "id": "0fd775bd-0dfb-4944-babc-78a0735881fc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription",
+                            ":transcription_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ec864135-ac72-4c51-bf90-db03de0ed2d5",
+                              "key": "transcription_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of a transcription to retrieve"
+                            }
+                          ]
+                        },
+                        "description": "Get the resulting transcript from the transcription request."
+                      },
+                      "response": [
+                        {
+                          "id": "73a601ee-f1cd-4791-8f03-611ae169c960",
+                          "name": "Results of a transcription request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "The date and time, after which, the transcription will no longer be retrievable",
+                                "type": "text/plain"
+                              },
+                              "key": "Expires",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"transcript\": \"<string>\",\n  \"accuracy\": \"<number>\",\n  \"slice_meta\": [\n    {\n      \"transcript\": \"<string>\",\n      \"accuracy\": \"<number>\",\n      \"start_ms\": \"<integer>\",\n      \"duration_ms\": \"<integer>\",\n      \"speaker_id\": \"<integer>\",\n      \"speaker_accuracy\": 0,\n      \"token_meta\": [\n        {\n          \"transcript\": \"<string>\",\n          \"accuracy\": \"<number>\",\n          \"start_ms\": \"<integer>\",\n          \"duration_ms\": \"<integer>\",\n          \"align_success\": \"<boolean>\"\n        },\n        {\n          \"transcript\": \"<string>\",\n          \"accuracy\": \"<number>\",\n          \"start_ms\": \"<integer>\",\n          \"duration_ms\": \"<integer>\",\n          \"align_success\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"transcript\": \"<string>\",\n      \"accuracy\": \"<number>\",\n      \"start_ms\": \"<integer>\",\n      \"duration_ms\": \"<integer>\",\n      \"speaker_id\": \"<integer>\",\n      \"speaker_accuracy\": 0,\n      \"token_meta\": [\n        {\n          \"transcript\": \"<string>\",\n          \"accuracy\": \"<number>\",\n          \"start_ms\": \"<integer>\",\n          \"duration_ms\": \"<integer>\",\n          \"align_success\": \"<boolean>\"\n        },\n        {\n          \"transcript\": \"<string>\",\n          \"accuracy\": \"<number>\",\n          \"start_ms\": \"<integer>\",\n          \"duration_ms\": \"<integer>\",\n          \"align_success\": \"<boolean>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-73a601ee-f1cd-4791-8f03-611ae169c960"
+                        },
+                        {
+                          "id": "f7a115fd-6bd5-49a2-b587-92f581a2558d",
+                          "name": "The transcription, with the `transcription_id` is still in progress.  Retrying\nlater will yield a successful result.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-f7a115fd-6bd5-49a2-b587-92f581a2558d"
+                        },
+                        {
+                          "id": "28527b9d-e915-41ea-aee7-ae17ee25ec48",
+                          "name": "An invalid request was made to the server.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": \"<string>\",\n  \"msg_code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-28527b9d-e915-41ea-aee7-ae17ee25ec48"
+                        },
+                        {
+                          "id": "69ddd13b-45be-45c9-97c3-c3d74563fc3a",
+                          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-69ddd13b-45be-45c9-97c3-c3d74563fc3a"
+                        },
+                        {
+                          "id": "be5da218-8141-4352-93c6-6b67baf3b160",
+                          "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-be5da218-8141-4352-93c6-6b67baf3b160"
+                        },
+                        {
+                          "id": "3993f192-cf1c-412b-b31c-2f87faba1cc2",
+                          "name": "A transcription cannot be returned for the given 'Accept' mime type.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-3993f192-cf1c-412b-b31c-2f87faba1cc2"
+                        },
+                        {
+                          "id": "94a239f3-9216-48bf-b06b-fdfd3fa4c231",
+                          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-94a239f3-9216-48bf-b06b-fdfd3fa4c231"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-0fd775bd-0dfb-4944-babc-78a0735881fc"
+                    },
+                    {
+                      "name": "Delete All Transcription Data By ID",
+                      "id": "70f03fca-1825-480e-b80c-19570f6e9264",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription",
+                            ":transcription_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0c195cae-ae67-43de-b609-75f9cec163f9",
+                              "key": "transcription_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of a transcription to delete"
+                            }
+                          ]
+                        },
+                        "description": "Attempts to ensure that all stored data for a transcription is no longer available on the system."
+                      },
+                      "response": [
+                        {
+                          "id": "da0ec23d-2224-4845-b6f8-6d6bae55a394",
+                          "name": "All stored data associated with the transcription is no longer available.\nThis could mean that:\n * The transcription data existed and is no longer available.\n * The transcription data did not exist and is still no longer available.\n * The transcription da",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-da0ec23d-2224-4845-b6f8-6d6bae55a394"
+                        },
+                        {
+                          "id": "0455e3b1-110a-4c02-aa89-1086c72832b6",
+                          "name": "An invalid request was made to the server.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": \"<string>\",\n  \"msg_code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-0455e3b1-110a-4c02-aa89-1086c72832b6"
+                        },
+                        {
+                          "id": "eee83697-3c83-4fdd-977c-10cd95fd9c64",
+                          "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-eee83697-3c83-4fdd-977c-10cd95fd9c64"
+                        },
+                        {
+                          "id": "b6fd6106-a807-4b1a-b85a-836a235380ec",
+                          "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/transcription/:transcription_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "transcription",
+                                ":transcription_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transcription_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:41.000Z",
+                          "updatedAt": "2026-07-28T03:00:41.000Z",
+                          "uid": "35240-b6fd6106-a807-4b1a-b85a-836a235380ec"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-70f03fca-1825-480e-b80c-19570f6e9264"
+                    }
+                  ],
+                  "id": "4a0f9279-5062-46cc-8948-a30d84f146fe",
+                  "createdAt": "2026-07-28T03:00:41.000Z",
+                  "updatedAt": "2026-07-28T03:00:41.000Z",
+                  "uid": "35240-4a0f9279-5062-46cc-8948-a30d84f146fe"
+                },
+                {
+                  "name": "Start A New Transcription",
+                  "id": "91c1fd87-979e-44ef-9774-4911d7d1f69c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/transcription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "transcription"
+                      ]
+                    },
+                    "description": "Starts a transcription request for a single audio or video file.\n\nWe support a wide array of audio formats along with their respective compression / codec\noptions including:\n - AAC\n - FLAC\n - MP1\n - MP3\n - WAV\n\nCurrently we only support MP4 video files where the audio streams _must_ be one\nof the supported audio formats.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nMultichannel audio will be merged into a single stream prior to transcription.\nIn very rare cases this can cause transcription issues with stereo audio when\nthe two channels have near identical content that is slightly out of phase.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "7999a6c6-976e-4ba8-8bb0-69853c3c8909",
+                      "name": "Transcription was successfully started.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transcription_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-7999a6c6-976e-4ba8-8bb0-69853c3c8909"
+                    },
+                    {
+                      "id": "1bc434e4-ecc5-45ab-b768-f5b5d7384b9b",
+                      "name": "An invalid request was made to the server.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": \"<string>\",\n  \"msg_code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-1bc434e4-ecc5-45ab-b768-f5b5d7384b9b"
+                    },
+                    {
+                      "id": "603f0bc5-af7c-4934-b432-3600e2ca70ee",
+                      "name": "Authentication information was not provided - check to ensure that `Authorization`\nheader is present.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-603f0bc5-af7c-4934-b432-3600e2ca70ee"
+                    },
+                    {
+                      "id": "eb2e1da3-f5c2-48a7-9e5b-9225c8e0fd48",
+                      "name": "The transcript, for the `transcription_id`, cannot be found.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-eb2e1da3-f5c2-48a7-9e5b-9225c8e0fd48"
+                    },
+                    {
+                      "id": "627ec394-d17a-4361-9cbc-09b8f6957417",
+                      "name": "The request was rate limited.  Limit the requests to a maximum of 5 per second to avoid\ngetting this.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"media_url\": \"<string>\",\n  \"callback_uri\": \"<uri>\",\n  \"transcriber\": \"machine\",\n  \"media_language\": \"en\",\n  \"priority\": \"medium\",\n  \"context\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/transcription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "transcription"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:41.000Z",
+                      "updatedAt": "2026-07-28T03:00:41.000Z",
+                      "uid": "35240-627ec394-d17a-4361-9cbc-09b8f6957417"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:41.000Z",
+                  "updatedAt": "2026-07-28T03:00:41.000Z",
+                  "uid": "35240-91c1fd87-979e-44ef-9774-4911d7d1f69c"
+                }
+              ],
+              "id": "fbe1b67e-1fe7-4bd8-a488-dc185b4c6509",
+              "createdAt": "2026-07-28T03:00:41.000Z",
+              "updatedAt": "2026-07-28T03:00:41.000Z",
+              "uid": "35240-fbe1b67e-1fe7-4bd8-a488-dc185b4c6509"
+            }
+          ],
+          "id": "d5d63fe8-fb83-487b-82b5-389c049b7afe",
+          "createdAt": "2026-07-28T03:00:41.000Z",
+          "updatedAt": "2026-07-28T03:00:41.000Z",
+          "uid": "35240-d5d63fe8-fb83-487b-82b5-389c049b7afe"
+        }
+      ],
+      "id": "2d5f7d12-682b-41e6-a18f-7343287891e8",
+      "createdAt": "2026-07-28T03:00:41.000Z",
+      "updatedAt": "2026-07-28T03:00:41.000Z",
+      "uid": "35240-2d5f7d12-682b-41e6-a18f-7343287891e8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://scribe.kensho.com"
+    }
+  ]
+}

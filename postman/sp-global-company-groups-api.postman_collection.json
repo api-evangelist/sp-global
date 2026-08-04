@@ -1,0 +1,840 @@
+{
+  "info": {
+    "_postman_id": "65c24a9e-50cc-438c-8d5d-202ba0cb498c",
+    "name": "Kensho Extract annotations-async Company Groups API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:28.000Z",
+    "updatedAt": "2026-07-28T02:59:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-65c24a9e-50cc-438c-8d5d-202ba0cb498c"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "company_groups",
+              "item": [
+                {
+                  "name": "geo",
+                  "item": [
+                    {
+                      "name": "country",
+                      "item": [
+                        {
+                          "name": "{iso_code}",
+                          "item": [
+                            {
+                              "name": "{state}",
+                              "item": [
+                                {
+                                  "name": "Get Companies By Location",
+                                  "id": "218e1313-9d86-4911-9afc-0f308b21c100",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/geo/country/:iso_code/:state",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "geo",
+                                        "country",
+                                        ":iso_code",
+                                        ":state"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "f4ca6955-00b5-4055-84e4-735c1642e0d8",
+                                          "key": "iso_code",
+                                          "value": "",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "824630d7-2071-434a-a5f5-0006ed3d2e52",
+                                          "key": "state",
+                                          "value": "",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Get the list of companies based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. This code identifies the subdivision without repeating the country code. Example: \"CA\" for California, \"MH\" for Maharashtra."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "15ac59d3-dfc0-438b-82eb-b5a41320e6e6",
+                                      "name": "Indicates a successful request.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/company_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "company_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"companies\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:59:28.000Z",
+                                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                                      "uid": "35240-15ac59d3-dfc0-438b-82eb-b5a41320e6e6"
+                                    },
+                                    {
+                                      "id": "4ff402f9-3953-42f6-9c45-825b386164ea",
+                                      "name": "Indicates that the query is invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/company_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "company_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:28.000Z",
+                                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                                      "uid": "35240-4ff402f9-3953-42f6-9c45-825b386164ea"
+                                    },
+                                    {
+                                      "id": "f6ec6dad-0a56-42f2-843c-784c1d4663cc",
+                                      "name": "Indicates that the authorization information is missing or invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/company_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "company_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:28.000Z",
+                                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                                      "uid": "35240-f6ec6dad-0a56-42f2-843c-784c1d4663cc"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-218e1313-9d86-4911-9afc-0f308b21c100"
+                                }
+                              ],
+                              "id": "f7d84740-5890-4c4a-a56e-63e5c577841c",
+                              "createdAt": "2026-07-28T02:59:28.000Z",
+                              "updatedAt": "2026-07-28T02:59:28.000Z",
+                              "uid": "35240-f7d84740-5890-4c4a-a56e-63e5c577841c"
+                            }
+                          ],
+                          "id": "cdb93d0a-cae5-42ae-a056-2d730118c561",
+                          "createdAt": "2026-07-28T02:59:28.000Z",
+                          "updatedAt": "2026-07-28T02:59:28.000Z",
+                          "uid": "35240-cdb93d0a-cae5-42ae-a056-2d730118c561"
+                        }
+                      ],
+                      "id": "7df2cc43-1157-4c2b-b1e3-f02632837a35",
+                      "createdAt": "2026-07-28T02:59:28.000Z",
+                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                      "uid": "35240-7df2cc43-1157-4c2b-b1e3-f02632837a35"
+                    }
+                  ],
+                  "id": "c56c256b-4fba-45dd-9d87-24ba23e2774c",
+                  "createdAt": "2026-07-28T02:59:28.000Z",
+                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                  "uid": "35240-c56c256b-4fba-45dd-9d87-24ba23e2774c"
+                },
+                {
+                  "name": "industry",
+                  "item": [
+                    {
+                      "name": "{industry_classification}",
+                      "item": [
+                        {
+                          "name": "{industry_code}",
+                          "item": [
+                            {
+                              "name": "Get Companies By Industry Code",
+                              "id": "d3f608a5-400c-42a7-adf4-04f848f9cfd6",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/company_groups/industry/:industry_classification/:industry_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "company_groups",
+                                    "industry",
+                                    ":industry_classification",
+                                    ":industry_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "057ff00c-07f3-4fb3-bfde-bb819047d092",
+                                      "key": "industry_classification",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "504f7d93-c7f4-44fd-9747-f57cd24c104f",
+                                      "key": "industry_code",
+                                      "value": "NTi0Jbjd86Nj",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of companies that are in the given industry_classification and industry_code"
+                              },
+                              "response": [
+                                {
+                                  "id": "b5777395-e4b1-40a7-a201-74cc626df410",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"companies\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-b5777395-e4b1-40a7-a201-74cc626df410"
+                                },
+                                {
+                                  "id": "e8ba4acf-5c93-4f22-b1eb-3b01d0a2a163",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-e8ba4acf-5c93-4f22-b1eb-3b01d0a2a163"
+                                },
+                                {
+                                  "id": "365fdc1a-7359-4591-a689-6f78676cefad",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-365fdc1a-7359-4591-a689-6f78676cefad"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:28.000Z",
+                              "updatedAt": "2026-07-28T02:59:28.000Z",
+                              "uid": "35240-d3f608a5-400c-42a7-adf4-04f848f9cfd6"
+                            }
+                          ],
+                          "id": "203fe161-b1df-4cb3-bf80-262d12e1c180",
+                          "createdAt": "2026-07-28T02:59:28.000Z",
+                          "updatedAt": "2026-07-28T02:59:28.000Z",
+                          "uid": "35240-203fe161-b1df-4cb3-bf80-262d12e1c180"
+                        }
+                      ],
+                      "id": "095e8a3d-21b5-4a27-9a78-5c4eb0f68b08",
+                      "createdAt": "2026-07-28T02:59:28.000Z",
+                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                      "uid": "35240-095e8a3d-21b5-4a27-9a78-5c4eb0f68b08"
+                    },
+                    {
+                      "name": "gics",
+                      "item": [
+                        {
+                          "name": "{gics_code}",
+                          "item": [
+                            {
+                              "name": "Get Companies By GICS Code",
+                              "id": "a5988dd6-dc17-44ab-9199-764adec7bb5f",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/company_groups/industry/gics/:gics_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "company_groups",
+                                    "industry",
+                                    "gics",
+                                    ":gics_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "fbf8dd33-3aa8-4514-aceb-2bfca8331547",
+                                      "key": "gics_code",
+                                      "value": "553239",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of companies that are classified in the gics_code.\n\nReturns a dictionary of shape {\"companies\": List[<company_id>]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+                              },
+                              "response": [
+                                {
+                                  "id": "d5c8e742-574c-428d-a297-7564b5f46bb8",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"companies\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-d5c8e742-574c-428d-a297-7564b5f46bb8"
+                                },
+                                {
+                                  "id": "db72164e-2af8-428c-bd76-c7e186ba86f1",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-db72164e-2af8-428c-bd76-c7e186ba86f1"
+                                },
+                                {
+                                  "id": "19633153-75ed-4ddc-bc91-4022a68cd3d2",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-19633153-75ed-4ddc-bc91-4022a68cd3d2"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:28.000Z",
+                              "updatedAt": "2026-07-28T02:59:28.000Z",
+                              "uid": "35240-a5988dd6-dc17-44ab-9199-764adec7bb5f"
+                            }
+                          ],
+                          "id": "f478505d-0149-4414-b1d6-ba8daeaf78c7",
+                          "createdAt": "2026-07-28T02:59:28.000Z",
+                          "updatedAt": "2026-07-28T02:59:28.000Z",
+                          "uid": "35240-f478505d-0149-4414-b1d6-ba8daeaf78c7"
+                        }
+                      ],
+                      "id": "3a1b8145-276c-413d-a5b9-41d9d1a8431b",
+                      "createdAt": "2026-07-28T02:59:28.000Z",
+                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                      "uid": "35240-3a1b8145-276c-413d-a5b9-41d9d1a8431b"
+                    },
+                    {
+                      "name": "simple",
+                      "item": [
+                        {
+                          "name": "{simple_industry}",
+                          "item": [
+                            {
+                              "name": "Get Companies By Simple Industry",
+                              "id": "6ad910f2-27a5-48bf-8192-e97d023cbf16",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/company_groups/industry/simple/:simple_industry",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "company_groups",
+                                    "industry",
+                                    "simple",
+                                    ":simple_industry"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a0811f08-efc1-4ea9-997f-1b8e4993b23e",
+                                      "key": "simple_industry",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of companies that are in the given simple_industry"
+                              },
+                              "response": [
+                                {
+                                  "id": "6e81f406-2785-4ccd-ac64-93173cf4ee85",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"companies\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-6e81f406-2785-4ccd-ac64-93173cf4ee85"
+                                },
+                                {
+                                  "id": "945a69cc-6df7-4d2a-9454-a45e084262ac",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-945a69cc-6df7-4d2a-9454-a45e084262ac"
+                                },
+                                {
+                                  "id": "7e9f8036-eeaa-49de-a63a-573926b18c03",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/company_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "company_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:28.000Z",
+                                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                                  "uid": "35240-7e9f8036-eeaa-49de-a63a-573926b18c03"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:28.000Z",
+                              "updatedAt": "2026-07-28T02:59:28.000Z",
+                              "uid": "35240-6ad910f2-27a5-48bf-8192-e97d023cbf16"
+                            }
+                          ],
+                          "id": "38f5487e-9da5-495f-b2d1-bc7c65568671",
+                          "createdAt": "2026-07-28T02:59:28.000Z",
+                          "updatedAt": "2026-07-28T02:59:28.000Z",
+                          "uid": "35240-38f5487e-9da5-495f-b2d1-bc7c65568671"
+                        }
+                      ],
+                      "id": "fe04994c-966a-4b33-8c61-5ea2f0a1d3c6",
+                      "createdAt": "2026-07-28T02:59:28.000Z",
+                      "updatedAt": "2026-07-28T02:59:28.000Z",
+                      "uid": "35240-fe04994c-966a-4b33-8c61-5ea2f0a1d3c6"
+                    }
+                  ],
+                  "id": "b5bb124c-b489-42d3-b656-78eb42039367",
+                  "createdAt": "2026-07-28T02:59:28.000Z",
+                  "updatedAt": "2026-07-28T02:59:28.000Z",
+                  "uid": "35240-b5bb124c-b489-42d3-b656-78eb42039367"
+                }
+              ],
+              "id": "d4761cc9-abd0-4f6a-96cf-1f6f8415c28a",
+              "createdAt": "2026-07-28T02:59:28.000Z",
+              "updatedAt": "2026-07-28T02:59:28.000Z",
+              "uid": "35240-d4761cc9-abd0-4f6a-96cf-1f6f8415c28a"
+            }
+          ],
+          "id": "1abe3f4b-1a4c-49b1-8d49-d201779b1feb",
+          "createdAt": "2026-07-28T02:59:28.000Z",
+          "updatedAt": "2026-07-28T02:59:28.000Z",
+          "uid": "35240-1abe3f4b-1a4c-49b1-8d49-d201779b1feb"
+        }
+      ],
+      "id": "c4d15032-a3cb-42a7-a0aa-e7879f26eb9c",
+      "createdAt": "2026-07-28T02:59:28.000Z",
+      "updatedAt": "2026-07-28T02:59:28.000Z",
+      "uid": "35240-c4d15032-a3cb-42a7-a0aa-e7879f26eb9c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

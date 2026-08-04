@@ -1,0 +1,178 @@
+{
+  "info": {
+    "_postman_id": "d37e161e-a75b-4018-8b0a-2da56a2b269f",
+    "name": "Kensho Extract annotations-async Mergers API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:45.000Z",
+    "updatedAt": "2026-07-28T02:59:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d37e161e-a75b-4018-8b0a-2da56a2b269f"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "mergers",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "mergers retrieve",
+                      "id": "7f9fc3cd-af3e-4271-8656-fb9a0780f50c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/mergers/:company_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "mergers",
+                            ":company_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "551cd624-9eb1-4134-a9f1-414d0ff10cab",
+                              "key": "company_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the merger/acquisition transactions for the specified company."
+                      },
+                      "response": [
+                        {
+                          "id": "cdd6ed56-67bb-40de-89e9-6ceaa5518303",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/mergers/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "mergers",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"buyer\": [\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    },\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    }\n  ],\n  \"seller\": [\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    },\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    }\n  ],\n  \"target\": [\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    },\n    {\n      \"merger_title\": \"<string>\",\n      \"transaction_id\": \"<integer>\",\n      \"closed_date\": \"<date>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:46.000Z",
+                          "updatedAt": "2026-07-28T02:59:46.000Z",
+                          "uid": "35240-cdd6ed56-67bb-40de-89e9-6ceaa5518303"
+                        },
+                        {
+                          "id": "531cf345-aa0b-4d64-aa1f-33a7bbd8f358",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/mergers/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "mergers",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:46.000Z",
+                          "updatedAt": "2026-07-28T02:59:46.000Z",
+                          "uid": "35240-531cf345-aa0b-4d64-aa1f-33a7bbd8f358"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:46.000Z",
+                      "updatedAt": "2026-07-28T02:59:46.000Z",
+                      "uid": "35240-7f9fc3cd-af3e-4271-8656-fb9a0780f50c"
+                    }
+                  ],
+                  "id": "48643e5b-4764-4f99-b192-ea11488db1fa",
+                  "createdAt": "2026-07-28T02:59:46.000Z",
+                  "updatedAt": "2026-07-28T02:59:46.000Z",
+                  "uid": "35240-48643e5b-4764-4f99-b192-ea11488db1fa"
+                }
+              ],
+              "id": "8a74605c-c946-491c-9e23-224b79ad86e3",
+              "createdAt": "2026-07-28T02:59:46.000Z",
+              "updatedAt": "2026-07-28T02:59:46.000Z",
+              "uid": "35240-8a74605c-c946-491c-9e23-224b79ad86e3"
+            }
+          ],
+          "id": "178621e3-b7a8-4d3d-ba20-27bfd5030402",
+          "createdAt": "2026-07-28T02:59:46.000Z",
+          "updatedAt": "2026-07-28T02:59:46.000Z",
+          "uid": "35240-178621e3-b7a8-4d3d-ba20-27bfd5030402"
+        }
+      ],
+      "id": "6791bb48-a23c-4a69-8435-f93297386d23",
+      "createdAt": "2026-07-28T02:59:46.000Z",
+      "updatedAt": "2026-07-28T02:59:46.000Z",
+      "uid": "35240-6791bb48-a23c-4a69-8435-f93297386d23"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "info": {
+    "_postman_id": "676fac52-ff64-4f93-8669-589a0f35f702",
+    "name": "Kensho Extract annotations-async upload-url API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:35.000Z",
+    "updatedAt": "2026-07-28T03:00:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-676fac52-ff64-4f93-8669-589a0f35f702"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "upload-url",
+              "item": [
+                {
+                  "name": "Get An Upload URL For Uploading A Text File",
+                  "id": "14d03260-a9fa-4f4e-aef1-b22d9c2d48b4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/upload-url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "upload-url"
+                      ]
+                    },
+                    "description": "This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15** minutes."
+                  },
+                  "response": [
+                    {
+                      "id": "0a0def50-0b21-4ead-a1af-c415733ad285",
+                      "name": "Indicates that the upload URL was created successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"url\": \"<string>\",\n  \"fields\": {\n    \"ad_2\": \"<string>\"\n  },\n  \"job_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-0a0def50-0b21-4ead-a1af-c415733ad285"
+                    },
+                    {
+                      "id": "a6a46c56-a716-441a-8c5e-2b237a583aa9",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-a6a46c56-a716-441a-8c5e-2b237a583aa9"
+                    },
+                    {
+                      "id": "f02fda1f-c799-4b92-ad6f-850e54fedd07",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-f02fda1f-c799-4b92-ad6f-850e54fedd07"
+                    },
+                    {
+                      "id": "acd7e5be-2e57-482e-b7c3-3304b41b1591",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-acd7e5be-2e57-482e-b7c3-3304b41b1591"
+                    },
+                    {
+                      "id": "374540ca-2513-492c-831c-07eacf76f800",
+                      "name": "Internal server error when generating the upload URL.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-374540ca-2513-492c-831c-07eacf76f800"
+                    },
+                    {
+                      "id": "6c8d28bc-87fd-4c35-81df-199941a1dc1b",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:36.000Z",
+                      "updatedAt": "2026-07-28T03:00:36.000Z",
+                      "uid": "35240-6c8d28bc-87fd-4c35-81df-199941a1dc1b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:36.000Z",
+                  "updatedAt": "2026-07-28T03:00:36.000Z",
+                  "uid": "35240-14d03260-a9fa-4f4e-aef1-b22d9c2d48b4"
+                }
+              ],
+              "id": "942fd1cf-3683-4fc6-9788-c7cf4b4278f3",
+              "createdAt": "2026-07-28T03:00:35.000Z",
+              "updatedAt": "2026-07-28T03:00:35.000Z",
+              "uid": "35240-942fd1cf-3683-4fc6-9788-c7cf4b4278f3"
+            }
+          ],
+          "id": "6dbdef12-c177-4a08-a4fc-302dc5558276",
+          "createdAt": "2026-07-28T03:00:35.000Z",
+          "updatedAt": "2026-07-28T03:00:35.000Z",
+          "uid": "35240-6dbdef12-c177-4a08-a4fc-302dc5558276"
+        }
+      ],
+      "id": "61b5ee8f-836f-4fae-83ba-be66300c0c62",
+      "createdAt": "2026-07-28T03:00:35.000Z",
+      "updatedAt": "2026-07-28T03:00:35.000Z",
+      "uid": "35240-61b5ee8f-836f-4fae-83ba-be66300c0c62"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://nerd.kensho.com"
+    }
+  ]
+}

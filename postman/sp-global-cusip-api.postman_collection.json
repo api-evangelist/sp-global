@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "d341d069-1f2f-415b-9f2a-9cfce82e48c5",
+    "name": "Kensho Extract annotations-async Cusip API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:30.000Z",
+    "updatedAt": "2026-07-28T02:59:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d341d069-1f2f-415b-9f2a-9cfce82e48c5"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "cusip",
+              "item": [
+                {
+                  "name": "{security_id}",
+                  "item": [
+                    {
+                      "name": "Get CUSIP",
+                      "id": "d8b2db14-3f0e-49e4-8823-792af8ea5785",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/cusip/:security_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "cusip",
+                            ":security_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2e1b58fc-4292-41cd-a74a-f1a890a21cd6",
+                              "key": "security_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the CUSIP for a given security_id"
+                      },
+                      "response": [
+                        {
+                          "id": "7d4d8a10-0957-4945-a002-fa2c5b487ed6",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/cusip/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "cusip",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"cusip\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:59:30.000Z",
+                          "updatedAt": "2026-07-28T02:59:30.000Z",
+                          "uid": "35240-7d4d8a10-0957-4945-a002-fa2c5b487ed6"
+                        },
+                        {
+                          "id": "c8113e97-be24-47ec-924d-d744551ad0aa",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/cusip/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "cusip",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:30.000Z",
+                          "updatedAt": "2026-07-28T02:59:30.000Z",
+                          "uid": "35240-c8113e97-be24-47ec-924d-d744551ad0aa"
+                        },
+                        {
+                          "id": "36c84c88-a753-4b72-be2b-18076b6017f6",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/cusip/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "cusip",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:30.000Z",
+                          "updatedAt": "2026-07-28T02:59:30.000Z",
+                          "uid": "35240-36c84c88-a753-4b72-be2b-18076b6017f6"
+                        },
+                        {
+                          "id": "3ef92e70-b928-4002-82ee-da3183520d5b",
+                          "name": "Indicates that no CUSIP was found for the given security_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/cusip/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "cusip",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:30.000Z",
+                          "updatedAt": "2026-07-28T02:59:30.000Z",
+                          "uid": "35240-3ef92e70-b928-4002-82ee-da3183520d5b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:30.000Z",
+                      "updatedAt": "2026-07-28T02:59:30.000Z",
+                      "uid": "35240-d8b2db14-3f0e-49e4-8823-792af8ea5785"
+                    }
+                  ],
+                  "id": "ccb1d42e-0932-4383-a1e2-41ef42718315",
+                  "createdAt": "2026-07-28T02:59:30.000Z",
+                  "updatedAt": "2026-07-28T02:59:30.000Z",
+                  "uid": "35240-ccb1d42e-0932-4383-a1e2-41ef42718315"
+                }
+              ],
+              "id": "8844d343-ace5-43c4-a9c2-31dd9f712679",
+              "createdAt": "2026-07-28T02:59:30.000Z",
+              "updatedAt": "2026-07-28T02:59:30.000Z",
+              "uid": "35240-8844d343-ace5-43c4-a9c2-31dd9f712679"
+            }
+          ],
+          "id": "555d24f8-7e98-4ecf-94a7-dfec93103f3e",
+          "createdAt": "2026-07-28T02:59:30.000Z",
+          "updatedAt": "2026-07-28T02:59:30.000Z",
+          "uid": "35240-555d24f8-7e98-4ecf-94a7-dfec93103f3e"
+        }
+      ],
+      "id": "d067aa49-2bce-4c84-95d2-25755b3ee5ec",
+      "createdAt": "2026-07-28T02:59:30.000Z",
+      "updatedAt": "2026-07-28T02:59:30.000Z",
+      "uid": "35240-d067aa49-2bce-4c84-95d2-25755b3ee5ec"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

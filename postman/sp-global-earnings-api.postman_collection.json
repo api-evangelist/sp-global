@@ -1,0 +1,383 @@
+{
+  "info": {
+    "_postman_id": "e5857e64-5c61-428c-85fd-dbb004854544",
+    "name": "Kensho Extract annotations-async Earnings API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:31.000Z",
+    "updatedAt": "2026-07-28T02:59:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e5857e64-5c61-428c-85fd-dbb004854544"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "earnings",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "dates",
+                      "item": [
+                        {
+                          "name": "Get Earnings Calls Dates",
+                          "id": "db729ad5-6ade-44c4-ad25-bd5fe95caacd",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/earnings/:company_id/dates",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "earnings",
+                                ":company_id",
+                                "dates"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "952398b1-e861-46c8-a1f2-e8a12f93de48",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the earnings calls in datetime for a given company_id in UTC"
+                          },
+                          "response": [
+                            {
+                              "id": "484096f6-6a93-4ecb-9694-c0921e78cff3",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/earnings/:company_id/dates",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "earnings",
+                                    ":company_id",
+                                    "dates"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"earnings\": []\n}",
+                              "createdAt": "2026-07-28T02:59:31.000Z",
+                              "updatedAt": "2026-07-28T02:59:31.000Z",
+                              "uid": "35240-484096f6-6a93-4ecb-9694-c0921e78cff3"
+                            },
+                            {
+                              "id": "ae9bb02d-8abe-4cbd-b0c1-7ea363e5916e",
+                              "name": "Indicates that request parameters are invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/earnings/:company_id/dates",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "earnings",
+                                    ":company_id",
+                                    "dates"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:31.000Z",
+                              "updatedAt": "2026-07-28T02:59:31.000Z",
+                              "uid": "35240-ae9bb02d-8abe-4cbd-b0c1-7ea363e5916e"
+                            },
+                            {
+                              "id": "b7464400-d1ee-431b-a91f-52b708feeac6",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/earnings/:company_id/dates",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "earnings",
+                                    ":company_id",
+                                    "dates"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:31.000Z",
+                              "updatedAt": "2026-07-28T02:59:31.000Z",
+                              "uid": "35240-b7464400-d1ee-431b-a91f-52b708feeac6"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:31.000Z",
+                          "updatedAt": "2026-07-28T02:59:31.000Z",
+                          "uid": "35240-db729ad5-6ade-44c4-ad25-bd5fe95caacd"
+                        }
+                      ],
+                      "id": "740359c4-351b-4788-928b-38deb0205b3a",
+                      "createdAt": "2026-07-28T02:59:31.000Z",
+                      "updatedAt": "2026-07-28T02:59:31.000Z",
+                      "uid": "35240-740359c4-351b-4788-928b-38deb0205b3a"
+                    },
+                    {
+                      "name": "Get Earnings Calls",
+                      "id": "82e5c1fb-1eff-45f6-ba38-7d7b5a5bf3b3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/earnings/:company_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "earnings",
+                            ":company_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "744bb664-d706-4be0-9703-7316fd841701",
+                              "key": "company_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id.\n\nThe response comprises metadata for all upcoming and past earnings calls in\ndescending order by datetime. The key dev id can be used with the transcript\nendpoints to retrieve the earnings call transcript."
+                      },
+                      "response": [
+                        {
+                          "id": "c8077ab8-d634-46e5-b8bf-1f580648538d",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/earnings/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "earnings",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"earnings\": [\n    {\n      \"datetime\": \"<dateTime>\",\n      \"key_dev_id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"datetime\": \"<dateTime>\",\n      \"key_dev_id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:31.000Z",
+                          "updatedAt": "2026-07-28T02:59:31.000Z",
+                          "uid": "35240-c8077ab8-d634-46e5-b8bf-1f580648538d"
+                        },
+                        {
+                          "id": "50ddf328-74d5-4f45-a140-77b55691f6c1",
+                          "name": "Indicates that request parameters are invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/earnings/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "earnings",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:31.000Z",
+                          "updatedAt": "2026-07-28T02:59:31.000Z",
+                          "uid": "35240-50ddf328-74d5-4f45-a140-77b55691f6c1"
+                        },
+                        {
+                          "id": "8e34ca30-e4cb-42b8-af96-2a3b99869e75",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/earnings/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "earnings",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:31.000Z",
+                          "updatedAt": "2026-07-28T02:59:31.000Z",
+                          "uid": "35240-8e34ca30-e4cb-42b8-af96-2a3b99869e75"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:31.000Z",
+                      "updatedAt": "2026-07-28T02:59:31.000Z",
+                      "uid": "35240-82e5c1fb-1eff-45f6-ba38-7d7b5a5bf3b3"
+                    }
+                  ],
+                  "id": "b7990acc-4c54-43da-bcf9-a0922ea8b422",
+                  "createdAt": "2026-07-28T02:59:31.000Z",
+                  "updatedAt": "2026-07-28T02:59:31.000Z",
+                  "uid": "35240-b7990acc-4c54-43da-bcf9-a0922ea8b422"
+                }
+              ],
+              "id": "687c6634-e00e-4c9c-9d6d-5512ba8fedb4",
+              "createdAt": "2026-07-28T02:59:31.000Z",
+              "updatedAt": "2026-07-28T02:59:31.000Z",
+              "uid": "35240-687c6634-e00e-4c9c-9d6d-5512ba8fedb4"
+            }
+          ],
+          "id": "a2139118-5a62-4506-a926-61b0e1252950",
+          "createdAt": "2026-07-28T02:59:31.000Z",
+          "updatedAt": "2026-07-28T02:59:31.000Z",
+          "uid": "35240-a2139118-5a62-4506-a926-61b0e1252950"
+        }
+      ],
+      "id": "a64dc9ce-605b-463e-8a90-abc2d087ed4b",
+      "createdAt": "2026-07-28T02:59:31.000Z",
+      "updatedAt": "2026-07-28T02:59:31.000Z",
+      "uid": "35240-a64dc9ce-605b-463e-8a90-abc2d087ed4b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "info": {
+    "_postman_id": "96f2842f-440d-4ba6-befd-eaf4eb05f2cb",
+    "name": "Kensho Extract annotations-async Market Cap API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:43.000Z",
+    "updatedAt": "2026-07-28T02:59:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-96f2842f-440d-4ba6-befd-eaf4eb05f2cb"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "market_cap",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "{start_date}",
+                      "item": [
+                        {
+                          "name": "{end_date}",
+                          "item": [
+                            {
+                              "name": "Get Market Caps",
+                              "id": "d26d1bc7-70dd-4b09-817f-9265cbb47a8e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/market_cap/:company_id/:start_date/:end_date",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "market_cap",
+                                    ":company_id",
+                                    ":start_date",
+                                    ":end_date"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8a995b2b-cff8-4f3a-aea4-63ce92363a27",
+                                      "key": "company_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "287d5df6-b6c6-46d5-906b-0ecf75ae7d47",
+                                      "key": "start_date",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "51f3e1ee-3832-4896-a9f8-56357bf09d09",
+                                      "key": "end_date",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the market caps between start and end date inclusive.\n\nThe returned data includes market_cap, tev (Total Enterprise Value), shares_outstanding, and its currency."
+                              },
+                              "response": [
+                                {
+                                  "id": "0543a709-c226-49d6-9fe2-56c70b4199c7",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/market_cap/:company_id/:start_date/:end_date",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "market_cap",
+                                        ":company_id",
+                                        ":start_date",
+                                        ":end_date"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "start_date"
+                                        },
+                                        {
+                                          "key": "end_date"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"currency\": \"<string>\",\n  \"market_caps\": [\n    {\n      \"date\": \"<date>\",\n      \"market_cap\": \"-2452258419048628.\",\n      \"shares_outstanding\": \"<integer>\",\n      \"tev\": \"-326664027623\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"market_cap\": \"-680622608581133\",\n      \"shares_outstanding\": \"<integer>\",\n      \"tev\": \"-6728.815\"\n    }\n  ],\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:44.000Z",
+                                  "updatedAt": "2026-07-28T02:59:44.000Z",
+                                  "uid": "35240-0543a709-c226-49d6-9fe2-56c70b4199c7"
+                                },
+                                {
+                                  "id": "fb4cde68-2750-4040-a05d-da81b92d5641",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/market_cap/:company_id/:start_date/:end_date",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "market_cap",
+                                        ":company_id",
+                                        ":start_date",
+                                        ":end_date"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "start_date"
+                                        },
+                                        {
+                                          "key": "end_date"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:44.000Z",
+                                  "updatedAt": "2026-07-28T02:59:44.000Z",
+                                  "uid": "35240-fb4cde68-2750-4040-a05d-da81b92d5641"
+                                },
+                                {
+                                  "id": "0dd5bb2f-486f-45eb-9855-8390fa98d844",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/market_cap/:company_id/:start_date/:end_date",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "market_cap",
+                                        ":company_id",
+                                        ":start_date",
+                                        ":end_date"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "start_date"
+                                        },
+                                        {
+                                          "key": "end_date"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:44.000Z",
+                                  "updatedAt": "2026-07-28T02:59:44.000Z",
+                                  "uid": "35240-0dd5bb2f-486f-45eb-9855-8390fa98d844"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:44.000Z",
+                              "updatedAt": "2026-07-28T02:59:44.000Z",
+                              "uid": "35240-d26d1bc7-70dd-4b09-817f-9265cbb47a8e"
+                            }
+                          ],
+                          "id": "c01d32a2-aae9-4d41-a51f-ab461a373a5b",
+                          "createdAt": "2026-07-28T02:59:44.000Z",
+                          "updatedAt": "2026-07-28T02:59:44.000Z",
+                          "uid": "35240-c01d32a2-aae9-4d41-a51f-ab461a373a5b"
+                        }
+                      ],
+                      "id": "1640863a-bc11-494e-b407-ca0400726f52",
+                      "createdAt": "2026-07-28T02:59:44.000Z",
+                      "updatedAt": "2026-07-28T02:59:44.000Z",
+                      "uid": "35240-1640863a-bc11-494e-b407-ca0400726f52"
+                    }
+                  ],
+                  "id": "b78669c6-ba58-4f74-9fe6-69a4a37cd530",
+                  "createdAt": "2026-07-28T02:59:44.000Z",
+                  "updatedAt": "2026-07-28T02:59:44.000Z",
+                  "uid": "35240-b78669c6-ba58-4f74-9fe6-69a4a37cd530"
+                }
+              ],
+              "id": "d6141a06-df86-4b6f-b8b4-01b86fa8eac5",
+              "createdAt": "2026-07-28T02:59:44.000Z",
+              "updatedAt": "2026-07-28T02:59:44.000Z",
+              "uid": "35240-d6141a06-df86-4b6f-b8b4-01b86fa8eac5"
+            }
+          ],
+          "id": "129e3622-4cf1-4cab-8fd6-345f6af3bba1",
+          "createdAt": "2026-07-28T02:59:44.000Z",
+          "updatedAt": "2026-07-28T02:59:44.000Z",
+          "uid": "35240-129e3622-4cf1-4cab-8fd6-345f6af3bba1"
+        }
+      ],
+      "id": "372e9a25-6cd1-43b6-b4fc-01cdaf78c580",
+      "createdAt": "2026-07-28T02:59:44.000Z",
+      "updatedAt": "2026-07-28T02:59:44.000Z",
+      "uid": "35240-372e9a25-6cd1-43b6-b4fc-01cdaf78c580"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "info": {
+    "_postman_id": "4c5481d2-6ad2-49b6-aae5-59a54e0e987f",
+    "name": "Kensho Extract annotations-async Auditors API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:26.000Z",
+    "updatedAt": "2026-07-28T02:59:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4c5481d2-6ad2-49b6-aae5-59a54e0e987f"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "auditors",
+              "item": [
+                {
+                  "name": "auditors create",
+                  "id": "09a641a2-ac0d-4410-88b0-5802004197b1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"company_id\": \"<integer>\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"calendar_type\": \"fiscal\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/auditors/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "auditors",
+                        ""
+                      ]
+                    },
+                    "description": "Get the financial auditors of a given company id"
+                  },
+                  "response": [
+                    {
+                      "id": "28e9a94c-309e-4335-8eba-9e26f649bcfa",
+                      "name": "Indicates a successful request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_id\": \"<integer>\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"calendar_type\": \"fiscal\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/auditors/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "auditors",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": {\n    \"do23b\": \"<string>\"\n  },\n  \"results\": {\n    \"magna_bf2\": {\n      \"Ut_75f\": [\n        {\n          \"auditor_company_id\": \"<string>\",\n          \"auditor_name\": \"<string>\"\n        },\n        {\n          \"auditor_company_id\": \"<string>\",\n          \"auditor_name\": \"<string>\"\n        }\n      ]\n    },\n    \"magnad42\": {\n      \"occaecat97\": [\n        {\n          \"auditor_company_id\": \"<string>\",\n          \"auditor_name\": \"<string>\"\n        },\n        {\n          \"auditor_company_id\": \"<string>\",\n          \"auditor_name\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:27.000Z",
+                      "updatedAt": "2026-07-28T02:59:27.000Z",
+                      "uid": "35240-28e9a94c-309e-4335-8eba-9e26f649bcfa"
+                    },
+                    {
+                      "id": "081a1102-02ea-49b6-8ade-68ff66af5ffe",
+                      "name": "Indicates that the authorization is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_id\": \"<integer>\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"calendar_type\": \"fiscal\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/auditors/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "auditors",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:27.000Z",
+                      "updatedAt": "2026-07-28T02:59:27.000Z",
+                      "uid": "35240-081a1102-02ea-49b6-8ade-68ff66af5ffe"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:27.000Z",
+                  "updatedAt": "2026-07-28T02:59:27.000Z",
+                  "uid": "35240-09a641a2-ac0d-4410-88b0-5802004197b1"
+                }
+              ],
+              "id": "201f0a13-8387-4a97-864e-fa23e045836a",
+              "createdAt": "2026-07-28T02:59:27.000Z",
+              "updatedAt": "2026-07-28T02:59:27.000Z",
+              "uid": "35240-201f0a13-8387-4a97-864e-fa23e045836a"
+            }
+          ],
+          "id": "d562adb6-915c-45b9-82d5-aac5e9e595f2",
+          "createdAt": "2026-07-28T02:59:27.000Z",
+          "updatedAt": "2026-07-28T02:59:27.000Z",
+          "uid": "35240-d562adb6-915c-45b9-82d5-aac5e9e595f2"
+        }
+      ],
+      "id": "7e70e4d8-442d-4bb3-ba4b-7171ea7a1c5e",
+      "createdAt": "2026-07-28T02:59:27.000Z",
+      "updatedAt": "2026-07-28T02:59:27.000Z",
+      "uid": "35240-7e70e4d8-442d-4bb3-ba4b-7171ea7a1c5e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

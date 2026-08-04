@@ -1,0 +1,430 @@
+{
+  "info": {
+    "_postman_id": "c989daab-1e4a-47ef-a0fd-c3d18859f137",
+    "name": "Kensho Extract annotations-async Relationship API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:48.000Z",
+    "updatedAt": "2026-07-28T02:59:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c989daab-1e4a-47ef-a0fd-c3d18859f137"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "relationship",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "{relationship_type}",
+                      "item": [
+                        {
+                          "name": "ticker",
+                          "item": [
+                            {
+                              "name": "Get Tickers by Business Relationships",
+                              "id": "bdbffa9f-26d4-4fec-b9bf-f786632db480",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type/ticker",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "relationship",
+                                    ":company_id",
+                                    ":relationship_type",
+                                    "ticker"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "9df8971f-c9cc-40a0-914f-b25e3981e65a",
+                                      "key": "company_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "5ee7ecae-b010-4e1f-958e-f31de042bec9",
+                                      "key": "relationship_type",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of current and previous ticker identification triples that are relationship_type OF company_id.\n\nReturns a dictionary of shape {\u201ccurrent\u201d: List[{\u201ccompany_id\u201d: <company_id>, \u201csecurity_id\u201d: <security_id>, \u201ctrading_item_id\u201d: <trading_item_id>}], \u201cprevious\u201d: List[{\u201ccompany_id\u201d: <company_id>, \u201csecurity_id\u201d: <security_id>, \u201ctrading_item_id\u201d: <trading_item_id>}]}.\n\nExamples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_tickers_by_business_relationship(company_id: 1234, relationship_type: tenant) returns company 1234's tenants.\nget_tickers_by_business_relationship(company_id: 1234, relationship_type: supplier) returns company 1234's suppliers,\nand get_tickers_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234's distributors."
+                              },
+                              "response": [
+                                {
+                                  "id": "d620b99a-5f03-448e-b7f4-ea4d86d79a4b",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type/ticker",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "relationship",
+                                        ":company_id",
+                                        ":relationship_type",
+                                        "ticker"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "relationship_type"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"current\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ],\n  \"previous\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:49.000Z",
+                                  "updatedAt": "2026-07-28T02:59:49.000Z",
+                                  "uid": "35240-d620b99a-5f03-448e-b7f4-ea4d86d79a4b"
+                                },
+                                {
+                                  "id": "ffe12fdc-aa14-42ae-89a2-8497da118043",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type/ticker",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "relationship",
+                                        ":company_id",
+                                        ":relationship_type",
+                                        "ticker"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "relationship_type"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:49.000Z",
+                                  "updatedAt": "2026-07-28T02:59:49.000Z",
+                                  "uid": "35240-ffe12fdc-aa14-42ae-89a2-8497da118043"
+                                },
+                                {
+                                  "id": "b9f48580-ecf1-450d-adff-3ec40c2a1377",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type/ticker",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "relationship",
+                                        ":company_id",
+                                        ":relationship_type",
+                                        "ticker"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "company_id"
+                                        },
+                                        {
+                                          "key": "relationship_type"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:49.000Z",
+                                  "updatedAt": "2026-07-28T02:59:49.000Z",
+                                  "uid": "35240-b9f48580-ecf1-450d-adff-3ec40c2a1377"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:49.000Z",
+                              "updatedAt": "2026-07-28T02:59:49.000Z",
+                              "uid": "35240-bdbffa9f-26d4-4fec-b9bf-f786632db480"
+                            }
+                          ],
+                          "id": "635c688d-5862-469e-8803-20a17879065d",
+                          "createdAt": "2026-07-28T02:59:49.000Z",
+                          "updatedAt": "2026-07-28T02:59:49.000Z",
+                          "uid": "35240-635c688d-5862-469e-8803-20a17879065d"
+                        },
+                        {
+                          "name": "Get Companies by Business Relationships",
+                          "id": "3039aa44-61c3-46a4-ba84-1e4eeff03e9d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "relationship",
+                                ":company_id",
+                                ":relationship_type"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d8be5233-7705-41d4-ac4c-473bfdf16218",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "c4617820-9196-48e5-ad78-1b8245c47249",
+                                  "key": "relationship_type",
+                                  "value": "",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the list of current and previous companies that are relationship_type OF company_id.\n\nReturns a dictionary of shape:\n{\n    \"current\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}],\n    \"previous\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}]\n}.\n\nExamples: get_companies_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_companies_by_business_relationship(company_id: 1234, relationship_type: tenant) returns company 1234's tenants.\nget_companies_by_business_relationship(company_id: 1234, relationship_type: supplier) returns company 1234's suppliers,\nand get_companies_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234's distributors."
+                          },
+                          "response": [
+                            {
+                              "id": "53d02b4f-818e-4030-912a-10384c7e96ae",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "relationship",
+                                    ":company_id",
+                                    ":relationship_type"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    },
+                                    {
+                                      "key": "relationship_type"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"current\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    }\n  ],\n  \"previous\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:49.000Z",
+                              "updatedAt": "2026-07-28T02:59:49.000Z",
+                              "uid": "35240-53d02b4f-818e-4030-912a-10384c7e96ae"
+                            },
+                            {
+                              "id": "d031d5fc-399e-4e17-a112-7df563f70da5",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "relationship",
+                                    ":company_id",
+                                    ":relationship_type"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    },
+                                    {
+                                      "key": "relationship_type"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:49.000Z",
+                              "updatedAt": "2026-07-28T02:59:49.000Z",
+                              "uid": "35240-d031d5fc-399e-4e17-a112-7df563f70da5"
+                            },
+                            {
+                              "id": "dbb38087-8035-47e0-bf29-9e0b307b451b",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/relationship/:company_id/:relationship_type",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "relationship",
+                                    ":company_id",
+                                    ":relationship_type"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    },
+                                    {
+                                      "key": "relationship_type"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:49.000Z",
+                              "updatedAt": "2026-07-28T02:59:49.000Z",
+                              "uid": "35240-dbb38087-8035-47e0-bf29-9e0b307b451b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:49.000Z",
+                          "updatedAt": "2026-07-28T02:59:49.000Z",
+                          "uid": "35240-3039aa44-61c3-46a4-ba84-1e4eeff03e9d"
+                        }
+                      ],
+                      "id": "3a4b9af5-60a3-47fb-bf00-3d108228a995",
+                      "createdAt": "2026-07-28T02:59:49.000Z",
+                      "updatedAt": "2026-07-28T02:59:49.000Z",
+                      "uid": "35240-3a4b9af5-60a3-47fb-bf00-3d108228a995"
+                    }
+                  ],
+                  "id": "6f2c0f06-e6d5-4ccb-990c-43d32d6e9c53",
+                  "createdAt": "2026-07-28T02:59:49.000Z",
+                  "updatedAt": "2026-07-28T02:59:49.000Z",
+                  "uid": "35240-6f2c0f06-e6d5-4ccb-990c-43d32d6e9c53"
+                }
+              ],
+              "id": "818935e9-f96e-44c6-b013-dbe2f7fefd59",
+              "createdAt": "2026-07-28T02:59:49.000Z",
+              "updatedAt": "2026-07-28T02:59:49.000Z",
+              "uid": "35240-818935e9-f96e-44c6-b013-dbe2f7fefd59"
+            }
+          ],
+          "id": "99bff1d3-d525-41ee-9a5c-e3ddf5640bfc",
+          "createdAt": "2026-07-28T02:59:49.000Z",
+          "updatedAt": "2026-07-28T02:59:49.000Z",
+          "uid": "35240-99bff1d3-d525-41ee-9a5c-e3ddf5640bfc"
+        }
+      ],
+      "id": "ee9d6af7-f1b1-47d8-b12b-227d1be3a75c",
+      "createdAt": "2026-07-28T02:59:49.000Z",
+      "updatedAt": "2026-07-28T02:59:49.000Z",
+      "uid": "35240-ee9d6af7-f1b1-47d8-b12b-227d1be3a75c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

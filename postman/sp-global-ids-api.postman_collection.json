@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "b3d5599c-34a4-4e35-ad5c-bb296502e93d",
+    "name": "Kensho Extract annotations-async Ids API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:36.000Z",
+    "updatedAt": "2026-07-28T02:59:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b3d5599c-34a4-4e35-ad5c-bb296502e93d"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "ids",
+              "item": [
+                {
+                  "name": "Unified Identification Triple",
+                  "id": "4346d92b-85f8-4fdb-96d8-9691ab9be67d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"identifiers\": [\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/ids",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "ids"
+                      ]
+                    },
+                    "description": "Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP, Company ID, ticker, or company name)."
+                  },
+                  "response": [
+                    {
+                      "id": "ad47c16a-3cec-4930-b5a3-1c077e50fd74",
+                      "name": "Indicates a successful request. Returns a mapping of identifiers to their identification triples.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifiers\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/ids",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "ids"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"aliquip_db5\": {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\",\n      \"country\": \"<string>\",\n      \"security_id\": \"<integer>\",\n      \"ticker\": \"<string>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:36.000Z",
+                      "updatedAt": "2026-07-28T02:59:36.000Z",
+                      "uid": "35240-ad47c16a-3cec-4930-b5a3-1c077e50fd74"
+                    },
+                    {
+                      "id": "13383b2a-8bf1-4022-bee7-02e0ee0feffe",
+                      "name": "Indicates that the request is invalid or missing required parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifiers\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/ids",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "ids"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:36.000Z",
+                      "updatedAt": "2026-07-28T02:59:36.000Z",
+                      "uid": "35240-13383b2a-8bf1-4022-bee7-02e0ee0feffe"
+                    },
+                    {
+                      "id": "aaa8c37c-4f34-4bcd-be90-7688ef52754b",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"identifiers\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/ids",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "ids"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:36.000Z",
+                      "updatedAt": "2026-07-28T02:59:36.000Z",
+                      "uid": "35240-aaa8c37c-4f34-4bcd-be90-7688ef52754b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:36.000Z",
+                  "updatedAt": "2026-07-28T02:59:36.000Z",
+                  "uid": "35240-4346d92b-85f8-4fdb-96d8-9691ab9be67d"
+                }
+              ],
+              "id": "200909bb-0425-4ba5-ad04-c8d47b00231c",
+              "createdAt": "2026-07-28T02:59:36.000Z",
+              "updatedAt": "2026-07-28T02:59:36.000Z",
+              "uid": "35240-200909bb-0425-4ba5-ad04-c8d47b00231c"
+            }
+          ],
+          "id": "8b98812f-db07-46fe-a71d-61ac332e6c73",
+          "createdAt": "2026-07-28T02:59:36.000Z",
+          "updatedAt": "2026-07-28T02:59:36.000Z",
+          "uid": "35240-8b98812f-db07-46fe-a71d-61ac332e6c73"
+        }
+      ],
+      "id": "7b18be74-984e-40f0-b4cb-345e52ba892e",
+      "createdAt": "2026-07-28T02:59:36.000Z",
+      "updatedAt": "2026-07-28T02:59:36.000Z",
+      "uid": "35240-7b18be74-984e-40f0-b4cb-345e52ba892e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

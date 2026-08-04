@@ -1,0 +1,575 @@
+{
+  "info": {
+    "_postman_id": "9c731018-660a-499b-b822-8a446072904b",
+    "name": "Kensho Extract annotations-async Fundinground API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:33.000Z",
+    "updatedAt": "2026-07-28T02:59:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9c731018-660a-499b-b822-8a446072904b"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "fundinground",
+              "item": [
+                {
+                  "name": "info",
+                  "item": [
+                    {
+                      "name": "{transaction_id}",
+                      "item": [
+                        {
+                          "name": "advisors",
+                          "item": [
+                            {
+                              "name": "investor",
+                              "item": [
+                                {
+                                  "name": "{advised_company_id}",
+                                  "item": [
+                                    {
+                                      "name": "fundinground info advisors investor retrieve",
+                                      "id": "d1355c12-7da0-44d7-b51a-526c95e8abcb",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/investor/:advised_company_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "fundinground",
+                                            "info",
+                                            ":transaction_id",
+                                            "advisors",
+                                            "investor",
+                                            ":advised_company_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "d8cce06a-c0ed-4f6d-8533-13dbe15b8566",
+                                              "key": "transaction_id",
+                                              "value": "<integer>",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "e3c7dc6f-83c9-4d32-aae9-d13e423e05d5",
+                                              "key": "advised_company_id",
+                                              "value": "<integer>",
+                                              "description": "(Required) "
+                                            }
+                                          ]
+                                        },
+                                        "description": "Get the advisors and their types for a company buying into a round of funding."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "15ab369c-0cdb-461b-9fdf-99fc0ce15dad",
+                                          "name": "Indicates a successful request.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/investor/:advised_company_id",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "fundinground",
+                                                "info",
+                                                ":transaction_id",
+                                                "advisors",
+                                                "investor",
+                                                ":advised_company_id"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "transaction_id"
+                                                },
+                                                {
+                                                  "key": "advised_company_id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"advisors\": [\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"2156080159721.4113\",\n      \"advisor_fee_currency\": \"<string>\"\n    },\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"2973371949243443.33\",\n      \"advisor_fee_currency\": \"<string>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:59:33.000Z",
+                                          "updatedAt": "2026-07-28T02:59:33.000Z",
+                                          "uid": "35240-15ab369c-0cdb-461b-9fdf-99fc0ce15dad"
+                                        },
+                                        {
+                                          "id": "fe19fe63-c40b-412b-9d26-0d7a64cd0628",
+                                          "name": "Indicates that the authorization information is missing or invalid.",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/investor/:advised_company_id",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "fundinground",
+                                                "info",
+                                                ":transaction_id",
+                                                "advisors",
+                                                "investor",
+                                                ":advised_company_id"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "transaction_id"
+                                                },
+                                                {
+                                                  "key": "advised_company_id"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:59:33.000Z",
+                                          "updatedAt": "2026-07-28T02:59:33.000Z",
+                                          "uid": "35240-fe19fe63-c40b-412b-9d26-0d7a64cd0628"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:59:33.000Z",
+                                      "updatedAt": "2026-07-28T02:59:33.000Z",
+                                      "uid": "35240-d1355c12-7da0-44d7-b51a-526c95e8abcb"
+                                    }
+                                  ],
+                                  "id": "0e20911a-ec18-46ae-b3bc-b20543f4e5e3",
+                                  "createdAt": "2026-07-28T02:59:33.000Z",
+                                  "updatedAt": "2026-07-28T02:59:33.000Z",
+                                  "uid": "35240-0e20911a-ec18-46ae-b3bc-b20543f4e5e3"
+                                }
+                              ],
+                              "id": "2e47e529-39db-4589-aae5-c62ca98a0406",
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-2e47e529-39db-4589-aae5-c62ca98a0406"
+                            },
+                            {
+                              "name": "target",
+                              "item": [
+                                {
+                                  "name": "fundinground info advisors target retrieve",
+                                  "id": "975c250a-d703-4934-b85d-864d9f875ee5",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/target",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "fundinground",
+                                        "info",
+                                        ":transaction_id",
+                                        "advisors",
+                                        "target"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "206e5648-2585-4270-8f93-790020bcb0ec",
+                                          "key": "transaction_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Get the advisors and their types for the company raising a round of funding."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "fae8a77d-4641-4466-b0ab-a8c5d7c2da3f",
+                                      "name": "Indicates a successful request.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/target",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "fundinground",
+                                            "info",
+                                            ":transaction_id",
+                                            "advisors",
+                                            "target"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "transaction_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"advisors\": [\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"2156080159721.4113\",\n      \"advisor_fee_currency\": \"<string>\"\n    },\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"2973371949243443.33\",\n      \"advisor_fee_currency\": \"<string>\"\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:59:33.000Z",
+                                      "updatedAt": "2026-07-28T02:59:33.000Z",
+                                      "uid": "35240-fae8a77d-4641-4466-b0ab-a8c5d7c2da3f"
+                                    },
+                                    {
+                                      "id": "49de3684-6d64-4158-8240-163001229da0",
+                                      "name": "Indicates that the authorization information is missing or invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id/advisors/target",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "fundinground",
+                                            "info",
+                                            ":transaction_id",
+                                            "advisors",
+                                            "target"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "transaction_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:33.000Z",
+                                      "updatedAt": "2026-07-28T02:59:33.000Z",
+                                      "uid": "35240-49de3684-6d64-4158-8240-163001229da0"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:59:33.000Z",
+                                  "updatedAt": "2026-07-28T02:59:33.000Z",
+                                  "uid": "35240-975c250a-d703-4934-b85d-864d9f875ee5"
+                                }
+                              ],
+                              "id": "62c0b311-8c67-4910-ad79-d94f0e883447",
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-62c0b311-8c67-4910-ad79-d94f0e883447"
+                            }
+                          ],
+                          "id": "de4f4762-7c80-4b47-9168-9f37b146cf7c",
+                          "createdAt": "2026-07-28T02:59:33.000Z",
+                          "updatedAt": "2026-07-28T02:59:33.000Z",
+                          "uid": "35240-de4f4762-7c80-4b47-9168-9f37b146cf7c"
+                        },
+                        {
+                          "name": "fundinground info retrieve",
+                          "id": "01781fef-30e2-45a4-87ef-94a8f214e5f0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "fundinground",
+                                "info",
+                                ":transaction_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "69df7fda-1c6e-48a0-9fe7-c220fd2eebe0",
+                                  "key": "transaction_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get detailed information about a round of funding."
+                          },
+                          "response": [
+                            {
+                              "id": "29cefd19-d38b-41aa-aac2-de0abc17fb2f",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundinground",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"participants\": {\n    \"investors\": [\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\",\n        \"lead_investor\": \"<boolean>\",\n        \"investment_value\": \"-807339835617853102895162\",\n        \"currency\": \"<string>\",\n        \"ownership_percentage_pre\": \"-5099\",\n        \"ownership_percentage_post\": \"262717.0865\",\n        \"board_seat_granted\": \"<boolean>\"\n      },\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\",\n        \"lead_investor\": \"<boolean>\",\n        \"investment_value\": \"5.96\",\n        \"currency\": \"<string>\",\n        \"ownership_percentage_pre\": \"-139\",\n        \"ownership_percentage_post\": \"99.0\",\n        \"board_seat_granted\": \"<boolean>\"\n      }\n    ],\n    \"target\": {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    }\n  },\n  \"security\": {\n    \"dividend_per_share\": \"-1564705157\",\n    \"annualized_dividend_rate\": \"-9086376226276628731.05228684\",\n    \"seniority_level\": \"<string>\",\n    \"coupon_type\": \"<string>\",\n    \"funding_convertible_type\": \"<string>\",\n    \"security_description\": \"<string>\",\n    \"class_series_tranche\": \"<string>\"\n  },\n  \"timeline\": {\n    \"announced_date\": \"<date>\",\n    \"closed_date\": \"<date>\"\n  },\n  \"transaction\": {\n    \"funding_type\": \"<string>\",\n    \"amount_offered\": \"-9\",\n    \"currency\": \"<string>\",\n    \"legal_fees\": \"-6857580256126008592962.26845499\",\n    \"other_fees\": \"68633654921255.832\",\n    \"initial_gross_amount_offered\": \"-2118.1398\",\n    \"offering_size_change\": \"<string>\",\n    \"upsized_amount\": \"9201581360897965259.89\",\n    \"upsized_amount_percent\": \"90677019944141824285027.\",\n    \"pre_money_valuation\": \"-072693585975771036.41\",\n    \"post_money_valuation\": \"792570568053669490681480984.293627\",\n    \"aggregate_amount_raised\": \"677\",\n    \"liquidation_preference\": \"<string>\",\n    \"anti_dilution_method\": \"<string>\",\n    \"liquidation_price\": \"675276855947445568365534\",\n    \"option_pool\": \"-100136456889413527\",\n    \"participating_preferred_cap\": \"6885971506272362412938653.00\",\n    \"liquidation_preference_multiple\": \"-494862171771\",\n    \"use_of_proceeds\": \"<string>\",\n    \"pre_deal_situation\": \"<string>\",\n    \"redemption\": \"<string>\",\n    \"cumulative_dividends\": \"<string>\",\n    \"reorganization\": \"<string>\",\n    \"pay_to_play\": \"<string>\",\n    \"pay_to_play_penalties\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-29cefd19-d38b-41aa-aac2-de0abc17fb2f"
+                            },
+                            {
+                              "id": "6fdd9a88-07a1-4453-a5d8-5859705d1011",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundinground",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-6fdd9a88-07a1-4453-a5d8-5859705d1011"
+                            },
+                            {
+                              "id": "322ea2f6-d940-4398-ba50-27db76e7f904",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundinground",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-322ea2f6-d940-4398-ba50-27db76e7f904"
+                            },
+                            {
+                              "id": "3ba2826a-d38d-44f7-9bdd-bbe3262f5584",
+                              "name": "Indicates that no round of funding info was found for the given transaction_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/fundinground/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "fundinground",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:33.000Z",
+                              "updatedAt": "2026-07-28T02:59:33.000Z",
+                              "uid": "35240-3ba2826a-d38d-44f7-9bdd-bbe3262f5584"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:33.000Z",
+                          "updatedAt": "2026-07-28T02:59:33.000Z",
+                          "uid": "35240-01781fef-30e2-45a4-87ef-94a8f214e5f0"
+                        }
+                      ],
+                      "id": "f29f2f59-0391-42e5-aaaf-e6dacb6a3e30",
+                      "createdAt": "2026-07-28T02:59:33.000Z",
+                      "updatedAt": "2026-07-28T02:59:33.000Z",
+                      "uid": "35240-f29f2f59-0391-42e5-aaaf-e6dacb6a3e30"
+                    }
+                  ],
+                  "id": "29d7023f-763f-429d-858e-39bbb139bcb5",
+                  "createdAt": "2026-07-28T02:59:33.000Z",
+                  "updatedAt": "2026-07-28T02:59:33.000Z",
+                  "uid": "35240-29d7023f-763f-429d-858e-39bbb139bcb5"
+                }
+              ],
+              "id": "f65d7999-1239-49f0-88d8-2db652747d0d",
+              "createdAt": "2026-07-28T02:59:33.000Z",
+              "updatedAt": "2026-07-28T02:59:33.000Z",
+              "uid": "35240-f65d7999-1239-49f0-88d8-2db652747d0d"
+            }
+          ],
+          "id": "9b3beb16-0178-489f-b6f3-56cff381b742",
+          "createdAt": "2026-07-28T02:59:33.000Z",
+          "updatedAt": "2026-07-28T02:59:33.000Z",
+          "uid": "35240-9b3beb16-0178-489f-b6f3-56cff381b742"
+        }
+      ],
+      "id": "398ff20f-ca18-4f1a-b476-a0ac4d15fb9e",
+      "createdAt": "2026-07-28T02:59:33.000Z",
+      "updatedAt": "2026-07-28T02:59:33.000Z",
+      "uid": "35240-398ff20f-ca18-4f1a-b476-a0ac4d15fb9e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

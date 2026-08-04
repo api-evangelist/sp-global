@@ -1,0 +1,454 @@
+{
+  "info": {
+    "_postman_id": "11517f54-baf5-486b-b48d-9fc4d195f767",
+    "name": "Kensho Extract annotations-async Transcript API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:55.000Z",
+    "updatedAt": "2026-07-28T02:59:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-11517f54-baf5-486b-b48d-9fc4d195f767"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "transcript",
+              "item": [
+                {
+                  "name": "{key_dev_id}",
+                  "item": [
+                    {
+                      "name": "raw",
+                      "item": [
+                        {
+                          "name": "Get Raw Transcript",
+                          "id": "87c2bf34-b896-41ff-91f0-f8b01b4474ab",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id/raw",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "transcript",
+                                ":key_dev_id",
+                                "raw"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "82cec00e-cbb5-4c59-91f2-0a1336aea5e8",
+                                  "key": "key_dev_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the raw transcript for a given key_dev_id\n\nThe raw transcript is a single string that indicates speakers by\nprepending `[speaker]:` to the transcript of the speaker's speech"
+                          },
+                          "response": [
+                            {
+                              "id": "d67749a8-d11c-445f-9e74-06cb0f68d65b",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id/raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "transcript",
+                                    ":key_dev_id",
+                                    "raw"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "key_dev_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"transcript\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-d67749a8-d11c-445f-9e74-06cb0f68d65b"
+                            },
+                            {
+                              "id": "7028486a-addb-4379-9d75-da7e41a893d0",
+                              "name": "Indicates that request parameters are invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id/raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "transcript",
+                                    ":key_dev_id",
+                                    "raw"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "key_dev_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-7028486a-addb-4379-9d75-da7e41a893d0"
+                            },
+                            {
+                              "id": "de5a1ed6-42bb-4dc1-b1f3-a6dea89cf439",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id/raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "transcript",
+                                    ":key_dev_id",
+                                    "raw"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "key_dev_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-de5a1ed6-42bb-4dc1-b1f3-a6dea89cf439"
+                            },
+                            {
+                              "id": "ee31966e-03f7-4e69-be5d-87c288a958e8",
+                              "name": "Indicates that no transcript was found for the given key_dev_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id/raw",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "transcript",
+                                    ":key_dev_id",
+                                    "raw"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "key_dev_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-ee31966e-03f7-4e69-be5d-87c288a958e8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-87c2bf34-b896-41ff-91f0-f8b01b4474ab"
+                        }
+                      ],
+                      "id": "336befc6-a115-448d-91cb-741aa460f309",
+                      "createdAt": "2026-07-28T02:59:55.000Z",
+                      "updatedAt": "2026-07-28T02:59:55.000Z",
+                      "uid": "35240-336befc6-a115-448d-91cb-741aa460f309"
+                    },
+                    {
+                      "name": "Get Transcript",
+                      "id": "29a27a00-c4c3-49c0-bbde-11f06463877f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "transcript",
+                            ":key_dev_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5f66b074-449a-43cf-b6f9-37eb5a770ca5",
+                              "key": "key_dev_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the transcript for a given key_dev_id\n\nThe transcript is a list of components comprising component_type, person_name,\nand text"
+                      },
+                      "response": [
+                        {
+                          "id": "3f9950f5-1e74-4db8-9533-2ad13fd6ca9a",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "transcript",
+                                ":key_dev_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "key_dev_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"transcript\": [\n    {\n      \"component_type\": \"<string>\",\n      \"person_name\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"component_type\": \"<string>\",\n      \"person_name\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-3f9950f5-1e74-4db8-9533-2ad13fd6ca9a"
+                        },
+                        {
+                          "id": "992204af-85ab-418a-8612-da7428193948",
+                          "name": "Indicates that request parameters are invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "transcript",
+                                ":key_dev_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "key_dev_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-992204af-85ab-418a-8612-da7428193948"
+                        },
+                        {
+                          "id": "5cdf57ec-ba4f-4930-a57e-b8850c9a8373",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "transcript",
+                                ":key_dev_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "key_dev_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-5cdf57ec-ba4f-4930-a57e-b8850c9a8373"
+                        },
+                        {
+                          "id": "8fe1809f-f9a2-47a1-97d9-697610c0f571",
+                          "name": "Indicates that no transcript was found for the given key_dev_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/transcript/:key_dev_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "transcript",
+                                ":key_dev_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "key_dev_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-8fe1809f-f9a2-47a1-97d9-697610c0f571"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:55.000Z",
+                      "updatedAt": "2026-07-28T02:59:55.000Z",
+                      "uid": "35240-29a27a00-c4c3-49c0-bbde-11f06463877f"
+                    }
+                  ],
+                  "id": "e947b39e-c083-46ff-9c38-d7c1fefb873d",
+                  "createdAt": "2026-07-28T02:59:55.000Z",
+                  "updatedAt": "2026-07-28T02:59:55.000Z",
+                  "uid": "35240-e947b39e-c083-46ff-9c38-d7c1fefb873d"
+                }
+              ],
+              "id": "77dad3b3-c154-40c3-a242-d942be8b686e",
+              "createdAt": "2026-07-28T02:59:55.000Z",
+              "updatedAt": "2026-07-28T02:59:55.000Z",
+              "uid": "35240-77dad3b3-c154-40c3-a242-d942be8b686e"
+            }
+          ],
+          "id": "198889c1-b9e5-4529-b915-d5a29fd10b2e",
+          "createdAt": "2026-07-28T02:59:55.000Z",
+          "updatedAt": "2026-07-28T02:59:55.000Z",
+          "uid": "35240-198889c1-b9e5-4529-b915-d5a29fd10b2e"
+        }
+      ],
+      "id": "88155341-01b4-4e08-8449-933aef247810",
+      "createdAt": "2026-07-28T02:59:55.000Z",
+      "updatedAt": "2026-07-28T02:59:55.000Z",
+      "uid": "35240-88155341-01b4-4e08-8449-933aef247810"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "info": {
+    "_postman_id": "2702c718-f49f-4ec5-ab09-a7bba649f446",
+    "name": "Kensho Extract annotations-async user-info API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:36.000Z",
+    "updatedAt": "2026-07-28T03:00:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2702c718-f49f-4ec5-ab09-a7bba649f446"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "Get Current User Information",
+          "id": "d7de6345-7082-4857-be9e-3d9a3675c372",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "Returns information about the authenticated user."
+          },
+          "response": [
+            {
+              "id": "132de4a0-30b0-48ce-afbc-8f5974607a38",
+              "name": "Indicates that user information was successfully obtained and returned.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"uid\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:00:37.000Z",
+              "updatedAt": "2026-07-28T03:00:37.000Z",
+              "uid": "35240-132de4a0-30b0-48ce-afbc-8f5974607a38"
+            },
+            {
+              "id": "b93bd51e-98e8-4b22-9b2d-74abedad6e3e",
+              "name": "Indicates that an invalid authorization occurred or that user data was not found.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:00:37.000Z",
+              "updatedAt": "2026-07-28T03:00:37.000Z",
+              "uid": "35240-b93bd51e-98e8-4b22-9b2d-74abedad6e3e"
+            }
+          ],
+          "createdAt": "2026-07-28T03:00:37.000Z",
+          "updatedAt": "2026-07-28T03:00:37.000Z",
+          "uid": "35240-d7de6345-7082-4857-be9e-3d9a3675c372"
+        }
+      ],
+      "id": "2a2573f2-07cb-492a-88cd-29da3eb3e0b2",
+      "createdAt": "2026-07-28T03:00:37.000Z",
+      "updatedAt": "2026-07-28T03:00:37.000Z",
+      "uid": "35240-2a2573f2-07cb-492a-88cd-29da3eb3e0b2"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://nerd.kensho.com"
+    }
+  ]
+}

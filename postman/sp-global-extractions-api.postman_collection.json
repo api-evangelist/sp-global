@@ -1,0 +1,2138 @@
+{
+  "info": {
+    "_postman_id": "12beacc5-ff74-4772-9d45-e4710d005abf",
+    "name": "Kensho Extract annotations-async Extractions API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:00.000Z",
+    "updatedAt": "2026-07-28T03:00:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-12beacc5-ff74-4772-9d45-e4710d005abf"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "extractions",
+          "item": [
+            {
+              "name": "upload-url",
+              "item": [
+                {
+                  "name": "Upload URL To Submit A Document For Extraction.",
+                  "id": "e231ec68-9edc-4acf-80ae-73aed7409f1c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the extracted document format will include location bounding box information and character offsets.",
+                          "key": "output_format",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                          "key": "document_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                          "key": "ocr",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever. This must be `true` or `false`.\n",
+                          "key": "enhanced_table_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Use our newest model to extract data from figures. This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                          "key": "figure_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "A custom document identifier.",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                          "key": "priority",
+                          "value": "low",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                          "key": "pages",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the total number of pages to extract.",
+                          "key": "num_pages_to_extract",
+                          "value": "<integer>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions/upload-url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions",
+                        "upload-url"
+                      ]
+                    },
+                    "description": "Creates the request and returns a pre-signed upload URL to upload the document for extraction."
+                  },
+                  "response": [
+                    {
+                      "id": "4ee1896e-f122-4f4b-93f3-cd3af4955049",
+                      "name": "The request was successfully created.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the extracted document format will include location bounding box information and character offsets.",
+                              "key": "output_format",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                              "key": "document_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                              "key": "ocr",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever. This must be `true` or `false`.\n",
+                              "key": "enhanced_table_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Use our newest model to extract data from figures. This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                              "key": "figure_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "A custom document identifier.",
+                              "key": "document_id",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                              "key": "priority",
+                              "value": "low",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                              "key": "pages",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the total number of pages to extract.",
+                              "key": "num_pages_to_extract",
+                              "value": "<integer>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"request_id\": \"<uuid>\",\n  \"upload_spec\": {\n    \"url\": \"<string>\",\n    \"fields\": {\n      \"essef0\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-4ee1896e-f122-4f4b-93f3-cd3af4955049"
+                    },
+                    {
+                      "id": "370e33f5-4088-49a5-a526-760bebb96e0e",
+                      "name": "This can be any combination of the required parameters are not provided or parameter value is invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the extracted document format will include location bounding box information and character offsets.",
+                              "key": "output_format",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                              "key": "document_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                              "key": "ocr",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever. This must be `true` or `false`.\n",
+                              "key": "enhanced_table_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Use our newest model to extract data from figures. This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                              "key": "figure_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "A custom document identifier.",
+                              "key": "document_id",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                              "key": "priority",
+                              "value": "low",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                              "key": "pages",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the total number of pages to extract.",
+                              "key": "num_pages_to_extract",
+                              "value": "<integer>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-370e33f5-4088-49a5-a526-760bebb96e0e"
+                    },
+                    {
+                      "id": "2b4f2b22-462d-4ec3-9c75-5c837c37b418",
+                      "name": "The authentication token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the extracted document format will include location bounding box information and character offsets.",
+                              "key": "output_format",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                              "key": "document_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                              "key": "ocr",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever. This must be `true` or `false`.\n",
+                              "key": "enhanced_table_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Use our newest model to extract data from figures. This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                              "key": "figure_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "A custom document identifier.",
+                              "key": "document_id",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                              "key": "priority",
+                              "value": "low",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                              "key": "pages",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the total number of pages to extract.",
+                              "key": "num_pages_to_extract",
+                              "value": "<integer>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-2b4f2b22-462d-4ec3-9c75-5c837c37b418"
+                    },
+                    {
+                      "id": "ea0e2778-a5af-4dc6-a2ea-b1acd691fe6b",
+                      "name": "An unexpected error occurred.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the extracted document format will include location bounding box information and character offsets.",
+                              "key": "output_format",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                              "key": "document_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                              "key": "ocr",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever. This must be `true` or `false`.\n",
+                              "key": "enhanced_table_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Use our newest model to extract data from figures. This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                              "key": "figure_extraction",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "A custom document identifier.",
+                              "key": "document_id",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                              "key": "priority",
+                              "value": "low",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                              "key": "pages",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "This specifies the total number of pages to extract.",
+                              "key": "num_pages_to_extract",
+                              "value": "<integer>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-url"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-ea0e2778-a5af-4dc6-a2ea-b1acd691fe6b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-e231ec68-9edc-4acf-80ae-73aed7409f1c"
+                }
+              ],
+              "id": "c1a4814c-4dc1-4c34-93ff-23f25fba1072",
+              "createdAt": "2026-07-28T03:00:00.000Z",
+              "updatedAt": "2026-07-28T03:00:00.000Z",
+              "uid": "35240-c1a4814c-4dc1-4c34-93ff-23f25fba1072"
+            },
+            {
+              "name": "upload-complete",
+              "item": [
+                {
+                  "name": "Mark The Upload As Complete To Start Extraction",
+                  "id": "f4404a54-bafd-470a-a92e-17d9a2dca528",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The request_id for the extraction.",
+                          "key": "request_id",
+                          "value": "<uuid>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions",
+                        "upload-complete"
+                      ]
+                    },
+                    "description": "Call this after the document has been uploaded to the pre-signed URL returned by `/v3/extractions/upload-url`. The extraction process will not begin until this endpoint is called."
+                  },
+                  "response": [
+                    {
+                      "id": "c094a211-0f6d-4115-b2ed-828b95447947",
+                      "name": "The request was marked as uploaded successfully.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) The request_id for the extraction.",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-complete"
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-c094a211-0f6d-4115-b2ed-828b95447947"
+                    },
+                    {
+                      "id": "543c9c52-0436-4df6-9a4b-0d4205abb6c1",
+                      "name": "The request_id was not provided by the client, or was not created via `/v3/extractions/upload-url`.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) The request_id for the extraction.",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-complete"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-543c9c52-0436-4df6-9a4b-0d4205abb6c1"
+                    },
+                    {
+                      "id": "7ddb4645-556e-48f9-98db-49284683d80a",
+                      "name": "The authentication token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) The request_id for the extraction.",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-complete"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-7ddb4645-556e-48f9-98db-49284683d80a"
+                    },
+                    {
+                      "id": "00c9d6fb-9755-4cd4-bc33-49c122cbf10b",
+                      "name": "The request_id or the uploaded document could not be found.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) The request_id for the extraction.",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-complete"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-00c9d6fb-9755-4cd4-bc33-49c122cbf10b"
+                    },
+                    {
+                      "id": "5f75850d-c917-49e0-bd02-d4496432e786",
+                      "name": "An unexpected error occurred.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) The request_id for the extraction.",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/upload-complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "upload-complete"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-5f75850d-c917-49e0-bd02-d4496432e786"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-f4404a54-bafd-470a-a92e-17d9a2dca528"
+                }
+              ],
+              "id": "22c020b1-37c6-48ea-a2cd-5b5797c8b0ad",
+              "createdAt": "2026-07-28T03:00:00.000Z",
+              "updatedAt": "2026-07-28T03:00:00.000Z",
+              "uid": "35240-22c020b1-37c6-48ea-a2cd-5b5797c8b0ad"
+            },
+            {
+              "name": "{request_id}",
+              "item": [
+                {
+                  "name": "Retrieve the extracted document",
+                  "id": "7dc0da44-13fa-4c61-a114-8e68927f3da0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions",
+                        ":request_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                          "key": "output_format",
+                          "value": "structured_document_with_locations"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8c7b11e2-c914-488a-9bc7-c2520c55856a",
+                          "key": "request_id",
+                          "value": "<uuid>",
+                          "description": "(Required) request uuid"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve the extracted document"
+                  },
+                  "response": [
+                    {
+                      "id": "4b20e973-685f-427a-911d-d824d237f430",
+                      "name": "successful operation",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"error\": \"<string>\",\n  \"output\": {\n    \"content_tree\": {\n      \"uid\": \"<string>\",\n      \"type\": \"<string>\",\n      \"content\": \"<string>\",\n      \"children\": [\n        {\n          \"value\": \"reference # not found in the OpenAPI spec\"\n        },\n        {\n          \"value\": \"reference # not found in the OpenAPI spec\"\n        }\n      ]\n    },\n    \"annotations\": [\n      {\n        \"type\": \"<string>\",\n        \"content_uids\": [\n          \"<string>\"\n        ],\n        \"data\": {}\n      },\n      {\n        \"type\": \"<string>\",\n        \"content_uids\": [\n          \"<string>\"\n        ],\n        \"data\": {}\n      }\n    ]\n  },\n  \"metadata\": {}\n}",
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-4b20e973-685f-427a-911d-d824d237f430"
+                    },
+                    {
+                      "id": "3d33fe0a-346b-477a-87f2-03582ab89c12",
+                      "name": "The request_id was not provided by the client, or output_format was specified when the request was created.\n<br>\nIf output_format was specified when the request was created, /v3/extractions/download-url/{request_id} must be called to get a pre-signed URL ",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-3d33fe0a-346b-477a-87f2-03582ab89c12"
+                    },
+                    {
+                      "id": "e15b1d14-fe62-49ce-b11c-ab5371754a69",
+                      "name": "The authentication token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-e15b1d14-fe62-49ce-b11c-ab5371754a69"
+                    },
+                    {
+                      "id": "18ae2b4d-db8e-4412-a4e2-d7389885e369",
+                      "name": "The request_id could not be found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-18ae2b4d-db8e-4412-a4e2-d7389885e369"
+                    },
+                    {
+                      "id": "648cce7f-9ead-46bc-9654-9e7610419faf",
+                      "name": "The request is on a different API version than the POST request that created the request.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Method Not Allowed",
+                      "code": 405,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-648cce7f-9ead-46bc-9654-9e7610419faf"
+                    },
+                    {
+                      "id": "f30c4f27-b2c2-42ca-a7a6-8a61a7807f8d",
+                      "name": "An unexpected error occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/:request_id?output_format=structured_document_with_locations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            ":request_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.",
+                              "key": "output_format",
+                              "value": "structured_document_with_locations"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "request_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-f30c4f27-b2c2-42ca-a7a6-8a61a7807f8d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-7dc0da44-13fa-4c61-a114-8e68927f3da0"
+                }
+              ],
+              "id": "322697dc-1291-488a-9907-fa98b8ca0a80",
+              "createdAt": "2026-07-28T03:00:00.000Z",
+              "updatedAt": "2026-07-28T03:00:00.000Z",
+              "uid": "35240-322697dc-1291-488a-9907-fa98b8ca0a80"
+            },
+            {
+              "name": "download-url",
+              "item": [
+                {
+                  "name": "{request_id}",
+                  "item": [
+                    {
+                      "name": "Retrieve The Extracted Document's Download URL",
+                      "id": "52ecca80-8b31-4e93-94e5-8888a477ec83",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "extractions",
+                            "download-url",
+                            ":request_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dbb4e3a0-8ab3-4e5c-85a3-3336fd9358b6",
+                              "key": "request_id",
+                              "value": "<uuid>",
+                              "description": "(Required) request uuid"
+                            }
+                          ]
+                        },
+                        "description": "GET the `output_url` in the response to download the extracted document."
+                      },
+                      "response": [
+                        {
+                          "id": "f829db04-42d5-4dbd-afd6-48f2f7fabea9",
+                          "name": "successful operation",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"success\",\n  \"error\": \"<string>\",\n  \"output_url\": \"<string>\",\n  \"metadata\": {}\n}",
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-f829db04-42d5-4dbd-afd6-48f2f7fabea9"
+                        },
+                        {
+                          "id": "f823ff68-5f00-4ecb-95c4-8e84ed2fdc0a",
+                          "name": "The request_id was not provided by the client, or output_format was not specified when the request was created.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-f823ff68-5f00-4ecb-95c4-8e84ed2fdc0a"
+                        },
+                        {
+                          "id": "78f1ba00-a0f3-459d-b2b0-58681a7f83b6",
+                          "name": "The authentication token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-78f1ba00-a0f3-459d-b2b0-58681a7f83b6"
+                        },
+                        {
+                          "id": "98f1aba9-ddd9-493d-9f4b-76057b132a72",
+                          "name": "The request_id could not be found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-98f1aba9-ddd9-493d-9f4b-76057b132a72"
+                        },
+                        {
+                          "id": "7489d48b-91d7-4ebd-b699-1be1774548d1",
+                          "name": "The request is on a different API version than the POST request that created the request, the document has not been uploaded, or /v3/extractions/upload-complete has not been called to marked the upload complete.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Method Not Allowed",
+                          "code": 405,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-7489d48b-91d7-4ebd-b699-1be1774548d1"
+                        },
+                        {
+                          "id": "d5e8b36f-600f-4dbd-ad63-53d2ba0b4af6",
+                          "name": "An unexpected error occurred.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/extractions/download-url/:request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "extractions",
+                                "download-url",
+                                ":request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:00:00.000Z",
+                          "updatedAt": "2026-07-28T03:00:00.000Z",
+                          "uid": "35240-d5e8b36f-600f-4dbd-ad63-53d2ba0b4af6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:00:00.000Z",
+                      "updatedAt": "2026-07-28T03:00:00.000Z",
+                      "uid": "35240-52ecca80-8b31-4e93-94e5-8888a477ec83"
+                    }
+                  ],
+                  "id": "1a35470a-dc2f-446c-86fa-cea71ad44fa5",
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-1a35470a-dc2f-446c-86fa-cea71ad44fa5"
+                }
+              ],
+              "id": "89c35d6b-b532-4e6f-b2b8-401cc38e5620",
+              "createdAt": "2026-07-28T03:00:00.000Z",
+              "updatedAt": "2026-07-28T03:00:00.000Z",
+              "uid": "35240-89c35d6b-b532-4e6f-b2b8-401cc38e5620"
+            },
+            {
+              "name": "Submit a document for extraction",
+              "id": "3180880e-88ae-422e-b760-53492fd4e8b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) The document to extract. The maximum file size is 100MB.",
+                      "key": "file",
+                      "type": "file",
+                      "value": null
+                    },
+                    {
+                      "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                      "key": "document_type",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                      "key": "ocr",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever.                     This must be `true` or `false`.\n",
+                      "key": "enhanced_table_extraction",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "Use our newest model to extract data from figures.                     This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                      "key": "figure_extraction",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "Whether to return the locations of images. This must be `true` or `false`.\n",
+                      "key": "include_images",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "Whether to return the relations between items. This must be `true` or `false`.\n",
+                      "key": "include_relations",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "A custom document identifier.",
+                      "key": "document_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                      "key": "priority",
+                      "value": "low",
+                      "type": "text"
+                    },
+                    {
+                      "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                      "key": "pages",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for each page requested\n",
+                      "key": "return_absolute_pdf_page_numbers",
+                      "value": "false",
+                      "type": "text"
+                    },
+                    {
+                      "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.\n<br>\nIncluding this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain a URL for downloading the document from AWS.\n",
+                      "key": "output_format",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/extractions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "extractions"
+                  ]
+                },
+                "description": "Submit a document for extraction"
+              },
+              "response": [
+                {
+                  "id": "09d5609c-982a-4cd1-b531-d2083a72ac67",
+                  "name": "The request was successfully created.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The document to extract. The maximum file size is 100MB.",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                          "key": "document_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                          "key": "ocr",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever.                     This must be `true` or `false`.\n",
+                          "key": "enhanced_table_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Use our newest model to extract data from figures.                     This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                          "key": "figure_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the locations of images. This must be `true` or `false`.\n",
+                          "key": "include_images",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the relations between items. This must be `true` or `false`.\n",
+                          "key": "include_relations",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "A custom document identifier.",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                          "key": "priority",
+                          "value": "low",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                          "key": "pages",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for each page requested\n",
+                          "key": "return_absolute_pdf_page_numbers",
+                          "value": "false",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.\n<br>\nIncluding this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain a URL for downloading the document from AWS.\n",
+                          "key": "output_format",
+                          "value": "<string>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"request_id\": \"<uuid>\"\n}",
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-09d5609c-982a-4cd1-b531-d2083a72ac67"
+                },
+                {
+                  "id": "ef394b44-89b0-4129-9b8d-b98ded5be967",
+                  "name": "This can be any combination of the required parameters are not provided, a parameter that is invalid, or if a specific pages is requested in the `pages` parameter and that page is not in the document. E.g., requesting page 57 for a 10 page document.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The document to extract. The maximum file size is 100MB.",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                          "key": "document_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                          "key": "ocr",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever.                     This must be `true` or `false`.\n",
+                          "key": "enhanced_table_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Use our newest model to extract data from figures.                     This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                          "key": "figure_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the locations of images. This must be `true` or `false`.\n",
+                          "key": "include_images",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the relations between items. This must be `true` or `false`.\n",
+                          "key": "include_relations",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "A custom document identifier.",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                          "key": "priority",
+                          "value": "low",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                          "key": "pages",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for each page requested\n",
+                          "key": "return_absolute_pdf_page_numbers",
+                          "value": "false",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.\n<br>\nIncluding this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain a URL for downloading the document from AWS.\n",
+                          "key": "output_format",
+                          "value": "<string>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-ef394b44-89b0-4129-9b8d-b98ded5be967"
+                },
+                {
+                  "id": "37590875-6dd5-47d2-8bee-5f0f2ec6dad0",
+                  "name": "The authentication token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The document to extract. The maximum file size is 100MB.",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                          "key": "document_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                          "key": "ocr",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever.                     This must be `true` or `false`.\n",
+                          "key": "enhanced_table_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Use our newest model to extract data from figures.                     This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                          "key": "figure_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the locations of images. This must be `true` or `false`.\n",
+                          "key": "include_images",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the relations between items. This must be `true` or `false`.\n",
+                          "key": "include_relations",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "A custom document identifier.",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                          "key": "priority",
+                          "value": "low",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                          "key": "pages",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for each page requested\n",
+                          "key": "return_absolute_pdf_page_numbers",
+                          "value": "false",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.\n<br>\nIncluding this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain a URL for downloading the document from AWS.\n",
+                          "key": "output_format",
+                          "value": "<string>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-37590875-6dd5-47d2-8bee-5f0f2ec6dad0"
+                },
+                {
+                  "id": "c3e9bc6a-99c6-47ab-8f8c-cbe1bad9fba6",
+                  "name": "An unexpected error occurred.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The document to extract. The maximum file size is 100MB.",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) The output document format. Kensho Extract offers three document types: `hierarchical`, `hierarchical_v2`, and `general`.\nPlease refer to our [overview page](home) for a detailed breakdown of which model will provide the most optimal output for your use case.\n",
+                          "key": "document_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Identifies whether the document is scanned or is a native pdf. This must be `true` or `false`.\nSee the [OCR](ocr) page for more information.\n",
+                          "key": "ocr",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Use our newest model to extract data from complex tables more accurately than ever.                     This must be `true` or `false`.\n",
+                          "key": "enhanced_table_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Use our newest model to extract data from figures.                     This must be `true` or `false`.\nSee the [Figure Extraction](figex) page for more information.\n",
+                          "key": "figure_extraction",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the locations of images. This must be `true` or `false`.\n",
+                          "key": "include_images",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return the relations between items. This must be `true` or `false`.\n",
+                          "key": "include_relations",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "A custom document identifier.",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "The priority level. Anything besides `low` will be considered `high` priority. (This can only be one of low)",
+                          "key": "priority",
+                          "value": "low",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This specifies the pages to extract. Page numbers start at 1. Format: `1-5,7,11,14-16`.",
+                          "key": "pages",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Whether to return absolute PDF page numbers in the output. Absolute PDF page numbers refer to the original page numbers requested, while relative page numbers start at 0 and increment by 1 for each page requested\n",
+                          "key": "return_absolute_pdf_page_numbers",
+                          "value": "false",
+                          "type": "text"
+                        },
+                        {
+                          "description": "This can be `structured_document`, `structured_document_with_locations`, or `structured_document_with_char_offsets`. It determines if the response format will include location bounding box information.\n<br>\nIncluding this parameter requires making a call to `/v3/extractions/download-url/{request_id}` to obtain a URL for downloading the document from AWS.\n",
+                          "key": "output_format",
+                          "value": "<string>",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/extractions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "extractions"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:00:00.000Z",
+                  "updatedAt": "2026-07-28T03:00:00.000Z",
+                  "uid": "35240-c3e9bc6a-99c6-47ab-8f8c-cbe1bad9fba6"
+                }
+              ],
+              "createdAt": "2026-07-28T03:00:00.000Z",
+              "updatedAt": "2026-07-28T03:00:00.000Z",
+              "uid": "35240-3180880e-88ae-422e-b760-53492fd4e8b9"
+            }
+          ],
+          "id": "4f855bc4-6088-495a-b27b-9e7d9d121a71",
+          "createdAt": "2026-07-28T03:00:00.000Z",
+          "updatedAt": "2026-07-28T03:00:00.000Z",
+          "uid": "35240-4f855bc4-6088-495a-b27b-9e7d9d121a71"
+        }
+      ],
+      "id": "0a26503a-8308-4a95-b71f-3b510a0b316d",
+      "createdAt": "2026-07-28T03:00:00.000Z",
+      "updatedAt": "2026-07-28T03:00:00.000Z",
+      "uid": "35240-0a26503a-8308-4a95-b71f-3b510a0b316d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://extract.kensho.com/"
+    }
+  ]
+}

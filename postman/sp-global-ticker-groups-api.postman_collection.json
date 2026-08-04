@@ -1,0 +1,1486 @@
+{
+  "info": {
+    "_postman_id": "6e996543-0a84-4a33-8abe-7823ef2e6607",
+    "name": "Kensho Extract annotations-async Ticker Groups API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:52.000Z",
+    "updatedAt": "2026-07-28T02:59:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6e996543-0a84-4a33-8abe-7823ef2e6607"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "ticker_groups",
+              "item": [
+                {
+                  "name": "exchange",
+                  "item": [
+                    {
+                      "name": "{exchange_code}",
+                      "item": [
+                        {
+                          "name": "Get Tickers By Exchange Code",
+                          "id": "c698d4c4-d0f6-4504-9ae8-2599b8216554",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/ticker_groups/exchange/:exchange_code",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "ticker_groups",
+                                "exchange",
+                                ":exchange_code"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6aa2d734-05bd-4648-ba41-5a91fffba455",
+                                  "key": "exchange_code",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the list of tickers that are traded on exchange_code"
+                          },
+                          "response": [
+                            {
+                              "id": "455593bc-0b3e-42f2-96c4-4c8f213fffc5",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-455593bc-0b3e-42f2-96c4-4c8f213fffc5"
+                            },
+                            {
+                              "id": "53967926-3997-45da-9a39-46742a2fc0fb",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-53967926-3997-45da-9a39-46742a2fc0fb"
+                            },
+                            {
+                              "id": "eac5a3af-eda8-42dd-9cd9-6554e0708908",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/exchange/:exchange_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "exchange",
+                                    ":exchange_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "exchange_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-eac5a3af-eda8-42dd-9cd9-6554e0708908"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-c698d4c4-d0f6-4504-9ae8-2599b8216554"
+                        }
+                      ],
+                      "id": "159e2035-6096-4cde-bcc9-332dc2e11155",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-159e2035-6096-4cde-bcc9-332dc2e11155"
+                    }
+                  ],
+                  "id": "3e9696b3-f84d-41d7-8ad5-10f5dc55c128",
+                  "createdAt": "2026-07-28T02:59:53.000Z",
+                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                  "uid": "35240-3e9696b3-f84d-41d7-8ad5-10f5dc55c128"
+                },
+                {
+                  "name": "filters",
+                  "item": [
+                    {
+                      "name": "geo",
+                      "item": [
+                        {
+                          "name": "{iso_code}",
+                          "item": [
+                            {
+                              "name": "{state}",
+                              "item": [
+                                {
+                                  "name": "simple",
+                                  "item": [
+                                    {
+                                      "name": "{simple_industry}",
+                                      "item": [
+                                        {
+                                          "name": "exchange",
+                                          "item": [
+                                            {
+                                              "name": "{exchange_code}",
+                                              "item": [
+                                                {
+                                                  "name": "Get Tickers By Combined Filters",
+                                                  "id": "c9de97bf-f111-4d93-bcd1-2781e68e7b97",
+                                                  "protocolProfileBehavior": {
+                                                    "disableBodyPruning": true
+                                                  },
+                                                  "request": {
+                                                    "method": "GET",
+                                                    "header": [
+                                                      {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "ticker_groups",
+                                                        "filters",
+                                                        "geo",
+                                                        ":iso_code",
+                                                        ":state",
+                                                        "simple",
+                                                        ":simple_industry",
+                                                        "exchange",
+                                                        ":exchange_code"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "id": "e4d5f413-a9c1-4690-b4a9-14f2f428f18e",
+                                                          "key": "iso_code",
+                                                          "value": "",
+                                                          "description": "(Required) "
+                                                        },
+                                                        {
+                                                          "id": "186d9bbe-ab1c-41db-9a5d-834dd6aa8c75",
+                                                          "key": "state",
+                                                          "value": "",
+                                                          "description": "(Required) "
+                                                        },
+                                                        {
+                                                          "id": "4e100196-1ea9-45bb-9f9d-279a388acf32",
+                                                          "key": "simple_industry",
+                                                          "value": "",
+                                                          "description": "(Required) "
+                                                        },
+                                                        {
+                                                          "id": "680e5f30-5997-4381-a352-799f23e51a53",
+                                                          "key": "exchange_code",
+                                                          "value": "<string>",
+                                                          "description": "(Required) "
+                                                        }
+                                                      ]
+                                                    },
+                                                    "description": "Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry."
+                                                  },
+                                                  "response": [
+                                                    {
+                                                      "id": "cfb97372-4c92-4f50-8745-f9c3e32774b4",
+                                                      "name": "Indicates a successful request.",
+                                                      "originalRequest": {
+                                                        "method": "GET",
+                                                        "header": [
+                                                          {
+                                                            "key": "Accept",
+                                                            "value": "application/json"
+                                                          }
+                                                        ],
+                                                        "url": {
+                                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+                                                          "host": [
+                                                            "{{baseUrl}}"
+                                                          ],
+                                                          "path": [
+                                                            "api",
+                                                            "v1",
+                                                            "ticker_groups",
+                                                            "filters",
+                                                            "geo",
+                                                            ":iso_code",
+                                                            ":state",
+                                                            "simple",
+                                                            ":simple_industry",
+                                                            "exchange",
+                                                            ":exchange_code"
+                                                          ],
+                                                          "variable": [
+                                                            {
+                                                              "key": "iso_code"
+                                                            },
+                                                            {
+                                                              "key": "state"
+                                                            },
+                                                            {
+                                                              "key": "simple_industry"
+                                                            },
+                                                            {
+                                                              "key": "exchange_code"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "status": "OK",
+                                                      "code": 200,
+                                                      "_postman_previewlanguage": "json",
+                                                      "header": [
+                                                        {
+                                                          "key": "Content-Type",
+                                                          "value": "application/json"
+                                                        }
+                                                      ],
+                                                      "cookie": [],
+                                                      "responseTime": null,
+                                                      "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                                      "uid": "35240-cfb97372-4c92-4f50-8745-f9c3e32774b4"
+                                                    },
+                                                    {
+                                                      "id": "4e41f763-be1a-482a-b530-66e8e8def89c",
+                                                      "name": "Indicates that the query is invalid.",
+                                                      "originalRequest": {
+                                                        "method": "GET",
+                                                        "header": [],
+                                                        "url": {
+                                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+                                                          "host": [
+                                                            "{{baseUrl}}"
+                                                          ],
+                                                          "path": [
+                                                            "api",
+                                                            "v1",
+                                                            "ticker_groups",
+                                                            "filters",
+                                                            "geo",
+                                                            ":iso_code",
+                                                            ":state",
+                                                            "simple",
+                                                            ":simple_industry",
+                                                            "exchange",
+                                                            ":exchange_code"
+                                                          ],
+                                                          "variable": [
+                                                            {
+                                                              "key": "iso_code"
+                                                            },
+                                                            {
+                                                              "key": "state"
+                                                            },
+                                                            {
+                                                              "key": "simple_industry"
+                                                            },
+                                                            {
+                                                              "key": "exchange_code"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "status": "Bad Request",
+                                                      "code": 400,
+                                                      "_postman_previewlanguage": "text",
+                                                      "header": [],
+                                                      "cookie": [],
+                                                      "responseTime": null,
+                                                      "body": null,
+                                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                                      "uid": "35240-4e41f763-be1a-482a-b530-66e8e8def89c"
+                                                    },
+                                                    {
+                                                      "id": "da60e000-a6d2-4e87-a959-2985a029349f",
+                                                      "name": "Indicates that the authorization information is missing or invalid.",
+                                                      "originalRequest": {
+                                                        "method": "GET",
+                                                        "header": [],
+                                                        "url": {
+                                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+                                                          "host": [
+                                                            "{{baseUrl}}"
+                                                          ],
+                                                          "path": [
+                                                            "api",
+                                                            "v1",
+                                                            "ticker_groups",
+                                                            "filters",
+                                                            "geo",
+                                                            ":iso_code",
+                                                            ":state",
+                                                            "simple",
+                                                            ":simple_industry",
+                                                            "exchange",
+                                                            ":exchange_code"
+                                                          ],
+                                                          "variable": [
+                                                            {
+                                                              "key": "iso_code"
+                                                            },
+                                                            {
+                                                              "key": "state"
+                                                            },
+                                                            {
+                                                              "key": "simple_industry"
+                                                            },
+                                                            {
+                                                              "key": "exchange_code"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "status": "Forbidden",
+                                                      "code": 403,
+                                                      "_postman_previewlanguage": "text",
+                                                      "header": [],
+                                                      "cookie": [],
+                                                      "responseTime": null,
+                                                      "body": null,
+                                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                                      "uid": "35240-da60e000-a6d2-4e87-a959-2985a029349f"
+                                                    }
+                                                  ],
+                                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                                  "uid": "35240-c9de97bf-f111-4d93-bcd1-2781e68e7b97"
+                                                }
+                                              ],
+                                              "id": "d3ed245b-8aad-486b-bf9c-7ce882d184ed",
+                                              "createdAt": "2026-07-28T02:59:53.000Z",
+                                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                                              "uid": "35240-d3ed245b-8aad-486b-bf9c-7ce882d184ed"
+                                            }
+                                          ],
+                                          "id": "0c8fcd93-2bf1-4659-97ea-c53b2abb12cb",
+                                          "createdAt": "2026-07-28T02:59:53.000Z",
+                                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                                          "uid": "35240-0c8fcd93-2bf1-4659-97ea-c53b2abb12cb"
+                                        }
+                                      ],
+                                      "id": "9c28fc35-70e0-43ca-a6d2-216cf32372ac",
+                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                      "uid": "35240-9c28fc35-70e0-43ca-a6d2-216cf32372ac"
+                                    }
+                                  ],
+                                  "id": "239611f8-e27e-4d77-90ac-1a1741f9f296",
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-239611f8-e27e-4d77-90ac-1a1741f9f296"
+                                }
+                              ],
+                              "id": "f205337f-7305-4863-90a9-f85c684b4ffe",
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-f205337f-7305-4863-90a9-f85c684b4ffe"
+                            }
+                          ],
+                          "id": "6113f7e3-c07e-4889-8c3c-4e38d5016392",
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-6113f7e3-c07e-4889-8c3c-4e38d5016392"
+                        }
+                      ],
+                      "id": "4be7d7df-d5c7-410f-8349-730a7649edf0",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-4be7d7df-d5c7-410f-8349-730a7649edf0"
+                    }
+                  ],
+                  "id": "5b6f3d53-8dc4-4440-a289-f1b4962de50f",
+                  "createdAt": "2026-07-28T02:59:53.000Z",
+                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                  "uid": "35240-5b6f3d53-8dc4-4440-a289-f1b4962de50f"
+                },
+                {
+                  "name": "geo",
+                  "item": [
+                    {
+                      "name": "country",
+                      "item": [
+                        {
+                          "name": "{iso_code}",
+                          "item": [
+                            {
+                              "name": "{state}",
+                              "item": [
+                                {
+                                  "name": "Get Tickers By Location 2",
+                                  "id": "37d28a5b-212b-4b27-aed3-5f7614fc1373",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code/:state",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "geo",
+                                        "country",
+                                        ":iso_code",
+                                        ":state"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "91f22d6a-9b9c-4de0-86dc-d1cb3f8b729d",
+                                          "key": "iso_code",
+                                          "value": "",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "72d2677c-a487-46ab-a0c1-fbf3a2f9b61d",
+                                          "key": "state",
+                                          "value": "",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. This code identifies the subdivision without repeating the country code. Example: \"CA\" for California, \"MH\" for Maharashtra."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "b4d89a56-0782-44f3-9bf1-16f1bbb75c7e",
+                                      "name": "Indicates a successful request.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "ticker_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                      "uid": "35240-b4d89a56-0782-44f3-9bf1-16f1bbb75c7e"
+                                    },
+                                    {
+                                      "id": "06753d48-43c9-48b0-beda-bf6b7c8037cf",
+                                      "name": "Indicates that the query is invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "ticker_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                      "uid": "35240-06753d48-43c9-48b0-beda-bf6b7c8037cf"
+                                    },
+                                    {
+                                      "id": "787e42ce-f4e6-409c-ba5d-df82391b7b6c",
+                                      "name": "Indicates that the authorization information is missing or invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code/:state",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "ticker_groups",
+                                            "geo",
+                                            "country",
+                                            ":iso_code",
+                                            ":state"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "iso_code"
+                                            },
+                                            {
+                                              "key": "state"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:53.000Z",
+                                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                                      "uid": "35240-787e42ce-f4e6-409c-ba5d-df82391b7b6c"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-37d28a5b-212b-4b27-aed3-5f7614fc1373"
+                                }
+                              ],
+                              "id": "27b54e22-0bd8-4d21-84c6-541ea76a54e7",
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-27b54e22-0bd8-4d21-84c6-541ea76a54e7"
+                            },
+                            {
+                              "name": "Get Tickers By Location",
+                              "id": "e889327f-6b3f-489b-b861-f14a5b9268e4",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "geo",
+                                    "country",
+                                    ":iso_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "7d26ad79-edc9-4970-bf52-7ce858a9530c",
+                                      "key": "iso_code",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. This code identifies the subdivision without repeating the country code. Example: \"CA\" for California, \"MH\" for Maharashtra."
+                              },
+                              "response": [
+                                {
+                                  "id": "19d13fb1-c460-4998-952a-69af2d086d2b",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "geo",
+                                        "country",
+                                        ":iso_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "iso_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-19d13fb1-c460-4998-952a-69af2d086d2b"
+                                },
+                                {
+                                  "id": "dbd89c8d-85bd-4f92-9751-00dd60dfffcf",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "geo",
+                                        "country",
+                                        ":iso_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "iso_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-dbd89c8d-85bd-4f92-9751-00dd60dfffcf"
+                                },
+                                {
+                                  "id": "6c141c9a-f661-4ed1-b924-bb51b2c4beb2",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/geo/country/:iso_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "geo",
+                                        "country",
+                                        ":iso_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "iso_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-6c141c9a-f661-4ed1-b924-bb51b2c4beb2"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-e889327f-6b3f-489b-b861-f14a5b9268e4"
+                            }
+                          ],
+                          "id": "7dc7bbe9-5e49-45e9-99bb-fd980e086dcb",
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-7dc7bbe9-5e49-45e9-99bb-fd980e086dcb"
+                        }
+                      ],
+                      "id": "514d6a3f-2444-4f3c-a1e0-6bdef72db4ad",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-514d6a3f-2444-4f3c-a1e0-6bdef72db4ad"
+                    }
+                  ],
+                  "id": "e93d4814-aa30-4cdc-b3e3-00f4acf07ddf",
+                  "createdAt": "2026-07-28T02:59:53.000Z",
+                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                  "uid": "35240-e93d4814-aa30-4cdc-b3e3-00f4acf07ddf"
+                },
+                {
+                  "name": "industry",
+                  "item": [
+                    {
+                      "name": "{industry_classification}",
+                      "item": [
+                        {
+                          "name": "{industry_code}",
+                          "item": [
+                            {
+                              "name": "Get Tickers By Industry Code",
+                              "id": "1ece4862-d390-46f8-820c-70d92a90d759",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "industry",
+                                    ":industry_classification",
+                                    ":industry_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "dc7f6c78-3854-408d-84e3-088f39a9e89d",
+                                      "key": "industry_classification",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "0928a781-1604-43e3-84c3-04097f51e0e8",
+                                      "key": "industry_code",
+                                      "value": "OjtF",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of tickers and their associated identification triple that are in the given industry_classification and industry_code"
+                              },
+                              "response": [
+                                {
+                                  "id": "803fa9b3-ac71-48a6-9dde-69ba96a14dcd",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-803fa9b3-ac71-48a6-9dde-69ba96a14dcd"
+                                },
+                                {
+                                  "id": "c1a6d1bb-8794-4134-9235-6eba753f3eaa",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-c1a6d1bb-8794-4134-9235-6eba753f3eaa"
+                                },
+                                {
+                                  "id": "4b6d419c-49a9-45b8-95f3-860438c3775d",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        ":industry_classification",
+                                        ":industry_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "industry_classification"
+                                        },
+                                        {
+                                          "key": "industry_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-4b6d419c-49a9-45b8-95f3-860438c3775d"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-1ece4862-d390-46f8-820c-70d92a90d759"
+                            }
+                          ],
+                          "id": "b0d5b47e-aab4-4a48-9b29-a48e15d496d3",
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-b0d5b47e-aab4-4a48-9b29-a48e15d496d3"
+                        }
+                      ],
+                      "id": "9dabd646-6010-4695-a5cf-c5ab01918cef",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-9dabd646-6010-4695-a5cf-c5ab01918cef"
+                    },
+                    {
+                      "name": "gics",
+                      "item": [
+                        {
+                          "name": "{gics_code}",
+                          "item": [
+                            {
+                              "name": "Get Tickers By GICS Code",
+                              "id": "988d7747-4ff0-46a6-935e-a0c3c32c78c4",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/gics/:gics_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "industry",
+                                    "gics",
+                                    ":gics_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "01263b2d-2991-4d7d-a04d-9d323e4e4f30",
+                                      "key": "gics_code",
+                                      "value": "577009",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of tickers that are classified in the gics_code.\n\nReturns a dictionary of shape {\"tickers\": List[{\u201ccompany_id\u201d: <company_id>, \u201csecurity_id\u201d: <security_id>, \u201ctrading_item_id\u201d: <trading_item_id>}]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+                              },
+                              "response": [
+                                {
+                                  "id": "fd7b4e11-4af1-4ac8-9e90-1d1a39a8fbb0",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-fd7b4e11-4af1-4ac8-9e90-1d1a39a8fbb0"
+                                },
+                                {
+                                  "id": "965c3803-71fb-47df-b945-e45bfd735a37",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-965c3803-71fb-47df-b945-e45bfd735a37"
+                                },
+                                {
+                                  "id": "f2cb886d-fc6c-4236-a376-439fa0385331",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/gics/:gics_code",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "gics",
+                                        ":gics_code"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "gics_code"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-f2cb886d-fc6c-4236-a376-439fa0385331"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-988d7747-4ff0-46a6-935e-a0c3c32c78c4"
+                            }
+                          ],
+                          "id": "2af0d7ad-b363-4d3c-8751-dbb7516b6428",
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-2af0d7ad-b363-4d3c-8751-dbb7516b6428"
+                        }
+                      ],
+                      "id": "134f950d-44c7-4499-842c-0fefc5d8803a",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-134f950d-44c7-4499-842c-0fefc5d8803a"
+                    },
+                    {
+                      "name": "simple",
+                      "item": [
+                        {
+                          "name": "{simple_industry}",
+                          "item": [
+                            {
+                              "name": "Get Tickers By Simple Industry",
+                              "id": "7ea5f937-d270-4cad-92c1-8259800b1155",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/simple/:simple_industry",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "ticker_groups",
+                                    "industry",
+                                    "simple",
+                                    ":simple_industry"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ad3e2f54-f86d-4186-8d60-1d448121d69a",
+                                      "key": "simple_industry",
+                                      "value": "",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the list of tickers and their associated identification triple that are in the given simple_industry"
+                              },
+                              "response": [
+                                {
+                                  "id": "dfa7d768-e23b-45da-b081-5227cba4988f",
+                                  "name": "Indicates a successful request.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"tickers\": [\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    },\n    {\n      \"company_id\": \"<integer>\",\n      \"security_id\": \"<integer>\",\n      \"trading_item_id\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-dfa7d768-e23b-45da-b081-5227cba4988f"
+                                },
+                                {
+                                  "id": "0a707e3e-6b91-4a25-8113-b35625024fe6",
+                                  "name": "Indicates that the query is invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-0a707e3e-6b91-4a25-8113-b35625024fe6"
+                                },
+                                {
+                                  "id": "2d0cf334-6e90-44b2-b7f2-5c13a40427a7",
+                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/ticker_groups/industry/simple/:simple_industry",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "ticker_groups",
+                                        "industry",
+                                        "simple",
+                                        ":simple_industry"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "simple_industry"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:59:53.000Z",
+                                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                                  "uid": "35240-2d0cf334-6e90-44b2-b7f2-5c13a40427a7"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:59:53.000Z",
+                              "updatedAt": "2026-07-28T02:59:53.000Z",
+                              "uid": "35240-7ea5f937-d270-4cad-92c1-8259800b1155"
+                            }
+                          ],
+                          "id": "825acbb3-51eb-4fb5-9faa-07a5c3d173ad",
+                          "createdAt": "2026-07-28T02:59:53.000Z",
+                          "updatedAt": "2026-07-28T02:59:53.000Z",
+                          "uid": "35240-825acbb3-51eb-4fb5-9faa-07a5c3d173ad"
+                        }
+                      ],
+                      "id": "0cbf21f3-7ccf-4bdb-b09d-1496cbc6eaf6",
+                      "createdAt": "2026-07-28T02:59:53.000Z",
+                      "updatedAt": "2026-07-28T02:59:53.000Z",
+                      "uid": "35240-0cbf21f3-7ccf-4bdb-b09d-1496cbc6eaf6"
+                    }
+                  ],
+                  "id": "c3264737-e5e4-47be-a934-ece4a4bbf9a7",
+                  "createdAt": "2026-07-28T02:59:53.000Z",
+                  "updatedAt": "2026-07-28T02:59:53.000Z",
+                  "uid": "35240-c3264737-e5e4-47be-a934-ece4a4bbf9a7"
+                }
+              ],
+              "id": "e6ac29a3-556b-49e9-88ae-6a8155493a92",
+              "createdAt": "2026-07-28T02:59:53.000Z",
+              "updatedAt": "2026-07-28T02:59:53.000Z",
+              "uid": "35240-e6ac29a3-556b-49e9-88ae-6a8155493a92"
+            }
+          ],
+          "id": "5b7040f9-da84-49fa-b933-30a1434a0138",
+          "createdAt": "2026-07-28T02:59:53.000Z",
+          "updatedAt": "2026-07-28T02:59:53.000Z",
+          "uid": "35240-5b7040f9-da84-49fa-b933-30a1434a0138"
+        }
+      ],
+      "id": "a3e9c712-5576-4670-8830-ab6944776817",
+      "createdAt": "2026-07-28T02:59:53.000Z",
+      "updatedAt": "2026-07-28T02:59:53.000Z",
+      "uid": "35240-a3e9c712-5576-4670-8830-ab6944776817"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

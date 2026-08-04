@@ -1,0 +1,573 @@
+{
+  "info": {
+    "_postman_id": "ea12bf72-30fd-47b4-9b86-06131babbd8d",
+    "name": "Kensho Extract annotations-async Statements API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:51.000Z",
+    "updatedAt": "2026-07-28T02:59:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ea12bf72-30fd-47b4-9b86-06131babbd8d"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "statements",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "{statement_type}",
+                      "item": [
+                        {
+                          "name": "{period_type}",
+                          "item": [
+                            {
+                              "name": "{start_year}",
+                              "item": [
+                                {
+                                  "name": "{end_year}",
+                                  "item": [
+                                    {
+                                      "name": "{start_quarter}",
+                                      "item": [
+                                        {
+                                          "name": "{end_quarter}",
+                                          "item": [
+                                            {
+                                              "name": "Get Financial Statement 2",
+                                              "id": "5f1200a3-dc2b-4a6c-a15c-e28a0c771bbf",
+                                              "protocolProfileBehavior": {
+                                                "disableBodyPruning": true
+                                              },
+                                              "request": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "api",
+                                                    "v1",
+                                                    "statements",
+                                                    ":company_id",
+                                                    ":statement_type",
+                                                    ":period_type",
+                                                    ":start_year",
+                                                    ":end_year",
+                                                    ":start_quarter",
+                                                    ":end_quarter"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "id": "a9ff8e16-b3f3-470c-841a-d4bdd6bba85a",
+                                                      "key": "company_id",
+                                                      "value": "<integer>",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "f004ff7e-c622-4b0f-85b7-2f15507ba8fd",
+                                                      "key": "statement_type",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "5600b76e-f452-41dc-a185-21e776913e36",
+                                                      "key": "period_type",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "4d9ba2b7-0cfd-413b-b7cc-011284380b18",
+                                                      "key": "start_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "0daa0b17-f188-4915-8069-bace924bbc51",
+                                                      "key": "end_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "90dd6492-d3d1-4b04-88c1-3061f31cec78",
+                                                      "key": "start_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "f23073be-ee8a-4cc0-849d-0245cd14e0cc",
+                                                      "key": "end_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    }
+                                                  ]
+                                                },
+                                                "description": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+                                              },
+                                              "response": [
+                                                {
+                                                  "id": "ab0d54a4-347b-4ed6-97a1-10720a96f50b",
+                                                  "name": "Indicates a successful request.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [
+                                                      {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "statements",
+                                                        ":company_id",
+                                                        ":statement_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "statement_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "OK",
+                                                  "code": 200,
+                                                  "_postman_previewlanguage": "json",
+                                                  "header": [
+                                                    {
+                                                      "key": "Content-Type",
+                                                      "value": "application/json"
+                                                    }
+                                                  ],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": "{\n  \"errors\": {\n    \"esse_3fb\": \"<string>\",\n    \"deserunt_e\": \"<string>\",\n    \"Utd1\": \"<string>\",\n    \"fugiatb57\": \"<string>\"\n  },\n  \"results\": {\n    \"esse3c8\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"occaecat_5c_\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"89729491\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"dolor_61\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-9414886829870945219.\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                                                  "createdAt": "2026-07-28T02:59:52.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                                                  "uid": "35240-ab0d54a4-347b-4ed6-97a1-10720a96f50b"
+                                                },
+                                                {
+                                                  "id": "cec92393-073c-4110-8d6f-678d036fbf44",
+                                                  "name": "Indicates that the input parameters are invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "statements",
+                                                        ":company_id",
+                                                        ":statement_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "statement_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Bad Request",
+                                                  "code": 400,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:52.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                                                  "uid": "35240-cec92393-073c-4110-8d6f-678d036fbf44"
+                                                },
+                                                {
+                                                  "id": "153a730a-d8f3-497b-a26a-f8e5444b0291",
+                                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "statements",
+                                                        ":company_id",
+                                                        ":statement_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "statement_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Forbidden",
+                                                  "code": 403,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:52.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                                                  "uid": "35240-153a730a-d8f3-497b-a26a-f8e5444b0291"
+                                                }
+                                              ],
+                                              "createdAt": "2026-07-28T02:59:52.000Z",
+                                              "updatedAt": "2026-07-28T02:59:52.000Z",
+                                              "uid": "35240-5f1200a3-dc2b-4a6c-a15c-e28a0c771bbf"
+                                            }
+                                          ],
+                                          "id": "8f45ade7-43ff-4ffa-bffe-5c2b4fbd20ce",
+                                          "createdAt": "2026-07-28T02:59:52.000Z",
+                                          "updatedAt": "2026-07-28T02:59:52.000Z",
+                                          "uid": "35240-8f45ade7-43ff-4ffa-bffe-5c2b4fbd20ce"
+                                        }
+                                      ],
+                                      "id": "bf37e53f-7f64-4ef7-bfe8-2f5e17d2bbff",
+                                      "createdAt": "2026-07-28T02:59:52.000Z",
+                                      "updatedAt": "2026-07-28T02:59:52.000Z",
+                                      "uid": "35240-bf37e53f-7f64-4ef7-bfe8-2f5e17d2bbff"
+                                    }
+                                  ],
+                                  "id": "2a8c33bc-f90b-4e16-bcdd-ce185b775b32",
+                                  "createdAt": "2026-07-28T02:59:52.000Z",
+                                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                                  "uid": "35240-2a8c33bc-f90b-4e16-bcdd-ce185b775b32"
+                                }
+                              ],
+                              "id": "4fcd883e-4c19-4f2f-9f5b-25dafd949d2f",
+                              "createdAt": "2026-07-28T02:59:52.000Z",
+                              "updatedAt": "2026-07-28T02:59:52.000Z",
+                              "uid": "35240-4fcd883e-4c19-4f2f-9f5b-25dafd949d2f"
+                            }
+                          ],
+                          "id": "b5a8ea8e-ba61-4786-8a81-9ba7172cf9bd",
+                          "createdAt": "2026-07-28T02:59:52.000Z",
+                          "updatedAt": "2026-07-28T02:59:52.000Z",
+                          "uid": "35240-b5a8ea8e-ba61-4786-8a81-9ba7172cf9bd"
+                        }
+                      ],
+                      "id": "2200ae3e-6021-4965-8d3f-435be66102f8",
+                      "createdAt": "2026-07-28T02:59:52.000Z",
+                      "updatedAt": "2026-07-28T02:59:52.000Z",
+                      "uid": "35240-2200ae3e-6021-4965-8d3f-435be66102f8"
+                    }
+                  ],
+                  "id": "9a882e14-4b1f-49e7-8acc-c8e6d7fe8fac",
+                  "createdAt": "2026-07-28T02:59:52.000Z",
+                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                  "uid": "35240-9a882e14-4b1f-49e7-8acc-c8e6d7fe8fac"
+                },
+                {
+                  "name": "Get Financial Statement",
+                  "id": "e7d1b396-a909-4254-976f-a2f412bc22c6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"statement_type\": \"cf\",\n  \"period_type\": \"annual\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 3,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/statements/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "statements",
+                        ""
+                      ]
+                    },
+                    "description": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+                  },
+                  "response": [
+                    {
+                      "id": "5265ee9c-3771-4233-8d65-41b58301e625",
+                      "name": "Indicates a successful request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"statement_type\": \"cf\",\n  \"period_type\": \"annual\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 3,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/statements/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "statements",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": {\n    \"esse_3fb\": \"<string>\",\n    \"deserunt_e\": \"<string>\",\n    \"Utd1\": \"<string>\",\n    \"fugiatb57\": \"<string>\"\n  },\n  \"results\": {\n    \"esse3c8\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"occaecat_5c_\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"89729491\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"dolor_61\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-9414886829870945219.\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:52.000Z",
+                      "updatedAt": "2026-07-28T02:59:52.000Z",
+                      "uid": "35240-5265ee9c-3771-4233-8d65-41b58301e625"
+                    },
+                    {
+                      "id": "86cd10cb-fa43-416d-b21a-d10ea4c955dd",
+                      "name": "Indicates that the input parameters are invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"statement_type\": \"cf\",\n  \"period_type\": \"annual\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 3,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/statements/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "statements",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:52.000Z",
+                      "updatedAt": "2026-07-28T02:59:52.000Z",
+                      "uid": "35240-86cd10cb-fa43-416d-b21a-d10ea4c955dd"
+                    },
+                    {
+                      "id": "2667e81f-7afe-4aa0-b5c0-20adbfdb2547",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"statement_type\": \"cf\",\n  \"period_type\": \"annual\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 3,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/statements/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "statements",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:52.000Z",
+                      "updatedAt": "2026-07-28T02:59:52.000Z",
+                      "uid": "35240-2667e81f-7afe-4aa0-b5c0-20adbfdb2547"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:52.000Z",
+                  "updatedAt": "2026-07-28T02:59:52.000Z",
+                  "uid": "35240-e7d1b396-a909-4254-976f-a2f412bc22c6"
+                }
+              ],
+              "id": "65e646a6-ebb0-4c67-b0ad-c780f5e35281",
+              "createdAt": "2026-07-28T02:59:52.000Z",
+              "updatedAt": "2026-07-28T02:59:52.000Z",
+              "uid": "35240-65e646a6-ebb0-4c67-b0ad-c780f5e35281"
+            }
+          ],
+          "id": "5ec8eeec-729a-4b5d-9351-871b0ff36eea",
+          "createdAt": "2026-07-28T02:59:52.000Z",
+          "updatedAt": "2026-07-28T02:59:52.000Z",
+          "uid": "35240-5ec8eeec-729a-4b5d-9351-871b0ff36eea"
+        }
+      ],
+      "id": "fe064803-82fd-4f5b-9f37-8746347ace38",
+      "createdAt": "2026-07-28T02:59:52.000Z",
+      "updatedAt": "2026-07-28T02:59:52.000Z",
+      "uid": "35240-fe064803-82fd-4f5b-9f37-8746347ace38"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

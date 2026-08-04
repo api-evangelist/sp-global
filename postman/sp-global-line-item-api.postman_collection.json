@@ -1,0 +1,573 @@
+{
+  "info": {
+    "_postman_id": "62172807-dfd6-4189-bd97-3f36b07d1ccd",
+    "name": "Kensho Extract annotations-async Line Item API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:43.000Z",
+    "updatedAt": "2026-07-28T02:59:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-62172807-dfd6-4189-bd97-3f36b07d1ccd"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "line_item",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "{line_item}",
+                      "item": [
+                        {
+                          "name": "{period_type}",
+                          "item": [
+                            {
+                              "name": "{start_year}",
+                              "item": [
+                                {
+                                  "name": "{end_year}",
+                                  "item": [
+                                    {
+                                      "name": "{start_quarter}",
+                                      "item": [
+                                        {
+                                          "name": "{end_quarter}",
+                                          "item": [
+                                            {
+                                              "name": "Get Financial Line Item 2",
+                                              "id": "f4d6da32-a38b-44e3-86b8-a0315b487c62",
+                                              "protocolProfileBehavior": {
+                                                "disableBodyPruning": true
+                                              },
+                                              "request": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "api",
+                                                    "v1",
+                                                    "line_item",
+                                                    ":company_id",
+                                                    ":line_item",
+                                                    ":period_type",
+                                                    ":start_year",
+                                                    ":end_year",
+                                                    ":start_quarter",
+                                                    ":end_quarter"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "id": "ca7e5786-6608-4b04-bc05-06e9024146d7",
+                                                      "key": "company_id",
+                                                      "value": "<integer>",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "87870359-09e2-4fa9-8ed2-a26602dbb753",
+                                                      "key": "line_item",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "1fb09c52-ee71-42ef-995d-e4ac2b0697bb",
+                                                      "key": "period_type",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "f0cf6df5-a7e1-4234-9a4a-c6e2492a4ecd",
+                                                      "key": "start_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "a5620995-33ef-4128-b8c9-3859b8e22720",
+                                                      "key": "end_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "deaa8f24-4cb2-4cfb-80c2-8ab4d8d30c1a",
+                                                      "key": "start_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "20b3c478-f96f-4eb6-a46f-3425ca531d28",
+                                                      "key": "end_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    }
+                                                  ]
+                                                },
+                                                "description": "Get a financial line item for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+                                              },
+                                              "response": [
+                                                {
+                                                  "id": "17d9c527-7915-44be-a76d-7e21b4a8deb2",
+                                                  "name": "Indicates a successful request.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [
+                                                      {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "line_item",
+                                                        ":company_id",
+                                                        ":line_item",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "line_item"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "OK",
+                                                  "code": 200,
+                                                  "_postman_previewlanguage": "json",
+                                                  "header": [
+                                                    {
+                                                      "key": "Content-Type",
+                                                      "value": "application/json"
+                                                    }
+                                                  ],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": "{\n  \"errors\": {\n    \"aute_6\": \"<string>\"\n  },\n  \"results\": {\n    \"dolor759\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"quis_1d5\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-4762475.79003\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"id_5e\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-1714052895.1\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"ad3c4\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"in_c_5\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-607280\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"sunte\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"non582\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-46493661225492318436\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"aute_828\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-5\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"adipisicingf\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-7595\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"dolore39d\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-1712928156\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"adipisicing_bb\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"00461710\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                                                  "createdAt": "2026-07-28T02:59:43.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                                                  "uid": "35240-17d9c527-7915-44be-a76d-7e21b4a8deb2"
+                                                },
+                                                {
+                                                  "id": "2e0f1cae-7b5e-4451-9d6f-d304382d44d6",
+                                                  "name": "Indicates that the input parameters are invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "line_item",
+                                                        ":company_id",
+                                                        ":line_item",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "line_item"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Bad Request",
+                                                  "code": 400,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:43.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                                                  "uid": "35240-2e0f1cae-7b5e-4451-9d6f-d304382d44d6"
+                                                },
+                                                {
+                                                  "id": "7de6be6a-f11e-4049-ad2d-5364ffe1762d",
+                                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "line_item",
+                                                        ":company_id",
+                                                        ":line_item",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "line_item"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Forbidden",
+                                                  "code": 403,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:43.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                                                  "uid": "35240-7de6be6a-f11e-4049-ad2d-5364ffe1762d"
+                                                }
+                                              ],
+                                              "createdAt": "2026-07-28T02:59:43.000Z",
+                                              "updatedAt": "2026-07-28T02:59:43.000Z",
+                                              "uid": "35240-f4d6da32-a38b-44e3-86b8-a0315b487c62"
+                                            }
+                                          ],
+                                          "id": "17f5fc2e-c670-4dc3-a812-3b4bd1da6005",
+                                          "createdAt": "2026-07-28T02:59:43.000Z",
+                                          "updatedAt": "2026-07-28T02:59:43.000Z",
+                                          "uid": "35240-17f5fc2e-c670-4dc3-a812-3b4bd1da6005"
+                                        }
+                                      ],
+                                      "id": "d9ccb057-bc15-4f47-9b16-4deac8ea6469",
+                                      "createdAt": "2026-07-28T02:59:43.000Z",
+                                      "updatedAt": "2026-07-28T02:59:43.000Z",
+                                      "uid": "35240-d9ccb057-bc15-4f47-9b16-4deac8ea6469"
+                                    }
+                                  ],
+                                  "id": "7b9fcb4b-a3c9-47a6-8a22-4831bcf21bc8",
+                                  "createdAt": "2026-07-28T02:59:43.000Z",
+                                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                                  "uid": "35240-7b9fcb4b-a3c9-47a6-8a22-4831bcf21bc8"
+                                }
+                              ],
+                              "id": "57f2d6da-fff6-4484-9454-60db1b6a222b",
+                              "createdAt": "2026-07-28T02:59:43.000Z",
+                              "updatedAt": "2026-07-28T02:59:43.000Z",
+                              "uid": "35240-57f2d6da-fff6-4484-9454-60db1b6a222b"
+                            }
+                          ],
+                          "id": "97c4e7b2-0600-4b90-9df7-43b52657e453",
+                          "createdAt": "2026-07-28T02:59:43.000Z",
+                          "updatedAt": "2026-07-28T02:59:43.000Z",
+                          "uid": "35240-97c4e7b2-0600-4b90-9df7-43b52657e453"
+                        }
+                      ],
+                      "id": "edf0a10c-e355-4f1b-b2c3-d0f2079bfb86",
+                      "createdAt": "2026-07-28T02:59:43.000Z",
+                      "updatedAt": "2026-07-28T02:59:43.000Z",
+                      "uid": "35240-edf0a10c-e355-4f1b-b2c3-d0f2079bfb86"
+                    }
+                  ],
+                  "id": "aa581710-5e4d-45a1-971f-c3bd2e26904b",
+                  "createdAt": "2026-07-28T02:59:43.000Z",
+                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                  "uid": "35240-aa581710-5e4d-45a1-971f-c3bd2e26904b"
+                },
+                {
+                  "name": "Get Financial Line Item",
+                  "id": "6e5804a9-4ade-4510-a37d-bbad6a1946ee",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"line_item\": \"treasury_stock_preferred_stock_redeemable\",\n  \"period_type\": \"quarterly\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 4,\n  \"end_quarter\": 4,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/line_item/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "line_item",
+                        ""
+                      ]
+                    },
+                    "description": "Get a financial line item for a set of company_ids.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+                  },
+                  "response": [
+                    {
+                      "id": "55bd795c-55c5-4a8a-9cb8-882485641082",
+                      "name": "Indicates a successful request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"line_item\": \"treasury_stock_preferred_stock_redeemable\",\n  \"period_type\": \"quarterly\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 4,\n  \"end_quarter\": 4,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/line_item/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "line_item",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": {\n    \"aute_6\": \"<string>\"\n  },\n  \"results\": {\n    \"dolor759\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"quis_1d5\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-4762475.79003\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"id_5e\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-1714052895.1\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"ad3c4\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"in_c_5\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-607280\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"sunte\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"non582\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-46493661225492318436\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"aute_828\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-5\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"adipisicingf\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-7595\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"dolore39d\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-1712928156\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        },\n        \"adipisicing_bb\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"00461710\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:43.000Z",
+                      "updatedAt": "2026-07-28T02:59:43.000Z",
+                      "uid": "35240-55bd795c-55c5-4a8a-9cb8-882485641082"
+                    },
+                    {
+                      "id": "cd33be56-8b1f-446c-acc2-32a803332493",
+                      "name": "Indicates that the input parameters are invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"line_item\": \"treasury_stock_preferred_stock_redeemable\",\n  \"period_type\": \"quarterly\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 4,\n  \"end_quarter\": 4,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/line_item/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "line_item",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:43.000Z",
+                      "updatedAt": "2026-07-28T02:59:43.000Z",
+                      "uid": "35240-cd33be56-8b1f-446c-acc2-32a803332493"
+                    },
+                    {
+                      "id": "af057ae1-acdb-4f26-a07d-0c4274e9520b",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"line_item\": \"treasury_stock_preferred_stock_redeemable\",\n  \"period_type\": \"quarterly\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 4,\n  \"end_quarter\": 4,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/line_item/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "line_item",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:43.000Z",
+                      "updatedAt": "2026-07-28T02:59:43.000Z",
+                      "uid": "35240-af057ae1-acdb-4f26-a07d-0c4274e9520b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:43.000Z",
+                  "updatedAt": "2026-07-28T02:59:43.000Z",
+                  "uid": "35240-6e5804a9-4ade-4510-a37d-bbad6a1946ee"
+                }
+              ],
+              "id": "d2a00fa5-aafa-4160-95e3-5ef2b4df82cf",
+              "createdAt": "2026-07-28T02:59:43.000Z",
+              "updatedAt": "2026-07-28T02:59:43.000Z",
+              "uid": "35240-d2a00fa5-aafa-4160-95e3-5ef2b4df82cf"
+            }
+          ],
+          "id": "0489d912-ffcf-44e2-b5a6-ca2afe64b293",
+          "createdAt": "2026-07-28T02:59:43.000Z",
+          "updatedAt": "2026-07-28T02:59:43.000Z",
+          "uid": "35240-0489d912-ffcf-44e2-b5a6-ca2afe64b293"
+        }
+      ],
+      "id": "729153d3-1bad-4a20-8161-9f25f1d44ddc",
+      "createdAt": "2026-07-28T02:59:43.000Z",
+      "updatedAt": "2026-07-28T02:59:43.000Z",
+      "uid": "35240-729153d3-1bad-4a20-8161-9f25f1d44ddc"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,1376 @@
+{
+  "info": {
+    "_postman_id": "1f6cb6dc-781a-4d4f-a6f5-9894287896ee",
+    "name": "Kensho Extract annotations-async API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:00:34.000Z",
+    "updatedAt": "2026-07-28T03:00:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1f6cb6dc-781a-4d4f-a6f5-9894287896ee"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "annotations-async",
+              "item": [
+                {
+                  "name": "Start A NERD Annotation Job",
+                  "id": "04aa4758-b4a8-47fe-a696-8c15845197f7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ]
+                    },
+                    "description": "Submit a document to NERD to kick off an annotation job that will be processed asynchronously. Endpoint users submit a text document and at least one knowledge base to be used to annotate the detected entities. There are two available knowledge bases, the Wikimedia knowledge base and the Capital IQ knowledge base, denoted `\"wikimedia\"` and `\"capiq\"`, respectively."
+                  },
+                  "response": [
+                    {
+                      "id": "ae248964-00bb-4c3e-8c9c-0901a88037d3",
+                      "name": "Indicates the job request was successfully received. `job_id` is returned in the response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"job_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-ae248964-00bb-4c3e-8c9c-0901a88037d3"
+                    },
+                    {
+                      "id": "50820127-72ec-4bfc-a6e6-ead5d824ca0c",
+                      "name": "Indicates a bad request because at least one knowledge base and document text must be specified.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-50820127-72ec-4bfc-a6e6-ead5d824ca0c"
+                    },
+                    {
+                      "id": "a64ad62b-a26d-4288-a0b1-c9b8de086337",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-a64ad62b-a26d-4288-a0b1-c9b8de086337"
+                    },
+                    {
+                      "id": "9512bc16-e23d-47f6-80ec-25f5c9848b61",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-9512bc16-e23d-47f6-80ec-25f5c9848b61"
+                    },
+                    {
+                      "id": "7144558a-888e-40c9-bf59-f8f3a222bc01",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-7144558a-888e-40c9-bf59-f8f3a222bc01"
+                    },
+                    {
+                      "id": "1ce5b638-94d0-477f-a74c-53d44376c913",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"text\": \"<string>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-1ce5b638-94d0-477f-a74c-53d44376c913"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:34.000Z",
+                  "updatedAt": "2026-07-28T03:00:34.000Z",
+                  "uid": "35240-04aa4758-b4a8-47fe-a696-8c15845197f7"
+                },
+                {
+                  "name": "Start A NERD Annotation Job Given A Provided Job ID",
+                  "id": "a230f7e2-3ed5-4814-859c-578e10e85f62",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Notify NERD to start the annotation job given a provided job ID from uploading a text file using an upload URL. To upload a text file, please see [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) for more information."
+                  },
+                  "response": [
+                    {
+                      "id": "d535cbfa-47eb-43be-a6c7-dab45adc46f4",
+                      "name": "Indicates the job request was successfully received. `job_id` is returned in the response.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"job_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-d535cbfa-47eb-43be-a6c7-dab45adc46f4"
+                    },
+                    {
+                      "id": "9f22cef0-453e-4285-b5a8-101d78cb430c",
+                      "name": "Indicates a bad request because at least one knowledge base must be specified and the document text for the provided `job_id` was not uploaded.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-9f22cef0-453e-4285-b5a8-101d78cb430c"
+                    },
+                    {
+                      "id": "50010dfc-e03f-440f-b92a-4d87667767bc",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-50010dfc-e03f-440f-b92a-4d87667767bc"
+                    },
+                    {
+                      "id": "d281ccb5-c121-49de-bb42-98ec23333460",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-d281ccb5-c121-49de-bb42-98ec23333460"
+                    },
+                    {
+                      "id": "856ac216-3c3e-48a8-addb-3e44816e2639",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-856ac216-3c3e-48a8-addb-3e44816e2639"
+                    },
+                    {
+                      "id": "fbc9edab-d2c7-461d-a8c2-f2d14605be18",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"knowledge_bases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_people\": \"<boolean>\",\n  \"originating_entity_id\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to start the annotations job. Corresponds to the `job_id` returned from a GET request to the [upload-url](/nerd/api#tag/upload-url/operation/api_annotations_upload_url) endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-fbc9edab-d2c7-461d-a8c2-f2d14605be18"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:34.000Z",
+                  "updatedAt": "2026-07-28T03:00:34.000Z",
+                  "uid": "35240-a230f7e2-3ed5-4814-859c-578e10e85f62"
+                },
+                {
+                  "name": "Get Annotations For The Specified Job ID",
+                  "id": "f2551ca3-5368-427d-b6ad-99a3b7b9c93a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint returns the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status, message, and the annotation results."
+                  },
+                  "response": [
+                    {
+                      "id": "f1cf0af2-e8b4-4e71-a882-919646fe03a8",
+                      "name": "Indicates the request was successfully received and processed. Annotated data is returned in the response.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-f1cf0af2-e8b4-4e71-a882-919646fe03a8"
+                    },
+                    {
+                      "id": "8fec061d-5ede-49f7-be6c-1b855e7f23a4",
+                      "name": "Indicates a bad request due to 1) missing knowledge base; 2) missing document text; or 3) missing `job_id`.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-8fec061d-5ede-49f7-be6c-1b855e7f23a4"
+                    },
+                    {
+                      "id": "57a5a69a-3bcc-4b15-8682-ee8e9e05c509",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-57a5a69a-3bcc-4b15-8682-ee8e9e05c509"
+                    },
+                    {
+                      "id": "91bf0f80-c43b-40b2-8224-727ce927f014",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-91bf0f80-c43b-40b2-8224-727ce927f014"
+                    },
+                    {
+                      "id": "09f6b9c4-488d-4b9b-b513-228ce78cb1df",
+                      "name": "Indicates that the job was not found in the system.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-09f6b9c4-488d-4b9b-b513-228ce78cb1df"
+                    },
+                    {
+                      "id": "cfb5870b-fc34-4359-aa97-23d02ee0cb83",
+                      "name": "Indicates that user rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-cfb5870b-fc34-4359-aa97-23d02ee0cb83"
+                    },
+                    {
+                      "id": "3596e16c-876d-4215-9691-b17fb2d1ce9a",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-3596e16c-876d-4215-9691-b17fb2d1ce9a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:34.000Z",
+                  "updatedAt": "2026-07-28T03:00:34.000Z",
+                  "uid": "35240-f2551ca3-5368-427d-b6ad-99a3b7b9c93a"
+                },
+                {
+                  "name": "Delete Annotations For The Specified Job ID",
+                  "id": "99ff45f2-a8cd-4442-93e8-0b4ac2f3868b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "annotations-async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                          "key": "job_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint deletes the results of a NERD annotations job. The endpoint expects the `job_id` to be specified as the query parameter. The response contains a status and message"
+                  },
+                  "response": [
+                    {
+                      "id": "2696679a-4c30-41c4-81fd-063bf6ee62f1",
+                      "name": "Indicates the request was successfully received and processed. Annotated data is returned in the response.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-2696679a-4c30-41c4-81fd-063bf6ee62f1"
+                    },
+                    {
+                      "id": "23a6d3f7-43ce-4e32-9cf7-2ceeb07f492c",
+                      "name": "Indicates a bad request due to a missing or invalid `job_id`",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-23a6d3f7-43ce-4e32-9cf7-2ceeb07f492c"
+                    },
+                    {
+                      "id": "d4960d70-36fb-46da-8bae-885b25b5eb9b",
+                      "name": "Indicates that the authentication information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-d4960d70-36fb-46da-8bae-885b25b5eb9b"
+                    },
+                    {
+                      "id": "77c9606f-c038-4516-aacb-bc7452c243d8",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-77c9606f-c038-4516-aacb-bc7452c243d8"
+                    },
+                    {
+                      "id": "466c5d73-e09b-4e2a-8ef3-06a7e9bf4c09",
+                      "name": "Indicates that the job was not found in the system.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-466c5d73-e09b-4e2a-8ef3-06a7e9bf4c09"
+                    },
+                    {
+                      "id": "66bdcb0f-7c70-4185-bd41-1cd5ccf669ce",
+                      "name": "Indicates that the job is pending and therefore cannot be deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-66bdcb0f-7c70-4185-bd41-1cd5ccf669ce"
+                    },
+                    {
+                      "id": "e7cdd9df-1d0b-4fa2-87b1-778a56b69895",
+                      "name": "Indicates that user request rate has been exceeded.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-e7cdd9df-1d0b-4fa2-87b1-778a56b69895"
+                    },
+                    {
+                      "id": "94d46cdc-9d99-4b02-b1b6-f7bb8faf3087",
+                      "name": "Indicates that an unexpected error occurred and should be further investigated.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/annotations-async?job_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "annotations-async"
+                          ],
+                          "query": [
+                            {
+                              "description": "Job identifier used to obtain the annotations. Corresponds to the `job_id` returned from a POST request to the async annotations endpoint.",
+                              "key": "job_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:00:34.000Z",
+                      "updatedAt": "2026-07-28T03:00:34.000Z",
+                      "uid": "35240-94d46cdc-9d99-4b02-b1b6-f7bb8faf3087"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:00:34.000Z",
+                  "updatedAt": "2026-07-28T03:00:34.000Z",
+                  "uid": "35240-99ff45f2-a8cd-4442-93e8-0b4ac2f3868b"
+                }
+              ],
+              "id": "22df2af9-9f1a-4e1c-a6fd-5fb351af9395",
+              "createdAt": "2026-07-28T03:00:34.000Z",
+              "updatedAt": "2026-07-28T03:00:34.000Z",
+              "uid": "35240-22df2af9-9f1a-4e1c-a6fd-5fb351af9395"
+            }
+          ],
+          "id": "bd72d59f-16c1-493f-9865-2df6798f8b5f",
+          "createdAt": "2026-07-28T03:00:34.000Z",
+          "updatedAt": "2026-07-28T03:00:34.000Z",
+          "uid": "35240-bd72d59f-16c1-493f-9865-2df6798f8b5f"
+        }
+      ],
+      "id": "6d7f4c82-d1ba-43be-94a0-5c2e6e1c1887",
+      "createdAt": "2026-07-28T03:00:34.000Z",
+      "updatedAt": "2026-07-28T03:00:34.000Z",
+      "uid": "35240-6d7f4c82-d1ba-43be-94a0-5c2e6e1c1887"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://nerd.kensho.com"
+    }
+  ]
+}

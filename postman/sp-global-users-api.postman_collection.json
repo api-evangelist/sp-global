@@ -1,0 +1,495 @@
+{
+  "info": {
+    "_postman_id": "55f899ac-bad3-466c-8980-d42134d4bd31",
+    "name": "Kensho Extract annotations-async Users API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:56.000Z",
+    "updatedAt": "2026-07-28T02:59:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-55f899ac-bad3-466c-8980-d42134d4bd31"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "permissions",
+                  "item": [
+                    {
+                      "name": "users permissions retrieve",
+                      "id": "e4d4b2cb-e64a-47c1-aa17-8fd1974136ea",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/users/permissions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "users",
+                            "permissions"
+                          ]
+                        },
+                        "description": "Return a list of all permissions that the request user has."
+                      },
+                      "response": [
+                        {
+                          "id": "1abac001-181a-4654-85cf-32ed3ce65abe",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/permissions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "permissions"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-1abac001-181a-4654-85cf-32ed3ce65abe"
+                        },
+                        {
+                          "id": "a6af8a15-ac48-440f-8d1e-fb3960c7da20",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/permissions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "permissions"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-a6af8a15-ac48-440f-8d1e-fb3960c7da20"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:56.000Z",
+                      "updatedAt": "2026-07-28T02:59:56.000Z",
+                      "uid": "35240-e4d4b2cb-e64a-47c1-aa17-8fd1974136ea"
+                    }
+                  ],
+                  "id": "c79783b6-c7a2-498d-bb54-5d90d8b74030",
+                  "createdAt": "2026-07-28T02:59:56.000Z",
+                  "updatedAt": "2026-07-28T02:59:56.000Z",
+                  "uid": "35240-c79783b6-c7a2-498d-bb54-5d90d8b74030"
+                },
+                {
+                  "name": "refresh_access_token",
+                  "item": [
+                    {
+                      "name": "Refresh Access Token",
+                      "id": "2347a628-c95e-42f5-ac64-fd03dab1a9da",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "users",
+                            "refresh_access_token"
+                          ]
+                        },
+                        "description": "Refresh a client's access token, given their valid refresh token."
+                      },
+                      "response": [
+                        {
+                          "id": "572e80b4-d7b3-4559-92f2-9549110ae38a",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"access_token\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-572e80b4-d7b3-4559-92f2-9549110ae38a"
+                        },
+                        {
+                          "id": "4502aa71-3fa6-466d-819f-555ea67301d5",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-4502aa71-3fa6-466d-819f-555ea67301d5"
+                        },
+                        {
+                          "id": "cb01565f-aee8-4b6d-9419-81d88ee03f00",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-cb01565f-aee8-4b6d-9419-81d88ee03f00"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:56.000Z",
+                      "updatedAt": "2026-07-28T02:59:56.000Z",
+                      "uid": "35240-2347a628-c95e-42f5-ac64-fd03dab1a9da"
+                    },
+                    {
+                      "name": "Refresh Access Token 2",
+                      "id": "1feb7dec-a2a2-4513-b1d7-855a4788bb3d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "users",
+                            "refresh_access_token"
+                          ]
+                        },
+                        "description": "Refresh a client's access token, given their valid refresh token."
+                      },
+                      "response": [
+                        {
+                          "id": "ca8e88d9-dac0-4d9b-b5dc-be9abb425bbd",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"access_token\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-ca8e88d9-dac0-4d9b-b5dc-be9abb425bbd"
+                        },
+                        {
+                          "id": "e4b7e5a6-05e8-4a86-be25-33935c6b7c8d",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-e4b7e5a6-05e8-4a86-be25-33935c6b7c8d"
+                        },
+                        {
+                          "id": "53ae8058-aa8c-4886-8e79-500000f52939",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/users/refresh_access_token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "refresh_access_token"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:56.000Z",
+                          "updatedAt": "2026-07-28T02:59:56.000Z",
+                          "uid": "35240-53ae8058-aa8c-4886-8e79-500000f52939"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:56.000Z",
+                      "updatedAt": "2026-07-28T02:59:56.000Z",
+                      "uid": "35240-1feb7dec-a2a2-4513-b1d7-855a4788bb3d"
+                    }
+                  ],
+                  "id": "56329738-b12a-40a4-a588-f4250b265788",
+                  "createdAt": "2026-07-28T02:59:56.000Z",
+                  "updatedAt": "2026-07-28T02:59:56.000Z",
+                  "uid": "35240-56329738-b12a-40a4-a588-f4250b265788"
+                }
+              ],
+              "id": "b8ef9b41-c7d4-4b86-8191-86e51d621d56",
+              "createdAt": "2026-07-28T02:59:56.000Z",
+              "updatedAt": "2026-07-28T02:59:56.000Z",
+              "uid": "35240-b8ef9b41-c7d4-4b86-8191-86e51d621d56"
+            }
+          ],
+          "id": "21d38d58-cd2e-446d-916e-b5b1d57b34f0",
+          "createdAt": "2026-07-28T02:59:56.000Z",
+          "updatedAt": "2026-07-28T02:59:56.000Z",
+          "uid": "35240-21d38d58-cd2e-446d-916e-b5b1d57b34f0"
+        }
+      ],
+      "id": "6e87ae03-3eb8-4dbb-a419-11259ed86baa",
+      "createdAt": "2026-07-28T02:59:56.000Z",
+      "updatedAt": "2026-07-28T02:59:56.000Z",
+      "uid": "35240-6e87ae03-3eb8-4dbb-a419-11259ed86baa"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,454 @@
+{
+  "info": {
+    "_postman_id": "396b0b65-8f90-44d6-85cb-0240521a407e",
+    "name": "Kensho Extract annotations-async Trading Items API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:54.000Z",
+    "updatedAt": "2026-07-28T02:59:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-396b0b65-8f90-44d6-85cb-0240521a407e"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "trading_items",
+              "item": [
+                {
+                  "name": "{security_id}",
+                  "item": [
+                    {
+                      "name": "primary",
+                      "item": [
+                        {
+                          "name": "Get Primary Trading Item",
+                          "id": "8163d4c2-d3e7-4304-b172-16ee1d4ac142",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_items/:security_id/primary",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_items",
+                                ":security_id",
+                                "primary"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f6f0483e-6eda-461f-9e9f-2793e415263e",
+                                  "key": "security_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the primary trading item for a given security_id. Returns a dictionary of shape {\"primary_trading_item\": <trading_item_id>}"
+                          },
+                          "response": [
+                            {
+                              "id": "652cf59c-12a9-4378-b930-a419aaaffc8e",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_items/:security_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_items",
+                                    ":security_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "security_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"primary_trading_item\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-652cf59c-12a9-4378-b930-a419aaaffc8e"
+                            },
+                            {
+                              "id": "0c10ddfb-e394-4120-9d9a-3159b30dfbb8",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_items/:security_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_items",
+                                    ":security_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "security_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-0c10ddfb-e394-4120-9d9a-3159b30dfbb8"
+                            },
+                            {
+                              "id": "26d02079-2c65-41b1-b4f5-aac8d6800c2e",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_items/:security_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_items",
+                                    ":security_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "security_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-26d02079-2c65-41b1-b4f5-aac8d6800c2e"
+                            },
+                            {
+                              "id": "1a31f5cb-ec93-4bd9-ada0-9a753dc7889a",
+                              "name": "Indicates that no primary trading item was found for the given security_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/trading_items/:security_id/primary",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "trading_items",
+                                    ":security_id",
+                                    "primary"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "security_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:55.000Z",
+                              "updatedAt": "2026-07-28T02:59:55.000Z",
+                              "uid": "35240-1a31f5cb-ec93-4bd9-ada0-9a753dc7889a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-8163d4c2-d3e7-4304-b172-16ee1d4ac142"
+                        }
+                      ],
+                      "id": "ec42fe2d-e634-45fa-94a9-983f465a6a0a",
+                      "createdAt": "2026-07-28T02:59:55.000Z",
+                      "updatedAt": "2026-07-28T02:59:55.000Z",
+                      "uid": "35240-ec42fe2d-e634-45fa-94a9-983f465a6a0a"
+                    },
+                    {
+                      "name": "Get Trading Items",
+                      "id": "e55b3f75-18c6-45f1-9e3f-dd60c8a37043",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/trading_items/:security_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "trading_items",
+                            ":security_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d857b06f-0d21-4666-a7d8-369fe234d760",
+                              "key": "security_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the list of trading items for a given security_id. Returns a dictionary of shape {\"trading_items\": List[<trading_item_id>]}"
+                      },
+                      "response": [
+                        {
+                          "id": "736af737-bc72-4245-a126-6fee501e9c1a",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_items/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_items",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"trading_items\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-736af737-bc72-4245-a126-6fee501e9c1a"
+                        },
+                        {
+                          "id": "945f62aa-4b90-48f8-8172-67a71b96ce73",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_items/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_items",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-945f62aa-4b90-48f8-8172-67a71b96ce73"
+                        },
+                        {
+                          "id": "a419470e-a62e-4ae7-b0da-9eea477ef2a2",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_items/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_items",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-a419470e-a62e-4ae7-b0da-9eea477ef2a2"
+                        },
+                        {
+                          "id": "2f8dffa2-8392-4d16-b7f9-b66ec28eff1d",
+                          "name": "Indicates that no trading items were found for the given security_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/trading_items/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "trading_items",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:55.000Z",
+                          "updatedAt": "2026-07-28T02:59:55.000Z",
+                          "uid": "35240-2f8dffa2-8392-4d16-b7f9-b66ec28eff1d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:55.000Z",
+                      "updatedAt": "2026-07-28T02:59:55.000Z",
+                      "uid": "35240-e55b3f75-18c6-45f1-9e3f-dd60c8a37043"
+                    }
+                  ],
+                  "id": "926b8347-c2d2-4916-afd9-ef22b03a8f89",
+                  "createdAt": "2026-07-28T02:59:55.000Z",
+                  "updatedAt": "2026-07-28T02:59:55.000Z",
+                  "uid": "35240-926b8347-c2d2-4916-afd9-ef22b03a8f89"
+                }
+              ],
+              "id": "ebe420ff-dc76-477b-adf1-7acad3212341",
+              "createdAt": "2026-07-28T02:59:55.000Z",
+              "updatedAt": "2026-07-28T02:59:55.000Z",
+              "uid": "35240-ebe420ff-dc76-477b-adf1-7acad3212341"
+            }
+          ],
+          "id": "80c793f1-e147-43e6-b556-81f28b109fa2",
+          "createdAt": "2026-07-28T02:59:55.000Z",
+          "updatedAt": "2026-07-28T02:59:55.000Z",
+          "uid": "35240-80c793f1-e147-43e6-b556-81f28b109fa2"
+        }
+      ],
+      "id": "87acca7a-d08c-4de5-83e3-94023eefe1ea",
+      "createdAt": "2026-07-28T02:59:55.000Z",
+      "updatedAt": "2026-07-28T02:59:55.000Z",
+      "uid": "35240-87acca7a-d08c-4de5-83e3-94023eefe1ea"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

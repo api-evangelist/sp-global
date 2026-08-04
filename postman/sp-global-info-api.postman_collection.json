@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "a0e84343-e45e-40e2-813a-41a7fa351c9b",
+    "name": "Kensho Extract annotations-async Info API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:37.000Z",
+    "updatedAt": "2026-07-28T02:59:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a0e84343-e45e-40e2-813a-41a7fa351c9b"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "info",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "descriptions",
+                      "item": [
+                        {
+                          "name": "info descriptions retrieve",
+                          "id": "05a41cd6-7de8-43f7-a1f0-3e131dfbe0a0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id/descriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id",
+                                "descriptions"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ef3e6815-19bb-4e1f-8211-036bd216121d",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the company's summary (short description) and description (long description)"
+                          },
+                          "response": [
+                            {
+                              "id": "1bd29cb9-6bf2-4cd8-b4ba-2d8591d4ecc6",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/info/:company_id/descriptions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "info",
+                                    ":company_id",
+                                    "descriptions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"description\": \"<string>\",\n  \"summary\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:59:37.000Z",
+                              "updatedAt": "2026-07-28T02:59:37.000Z",
+                              "uid": "35240-1bd29cb9-6bf2-4cd8-b4ba-2d8591d4ecc6"
+                            },
+                            {
+                              "id": "f655c3dd-2dd2-4436-b717-cbeab64a13ad",
+                              "name": "Indicates that the authorization is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/info/:company_id/descriptions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "info",
+                                    ":company_id",
+                                    "descriptions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:37.000Z",
+                              "updatedAt": "2026-07-28T02:59:37.000Z",
+                              "uid": "35240-f655c3dd-2dd2-4436-b717-cbeab64a13ad"
+                            },
+                            {
+                              "id": "4d826b1b-06ec-4473-bd15-f1908f75ba41",
+                              "name": "Indicates that no company summary nor description were found for the given company_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/info/:company_id/descriptions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "info",
+                                    ":company_id",
+                                    "descriptions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:37.000Z",
+                              "updatedAt": "2026-07-28T02:59:37.000Z",
+                              "uid": "35240-4d826b1b-06ec-4473-bd15-f1908f75ba41"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-05a41cd6-7de8-43f7-a1f0-3e131dfbe0a0"
+                        }
+                      ],
+                      "id": "db3e364d-18ae-44d2-8ac4-1c0f6cfd5f37",
+                      "createdAt": "2026-07-28T02:59:37.000Z",
+                      "updatedAt": "2026-07-28T02:59:37.000Z",
+                      "uid": "35240-db3e364d-18ae-44d2-8ac4-1c0f6cfd5f37"
+                    },
+                    {
+                      "name": "names",
+                      "item": [
+                        {
+                          "name": "info names retrieve",
+                          "id": "ce28749a-f89b-4dca-b56f-e65229044c39",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id/names",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id",
+                                "names"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e785ed52-c830-4b72-b4f8-ad6e8d27f3f6",
+                                  "key": "company_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the company's other names: alternate_names (names that a company also goes by), historical_names (names that the company used to go by), and native_names (company names in native language)"
+                          },
+                          "response": [
+                            {
+                              "id": "504c7505-05ce-4b9a-b421-0419aa093bc6",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/info/:company_id/names",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "info",
+                                    ":company_id",
+                                    "names"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"alternate_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"historical_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"native_names\": [\n    {\n      \"language\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"language\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:37.000Z",
+                              "updatedAt": "2026-07-28T02:59:37.000Z",
+                              "uid": "35240-504c7505-05ce-4b9a-b421-0419aa093bc6"
+                            },
+                            {
+                              "id": "ae751a52-ec3b-4269-92a0-327fcfd01d0f",
+                              "name": "Indicates that the authorization is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/info/:company_id/names",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "info",
+                                    ":company_id",
+                                    "names"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "company_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:37.000Z",
+                              "updatedAt": "2026-07-28T02:59:37.000Z",
+                              "uid": "35240-ae751a52-ec3b-4269-92a0-327fcfd01d0f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-ce28749a-f89b-4dca-b56f-e65229044c39"
+                        }
+                      ],
+                      "id": "b834ecdc-421e-4ff1-91d5-c55faef55551",
+                      "createdAt": "2026-07-28T02:59:37.000Z",
+                      "updatedAt": "2026-07-28T02:59:37.000Z",
+                      "uid": "35240-b834ecdc-421e-4ff1-91d5-c55faef55551"
+                    },
+                    {
+                      "name": "Get Company Information",
+                      "id": "c757188b-e13d-4150-8ef6-66f15055594e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/info/:company_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "info",
+                            ":company_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7805706f-fac5-43d6-a7e7-c62ee4cdef45",
+                              "key": "company_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the general information of a given company_id, such as name, status, company type, simple industry, number of employees, founding date, webpage, and address."
+                      },
+                      "response": [
+                        {
+                          "id": "0645ec99-89d4-47ac-a9a9-2c31edb6a738",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"country\": \"<string>\",\n  \"founding_date\": \"<date>\",\n  \"iso_country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"number_of_employees\": \"6365\",\n  \"simple_industry\": \"<string>\",\n  \"state\": \"<string>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"webpage\": \"<string>\",\n  \"zip_code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-0645ec99-89d4-47ac-a9a9-2c31edb6a738"
+                        },
+                        {
+                          "id": "1641f8e3-e2ad-4851-9dbb-426d9a9a5339",
+                          "name": "Indicates that request parameters are invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-1641f8e3-e2ad-4851-9dbb-426d9a9a5339"
+                        },
+                        {
+                          "id": "c9c4455b-075c-4c1e-b0b4-f93808423696",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-c9c4455b-075c-4c1e-b0b4-f93808423696"
+                        },
+                        {
+                          "id": "3e5767ea-f32b-431c-8a8c-d945634e533f",
+                          "name": "Indicates that no company info was found for the given company_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/info/:company_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "info",
+                                ":company_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "company_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:37.000Z",
+                          "updatedAt": "2026-07-28T02:59:37.000Z",
+                          "uid": "35240-3e5767ea-f32b-431c-8a8c-d945634e533f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:37.000Z",
+                      "updatedAt": "2026-07-28T02:59:37.000Z",
+                      "uid": "35240-c757188b-e13d-4150-8ef6-66f15055594e"
+                    }
+                  ],
+                  "id": "bfc2ffe3-bafc-4c5e-a261-f4023ff8f354",
+                  "createdAt": "2026-07-28T02:59:37.000Z",
+                  "updatedAt": "2026-07-28T02:59:37.000Z",
+                  "uid": "35240-bfc2ffe3-bafc-4c5e-a261-f4023ff8f354"
+                }
+              ],
+              "id": "e79ddc18-867f-49c2-9912-369cb2f565b2",
+              "createdAt": "2026-07-28T02:59:37.000Z",
+              "updatedAt": "2026-07-28T02:59:37.000Z",
+              "uid": "35240-e79ddc18-867f-49c2-9912-369cb2f565b2"
+            }
+          ],
+          "id": "6c7d8742-432b-4a98-8e96-0560c6c9a9b3",
+          "createdAt": "2026-07-28T02:59:37.000Z",
+          "updatedAt": "2026-07-28T02:59:37.000Z",
+          "uid": "35240-6c7d8742-432b-4a98-8e96-0560c6c9a9b3"
+        }
+      ],
+      "id": "d55b2cc1-f029-4cae-b904-eccfa9ff985d",
+      "createdAt": "2026-07-28T02:59:37.000Z",
+      "updatedAt": "2026-07-28T02:59:37.000Z",
+      "uid": "35240-d55b2cc1-f029-4cae-b904-eccfa9ff985d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

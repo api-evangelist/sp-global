@@ -1,0 +1,423 @@
+{
+  "info": {
+    "_postman_id": "36fb14fe-ab35-4659-8760-59884bbe55aa",
+    "name": "Kensho Extract annotations-async Merger API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:44.000Z",
+    "updatedAt": "2026-07-28T02:59:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-36fb14fe-ab35-4659-8760-59884bbe55aa"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "merger",
+              "item": [
+                {
+                  "name": "info",
+                  "item": [
+                    {
+                      "name": "{transaction_id}",
+                      "item": [
+                        {
+                          "name": "advisors",
+                          "item": [
+                            {
+                              "name": "{advised_company_id}",
+                              "item": [
+                                {
+                                  "name": "merger info advisors retrieve",
+                                  "id": "294af6f5-48d9-4152-8f08-4bfd3a3d9836",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id/advisors/:advised_company_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "merger",
+                                        "info",
+                                        ":transaction_id",
+                                        "advisors",
+                                        ":advised_company_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "95104ab3-4291-4bd1-a23f-beee9e1d69ec",
+                                          "key": "transaction_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "77f37c95-054a-4a50-b815-592831bbb7ad",
+                                          "key": "advised_company_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Get the advisor companies and their roles for the specified company in the specified merger/acquisition transaction."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "8ad05828-a062-4eca-b4f1-e934d3c8d6c5",
+                                      "name": "Indicates a successful request.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id/advisors/:advised_company_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "merger",
+                                            "info",
+                                            ":transaction_id",
+                                            "advisors",
+                                            ":advised_company_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "transaction_id"
+                                            },
+                                            {
+                                              "key": "advised_company_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"advisors\": [\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"14052866225467\",\n      \"advisor_fee_currency\": \"<string>\"\n    },\n    {\n      \"advisor_company_id\": \"<integer>\",\n      \"advisor_company_name\": \"<string>\",\n      \"advisor_type_name\": \"<string>\",\n      \"is_lead\": \"<boolean>\",\n      \"advisor_fee_amount\": \"-869885309653.8492\",\n      \"advisor_fee_currency\": \"<string>\"\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:59:45.000Z",
+                                      "updatedAt": "2026-07-28T02:59:45.000Z",
+                                      "uid": "35240-8ad05828-a062-4eca-b4f1-e934d3c8d6c5"
+                                    },
+                                    {
+                                      "id": "3bc0f2b0-33cd-4e23-a71a-e7ca05ed6f46",
+                                      "name": "Indicates that the authorization information is missing or invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id/advisors/:advised_company_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "merger",
+                                            "info",
+                                            ":transaction_id",
+                                            "advisors",
+                                            ":advised_company_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "transaction_id"
+                                            },
+                                            {
+                                              "key": "advised_company_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:59:45.000Z",
+                                      "updatedAt": "2026-07-28T02:59:45.000Z",
+                                      "uid": "35240-3bc0f2b0-33cd-4e23-a71a-e7ca05ed6f46"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:59:45.000Z",
+                                  "updatedAt": "2026-07-28T02:59:45.000Z",
+                                  "uid": "35240-294af6f5-48d9-4152-8f08-4bfd3a3d9836"
+                                }
+                              ],
+                              "id": "feaf8e96-d748-4ce5-a7d1-199e007a2f7e",
+                              "createdAt": "2026-07-28T02:59:45.000Z",
+                              "updatedAt": "2026-07-28T02:59:45.000Z",
+                              "uid": "35240-feaf8e96-d748-4ce5-a7d1-199e007a2f7e"
+                            }
+                          ],
+                          "id": "e78d6382-e03a-4e06-854e-d7ba05cdb04f",
+                          "createdAt": "2026-07-28T02:59:45.000Z",
+                          "updatedAt": "2026-07-28T02:59:45.000Z",
+                          "uid": "35240-e78d6382-e03a-4e06-854e-d7ba05cdb04f"
+                        },
+                        {
+                          "name": "merger info retrieve",
+                          "id": "7bb1edc3-fdf7-44d7-81a1-ddeaad15493b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "merger",
+                                "info",
+                                ":transaction_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7e2ff03b-b97b-4737-9e26-0704ceb6a2df",
+                                  "key": "transaction_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get information about the specified merger/acquisition transaction.\n\nParameters:\n    transaction_id: The ID of the specified transaction.\n\nReturns:\n    dict: A nested dictionary that contains:\n    - An ordered array of the status changes of the transaction.\n    - A dict with three keys:\n        - target: The company that was merged with or acquired.\n        - buyers: A list of companies that bought or merged with the target company.\n        - sellers: A list of companies that sold or traded the target company.\n    - Optionally the primary consideration (which is the one that happened or was most recently proposed), where the consideration contains:\n        - The currency of the consideration.\n        - The current gross total value of the consideration.\n        - The current implied equity value of the consideration.\n        - The current implied enterprise value of the consideration.\n        - A list of the consideration's details (sub-components of the consideration), where each consideration detail contains:\n            - The detail scenario.\n            - The detail subtype.\n            - The cash or ash equivalent offered per share.\n            - The number of shares in the target company.\n            - The current gross total of the consideration detail."
+                          },
+                          "response": [
+                            {
+                              "id": "9a672d57-f41b-47af-8a7f-a7ef95ced3e7",
+                              "name": "Indicates a successful request.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "merger",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"consideration\": {\n    \"details\": [\n      {\n        \"scenario\": \"<string>\",\n        \"subtype\": \"<string>\",\n        \"cash_or_cash_equivalent_per_target_share_unit\": \"-8480451684936.80\",\n        \"number_of_target_shares_sought\": \"-01930031330\",\n        \"current_calculated_gross_value_of_consideration\": \"4650248\"\n      },\n      {\n        \"scenario\": \"<string>\",\n        \"subtype\": \"<string>\",\n        \"cash_or_cash_equivalent_per_target_share_unit\": \"-.663659\",\n        \"number_of_target_shares_sought\": \"-3429\",\n        \"current_calculated_gross_value_of_consideration\": \"-2049472\"\n      }\n    ],\n    \"currency_name\": \"<string>\",\n    \"current_calculated_gross_total_transaction_value\": \"07338158507420754.78\",\n    \"current_calculated_implied_equity_value\": \"03890723338289599.090\",\n    \"current_calculated_implied_enterprise_value\": \"-\"\n  },\n  \"participants\": {\n    \"buyers\": [\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\"\n      },\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\"\n      }\n    ],\n    \"sellers\": [\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\"\n      },\n      {\n        \"company_id\": \"<integer>\",\n        \"company_name\": \"<string>\"\n      }\n    ],\n    \"target\": {\n      \"company_id\": \"<integer>\",\n      \"company_name\": \"<string>\"\n    }\n  },\n  \"timeline\": [\n    {\n      \"date\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:59:45.000Z",
+                              "updatedAt": "2026-07-28T02:59:45.000Z",
+                              "uid": "35240-9a672d57-f41b-47af-8a7f-a7ef95ced3e7"
+                            },
+                            {
+                              "id": "9dae04d2-2697-4206-b372-78ba07c95dfb",
+                              "name": "Indicates that the query is invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "merger",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:45.000Z",
+                              "updatedAt": "2026-07-28T02:59:45.000Z",
+                              "uid": "35240-9dae04d2-2697-4206-b372-78ba07c95dfb"
+                            },
+                            {
+                              "id": "418e24b9-983b-4e78-bc25-974d7d5fe74e",
+                              "name": "Indicates that the authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "merger",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:45.000Z",
+                              "updatedAt": "2026-07-28T02:59:45.000Z",
+                              "uid": "35240-418e24b9-983b-4e78-bc25-974d7d5fe74e"
+                            },
+                            {
+                              "id": "41686d08-8473-4799-9699-e909d81a01b7",
+                              "name": "Indicates that no merger info was found for the given transaction_id.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/merger/info/:transaction_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "merger",
+                                    "info",
+                                    ":transaction_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transaction_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:59:45.000Z",
+                              "updatedAt": "2026-07-28T02:59:45.000Z",
+                              "uid": "35240-41686d08-8473-4799-9699-e909d81a01b7"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:59:45.000Z",
+                          "updatedAt": "2026-07-28T02:59:45.000Z",
+                          "uid": "35240-7bb1edc3-fdf7-44d7-81a1-ddeaad15493b"
+                        }
+                      ],
+                      "id": "8e1703a1-311b-447c-843d-626ade7ef1d3",
+                      "createdAt": "2026-07-28T02:59:45.000Z",
+                      "updatedAt": "2026-07-28T02:59:45.000Z",
+                      "uid": "35240-8e1703a1-311b-447c-843d-626ade7ef1d3"
+                    }
+                  ],
+                  "id": "3ce3f12d-1eb3-421a-b7b3-dd7e93b6007a",
+                  "createdAt": "2026-07-28T02:59:45.000Z",
+                  "updatedAt": "2026-07-28T02:59:45.000Z",
+                  "uid": "35240-3ce3f12d-1eb3-421a-b7b3-dd7e93b6007a"
+                }
+              ],
+              "id": "3991b547-127f-4f51-8bca-9789c254d342",
+              "createdAt": "2026-07-28T02:59:45.000Z",
+              "updatedAt": "2026-07-28T02:59:45.000Z",
+              "uid": "35240-3991b547-127f-4f51-8bca-9789c254d342"
+            }
+          ],
+          "id": "bd4b924f-0b67-4ec0-b74d-bdc4befbbd36",
+          "createdAt": "2026-07-28T02:59:45.000Z",
+          "updatedAt": "2026-07-28T02:59:45.000Z",
+          "uid": "35240-bd4b924f-0b67-4ec0-b74d-bdc4befbbd36"
+        }
+      ],
+      "id": "9ae99af2-2af6-4d89-a142-414319298356",
+      "createdAt": "2026-07-28T02:59:45.000Z",
+      "updatedAt": "2026-07-28T02:59:45.000Z",
+      "uid": "35240-9ae99af2-2af6-4d89-a142-414319298356"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

@@ -1,0 +1,573 @@
+{
+  "info": {
+    "_postman_id": "f0ba1fc2-6337-4cb6-9c62-5fc44916deb4",
+    "name": "Kensho Extract annotations-async Segments API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:50.000Z",
+    "updatedAt": "2026-07-28T02:59:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f0ba1fc2-6337-4cb6-9c62-5fc44916deb4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "segments",
+              "item": [
+                {
+                  "name": "{company_id}",
+                  "item": [
+                    {
+                      "name": "{segment_type}",
+                      "item": [
+                        {
+                          "name": "{period_type}",
+                          "item": [
+                            {
+                              "name": "{start_year}",
+                              "item": [
+                                {
+                                  "name": "{end_year}",
+                                  "item": [
+                                    {
+                                      "name": "{start_quarter}",
+                                      "item": [
+                                        {
+                                          "name": "{end_quarter}",
+                                          "item": [
+                                            {
+                                              "name": "Get Segments 2",
+                                              "id": "2711254e-cf09-4f4c-9dc4-4976a3c7e473",
+                                              "protocolProfileBehavior": {
+                                                "disableBodyPruning": true
+                                              },
+                                              "request": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "api",
+                                                    "v1",
+                                                    "segments",
+                                                    ":company_id",
+                                                    ":segment_type",
+                                                    ":period_type",
+                                                    ":start_year",
+                                                    ":end_year",
+                                                    ":start_quarter",
+                                                    ":end_quarter"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "id": "d6d8a26d-40cb-4cb9-9f32-ab73f78077ad",
+                                                      "key": "company_id",
+                                                      "value": "<integer>",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "cdaa21c6-e4b9-460c-956f-800536f1d663",
+                                                      "key": "segment_type",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "64f5329e-8a81-4f63-bb4d-de1d51885735",
+                                                      "key": "period_type",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "90175bad-0ec1-49af-809d-d54f5534f255",
+                                                      "key": "start_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "64e36566-1729-4751-9d8b-72b402b87ef1",
+                                                      "key": "end_year",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "42c2ed38-832f-4b20-bcbe-0a4cbf8d0082",
+                                                      "key": "start_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    },
+                                                    {
+                                                      "id": "2992a65d-77e3-4fe0-be1f-3b5737594c9d",
+                                                      "key": "end_quarter",
+                                                      "value": "",
+                                                      "description": "(Required) "
+                                                    }
+                                                  ]
+                                                },
+                                                "description": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either \u201cbusiness\u201d or \u201cgeographic\u201d. Defaults to \u201cbusiness\u201d.\nperiod_type (PeriodType): The period_type requested for. Can be \u201cannual\u201d, \u201cquarterly\u201d, \"ytd\". Defaults to \u201cannual\u201d when start_quarter and end_quarter are None.\nstart_year (int): The starting calendar year\nstart_quarter (int): The starting calendar quarter\nend_year (int): The ending calendar year\nend_quarter (int): The ending calendar quarter\n\nReturns:\n    dict: A nested dictionary where the first-level keys are \"calendar_type\" and \"segments\".\n    Within the \"segments\" dictionary,\n    - The first-level keys are strings representing the time period of either calendar years or quarters (e.g., '2024' for a year, or '2024Q1', '2024Q2' for quarters).\n    - The second-level keys are the segment names, either line of business segment names specific to a company's organization or geographic segment (e.g., 'Asia', 'United States', 'Rest of World').\n    - Each segment contains the value of the line item (e.g., 'Revenue', 'Operating Income')\n\n    An example response:\n    {\n        \"calendar_type\": \"CALENDAR\",\n        \"currency\": \"USD\",\n        \"segments\": {\n            \"2024Q1\": {\n                \"Commodity Insights\": {\n                    \"Operating Income\": 263000000.0,\n                    \"Revenue\": 559000000.0\n                },\n                \"Corporate\": {\n                    \"Operating Income\": -35000000.0\n                },\n            },\n            \"2024Q2\": {\n                \"Commodity Insights\": {\n                    \"Operating Income\": 245000000.0,\n                    \"Revenue\": 516000000.0\n                },\n                \"Corporate\": {\n                    \"Operating Income\": -38000000.0\n                },\n            }\n        }..."
+                                              },
+                                              "response": [
+                                                {
+                                                  "id": "23aff97e-131e-4504-8d1b-78bcec99a90b",
+                                                  "name": "Indicates a successful request.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [
+                                                      {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                      }
+                                                    ],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "segments",
+                                                        ":company_id",
+                                                        ":segment_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "segment_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "OK",
+                                                  "code": 200,
+                                                  "_postman_previewlanguage": "json",
+                                                  "header": [
+                                                    {
+                                                      "key": "Content-Type",
+                                                      "value": "application/json"
+                                                    }
+                                                  ],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": "{\n  \"errors\": {\n    \"Ut_e5\": \"<string>\",\n    \"consectetur66\": \"<string>\",\n    \"ut_b\": \"<string>\",\n    \"adipisicingc25\": \"<string>\"\n  },\n  \"results\": {\n    \"in6\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"reprehenderit_8d8\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-3.2\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"ea_561\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"et75\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-2823462822.\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                                                  "createdAt": "2026-07-28T02:59:51.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                                                  "uid": "35240-23aff97e-131e-4504-8d1b-78bcec99a90b"
+                                                },
+                                                {
+                                                  "id": "4a9d7843-1bfe-4ecc-b7c7-61d7a067815e",
+                                                  "name": "Indicates that the input parameters are invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "segments",
+                                                        ":company_id",
+                                                        ":segment_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "segment_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Bad Request",
+                                                  "code": 400,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:51.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                                                  "uid": "35240-4a9d7843-1bfe-4ecc-b7c7-61d7a067815e"
+                                                },
+                                                {
+                                                  "id": "0211d15d-932a-4d80-bf4d-9787087cc2f9",
+                                                  "name": "Indicates that the authorization information is missing or invalid.",
+                                                  "originalRequest": {
+                                                    "method": "GET",
+                                                    "header": [],
+                                                    "url": {
+                                                      "raw": "{{baseUrl}}/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+                                                      "host": [
+                                                        "{{baseUrl}}"
+                                                      ],
+                                                      "path": [
+                                                        "api",
+                                                        "v1",
+                                                        "segments",
+                                                        ":company_id",
+                                                        ":segment_type",
+                                                        ":period_type",
+                                                        ":start_year",
+                                                        ":end_year",
+                                                        ":start_quarter",
+                                                        ":end_quarter"
+                                                      ],
+                                                      "variable": [
+                                                        {
+                                                          "key": "company_id"
+                                                        },
+                                                        {
+                                                          "key": "segment_type"
+                                                        },
+                                                        {
+                                                          "key": "period_type"
+                                                        },
+                                                        {
+                                                          "key": "start_year"
+                                                        },
+                                                        {
+                                                          "key": "end_year"
+                                                        },
+                                                        {
+                                                          "key": "start_quarter"
+                                                        },
+                                                        {
+                                                          "key": "end_quarter"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "status": "Forbidden",
+                                                  "code": 403,
+                                                  "_postman_previewlanguage": "text",
+                                                  "header": [],
+                                                  "cookie": [],
+                                                  "responseTime": null,
+                                                  "body": null,
+                                                  "createdAt": "2026-07-28T02:59:51.000Z",
+                                                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                                                  "uid": "35240-0211d15d-932a-4d80-bf4d-9787087cc2f9"
+                                                }
+                                              ],
+                                              "createdAt": "2026-07-28T02:59:51.000Z",
+                                              "updatedAt": "2026-07-28T02:59:51.000Z",
+                                              "uid": "35240-2711254e-cf09-4f4c-9dc4-4976a3c7e473"
+                                            }
+                                          ],
+                                          "id": "403c368c-67d7-4682-aac6-887d7597b812",
+                                          "createdAt": "2026-07-28T02:59:51.000Z",
+                                          "updatedAt": "2026-07-28T02:59:51.000Z",
+                                          "uid": "35240-403c368c-67d7-4682-aac6-887d7597b812"
+                                        }
+                                      ],
+                                      "id": "f02095b3-4fdf-411c-ba1d-faa64b575f84",
+                                      "createdAt": "2026-07-28T02:59:51.000Z",
+                                      "updatedAt": "2026-07-28T02:59:51.000Z",
+                                      "uid": "35240-f02095b3-4fdf-411c-ba1d-faa64b575f84"
+                                    }
+                                  ],
+                                  "id": "9783ed23-8952-44d4-b528-f3c7848a7ded",
+                                  "createdAt": "2026-07-28T02:59:51.000Z",
+                                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                                  "uid": "35240-9783ed23-8952-44d4-b528-f3c7848a7ded"
+                                }
+                              ],
+                              "id": "ddf71314-6319-4c8c-b617-6007ccf4137e",
+                              "createdAt": "2026-07-28T02:59:51.000Z",
+                              "updatedAt": "2026-07-28T02:59:51.000Z",
+                              "uid": "35240-ddf71314-6319-4c8c-b617-6007ccf4137e"
+                            }
+                          ],
+                          "id": "3c6761ea-c044-4019-8a07-28d318fe375c",
+                          "createdAt": "2026-07-28T02:59:51.000Z",
+                          "updatedAt": "2026-07-28T02:59:51.000Z",
+                          "uid": "35240-3c6761ea-c044-4019-8a07-28d318fe375c"
+                        }
+                      ],
+                      "id": "244e1342-f5bf-430b-badc-715dd0ff6195",
+                      "createdAt": "2026-07-28T02:59:51.000Z",
+                      "updatedAt": "2026-07-28T02:59:51.000Z",
+                      "uid": "35240-244e1342-f5bf-430b-badc-715dd0ff6195"
+                    }
+                  ],
+                  "id": "e3a4bcb4-c883-478c-95e0-668a2b27e54b",
+                  "createdAt": "2026-07-28T02:59:51.000Z",
+                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                  "uid": "35240-e3a4bcb4-c883-478c-95e0-668a2b27e54b"
+                },
+                {
+                  "name": "Get Segments",
+                  "id": "3c08680d-481c-4a31-ad35-c0fa2e00ffb9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"segment_type\": \"business\",\n  \"period_type\": \"ltm\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 1,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/segments/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "segments",
+                        ""
+                      ]
+                    },
+                    "description": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either \u201cbusiness\u201d or \u201cgeographic\u201d. Defaults to \u201cbusiness\u201d.\nperiod_type (PeriodType): The period_type requested for. Can be \u201cannual\u201d, \u201cquarterly\u201d, \"ytd\". Defaults to \u201cannual\u201d when start_quarter and end_quarter are None.\nstart_year (int): The starting year\nstart_quarter (int): The starting quarter\nend_year (int): The ending year\nend_quarter (int): The ending quarter\ncalendar_type (CalendarType): The type of calendar lookup to use, either \"fiscal\" or \"calendar\". Defaults to \"fiscal\".\nnum_periods (int): Instead of using absolute time lookup, you can look up segments by time relative to now. Defaults to 5 if no other time parameters are present.\nnum_periods_back (int): Instead of using absolute time lookup, you can look up segments by time relative to now. Defaults to 0.\n\nReturns:\n    dict: A nested dictionary where the first-level keys are \"results\" and \"errors\".\n    Within \"results\", there is one key per company ID, with a metadata value \"currency\" under that, and \"periods\"\n    Within the \"periods\" dictionary,\n    - The first-level keys are strings representing the time period of either calendar years or quarters (e.g., 'FY2024' for a fiscal year, or 'FY2024Q1', 'FY2024Q2' for fiscal quarters).\n    - Each period contains 'period_end_date', 'num_months', and a 'segments' array.\n    - Each segment in the array has a 'name' (either line of business segment names specific to a company's organization or geographic segment like 'Asia', 'United States', 'Rest of World') and 'line_items' array.\n    - Each line item in the array contains 'name' (e.g., 'Revenue', 'Operating Income') and 'value' fields."
+                  },
+                  "response": [
+                    {
+                      "id": "ec8d0681-e11a-4a7f-a102-09bb81f0304b",
+                      "name": "Indicates a successful request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"segment_type\": \"business\",\n  \"period_type\": \"ltm\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 1,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/segments/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "segments",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": {\n    \"Ut_e5\": \"<string>\",\n    \"consectetur66\": \"<string>\",\n    \"ut_b\": \"<string>\",\n    \"adipisicingc25\": \"<string>\"\n  },\n  \"results\": {\n    \"in6\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"reprehenderit_8d8\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-3.2\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    },\n    \"ea_561\": {\n      \"currency\": \"<string>\",\n      \"periods\": {\n        \"et75\": {\n          \"line_item\": {\n            \"name\": \"<string>\",\n            \"value\": \"-2823462822.\"\n          },\n          \"num_months\": \"<integer>\",\n          \"period_end_date\": \"<date>\"\n        }\n      }\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:59:51.000Z",
+                      "updatedAt": "2026-07-28T02:59:51.000Z",
+                      "uid": "35240-ec8d0681-e11a-4a7f-a102-09bb81f0304b"
+                    },
+                    {
+                      "id": "ed04e004-da97-4d33-943a-c76ce42427d5",
+                      "name": "Indicates that the input parameters are invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"segment_type\": \"business\",\n  \"period_type\": \"ltm\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 1,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/segments/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "segments",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:51.000Z",
+                      "updatedAt": "2026-07-28T02:59:51.000Z",
+                      "uid": "35240-ed04e004-da97-4d33-943a-c76ce42427d5"
+                    },
+                    {
+                      "id": "3c86e60f-58c1-4245-abca-72065ecc325b",
+                      "name": "Indicates that the authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"company_ids\": [\n    \"<integer>\"\n  ],\n  \"segment_type\": \"business\",\n  \"period_type\": \"ltm\",\n  \"start_year\": \"<integer>\",\n  \"end_year\": \"<integer>\",\n  \"start_quarter\": 2,\n  \"end_quarter\": 1,\n  \"calendar_type\": \"fiscal\",\n  \"num_periods\": \"<integer>\",\n  \"num_periods_back\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/segments/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "segments",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:59:51.000Z",
+                      "updatedAt": "2026-07-28T02:59:51.000Z",
+                      "uid": "35240-3c86e60f-58c1-4245-abca-72065ecc325b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:59:51.000Z",
+                  "updatedAt": "2026-07-28T02:59:51.000Z",
+                  "uid": "35240-3c08680d-481c-4a31-ad35-c0fa2e00ffb9"
+                }
+              ],
+              "id": "ad366833-6fcb-4987-aa57-32f47094fb7e",
+              "createdAt": "2026-07-28T02:59:51.000Z",
+              "updatedAt": "2026-07-28T02:59:51.000Z",
+              "uid": "35240-ad366833-6fcb-4987-aa57-32f47094fb7e"
+            }
+          ],
+          "id": "828eb656-a78e-4729-be33-25616c6706fc",
+          "createdAt": "2026-07-28T02:59:51.000Z",
+          "updatedAt": "2026-07-28T02:59:51.000Z",
+          "uid": "35240-828eb656-a78e-4729-be33-25616c6706fc"
+        }
+      ],
+      "id": "086e1604-a01a-4fc5-a09b-9184a098a276",
+      "createdAt": "2026-07-28T02:59:51.000Z",
+      "updatedAt": "2026-07-28T02:59:51.000Z",
+      "uid": "35240-086e1604-a01a-4fc5-a09b-9184a098a276"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

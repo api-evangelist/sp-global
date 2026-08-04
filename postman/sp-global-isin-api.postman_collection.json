@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "00a420fd-b561-44a1-91c2-5deb5eae9c7a",
+    "name": "Kensho Extract annotations-async Isin API",
+    "description": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:59:38.000Z",
+    "updatedAt": "2026-07-28T02:59:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-00a420fd-b561-44a1-91c2-5deb5eae9c7a"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "isin",
+              "item": [
+                {
+                  "name": "{security_id}",
+                  "item": [
+                    {
+                      "name": "Get ISIN",
+                      "id": "168a7ed5-d589-4a13-8a44-9b6f5746fb93",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/isin/:security_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "isin",
+                            ":security_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d5f982f2-b253-40fa-bb78-ab06591a5ad6",
+                              "key": "security_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get the ISIN for a given security_id"
+                      },
+                      "response": [
+                        {
+                          "id": "db95e9ec-ae1f-44a2-af82-db7b4b796e3e",
+                          "name": "Indicates a successful request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/isin/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "isin",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"isin\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:59:38.000Z",
+                          "updatedAt": "2026-07-28T02:59:38.000Z",
+                          "uid": "35240-db95e9ec-ae1f-44a2-af82-db7b4b796e3e"
+                        },
+                        {
+                          "id": "70c77b33-957d-48d9-8a4c-f1ac688fae34",
+                          "name": "Indicates that the query is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/isin/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "isin",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:38.000Z",
+                          "updatedAt": "2026-07-28T02:59:38.000Z",
+                          "uid": "35240-70c77b33-957d-48d9-8a4c-f1ac688fae34"
+                        },
+                        {
+                          "id": "0312a1c8-0782-46f6-bfcd-fc3f58ff4878",
+                          "name": "Indicates that the authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/isin/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "isin",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:38.000Z",
+                          "updatedAt": "2026-07-28T02:59:38.000Z",
+                          "uid": "35240-0312a1c8-0782-46f6-bfcd-fc3f58ff4878"
+                        },
+                        {
+                          "id": "3e59f5e9-72a7-4806-857c-41b5888ba559",
+                          "name": "Indicates that no ISIN was found for the given security_id.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/isin/:security_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "isin",
+                                ":security_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "security_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:59:38.000Z",
+                          "updatedAt": "2026-07-28T02:59:38.000Z",
+                          "uid": "35240-3e59f5e9-72a7-4806-857c-41b5888ba559"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:59:38.000Z",
+                      "updatedAt": "2026-07-28T02:59:38.000Z",
+                      "uid": "35240-168a7ed5-d589-4a13-8a44-9b6f5746fb93"
+                    }
+                  ],
+                  "id": "47ff95a5-5dc8-4cca-8efa-db23305b5136",
+                  "createdAt": "2026-07-28T02:59:38.000Z",
+                  "updatedAt": "2026-07-28T02:59:38.000Z",
+                  "uid": "35240-47ff95a5-5dc8-4cca-8efa-db23305b5136"
+                }
+              ],
+              "id": "b43b2acb-5756-41db-a855-e8e85feedffe",
+              "createdAt": "2026-07-28T02:59:38.000Z",
+              "updatedAt": "2026-07-28T02:59:38.000Z",
+              "uid": "35240-b43b2acb-5756-41db-a855-e8e85feedffe"
+            }
+          ],
+          "id": "d1e4832e-ba98-4b65-8b84-d93c1b78c4cf",
+          "createdAt": "2026-07-28T02:59:38.000Z",
+          "updatedAt": "2026-07-28T02:59:38.000Z",
+          "uid": "35240-d1e4832e-ba98-4b65-8b84-d93c1b78c4cf"
+        }
+      ],
+      "id": "b28a6359-d501-41bb-8779-484e6c0c79f5",
+      "createdAt": "2026-07-28T02:59:38.000Z",
+      "updatedAt": "2026-07-28T02:59:38.000Z",
+      "uid": "35240-b28a6359-d501-41bb-8779-484e6c0c79f5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://kfinance.kensho.com"
+    }
+  ]
+}

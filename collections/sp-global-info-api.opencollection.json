@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Info API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Company Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/info/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the general information of a given company_id, such as name, status, company type, simple industry, number of employees, founding date, webpage, and address."
+        },
+        {
+          "info": {
+            "name": "info_descriptions_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/info/:company_id/descriptions",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the company's summary (short description) and description (long description)"
+        },
+        {
+          "info": {
+            "name": "info_names_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/info/:company_id/names",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the company's other names: alternate_names (names that a company also goes by), historical_names (names that the company used to go by), and native_names (company names in native language)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

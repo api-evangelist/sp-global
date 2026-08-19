@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Users API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "users_permissions_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/users/permissions"
+          },
+          "docs": "Return a list of all permissions that the request user has."
+        },
+        {
+          "info": {
+            "name": "Refresh Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/users/refresh_access_token"
+          },
+          "docs": "Refresh a client's access token, given their valid refresh token."
+        },
+        {
+          "info": {
+            "name": "Refresh Access Token_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/users/refresh_access_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh a client's access token, given their valid refresh token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

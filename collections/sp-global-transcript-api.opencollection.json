@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Transcript API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transcript",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/transcript/:key_dev_id",
+            "params": [
+              {
+                "name": "key_dev_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the transcript for a given key_dev_id\n\nThe transcript is a list of components comprising component_type, person_name,\nand text"
+        },
+        {
+          "info": {
+            "name": "Get Raw Transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/transcript/:key_dev_id/raw",
+            "params": [
+              {
+                "name": "key_dev_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the raw transcript for a given key_dev_id\n\nThe raw transcript is a single string that indicates speakers by\nprepending `[speaker]:` to the transcript of the speaker's speech"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Statements API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Financial Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/statements/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+        },
+        {
+          "info": {
+            "name": "Get Financial Statement_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/statements/:company_id/:statement_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_year",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "period_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_year",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "statement_type",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

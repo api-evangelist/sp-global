@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Auditors API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auditors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "auditors_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/auditors/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the financial auditors of a given company id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Securities API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Securities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Securities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/securities/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of securities for a given company_id. Returns a dictionary of shape {\"securities\": List[<security_id>]}"
+        },
+        {
+          "info": {
+            "name": "Get Primary Security",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/securities/:company_id/primary",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the primary security for a given company_id. Returns a dictionary of shape {\"primary_security\": <security_id>}"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

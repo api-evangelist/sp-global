@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Ticker Groups API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ticker Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tickers By Exchange Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/exchange/:exchange_code",
+            "params": [
+              {
+                "name": "exchange_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers that are traded on exchange_code"
+        },
+        {
+          "info": {
+            "name": "Get Tickers By Combined Filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/filters/geo/:iso_code/:state/simple/:simple_industry/exchange/:exchange_code",
+            "params": [
+              {
+                "name": "exchange_code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "iso_code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "simple_industry",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry."
+        },
+        {
+          "info": {
+            "name": "Get Tickers By Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/geo/country/:iso_code",
+            "params": [
+              {
+                "name": "iso_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. "
+        },
+        {
+          "info": {
+            "name": "Get Tickers By Location_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/geo/country/:iso_code/:state",
+            "params": [
+              {
+                "name": "iso_code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. "
+        },
+        {
+          "info": {
+            "name": "Get Tickers By Industry Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/:industry_classification/:industry_code",
+            "params": [
+              {
+                "name": "industry_classification",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "industry_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers and their associated identification triple that are in the given industry_classification and industry_code"
+        },
+        {
+          "info": {
+            "name": "Get Tickers By GICS Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/gics/:gics_code",
+            "params": [
+              {
+                "name": "gics_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers that are classified in the gics_code.\n\nReturns a dictionary of shape {\"tickers\": List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+        },
+        {
+          "info": {
+            "name": "Get Tickers By Simple Industry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ticker_groups/industry/simple/:simple_industry",
+            "params": [
+              {
+                "name": "simple_industry",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of tickers and their associated identification triple that are in the given simple_industry"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

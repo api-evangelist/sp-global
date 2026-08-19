@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Trading Items API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trading Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Trading Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/trading_items/:security_id",
+            "params": [
+              {
+                "name": "security_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of trading items for a given security_id. Returns a dictionary of shape {\"trading_items\": List[<trading_item_id>]}"
+        },
+        {
+          "info": {
+            "name": "Get Primary Trading Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/trading_items/:security_id/primary",
+            "params": [
+              {
+                "name": "security_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the primary trading item for a given security_id. Returns a dictionary of shape {\"primary_trading_item\": <trading_item_id>}"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

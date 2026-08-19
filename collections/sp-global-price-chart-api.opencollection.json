@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Price Chart API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Price Chart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Price Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/price_chart/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+            "params": [
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "periodicity",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trading_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date inclusive."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

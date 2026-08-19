@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Estimates API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Estimates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Estimates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/estimates/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the consensus estimates or guidance for a given company."
+        },
+        {
+          "info": {
+            "name": "Get Analyst Recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/estimates/analyst_recommendations/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get analyst recommendations for a given company_id.\n\nReturns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global Market Intelligence\nstandardizes ratings across brokers on a 5-point scale: 1 = Buy, 2 = Outperform, 3 = Hold, 4 = Underperform, 5 = Sell.\nIf an analyst does not provide a recommendation, S&P Global assigns a rating of 'No Opinion'."
+        },
+        {
+          "info": {
+            "name": "Get Consensus Target Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/estimates/consensus_target_price/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the consensus target price estimates for a given company_id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

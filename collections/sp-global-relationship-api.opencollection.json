@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Relationship API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relationship",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Companies by Business Relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/relationship/:company_id/:relationship_type",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "relationship_type",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of current and previous companies that are relationship_type OF company_id.\n\nReturns a dictionary of shape:\n{\n    \"current\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}],\n    \"previous\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}]\n}.\n\nExamples: get_companies_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_companies_by_business_relationship(company_id: 1234, relationship_typ"
+        },
+        {
+          "info": {
+            "name": "Get Tickers by Business Relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/relationship/:company_id/:relationship_type/ticker",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "relationship_type",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of current and previous ticker identification triples that are relationship_type OF company_id.\n\nReturns a dictionary of shape {“current”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}], “previous”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”: <trading_item_id>}]}.\n\nExamples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234's landlords"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

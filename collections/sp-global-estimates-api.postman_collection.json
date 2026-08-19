@@ -1,0 +1,735 @@
+{
+  "item": [
+    {
+      "id": "e153986f-ae7b-4a15-9b43-a1c9a60fc30a",
+      "name": "Estimates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d9f17a34-ed81-44f9-8a46-222029421809",
+          "name": "Get Estimates",
+          "request": {
+            "name": "Get Estimates",
+            "description": {
+              "content": "Get the consensus estimates or guidance for a given company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "estimates",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "estimate_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "period_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fiscal_start_year",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fiscal_end_year",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fiscal_start_quarter",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fiscal_end_quarter",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num_periods_forward",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num_periods_backward",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "127f19a0-1613-4564-90ed-84a8e1f0a5cf",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "estimate_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_forward",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_backward",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"24937\": {\n      \"estimate_type\": \"consensus\",\n      \"currency\": \"USD\",\n      \"period_type\": \"quarterly\",\n      \"periods\": {\n        \"FY2025Q4\": {\n          \"period_end_date\": \"2025-12-31\",\n          \"estimates\": [\n            {\n              \"name\": \"Revenue Consensus High\",\n              \"value\": \"3955000000.000000\"\n            },\n            {\n              \"name\": \"Revenue Consensus Low\",\n              \"value\": \"3806400000.000000\"\n            },\n            {\n              \"name\": \"Revenue Consensus Mean\",\n              \"value\": \"3881725460.000000\"\n            },\n            {\n              \"name\": \"Revenue Consensus Median\",\n              \"value\": \"3883000000.000000\"\n            }\n          ]\n        }\n      }\n    }\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f4d9d78-ce33-45e3-9d44-3259b9f1ef5c",
+              "name": "Indicates that the input parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "estimate_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_forward",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_backward",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4fd5e473-01df-4a3c-b2c2-70b7a4047a33",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "estimate_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_start_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fiscal_end_quarter",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_forward",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num_periods_backward",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3231e748-6434-4a2c-8d9b-5b84fff7eccb",
+          "name": "Get Analyst Recommendations",
+          "request": {
+            "name": "Get Analyst Recommendations",
+            "description": {
+              "content": "Get analyst recommendations for a given company_id.\n\nReturns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global Market Intelligence\nstandardizes ratings across brokers on a 5-point scale: 1 = Buy, 2 = Outperform, 3 = Hold, 4 = Underperform, 5 = Sell.\nIf an analyst does not provide a recommendation, S&P Global assigns a rating of 'No Opinion'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "estimates",
+                "analyst_recommendations",
+                ":company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "729db0a8-ffb8-41c5-bd8b-fa1167e88adb",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "analyst_recommendations",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"24937\": {\n      \"effective_date\": \"2026-03-03\",\n      \"estimates\": [\n        {\n          \"name\": \"Consensus Recommendation\",\n          \"value\": \"1.936170\"\n        },\n        {\n          \"name\": \"# of Analysts No Opinion Recommendation - (In-Consensus)\",\n          \"value\": \"2.000000\"\n        },\n        {\n          \"name\": \"# of Analysts Buy Recommendation - (In-Consensus)\",\n          \"value\": \"24.000000\"\n        },\n        {\n          \"name\": \"# of Analysts Sell Recommendation - (In-Consensus)\",\n          \"value\": \"1.000000\"\n        },\n        {\n          \"name\": \"# of Analysts Hold Recommendation - (In-Consensus)\",\n          \"value\": \"16.000000\"\n        },\n        {\n          \"name\": \"# of Analysts Outperform Recommendation - (In-Consensus)\",\n          \"value\": \"5.000000\"\n        },\n        {\n          \"name\": \"# of Analysts Underperform Recommendation - (In-Consensus)\",\n          \"value\": \"1.000000\"\n        }\n      ]\n    }\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9243d9a-61fe-425e-8be5-4783fd767958",
+              "name": "Indicates that the input parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "analyst_recommendations",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a2de5ab5-19df-40c8-bf6c-6818a4cfab15",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "analyst_recommendations",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9604627f-2698-45b7-8f0c-866b666b4dbe",
+          "name": "Get Consensus Target Price",
+          "request": {
+            "name": "Get Consensus Target Price",
+            "description": {
+              "content": "Get the consensus target price estimates for a given company_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "estimates",
+                "consensus_target_price",
+                ":company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "d80a2543-30b5-48d7-baef-85fb08502322",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "consensus_target_price",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"24937\": {\n      \"currency\": \"USD\",\n      \"effective_date\": \"2026-03-03\",\n      \"estimates\": [\n        {\n          \"name\": \"Target Price Consensus Mean\",\n          \"value\": \"293.289020\"\n        },\n        {\n          \"name\": \"Target Price Consensus Median\",\n          \"value\": \"300.000000\"\n        },\n        {\n          \"name\": \"Target Price Consensus High\",\n          \"value\": \"350.000000\"\n        },\n        {\n          \"name\": \"Target Price Consensus Low\",\n          \"value\": \"205.000000\"\n        },\n        {\n          \"name\": \"Target Price - # of Estimates\",\n          \"value\": \"41.000000\"\n        },\n        {\n          \"name\": \"Target Price - Standard Deviation\",\n          \"value\": \"32.468260\"\n        }\n      ]\n    }\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db020a14-797a-4a34-9171-17abf0fbfdaa",
+              "name": "Indicates that the input parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "consensus_target_price",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6da3f434-184b-493a-bfef-e91f3590a6ef",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimates",
+                    "consensus_target_price",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kfinance.kensho.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "de0594ac-f9b2-4d4b-8f9c-eca688ac06a3",
+    "name": "Kensho Extract annotations-async Estimates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+      "type": "text/plain"
+    }
+  }
+}

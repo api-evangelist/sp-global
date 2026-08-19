@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Competitors API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Competitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Competitors from Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/competitors/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified' (self-identified), 'named_by_competitor' (from compe"
+        },
+        {
+          "info": {
+            "name": "Get Competitors from Company_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/competitors/:company_id/:competitor_source",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "competitor_source",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of company_id and company_name that are competitors of company_id, optionally filtered by the competitor_source type.\n\nParameters:\n    company_id (int): The requested company_id\n    competitor_source (CompetitorSourceType): The source type of the competitor information: 'filing' (from SEC filings), 'key_dev' (from key developments), 'contact' (from contact relationships), 'third_party' (from third-party sources), 'self_identified' (self-identified), 'named_by_competitor' (from compe"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

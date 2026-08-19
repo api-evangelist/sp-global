@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Earnings API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earnings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Earnings Calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/earnings/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get metadata (name, key dev id, and datetime) for earnings calls for a given company_id.\n\nThe response comprises metadata for all upcoming and past earnings calls in\ndescending order by datetime. The key dev id can be used with the transcript\nendpoints to retrieve the earnings call transcript."
+        },
+        {
+          "info": {
+            "name": "Get Earnings Calls Dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/earnings/:company_id/dates",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the earnings calls in datetime for a given company_id in UTC"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

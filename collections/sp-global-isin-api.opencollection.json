@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Isin API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Isin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ISIN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/isin/:security_id",
+            "params": [
+              {
+                "name": "security_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the ISIN for a given security_id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

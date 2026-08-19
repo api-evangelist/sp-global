@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Line Item API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Line Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Financial Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/line_item/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a financial line item for a set of company_ids.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+        },
+        {
+          "info": {
+            "name": "Get Financial Line Item_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/line_item/:company_id/:line_item/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_year",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "line_item",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "period_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_year",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a financial line item for a given company_id.\n\nFor a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

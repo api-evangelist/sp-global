@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Segments API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/segments/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType): The period_type requested for. Can be “annua"
+        },
+        {
+          "info": {
+            "name": "Get Segments_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/segments/:company_id/:segment_type/:period_type/:start_year/:end_year/:start_quarter/:end_quarter",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_year",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "period_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "segment_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_quarter",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_year",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.\n\nSegments can be filtered on the segment_type for 'business' for Line of Business Segments or 'geographic' for Geographic Segments.\n\nParameters:\ncompany_id (int, required): The company_id requested\nsegment_type (SegmentType): The segment type to filter on, either “business” or “geographic”. Defaults to “business”.\nperiod_type (PeriodType): The period_type requested for. Can be “annua"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

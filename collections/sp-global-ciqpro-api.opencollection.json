@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Ciqpro API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ciqpro",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ciqpro_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/ciqpro/:company_ids",
+            "params": [
+              {
+                "name": "company_ids",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Given a list of company IDs, return a list of those IDs to their CIQ Pro keys."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

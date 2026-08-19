@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Id API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Id",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CUSIP to Identification Triple",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/id/:cusip",
+            "params": [
+              {
+                "name": "cusip",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the most likely trading_item_id, security_id, and company_id with a given CUSIP."
+        },
+        {
+          "info": {
+            "name": "ISIN to Identification Triple",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/id/:isin",
+            "params": [
+              {
+                "name": "isin",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ISIN."
+        },
+        {
+          "info": {
+            "name": "Ticker to Identification Triple",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/id/:ticker",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+        },
+        {
+          "info": {
+            "name": "Ticker to Identification Triple_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/id/:ticker/exchange_code/:exchange_code",
+            "params": [
+              {
+                "name": "exchange_code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

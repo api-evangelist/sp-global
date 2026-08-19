@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Market Cap API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Cap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Market Caps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/market_cap/:company_id/:start_date/:end_date",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the market caps between start and end date inclusive.\n\nThe returned data includes market_cap, tev (Total Enterprise Value), shares_outstanding, and its currency."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

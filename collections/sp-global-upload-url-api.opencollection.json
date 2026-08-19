@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async upload-url API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "upload-url",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get An Upload URL For Uploading A Text File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://nerd.kensho.com/api/v1/upload-url"
+          },
+          "docs": "This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15** minutes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

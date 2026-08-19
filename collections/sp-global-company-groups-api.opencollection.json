@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Company Groups API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Companies By Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/company_groups/geo/country/:iso_code/:state",
+            "params": [
+              {
+                "name": "iso_code",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of companies based in a location with filters iso_code and state.\n\nParameters:\n    iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country"
+        },
+        {
+          "info": {
+            "name": "Get Companies By Industry Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/:industry_classification/:industry_code",
+            "params": [
+              {
+                "name": "industry_classification",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "industry_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of companies that are in the given industry_classification and industry_code"
+        },
+        {
+          "info": {
+            "name": "Get Companies By GICS Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/gics/:gics_code",
+            "params": [
+              {
+                "name": "gics_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of companies that are classified in the gics_code.\n\nReturns a dictionary of shape {\"companies\": List[<company_id>]}.\nThe gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code."
+        },
+        {
+          "info": {
+            "name": "Get Companies By Simple Industry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/company_groups/industry/simple/:simple_industry",
+            "params": [
+              {
+                "name": "simple_industry",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of companies that are in the given simple_industry"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

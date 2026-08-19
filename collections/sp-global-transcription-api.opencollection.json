@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Transcription API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transcription",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query A Transcription Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scribe.kensho.com/api/v1/transcription",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "unique_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a transcription job"
+              }
+            ]
+          },
+          "docs": "Get the results of a transcription job.\nThis method takes in the unique ID returned from starting a transcription,\nand returns either a JSON (default) or WebVTT response.\n\nIf the `Accept` header is missing or of type `application/json` then this call\nwill return a tuple of status, error, and transcript.\nThe status will be one of \"success\", \"error\", or \"pending\".\nThe transcript field will be present if and only if the status is \"success\".\nThe error field will be present if and only if the status "
+        },
+        {
+          "info": {
+            "name": "Start A Transcription Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scribe.kensho.com/api/v1/transcription",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Starts a transcription job for a single audio or video file.\n\nThe `Content-Type` header in the request must be set to the type of audio or\nvideo being uploaded. The `Content-Type` can be set to any one of the following\nmime types that we support:\n- `application/mp3`\n- `audio/aac`\n- `audio/m4a`\n- `audio/mp3`\n- `audio/mpeg`\n- `audio/mpeg3`\n- `audio/wav`\n- `audio/wave`\n- `audio/x-m4a`\n- `audio/x-mpeg-3`\n- `audio/x-wav`\n- `video/mp4`\n\nMP4 video, as a container, can hold any supported audio type.\nMP3"
+        },
+        {
+          "info": {
+            "name": "Delete A Transcription Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://scribe.kensho.com/api/v1/transcription",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "unique_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a transcription job"
+              }
+            ]
+          },
+          "docs": "This method takes in the unique_id returned when starting a transcription,\nand deletes all stored data associated with that transcription job.\n"
+        },
+        {
+          "info": {
+            "name": "Start A New Transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scribe.kensho.com/api/v2/transcription",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a transcription request for a single audio or video file.\n\nWe support a wide array of audio formats along with their respective compression / codec\noptions including:\n - AAC\n - FLAC\n - MP1\n - MP3\n - WAV\n\nCurrently we only support MP4 video files where the audio streams _must_ be one\nof the supported audio formats.\n\nFiles must be less than or equal to 1 gigabyte in size, and the upload must\ntake less than 30 minutes.\n\nMultichannel audio will be merged into a single stream prior to transcri"
+        },
+        {
+          "info": {
+            "name": "Download A Transcription By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+            "params": [
+              {
+                "name": "transcription_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a transcription to retrieve"
+              }
+            ]
+          },
+          "docs": "Get the resulting transcript from the transcription request."
+        },
+        {
+          "info": {
+            "name": "Delete All Transcription Data By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+            "params": [
+              {
+                "name": "transcription_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a transcription to delete"
+              }
+            ]
+          },
+          "docs": "Attempts to ensure that all stored data for a transcription is no longer available on the system."
+        },
+        {
+          "info": {
+            "name": "Query a transcription by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://scribe.kensho.com/api/v2/transcription/:transcription_id",
+            "params": [
+              {
+                "name": "transcription_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of a transcription to query for"
+              }
+            ]
+          },
+          "docs": "Determines if a transcript is available for download or not."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

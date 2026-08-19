@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Fundinground API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fundinground",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fundinground_info_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a round of funding."
+        },
+        {
+          "info": {
+            "name": "fundinground_info_advisors_investor_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id/advisors/investor/:advised_company_id",
+            "params": [
+              {
+                "name": "advised_company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the advisors and their types for a company buying into a round of funding."
+        },
+        {
+          "info": {
+            "name": "fundinground_info_advisors_target_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/fundinground/info/:transaction_id/advisors/target",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the advisors and their types for the company raising a round of funding."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

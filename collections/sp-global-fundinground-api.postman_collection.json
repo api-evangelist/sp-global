@@ -1,0 +1,552 @@
+{
+  "item": [
+    {
+      "id": "7f40d529-f479-44d4-8eb0-87684b615e24",
+      "name": "Fundinground",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69cb33ca-23dd-46d5-b4ca-3e98c4e48352",
+          "name": "fundinground info retrieve",
+          "request": {
+            "name": "fundinground info retrieve",
+            "description": {
+              "content": "Get detailed information about a round of funding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "fundinground",
+                "info",
+                ":transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7c704558-12d3-4713-b241-28aabc2aa1b6",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeline\": {\n    \"announced_date\": \"2017-02-09\",\n    \"closed_date\": \"2016-12-31\"\n  },\n  \"participants\": {\n    \"target\": {\n      \"company_id\": 251994106,\n      \"company_name\": \"Kensho Technologies, Inc.\"\n    },\n    \"investors\": [\n      {\n        \"company_id\": 21719,\n        \"company_name\": \"S&P Global Inc.\",\n        \"lead_investor\": true,\n        \"investment_value\": null\n      },\n      {\n        \"company_id\": 292891,\n        \"company_name\": \"Wells Fargo & Company\",\n        \"lead_investor\": false,\n        \"investment_value\": null\n      }\n    ]\n  },\n  \"transaction\": {\n    \"funding_type\": \"Series B\",\n    \"amount_offered\": \"50000000.00000000\",\n    \"currency\": \"USD\",\n    \"legal_fees\": null,\n    \"other_fees\": null,\n    \"initial_gross_amount_offered\": \"50000000.00000000\",\n    \"offering_size_change\": \"Unchanged\",\n    \"upsized_amount\": \"0.00000000\",\n    \"upsized_amount_percent\": \"0.00000000\",\n    \"pre_money_valuation\": \"450000000.00000000\",\n    \"post_money_valuation\": \"500000000.00000000\",\n    \"aggregate_amount_raised\": \"104961538.00000000\",\n    \"liquidation_preference\": null,\n    \"anti_dilution_method\": null,\n    \"liquidation_price\": null,\n    \"option_pool\": null,\n    \"participating_preferred_cap\": null,\n    \"liquidation_preference_multiple\": null,\n    \"use_of_proceeds\": \"Kensho Technologies Inc. will use the proceeds in part toward buying more data sets to supplement its current pool of information and toward bringing its technology to other industries.\",\n    \"pre_deal_situation\": null,\n    \"redemption\": null,\n    \"cumulative_dividends\": null,\n    \"reorganization\": null,\n    \"pay_to_play\": null,\n    \"pay_to_play_penalties\": null\n  },\n  \"security\": {\n    \"dividend_per_share\": null,\n    \"annualized_dividend_rate\": null,\n    \"seniority_level\": null,\n    \"coupon_type\": null,\n    \"funding_convertible_type\": null,\n    \"security_description\": \"Undisclosed\",\n    \"class_series_tranche\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0cd4719-0e42-4788-8d68-eb7ce9982490",
+              "name": "Indicates that the query is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9650d399-0a08-43a3-9f6f-19226194fc01",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05a2c8e4-3027-49f9-856c-7481e3048bba",
+              "name": "Indicates that no round of funding info was found for the given transaction_id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90125f82-8ccd-4160-9402-8124fbf1c222",
+          "name": "fundinground info advisors investor retrieve",
+          "request": {
+            "name": "fundinground info advisors investor retrieve",
+            "description": {
+              "content": "Get the advisors and their types for a company buying into a round of funding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "fundinground",
+                "info",
+                ":transaction_id",
+                "advisors",
+                "investor",
+                ":advised_company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "advised_company_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "a3ee60bb-a107-4442-863a-dc838bb81f27",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id",
+                    "advisors",
+                    "investor",
+                    ":advised_company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advised_company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advisors\": [\n    {\n      \"advisor_company_id\": 22439,\n      \"advisor_company_name\": \"DLA Piper LLP (US)\",\n      \"advisor_type_name\": \"Legal Counsel\",\n      \"advisor_fee_amount\": \"3750000.0000\",\n      \"advisor_fee_currency\": \"USD\",\n      \"is_lead\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53c53f4f-0ec0-4e01-b14c-743779133eb2",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id",
+                    "advisors",
+                    "investor",
+                    ":advised_company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advised_company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b711589-d0cb-40ed-ad8e-6685593d61d3",
+          "name": "fundinground info advisors target retrieve",
+          "request": {
+            "name": "fundinground info advisors target retrieve",
+            "description": {
+              "content": "Get the advisors and their types for the company raising a round of funding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "fundinground",
+                "info",
+                ":transaction_id",
+                "advisors",
+                "target"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3b508a40-e3bd-4125-85e8-6cc097a7ce44",
+              "name": "Indicates a successful request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id",
+                    "advisors",
+                    "target"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advisors\": [\n    {\n      \"advisor_company_id\": 286743412,\n      \"advisor_company_name\": \"PJT Partners Inc.\",\n      \"advisor_type_name\": \"Financial Adviser\",\n      \"advisor_fee_amount\": \"2500000.0000\",\n      \"advisor_fee_currency\": \"USD\",\n      \"is_lead\": true\n    },\n    {\n      \"advisor_company_id\": 106880,\n      \"advisor_company_name\": \"Simpson Thacher & Bartlett LLP\",\n      \"advisor_type_name\": \"Legal Counsel\",\n      \"advisor_fee_amount\": \"1200000.0000\",\n      \"advisor_fee_currency\": \"USD\",\n      \"is_lead\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "971d501c-88f0-4f32-bc3f-dbb357d150b2",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fundinground",
+                    "info",
+                    ":transaction_id",
+                    "advisors",
+                    "target"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kfinance.kensho.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cad7ff01-84cb-47e4-85b3-c720b3ecd181",
+    "name": "Kensho Extract annotations-async Fundinground API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Fundingrounds API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fundingrounds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fundingrounds_investor_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/fundingrounds/investor/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the rounds of funding that the specified company invested in."
+        },
+        {
+          "info": {
+            "name": "fundingrounds_target_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/fundingrounds/target/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the rounds of funding that the specified company was in."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

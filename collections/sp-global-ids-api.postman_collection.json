@@ -1,0 +1,221 @@
+{
+  "item": [
+    {
+      "id": "a761eeac-d280-4b33-9e12-008e8813bf63",
+      "name": "Ids",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a6857bb-7364-43a8-a3a1-c20f21a889ce",
+          "name": "Unified Identification Triple",
+          "request": {
+            "name": "Unified Identification Triple",
+            "description": {
+              "content": "Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP, Company ID, ticker, or company name).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "identifiers",
+                  "value": "<string>",
+                  "description": "(Required) List of identifiers to resolve (can include ISINs, CUSIPs, company names, company IDs, tickers, or company names)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d2eedfae-b228-4d36-9686-ba65eed7fafa",
+              "name": "Indicates a successful request. Returns a mapping of identifiers to their identification triples.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of identifiers to resolve (can include ISINs, CUSIPs, company names, company IDs, tickers, or company names)",
+                        "type": "text/plain"
+                      },
+                      "key": "identifiers",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"37833100\": {\n    \"trading_item_id\": 2590360,\n    \"security_id\": 2590359,\n    \"company_id\": 24937,\n    \"company_name\": \"Apple, Inc.\",\n    \"ticker\": \"NasdaqGS:AAPL\"\n  },\n  \"AAPL\": {\n    \"trading_item_id\": 2590360,\n    \"security_id\": 2590359,\n    \"company_id\": 24937,\n    \"company_name\": \"Apple, Inc.\",\n    \"ticker\": \"NasdaqGS:AAPL\"\n  },\n  \"US0378331005\": {\n    \"trading_item_id\": 2590360,\n    \"security_id\": 2590359,\n    \"company_id\": 24937,\n    \"company_name\": \"Apple, Inc.\",\n    \"ticker\": \"NasdaqGS:AAPL\"\n  },\n  \"Apple Inc.\": {\n    \"trading_item_id\": 2590360,\n    \"security_id\": 2590359,\n    \"company_id\": 24937,\n    \"company_name\": \"Apple, Inc.\",\n    \"ticker\": \"NasdaqGS:AAPL\"\n  },\n  \"C_874695\": {\n    \"trading_item_id\": 2590360,\n    \"security_id\": 2590359,\n    \"company_id\": 24937,\n    \"company_name\": \"Apple, Inc.\",\n    \"ticker\": \"NasdaqGS:AAPL\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e728af88-a966-4e63-afe2-284363ca9e0c",
+              "name": "Indicates that the request is invalid or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of identifiers to resolve (can include ISINs, CUSIPs, company names, company IDs, tickers, or company names)",
+                        "type": "text/plain"
+                      },
+                      "key": "identifiers",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72e05667-1757-4aac-99fe-511f3b7f3135",
+              "name": "Indicates that the authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of identifiers to resolve (can include ISINs, CUSIPs, company names, company IDs, tickers, or company names)",
+                        "type": "text/plain"
+                      },
+                      "key": "identifiers",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kfinance.kensho.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "89608436-54d9-484a-ad85-69fdc475a1b4",
+    "name": "Kensho Extract annotations-async Ids API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\nPlease note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and download functionality, allowing the upload of the original document and retrieval of the extracted document output via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the GET `output_url` provided in the response\n",
+      "type": "text/plain"
+    }
+  }
+}

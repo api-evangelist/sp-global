@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Pricing API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Stock Prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/pricing/:trading_item_id/:start_date/:end_date/:periodicity/:adjusted",
+            "params": [
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "periodicity",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trading_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get stock prices for a given trading_item_id and its associated currency between start_date and end_date inclusive, with latest available data being from the previous day, and the most recent price will always be the closing price from the day before. The returned prices include the open, close, high, low prices and volume."
+        },
+        {
+          "info": {
+            "name": "Get Historical Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kfinance.kensho.com/api/v1/pricing/:trading_item_id/metadata",
+            "params": [
+              {
+                "name": "trading_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type, and first_trade_date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

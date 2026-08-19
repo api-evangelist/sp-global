@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kensho Extract annotations-async Ids API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ids",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Unified Identification Triple",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kfinance.kensho.com/api/v1/ids",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP, Company ID, ticker, or company name)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

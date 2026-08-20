@@ -216,6 +216,12 @@ apis:
   humanURL: https://docs.kensho.com/scribe/v2/developer-guide
   baseURL: https://scribe.kensho.com
   tags:
+  - Speech-to-Text
+  - Transcription
+  - Audio
+  - Video
+  - Batch
+  tags_raw:
   - Speech to Text
   - Transcription
   - Audio
@@ -250,6 +256,13 @@ apis:
   humanURL: https://docs.kensho.com/scribe/v2/developer-guide
   baseURL: wss://scribe.kensho.com/ws
   tags:
+  - Speech-to-Text
+  - Transcription
+  - WebSocket
+  - Streaming
+  - Real-Time
+  - AsyncAPI
+  tags_raw:
   - Speech to Text
   - Transcription
   - WebSocket
@@ -274,6 +287,11 @@ apis:
   humanURL: https://docs.kensho.com/scribe/v1/overview
   baseURL: https://scribe.kensho.com
   tags:
+  - Speech-to-Text
+  - Transcription
+  - Audio
+  - Legacy
+  tags_raw:
   - Speech to Text
   - Transcription
   - Audio
@@ -563,6 +581,20 @@ common:
   url: https://www.spglobal.com/en/terms-of-use
   title: S&P Global Terms of Use
 tags:
+- Capital IQ
+- Commodity Insights
+- Credit Ratings
+- Document Extraction
+- ESG
+- Financial Data
+- Index Data
+- LLM
+- MCP
+- Market Intelligence
+- Mobility
+- Named Entity Recognition
+- Speech-to-Text
+tags_raw:
 - Capital IQ
 - Commodity Insights
 - Credit Ratings

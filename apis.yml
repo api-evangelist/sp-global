@@ -1,10 +1,10 @@
 aid: sp-global
 name: S&P Global
-description: S&P Global (NYSE SPGI) is the parent of S&P Global Ratings, S&P Global Market Intelligence, S&P Dow Jones Indices,
-  S&P Global Commodity Insights (Platts), S&P Global Mobility, and S&P Global Sustainable1. Its public developer surface is
-  anchored by Kensho Technologies (a wholly-owned S&P Global AI subsidiary) which ships REST APIs for the S&P Global LLM-ready
-  API (kFinance), Extract, NERD, Scribe, and the Grounding Agent, plus the S&P Capital IQ Pro and Marketplace data products
-  distributed through the S&P Global Marketplace.
+description: S&P Global (NYSE SPGI) is the parent of S&P Global Ratings, S&P Global Market Intelligence, S&P Dow
+  Jones Indices, S&P Global Commodity Insights (Platts), S&P Global Mobility, and S&P Global Sustainable1. Its public
+  developer surface is anchored by Kensho Technologies (a wholly-owned S&P Global AI subsidiary) which ships REST
+  APIs for the S&P Global LLM-ready API (kFinance), Extract, NERD, Scribe, and the Grounding Agent, plus the S&P
+  Capital IQ Pro and Marketplace data products distributed through the S&P Global Marketplace.
 deliveryModel:
   model: saas
   open_source: false
@@ -42,13 +42,12 @@ position: Consuming
 apis:
 - aid: sp-global:kensho-llm-ready-api
   name: S&P Global LLM-Ready API (kFinance)
-  description: >-
-    REST API and Model Context Protocol server exposing S&P Capital IQ Financials, Market Data, Business
-    Relationships, Earnings Call Transcripts, Company Intelligence, M&A Transactions, and Global Securities
-    information to LLMs and agentic AI applications. Distributed via the kensho-kfinance Python library
-    and an MCP server compatible with Claude, ChatGPT, Microsoft Copilot Studio, Amazon QuickSuite, Databricks,
-    and Mistral. 60 documented REST endpoints across companies, securities, statements, estimates, transcripts,
-    mergers, funding rounds, and identifier crosswalks.
+  description: REST API and Model Context Protocol server exposing S&P Capital IQ Financials, Market Data, Business
+    Relationships, Earnings Call Transcripts, Company Intelligence, M&A Transactions, and Global Securities information
+    to LLMs and agentic AI applications. Distributed via the kensho-kfinance Python library and an MCP server compatible
+    with Claude, ChatGPT, Microsoft Copilot Studio, Amazon QuickSuite, Databricks, and Mistral. 60 documented REST
+    endpoints across companies, securities, statements, estimates, transcripts, mergers, funding rounds, and identifier
+    crosswalks.
   humanURL: https://docs.kensho.com/llmreadyapi
   baseURL: https://kfinance.kensho.com
   tags:
@@ -134,8 +133,7 @@ apis:
     title: kFinance source on GitHub
   - type: Sandbox
     url: https://github.com/kensho-technologies/llm-ready-api-examples
-    title: >-
-      LLM-ready API example notebooks (basic usage, function calling, code generation, LangChain)
+    title: LLM-ready API example notebooks (basic usage, function calling, code generation, LangChain)
   - type: MCPServer
     url: https://docs.kensho.com/llmreadyapi/mcp
     title: kFinance MCP server (stdio, SSE, streamable-http transports)
@@ -146,16 +144,14 @@ apis:
     url: https://docs.kensho.com/authentication
     title: OIDC / OAuth 2.0 with public-private keypairs or refresh tokens
   - type: Signup
-    url: >-
-      https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29
+    url: https://www.marketplace.spglobal.com/en/solutions/kensho-llm-ready-api-%28a156fe9f-5564-4f60-a624-95d8645dc98f%29
   - type: JSONLD
     url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-extract-api
   name: Kensho Extract API
-  description: >-
-    Transforms unstructured PDF and image documents into machine-readable JSON, identifying titles, subtitles,
-    paragraphs, tables, and footers in natural reading order. Optional OCR and Figure Extraction (FigEx).
-    REST API at extract.kensho.com with asynchronous extractions and presigned upload/download URLs.
+  description: Transforms unstructured PDF and image documents into machine-readable JSON, identifying titles, subtitles,
+    paragraphs, tables, and footers in natural reading order. Optional OCR and Figure Extraction (FigEx). REST API
+    at extract.kensho.com with asynchronous extractions and presigned upload/download URLs.
   humanURL: https://docs.kensho.com/extract
   baseURL: https://extract.kensho.com
   tags:
@@ -188,9 +184,8 @@ apis:
     url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-nerd-api
   name: Kensho NERD API
-  description: >-
-    Named-Entity Recognition and Disambiguation REST service linking text mentions to S&P Capital IQ company
-    identifiers and to Wikimedia entities (people, places, events). Supports asynchronous batch annotation
+  description: Named-Entity Recognition and Disambiguation REST service linking text mentions to S&P Capital IQ
+    company identifiers and to Wikimedia entities (people, places, events). Supports asynchronous batch annotation
     with optional person tagging and originating-entity context for financial documents.
   humanURL: https://docs.kensho.com/nerd
   baseURL: https://nerd.kensho.com
@@ -226,11 +221,9 @@ apis:
     url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-scribe-batch-v2-api
   name: Kensho Scribe Batch API v2
-  description: >-
-    Asynchronous audio and video transcription REST API. POST a media file to start a transcription job,
-    then poll the transcription ID for completion. Optimised for finance and business audio (earnings
-    calls, conferences). Companion real-time WebSocket API and Human-in-the-Loop batch option are documented
-    alongside.
+  description: Asynchronous audio and video transcription REST API. POST a media file to start a transcription job,
+    then poll the transcription ID for completion. Optimised for finance and business audio (earnings calls, conferences).
+    Companion real-time WebSocket API and Human-in-the-Loop batch option are documented alongside.
   humanURL: https://docs.kensho.com/scribe/v2/developer-guide
   baseURL: https://scribe.kensho.com
   tags:
@@ -265,14 +258,13 @@ apis:
     url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-scribe-realtime-api
   name: Kensho Scribe Real Time API
-  description: >-
-    Real-time streaming transcription over a WebSocket at wss://scribe.kensho.com/ws. Clients send an
-    Authenticate message with a Kensho OIDC access token, then StartTranscription with an audio_format
-    (RAW pcm_s16le, 16 kHz, mono), followed by base64-encoded AddData chunks of at most 15 seconds each
-    carrying monotonically increasing sequence_numbers, and finally EndOfStream. The server streams TranscriptionStarted,
-    DataAdded, AddTranscript, EndOfTranscript, and Error messages back over the same socket. This is the
-    only public WebSocket surface S&P Global exposes — Capital IQ Pro, Marketplace, and other market-data
-    feeds are delivered via REST, file/SFTP, Snowflake share, and Databricks share.
+  description: Real-time streaming transcription over a WebSocket at wss://scribe.kensho.com/ws. Clients send an
+    Authenticate message with a Kensho OIDC access token, then StartTranscription with an audio_format (RAW pcm_s16le,
+    16 kHz, mono), followed by base64-encoded AddData chunks of at most 15 seconds each carrying monotonically increasing
+    sequence_numbers, and finally EndOfStream. The server streams TranscriptionStarted, DataAdded, AddTranscript,
+    EndOfTranscript, and Error messages back over the same socket. This is the only public WebSocket surface S&P
+    Global exposes — Capital IQ Pro, Marketplace, and other market-data feeds are delivered via REST, file/SFTP,
+    Snowflake share, and Databricks share.
   humanURL: https://docs.kensho.com/scribe/v2/developer-guide
   baseURL: wss://scribe.kensho.com/ws
   tags:
@@ -302,8 +294,7 @@ apis:
     url: json-ld/sp-global-context.jsonld
 - aid: sp-global:kensho-scribe-batch-v1-api
   name: Kensho Scribe Batch API v1
-  description: >-
-    Legacy v1 batch transcription endpoint (POST /api/v1/transcription). Superseded by the v2 batch API
+  description: Legacy v1 batch transcription endpoint (POST /api/v1/transcription). Superseded by the v2 batch API
     which decouples submission from result retrieval. Documented here for customers on the v1 contract.
   humanURL: https://docs.kensho.com/scribe/v1/overview
   baseURL: https://scribe.kensho.com
@@ -333,10 +324,9 @@ apis:
     url: https://docs.kensho.com/authentication
 - aid: sp-global:kensho-grounding-agent
   name: Kensho Grounding Agent (Alpha)
-  description: >-
-    Data retrieval service that translates natural-language queries into structured retrieval tasks across
-    S&P Global AI-ready datasets. Returns answers with source citations linking back to the underlying
-    S&P Global data. Currently Alpha — access by request to commercial@kensho.com. No public OpenAPI yet.
+  description: Data retrieval service that translates natural-language queries into structured retrieval tasks across
+    S&P Global AI-ready datasets. Returns answers with source citations linking back to the underlying S&P Global
+    data. Currently Alpha — access by request to commercial@kensho.com. No public OpenAPI yet.
   humanURL: https://docs.kensho.com/grounding/overview
   tags:
   - Grounding
@@ -353,11 +343,10 @@ apis:
     url: https://kensho.com/grounding
 - aid: sp-global:sp-capital-iq-pro
   name: S&P Capital IQ Pro
-  description: >-
-    Flagship desktop and API platform for S&P Global Market Intelligence — company fundamentals, ownership,
-    transactions, estimates, news, screening, charting, and Office plug-ins. The Capital IQ Pro API is
-    delivered as part of an enterprise subscription rather than as a self-serve developer signup; the
-    LLM-ready API exposes a substantial subset of the same dataset.
+  description: Flagship desktop and API platform for S&P Global Market Intelligence — company fundamentals, ownership,
+    transactions, estimates, news, screening, charting, and Office plug-ins. The Capital IQ Pro API is delivered
+    as part of an enterprise subscription rather than as a self-serve developer signup; the LLM-ready API exposes
+    a substantial subset of the same dataset.
   humanURL: https://www.spglobal.com/market-intelligence/en/solutions/products/sp-capital-iq-pro
   tags:
   - Capital IQ
@@ -371,12 +360,10 @@ apis:
     url: https://www.spglobal.com/market-intelligence/en/contact-us
 - aid: sp-global:sp-marketplace
   name: S&P Global Marketplace
-  description: >-
-    Data and analytics catalog spanning S&P Global business units (Market Intelligence, Ratings, Commodity
-    Insights/Platts, Mobility, Sustainable1, Indices, Dow Jones) plus third-party vendors. Distribution
-    mechanisms include Snowflake shares, Databricks shares, file/SFTP delivery, API access, and packaged
-    datasets. The Marketplace is the front door for discovering S&P Global APIs that are sold through
-    enterprise channels.
+  description: Data and analytics catalog spanning S&P Global business units (Market Intelligence, Ratings, Commodity
+    Insights/Platts, Mobility, Sustainable1, Indices, Dow Jones) plus third-party vendors. Distribution mechanisms
+    include Snowflake shares, Databricks shares, file/SFTP delivery, API access, and packaged datasets. The Marketplace
+    is the front door for discovering S&P Global APIs that are sold through enterprise channels.
   humanURL: https://www.marketplace.spglobal.com
   tags:
   - Marketplace
@@ -399,6 +386,126 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/sp-global-funding-rounds-api-openapi.yml
+- aid: sp-global:market-intelligence
+  name: S&P Capital IQ Market Intelligence API
+  description: Comprehensive financial data API providing access to fundamental data, industry-specific and segment
+    data, valuations and pricing, S&P Global Credit Ratings and Research, and reference and terms and conditions
+    data. Uses Bearer token authentication with tokens valid for 60 minutes.
+  humanURL: https://developer.marketintelligence.spglobal.com/
+  baseURL: https://api-ciq.marketintelligence.spglobal.com
+  tags:
+  - Market Intelligence
+  - Capital IQ
+  - Financial Data
+  - Credit Ratings
+  properties:
+  - type: Documentation
+    url: https://developer.marketintelligence.spglobal.com/catalog-service/
+  - type: Authentication
+    url: https://developer.marketintelligence.spglobal.com/catalog-service/
+- aid: sp-global:marketplace-catalog
+  name: S&P Global Marketplace Catalog API
+  description: API providing programmatic access to the S&P Global Marketplace catalog of premium fundamental and
+    alternative datasets. Enables discovery and integration of datasets available on the marketplace platform.
+  humanURL: https://www.marketplace.spglobal.com/en/solutions/s-p-global-marketplace-catalog-api-(03f3c047-dcac-4fa7-a1ef-fb48a4d9b75d)
+  baseURL: https://marketplace.spglobal.com
+  tags:
+  - Marketplace
+  - Catalog
+  - Datasets
+  properties:
+  - type: Documentation
+    url: https://www.marketplace.spglobal.com/en/solutions/api-solutions-(61953ac7-ea64-4fac-926a-feb7f846c2be)
+- aid: sp-global:s-and-p-global-authentication-api
+  name: S&P Global Authentication API
+  description: Token-based authentication
+  humanURL: https://developer.spglobal.com/commodityinsights/
+  baseURL: https://api.platts.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/s-and-p-global-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started
+  - type: Authentication
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started?tab=authentication
+  - type: SDKs
+    url: https://pypi.org/project/spgci/
+  - type: Documentation
+    url: https://api.link.kensho.com/docs/guides/rest-api/
+- aid: sp-global:s-and-p-global-entity-resolution-api
+  name: S&P Global Entity Resolution API
+  description: Entity linking and resolution operations
+  humanURL: https://developer.spglobal.com/commodityinsights/
+  baseURL: https://api.platts.com
+  tags:
+  - Entity Resolution
+  properties:
+  - type: OpenAPI
+    url: openapi/s-and-p-global-entity-resolution-api-openapi.yml
+  - type: Documentation
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started
+  - type: Authentication
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started?tab=authentication
+  - type: SDKs
+    url: https://pypi.org/project/spgci/
+  - type: Documentation
+    url: https://api.link.kensho.com/docs/guides/rest-api/
+- aid: sp-global:s-and-p-global-market-data-api
+  name: S&P Global Market Data API
+  description: Real-time and historical commodity market prices
+  humanURL: https://developer.spglobal.com/commodityinsights/
+  baseURL: https://api.platts.com
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/s-and-p-global-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started
+  - type: Authentication
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started?tab=authentication
+  - type: SDKs
+    url: https://pypi.org/project/spgci/
+  - type: Documentation
+    url: https://api.link.kensho.com/docs/guides/rest-api/
+- aid: sp-global:s-and-p-global-reference-data-api
+  name: S&P Global Reference Data API
+  description: Symbol and contract reference data
+  humanURL: https://developer.spglobal.com/commodityinsights/
+  baseURL: https://api.platts.com
+  tags:
+  - Reference Data
+  properties:
+  - type: OpenAPI
+    url: openapi/s-and-p-global-reference-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started
+  - type: Authentication
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started?tab=authentication
+  - type: SDKs
+    url: https://pypi.org/project/spgci/
+  - type: Documentation
+    url: https://api.link.kensho.com/docs/guides/rest-api/
+- aid: sp-global:s-and-p-global-search-api
+  name: S&P Global Search API
+  description: Entity search and discovery
+  humanURL: https://developer.spglobal.com/commodityinsights/
+  baseURL: https://api.platts.com
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/s-and-p-global-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started
+  - type: Authentication
+    url: https://developer.spglobal.com/commodityinsights/api/getting-started?tab=authentication
+  - type: SDKs
+    url: https://pypi.org/project/spgci/
+  - type: Documentation
+    url: https://api.link.kensho.com/docs/guides/rest-api/
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/sp-global/overview
@@ -489,30 +596,31 @@ common:
 - type: UseCases
   data:
   - name: AI Equity Research
-    description: Ground LLM-generated investment notes, tearsheets, and earnings previews in live S&P Capital IQ data via
-      the LLM-ready API and the S&P Global Claude Cowork plugin.
+    description: Ground LLM-generated investment notes, tearsheets, and earnings previews in live S&P Capital IQ
+      data via the LLM-ready API and the S&P Global Claude Cowork plugin.
   - name: M&A and Funding Intelligence
-    description: Pull merger, acquisition, advisor, and funding-round details for deal sourcing, target screening, and competitive
-      intelligence.
+    description: Pull merger, acquisition, advisor, and funding-round details for deal sourcing, target screening,
+      and competitive intelligence.
   - name: Earnings and Estimates Workflows
-    description: Retrieve consensus, estimates, calendar dates, and transcripts for earnings preview generation and post-call
-      analysis.
+    description: Retrieve consensus, estimates, calendar dates, and transcripts for earnings preview generation
+      and post-call analysis.
   - name: Document Intelligence
-    description: Convert PDF filings, decks, and research into structured JSON with Kensho Extract for downstream RAG and
-      analytics pipelines.
+    description: Convert PDF filings, decks, and research into structured JSON with Kensho Extract for downstream
+      RAG and analytics pipelines.
   - name: Entity Linking for Financial Text
-    description: Use Kensho NERD to disambiguate company and security mentions in news, filings, and chat to canonical Capital
-      IQ IDs.
+    description: Use Kensho NERD to disambiguate company and security mentions in news, filings, and chat to canonical
+      Capital IQ IDs.
   - name: Earnings Call Transcription
-    description: Transcribe finance and business audio with Kensho Scribe v2 batch and real-time APIs, including Human-in-the-Loop
-      review for highest accuracy.
+    description: Transcribe finance and business audio with Kensho Scribe v2 batch and real-time APIs, including
+      Human-in-the-Loop review for highest accuracy.
   - name: Grounded Conversational Analytics
-    description: Build chatbots and analyst assistants that return cited answers from S&P Global datasets via the Grounding
-      Agent.
+    description: Build chatbots and analyst assistants that return cited answers from S&P Global datasets via the
+      Grounding Agent.
 - type: Integrations
   data:
   - name: Claude (Anthropic)
-    description: First-class Claude Desktop, Claude Cowork, and Claude Code MCP integrations including the S&P Global Plugin.
+    description: First-class Claude Desktop, Claude Cowork, and Claude Code MCP integrations including the S&P Global
+      Plugin.
   - name: ChatGPT (OpenAI)
     description: MCP connector documented under llmreadyapi/mcp/third-party/chatgpt; code-generation and function-calling
       notebooks for OpenAI models.
@@ -525,15 +633,15 @@ common:
   - name: Mistral (Beta)
     description: MCP integration in beta for Mistral-hosted agents.
   - name: LangChain
-    description: Function-calling notebooks under llm-ready-api-examples wrap kFinance tools as LangChain tools across OpenAI,
-      Anthropic, and Google Gemini providers.
+    description: Function-calling notebooks under llm-ready-api-examples wrap kFinance tools as LangChain tools
+      across OpenAI, Anthropic, and Google Gemini providers.
   - name: Snowflake Marketplace
     description: Distribution channel for S&P Global Marketplace datasets via Snowflake data sharing.
 - type: Subsidiaries
   data:
   - name: Kensho Technologies
-    description: S&P Global AI subsidiary that owns the public developer API surface (LLM-ready API, Extract, NERD, Scribe,
-      Grounding) and the kensho-kfinance SDK.
+    description: S&P Global AI subsidiary that owns the public developer API surface (LLM-ready API, Extract, NERD,
+      Scribe, Grounding) and the kensho-kfinance SDK.
     url: https://kensho.com
   - name: S&P Global Market Intelligence
     description: Capital IQ Pro, Marketplace, Compustat, RatingsXpress, Panjiva, 451 Research, and other data-intelligence
@@ -615,6 +723,12 @@ common:
 - type: TermsOfService
   url: https://www.spglobal.com/en/terms-of-use
   title: S&P Global Terms of Use
+- type: Website
+  url: https://www.spglobal.com
+- type: Documentation
+  url: https://developer.spglobal.com/commodityinsights/api/getting-started
+- type: Blog
+  url: https://www.spglobal.com/en/research-insights/articles
 tags:
 - Capital IQ
 - Commodity Insights

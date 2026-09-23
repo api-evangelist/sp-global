@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Fundinground API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Fundinground API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -75,8 +65,7 @@ paths:
                       option_pool: null
                       participating_preferred_cap: null
                       liquidation_preference_multiple: null
-                      use_of_proceeds: Kensho Technologies Inc. will use the proceeds in part toward buying more data sets
-                        to supplement its current pool of information and toward bringing its technology to other industries.
+                      use_of_proceeds: Kensho Technologies Inc. will use the proceeds in part toward buying more data sets to supplement its current pool of information and toward bringing its technology to other industries.
                       pre_deal_situation: null
                       redemption: null
                       cumulative_dividends: null
@@ -101,6 +90,8 @@ paths:
           description: Indicates that no round of funding info was found for the given transaction_id.
       tags:
       - Fundinground
+      summary: Fundinground info retrieve
+      x-summary-source: derived
   /api/v1/fundinground/info/{transaction_id}/advisors/investor/{advised_company_id}:
     get:
       operationId: fundinground_info_advisors_investor_retrieve
@@ -141,6 +132,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Fundinground
+      summary: Fundinground info advisors investor retrieve
+      x-summary-source: derived
   /api/v1/fundinground/info/{transaction_id}/advisors/target:
     get:
       operationId: fundinground_info_advisors_target_retrieve
@@ -182,39 +175,62 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Fundinground
+      summary: Fundinground info advisors target retrieve
+      x-summary-source: derived
 components:
   schemas:
-    TransactionInfoParticipant:
+    RoundOfFundingInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        investors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
+      required:
+      - investors
+      - target
+    RoundOfFundingInfoParticipant:
       type: object
       properties:
         company_id:
           type: integer
         company_name:
           type: string
+        lead_investor:
+          type: boolean
+        investment_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the investment value
+        ownership_percentage_pre:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage before the transaction
+        ownership_percentage_post:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage after the transaction
+        board_seat_granted:
+          type:
+          - boolean
+          - 'null'
+          description: Whether a board seat was granted to this investor
       required:
       - company_id
       - company_name
-    RoundOfFundingInfoSecurity:
-      type: object
-      properties:
-        dividend_per_share:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        annualized_dividend_rate:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        seniority_level:
-          type: string
-        coupon_type:
-          type: string
-        funding_convertible_type:
-          type: string
-        security_description:
-          type: string
-        class_series_tranche:
-          type: string
     RoundOfFundingInfo:
       type: object
       properties:
@@ -231,74 +247,16 @@ components:
       - security
       - timeline
       - transaction
-    RoundOfFundingInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        investors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
-      required:
-      - investors
-      - target
-    RoundOfFundingInfoTimeline:
-      type: object
-      properties:
-        announced_date:
-          type: string
-          format: date
-          nullable: true
-        closed_date:
-          type: string
-          format: date
-          nullable: true
-    RoundOfFundingInfoParticipant:
+    TransactionInfoParticipant:
       type: object
       properties:
         company_id:
           type: integer
         company_name:
           type: string
-        lead_investor:
-          type: boolean
-        investment_value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        currency:
-          type: string
-          nullable: true
-          description: Currency of the investment value
-        ownership_percentage_pre:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          nullable: true
-          description: Ownership percentage before the transaction
-        ownership_percentage_post:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          nullable: true
-          description: Ownership percentage after the transaction
-        board_seat_granted:
-          type: boolean
-          nullable: true
-          description: Whether a board seat was granted to this investor
       required:
       - company_id
       - company_name
-    AdvisorsResponse:
-      type: object
-      properties:
-        advisors:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvisorResponse'
-      required:
-      - advisors
     AdvisorResponse:
       type: object
       description: Advisor response with fee information added to original fields.
@@ -310,18 +268,21 @@ components:
         advisor_type_name:
           type: string
         is_lead:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           description: Whether this is a lead advisor
         advisor_fee_amount:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
           pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
-          nullable: true
           description: Advisor fee amount
         advisor_fee_currency:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Currency of the advisor fee (ISO-4217 code)
       required:
       - advisor_company_id
@@ -407,8 +368,55 @@ components:
           type: string
         pay_to_play_penalties:
           type: string
+    RoundOfFundingInfoSecurity:
+      type: object
+      properties:
+        dividend_per_share:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        annualized_dividend_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        seniority_level:
+          type: string
+        coupon_type:
+          type: string
+        funding_convertible_type:
+          type: string
+        security_description:
+          type: string
+        class_series_tranche:
+          type: string
+    AdvisorsResponse:
+      type: object
+      properties:
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
+      required:
+      - advisors
+    RoundOfFundingInfoTimeline:
+      type: object
+      properties:
+        announced_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        closed_date:
+          type:
+          - string
+          - 'null'
+          format: date
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

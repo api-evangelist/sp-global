@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Estimates API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Estimates API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -72,14 +62,15 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Estimates
+      summary: Get estimates
+      x-summary-source: derived
   /api/v1/estimates/analyst_recommendations/{company_id}:
     get:
       operationId: Get Analyst Recommendations
       description: 'Get analyst recommendations for a given company_id.
 
 
-        Returns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global
-        Market Intelligence
+        Returns counts of analyst recommendations by rating category and an aggregate analyst consensus score. S&P Global Market Intelligence
 
         standardizes ratings across brokers on a 5-point scale: 1 = Buy, 2 = Outperform, 3 = Hold, 4 = Underperform, 5 = Sell.
 
@@ -129,6 +120,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Estimates
+      summary: Get analyst recommendations
+      x-summary-source: derived
   /api/v1/estimates/consensus_target_price/{company_id}:
     get:
       operationId: Get Consensus Target Price
@@ -177,58 +170,38 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Estimates
+      summary: Get consensus target price
+      x-summary-source: derived
 components:
   schemas:
-    EstimatesRequest:
+    EstimatesRequestPeriodTypeEnum:
+      enum:
+      - annual
+      - quarterly
+      - semi_annual
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `semi_annual` - semi_annual'
+    ConsensusTargetPriceItem:
       type: object
-      description: Request fields for get_estimates
       properties:
-        company_id:
-          type: integer
-        estimate_type:
-          nullable: true
-          default: consensus
-          oneOf:
-          - $ref: '#/components/schemas/EstimateTypeEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        period_type:
-          nullable: true
-          default: quarterly
-          oneOf:
-          - $ref: '#/components/schemas/EstimatesRequestPeriodTypeEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        fiscal_start_year:
-          type: integer
-          maximum: 9999
-          minimum: 1000
-          nullable: true
-        fiscal_end_year:
-          type: integer
-          maximum: 9999
-          minimum: 1000
-          nullable: true
-        fiscal_start_quarter:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/FiscalStartQuarterEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        fiscal_end_quarter:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/FiscalEndQuarterEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        num_periods_forward:
-          type: integer
-          maximum: 99
-          minimum: 0
-          nullable: true
-        num_periods_backward:
-          type: integer
-          maximum: 99
-          minimum: 0
-          nullable: true
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
       required:
-      - company_id
+      - name
+      - value
+    NullEnum:
+      enum:
+      - null
     FiscalStartQuarterEnum:
       enum:
       - 1
@@ -243,157 +216,6 @@ components:
         * `3` - 3
 
         * `4` - 4'
-    ConsensusTargetPrice:
-      type: object
-      properties:
-        currency:
-          type: string
-          nullable: true
-        effective_date:
-          type: string
-          format: date
-          nullable: true
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsensusTargetPriceItem'
-      required:
-      - currency
-      - effective_date
-      - estimates
-    EstimatesRequestPeriodTypeEnum:
-      enum:
-      - annual
-      - quarterly
-      - semi_annual
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `semi_annual` - semi_annual'
-    FiscalEndQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    AnalystRecommendationsResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AnalystRecommendations'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
-    AnalystRecommendations:
-      type: object
-      properties:
-        effective_date:
-          type: string
-          format: date
-          nullable: true
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalystRecommendationsItem'
-      required:
-      - effective_date
-      - estimates
-    AnalystRecommendationsItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-          nullable: true
-      required:
-      - name
-      - value
-    EstimatesPeriod:
-      type: object
-      properties:
-        period_end_date:
-          type: string
-          format: date
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/EstimatesLineItem'
-      required:
-      - estimates
-      - period_end_date
-    EstimateTypeEnum:
-      enum:
-      - consensus
-      - guidance
-      type: string
-      description: '* `consensus` - consensus
-
-        * `guidance` - guidance'
-    EstimatesItemResponse:
-      type: object
-      properties:
-        estimate_type:
-          $ref: '#/components/schemas/EstimateTypeEnum'
-        currency:
-          type: string
-          nullable: true
-        period_type:
-          type: string
-          nullable: true
-        periods:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EstimatesPeriod'
-      required:
-      - currency
-      - period_type
-      - periods
-    EstimatesLineItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-          nullable: true
-      required:
-      - name
-      - value
-    ConsensusTargetPriceItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-          nullable: true
-      required:
-      - name
-      - value
     ConsensusTargetPriceResponse:
       type: object
       properties:
@@ -409,6 +231,140 @@ components:
       required:
       - errors
       - results
+    EstimatesPeriod:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstimatesLineItem'
+      required:
+      - estimates
+      - period_end_date
+    AnalystRecommendationsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AnalystRecommendations'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    ConsensusTargetPrice:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        effective_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsensusTargetPriceItem'
+      required:
+      - currency
+      - effective_date
+      - estimates
+    EstimateTypeEnum:
+      enum:
+      - consensus
+      - guidance
+      type: string
+      description: '* `consensus` - consensus
+
+        * `guidance` - guidance'
+    AnalystRecommendationsItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+      required:
+      - name
+      - value
+    EstimatesItemResponse:
+      type: object
+      properties:
+        estimate_type:
+          $ref: '#/components/schemas/EstimateTypeEnum'
+        currency:
+          type:
+          - string
+          - 'null'
+        period_type:
+          type:
+          - string
+          - 'null'
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EstimatesPeriod'
+      required:
+      - currency
+      - period_type
+      - periods
+    AnalystRecommendations:
+      type: object
+      properties:
+        effective_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalystRecommendationsItem'
+      required:
+      - effective_date
+      - estimates
+    FiscalEndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    EstimatesLineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+      required:
+      - name
+      - value
     EstimatesResponse:
       type: object
       properties:
@@ -424,11 +380,62 @@ components:
       required:
       - errors
       - results
-    NullEnum:
-      enum:
-      - null
+    EstimatesRequest:
+      type: object
+      description: Request fields for get_estimates
+      properties:
+        company_id:
+          type: integer
+        estimate_type:
+          default: consensus
+          oneOf:
+          - $ref: '#/components/schemas/EstimateTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        period_type:
+          default: quarterly
+          oneOf:
+          - $ref: '#/components/schemas/EstimatesRequestPeriodTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        fiscal_start_year:
+          type:
+          - integer
+          - 'null'
+          maximum: 9999
+          minimum: 1000
+        fiscal_end_year:
+          type:
+          - integer
+          - 'null'
+          maximum: 9999
+          minimum: 1000
+        fiscal_start_quarter:
+          oneOf:
+          - $ref: '#/components/schemas/FiscalStartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        fiscal_end_quarter:
+          oneOf:
+          - $ref: '#/components/schemas/FiscalEndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods_forward:
+          type:
+          - integer
+          - 'null'
+          maximum: 99
+          minimum: 0
+        num_periods_backward:
+          type:
+          - integer
+          - 'null'
+          maximum: 99
+          minimum: 0
+      required:
+      - company_id
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

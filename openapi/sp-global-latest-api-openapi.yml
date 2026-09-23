@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Latest API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Latest API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -21,11 +11,38 @@ paths:
   /api/v1/latest:
     get:
       operationId: Get Latest Date
-      description: "Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in\
-        \ UTC. The output is a dictionary with the following schema::\n\n{\n    \"annual\": {\n        \"latest_year\": int\n\
-        \    },\n    \"quarterly\": {\n        \"latest_quarter\": int,\n        \"latest_year\": int\n    },\n    \"now\"\
-        : {\n        \"current_year\": int,\n        \"current_quarter\": int,\n        \"current_month\": int,\n        \"\
-        current_date\": str # in format Y-m-d\n    }\n}"
+      description: 'Get the latest annual reporting year, latest quarterly reporting quarter and year, and current date in UTC. The output is a dictionary with the following schema::
+
+
+        {
+
+        "annual": {
+
+        "latest_year": int
+
+        },
+
+        "quarterly": {
+
+        "latest_quarter": int,
+
+        "latest_year": int
+
+        },
+
+        "now": {
+
+        "current_year": int,
+
+        "current_quarter": int,
+
+        "current_month": int,
+
+        "current_date": str # in format Y-m-d
+
+        }
+
+        }'
       security:
       - cookieAuth: []
       - Kensho_JWT_Auth: []
@@ -54,6 +71,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Latest
+      summary: Get latest date
+      x-summary-source: derived
 components:
   schemas:
     Quarterly:
@@ -65,6 +84,13 @@ components:
           type: integer
       required:
       - latest_quarter
+      - latest_year
+    Annual:
+      type: object
+      properties:
+        latest_year:
+          type: integer
+      required:
       - latest_year
     LatestResponse:
       type: object
@@ -97,15 +123,12 @@ components:
       - current_month
       - current_quarter
       - current_year
-    Annual:
-      type: object
-      properties:
-        latest_year:
-          type: integer
-      required:
-      - latest_year
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

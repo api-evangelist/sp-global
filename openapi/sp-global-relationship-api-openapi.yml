@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Relationship API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Relationship API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -21,13 +11,27 @@ paths:
   /api/v1/relationship/{company_id}/{relationship_type}:
     get:
       operationId: Get Companies by Business Relationships
-      description: "Get the list of current and previous companies that are relationship_type OF company_id.\n\nReturns a\
-        \ dictionary of shape:\n{\n    \"current\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}],\n\
-        \    \"previous\": List[{\"company_id\": <company_id>, \"company_name\": <company_name>}]\n}.\n\nExamples: get_companies_by_business_relationship(company_id:\
-        \ 1234, relationship_type: landlord) returns company 1234's landlords,\nand get_companies_by_business_relationship(company_id:\
-        \ 1234, relationship_type: tenant) returns company 1234's tenants.\nget_companies_by_business_relationship(company_id:\
-        \ 1234, relationship_type: supplier) returns company 1234's suppliers,\nand get_companies_by_business_relationship(company_id:\
-        \ 1234, relationship_type: distributor) returns company 1234's distributors."
+      description: 'Get the list of current and previous companies that are relationship_type OF company_id.
+
+
+        Returns a dictionary of shape:
+
+        {
+
+        "current": List[{"company_id": , "company_name": }],
+
+        "previous": List[{"company_id": , "company_name": }]
+
+        }.
+
+
+        Examples: get_companies_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234''s landlords,
+
+        and get_companies_by_business_relationship(company_id: 1234, relationship_type: tenant) returns company 1234''s tenants.
+
+        get_companies_by_business_relationship(company_id: 1234, relationship_type: supplier) returns company 1234''s suppliers,
+
+        and get_companies_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234''s distributors.'
       parameters:
       - in: path
         name: company_id
@@ -64,26 +68,24 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Relationship
+      summary: Get companies by business relationships
+      x-summary-source: derived
   /api/v1/relationship/{company_id}/{relationship_type}/ticker:
     get:
       operationId: Get Tickers by Business Relationships
       description: 'Get the list of current and previous ticker identification triples that are relationship_type OF company_id.
 
 
-        Returns a dictionary of shape {“current”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”:
-        <trading_item_id>}], “previous”: List[{“company_id”: <company_id>, “security_id”: <security_id>, “trading_item_id”:
-        <trading_item_id>}]}.
+        Returns a dictionary of shape {“current”: List[{“company_id”: , “security_id”: , “trading_item_id”: }], “previous”: List[{“company_id”: , “security_id”: , “trading_item_id”: }]}.
 
 
-        Examples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234''s
-        landlords,
+        Examples: get_tickers_by_business_relationship(company_id: 1234, relationship_type: landlord) returns company 1234''s landlords,
 
         and get_tickers_by_business_relationship(company_id: 1234, relationship_type: tenant) returns company 1234''s tenants.
 
         get_tickers_by_business_relationship(company_id: 1234, relationship_type: supplier) returns company 1234''s suppliers,
 
-        and get_tickers_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234''s
-        distributors.'
+        and get_tickers_by_business_relationship(company_id: 1234, relationship_type: distributor) returns company 1234''s distributors.'
       parameters:
       - in: path
         name: company_id
@@ -121,6 +123,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Relationship
+      summary: Get tickers by business relationships
+      x-summary-source: derived
 components:
   schemas:
     IdentificationTripleResponse:
@@ -128,11 +132,13 @@ components:
       description: Response fields serializing an identification triple
       properties:
         trading_item_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         security_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         company_id:
           type: integer
       required:
@@ -180,7 +186,11 @@ components:
       - company_id
       - company_name
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

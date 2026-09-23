@@ -1,31 +1,20 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async upload-url API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  description: This page contains the full API reference for Kensho NERD.
+  title: NERD Service Upload URL API
+  version: '1.0'
 servers:
 - url: https://nerd.kensho.com
 tags:
-- name: upload-url
+- name: Upload URL
 paths:
   /api/v1/upload-url:
     get:
       tags:
-      - upload-url
+      - Upload URL
       summary: Get An Upload URL For Uploading A Text File
       operationId: api_annotations_upload_url
-      description: This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15**
-        minutes.
+      description: This endpoint returns an upload URL, the form fields, and the job ID. The upload URL expires after **15** minutes.
       responses:
         '200':
           description: Indicates that the upload URL was created successfully.
@@ -62,8 +51,7 @@ components:
       properties:
         url:
           type: string
-          description: The URL to POST the document upload to. Returns 200 on success. Refer to the AWS pre-signed URL documentation
-            for detailed information on specific response codes and their meanings.
+          description: The URL to POST the document upload to. Returns 200 on success. Refer to the AWS pre-signed URL documentation for detailed information on specific response codes and their meanings.
           example: https://example-bucket.s3.amazonaws.com/
         fields:
           type: object
@@ -75,7 +63,13 @@ components:
           description: A unique identifier for tracking the upload job.
           example: fakeJobId1234567890
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+    BearerAuth:
       bearerFormat: JWT
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: openapi_server.controllers.security_controller_.info_from_BearerAuth
+    APIKey:
+      type: apiKey
+      name: kensho_nerd_token
+      in: cookie
+      x-apikeyInfoFunc: openapi_server.controllers.security_controller_.info_from_CookieAuth

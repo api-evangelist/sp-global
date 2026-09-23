@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Id API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready ID API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -54,6 +44,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Id
+      summary: CUSIP to identification triple
+      x-summary-source: derived
   /api/v1/id/{isin}:
     get:
       operationId: ISIN to Identification Triple
@@ -90,6 +82,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Id
+      summary: ISIN to identification triple
+      x-summary-source: derived
   /api/v1/id/{ticker}:
     get:
       operationId: Ticker to Identification Triple
@@ -125,6 +119,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Id
+      summary: Ticker to identification triple
+      x-summary-source: derived
   /api/v1/id/{ticker}/exchange_code/{exchange_code}:
     get:
       operationId: Ticker to Identification Triple_2
@@ -165,6 +161,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Id
+      summary: Ticker to identification triple 2
+      x-summary-source: derived
 components:
   schemas:
     IdentificationTripleWithCompanyInfoResponse:
@@ -172,21 +170,25 @@ components:
       description: Response fields for a request returning an identification triple with company info
       properties:
         trading_item_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         security_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         company_id:
           type: integer
         company_name:
           type: string
         ticker:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         country:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - company_id
       - company_name
@@ -195,7 +197,11 @@ components:
       - ticker
       - trading_item_id
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

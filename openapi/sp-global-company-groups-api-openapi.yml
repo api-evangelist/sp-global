@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Company Groups API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Company Groups API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -21,12 +11,14 @@ paths:
   /api/v1/company_groups/geo/country/{iso_code}/{state}:
     get:
       operationId: Get Companies By Location
-      description: "Get the list of companies based in a location with filters iso_code and state.\n\nParameters:\n    iso_code\
-        \ (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three\
-        \ letter code conforming to the ISO 3166-1 standard. Example: \"US\" or \"USA\" for the United States, \"FR\" or \"\
-        FRA\" for France, \"IN\" or \"IND\" for India.\n    state (string, optional): The ISO 3166-2 subdivision code representing\
-        \ a state, province, or region within the specified country. This code identifies the subdivision without repeating\
-        \ the country code. Example: \"CA\" for California, \"MH\" for Maharashtra."
+      description: 'Get the list of companies based in a location with filters iso_code and state.
+
+
+        Parameters:
+
+        iso_code (string, required): The ISO 3166-1 alpha-2 or alpha-3 code representing the country. This should be a two or three letter code conforming to the ISO 3166-1 standard. Example: "US" or "USA" for the United States, "FR" or "FRA" for France, "IN" or "IND" for India.
+
+        state (string, optional): The ISO 3166-2 subdivision code representing a state, province, or region within the specified country. This code identifies the subdivision without repeating the country code. Example: "CA" for California, "MH" for Maharashtra.'
       parameters:
       - in: path
         name: iso_code
@@ -69,6 +61,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Company Groups
+      summary: Get companies by location
+      x-summary-source: derived
   /api/v1/company_groups/industry/{industry_classification}/{industry_code}:
     get:
       operationId: Get Companies By Industry Code
@@ -118,16 +112,17 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Company Groups
+      summary: Get companies by industry code
+      x-summary-source: derived
   /api/v1/company_groups/industry/gics/{gics_code}:
     get:
       operationId: Get Companies By GICS Code
       description: 'Get the list of companies that are classified in the gics_code.
 
 
-        Returns a dictionary of shape {"companies": List[<company_id>]}.
+        Returns a dictionary of shape {"companies": List[]}.
 
-        The gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit
-        Sub-industry code.'
+        The gics_code can be either a 2-digit Sector code, 4-digit Industry Group code, 6-digit Industry code, or 8-digit Sub-industry code.'
       parameters:
       - in: path
         name: gics_code
@@ -164,6 +159,8 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Company Groups
+      summary: Get companies by GICS code
+      x-summary-source: derived
   /api/v1/company_groups/industry/simple/{simple_industry}:
     get:
       operationId: Get Companies By Simple Industry
@@ -204,12 +201,13 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Company Groups
+      summary: Get companies by simple industry
+      x-summary-source: derived
 components:
   schemas:
     CompanyListResponse:
       type: object
-      description: Response fields for get_companies_by_location, get_companies_by_simple_industry, get_companies_by_industry_code,
-        get_companies_by_gics_code
+      description: Response fields for get_companies_by_location, get_companies_by_simple_industry, get_companies_by_industry_code, get_companies_by_gics_code
       properties:
         companies:
           type: array
@@ -219,7 +217,11 @@ components:
       required:
       - companies
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

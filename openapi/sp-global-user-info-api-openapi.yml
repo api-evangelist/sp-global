@@ -1,27 +1,17 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async user-info API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  description: This page contains the full API reference for Kensho NERD.
+  title: NERD Service User Info API
+  version: '1.0'
 servers:
 - url: https://nerd.kensho.com
 tags:
-- name: user-info
+- name: User Info
 paths:
   /me:
     get:
       tags:
-      - user-info
+      - User Info
       operationId: me_get
       description: Returns information about the authenticated user.
       responses:
@@ -62,7 +52,13 @@ components:
         token:
           type: string
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+    BearerAuth:
       bearerFormat: JWT
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: openapi_server.controllers.security_controller_.info_from_BearerAuth
+    APIKey:
+      type: apiKey
+      name: kensho_nerd_token
+      in: cookie
+      x-apikeyInfoFunc: openapi_server.controllers.security_controller_.info_from_CookieAuth

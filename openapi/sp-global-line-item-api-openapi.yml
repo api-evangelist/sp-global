@@ -1,18 +1,8 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  version: 3.0.0
-  title: Kensho Extract annotations-async Line Item API
-  description: "Kensho Extract allows users to quickly transform their unstructured documents into a machine-readable format\
-    \ that identifies titles, subtitles, paragraphs, tables, and footers detected within the document in their natural reading\
-    \ order. \nKensho Extract interprets messy page layout, structuring text into cohesive paragraphs that can be effectively\
-    \ analyzed and searched. <br><br> The Kensho Extract API V3 has incorporated changes to how users must call the API.\n\
-    Please note there are more required fields in API V3 than API V2 (deprecated). The following fields are *mandatory* for\
-    \ `/v3/extractions`: file, document_type, ocr and enhanced_table_extraction. <br><br> API V3 introduces new upload and\
-    \ download functionality, allowing the upload of the original document and retrieval of the extracted document output\
-    \ via pre-signed URLs. The pre-signed URLs expire after 15 minutes. <br> These new endpoints must be called in the following\
-    \ order.\n  - `/v3/extractions/upload-url`\n    - followed by POST'ing the document to the `url` provided in the response\n\
-    \  - `/v3/extractions/upload-complete`\n  - `/v3/extractions/download-url/{request_id}`\n    - followed by a calling the\
-    \ GET `output_url` provided in the response\n"
+  title: LLM-ready Line Item API
+  version: 0.1.0
+  description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
 - url: https://kfinance.kensho.com
 tags:
@@ -24,8 +14,7 @@ paths:
       description: 'Get a financial line item for a set of company_ids.
 
 
-        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
-        period_type returns annual fiscal year values.'
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values.'
       requestBody:
         content:
           application/json:
@@ -114,14 +103,15 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Line Item
+      summary: Get financial line item
+      x-summary-source: derived
   /api/v1/line_item/{company_id}/{line_item}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
     get:
       operationId: Get Financial Line Item_2
       description: 'Get a financial line item for a given company_id.
 
 
-        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual
-        period_type returns annual fiscal year values.'
+        For a public company, the annual period_type returns annual calendar year values. For a private company, the annual period_type returns annual fiscal year values.'
       parameters:
       - in: path
         name: company_id
@@ -192,24 +182,10 @@ paths:
           description: Indicates that the authorization information is missing or invalid.
       tags:
       - Line Item
+      summary: Get financial line item 2
+      x-summary-source: derived
 components:
   schemas:
-    LineItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-          nullable: true
-        sources:
-          type: array
-          items: {}
-      required:
-      - name
-      - value
     FinancialItemResponse:
       type: object
       properties:
@@ -225,34 +201,10 @@ components:
       required:
       - errors
       - results
-    FinancialItemCurrencyResponse:
-      type: object
-      properties:
-        currency:
-          type: string
-          nullable: true
-        periods:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Period'
-      required:
-      - currency
-      - periods
-    PeriodTypeBe5Enum:
+    NullEnum:
       enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `ytd` - ytd
-
-        * `ltm` - ltm'
-    EndQuarterEnum:
+      - null
+    StartQuarterEnum:
       enum:
       - 1
       - 2
@@ -266,60 +218,6 @@ components:
         * `3` - 3
 
         * `4` - 4'
-    FinancialItemRequest:
-      type: object
-      description: Request fields for get_financial_item
-      properties:
-        line_item:
-          $ref: '#/components/schemas/LineItemEnum'
-        company_ids:
-          type: array
-          items:
-            type: integer
-          minItems: 1
-        period_type:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/PeriodTypeBe5Enum'
-          - $ref: '#/components/schemas/NullEnum'
-        start_year:
-          type: integer
-          maximum: 9999
-          minimum: 1000
-          nullable: true
-        end_year:
-          type: integer
-          maximum: 9999
-          minimum: 1000
-          nullable: true
-        start_quarter:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/StartQuarterEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        end_quarter:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/EndQuarterEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        calendar_type:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/CalendarTypeEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        num_periods:
-          type: integer
-          maximum: 99
-          minimum: 1
-          nullable: true
-        num_periods_back:
-          type: integer
-          maximum: 99
-          minimum: 0
-          nullable: true
-      required:
-      - company_ids
-      - line_item
     LineItemEnum:
       enum:
       - accounts_payable
@@ -1873,6 +1771,65 @@ components:
         * `weighted_average_diluted_shares_outstanding` - weighted_average_diluted_shares_outstanding
 
         * `working_capital` - working_capital'
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    FinancialItemCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
     Period:
       type: object
       properties:
@@ -1880,8 +1837,9 @@ components:
           type: string
           format: date
         num_months:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         line_item:
           $ref: '#/components/schemas/LineItem'
       required:
@@ -1896,25 +1854,66 @@ components:
       description: '* `fiscal` - fiscal
 
         * `calendar` - calendar'
-    StartQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    NullEnum:
-      enum:
-      - null
+    FinancialItemRequest:
+      type: object
+      description: Request fields for get_financial_item
+      properties:
+        line_item:
+          $ref: '#/components/schemas/LineItemEnum'
+        company_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+        period_type:
+          oneOf:
+          - $ref: '#/components/schemas/PeriodTypeBe5Enum'
+          - $ref: '#/components/schemas/NullEnum'
+        start_year:
+          type:
+          - integer
+          - 'null'
+          maximum: 9999
+          minimum: 1000
+        end_year:
+          type:
+          - integer
+          - 'null'
+          maximum: 9999
+          minimum: 1000
+        start_quarter:
+          oneOf:
+          - $ref: '#/components/schemas/StartQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        end_quarter:
+          oneOf:
+          - $ref: '#/components/schemas/EndQuarterEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        calendar_type:
+          oneOf:
+          - $ref: '#/components/schemas/CalendarTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        num_periods:
+          type:
+          - integer
+          - 'null'
+          maximum: 99
+          minimum: 1
+        num_periods_back:
+          type:
+          - integer
+          - 'null'
+          maximum: 99
+          minimum: 0
+      required:
+      - company_ids
+      - line_item
   securitySchemes:
-    bearerAuth:
+    Kensho_JWT_Auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

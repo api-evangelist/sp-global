@@ -179,115 +179,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RoundOfFundingInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        investors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
-      required:
-      - investors
-      - target
-    RoundOfFundingInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-        lead_investor:
-          type: boolean
-        investment_value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the investment value
-        ownership_percentage_pre:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          description: Ownership percentage before the transaction
-        ownership_percentage_post:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          description: Ownership percentage after the transaction
-        board_seat_granted:
-          type:
-          - boolean
-          - 'null'
-          description: Whether a board seat was granted to this investor
-      required:
-      - company_id
-      - company_name
-    RoundOfFundingInfo:
-      type: object
-      properties:
-        timeline:
-          $ref: '#/components/schemas/RoundOfFundingInfoTimeline'
-        participants:
-          $ref: '#/components/schemas/RoundOfFundingInfoParticipants'
-        transaction:
-          $ref: '#/components/schemas/RoundOfFundingInfoTransaction'
-        security:
-          $ref: '#/components/schemas/RoundOfFundingInfoSecurity'
-      required:
-      - participants
-      - security
-      - timeline
-      - transaction
-    TransactionInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-      required:
-      - company_id
-      - company_name
-    AdvisorResponse:
-      type: object
-      description: Advisor response with fee information added to original fields.
-      properties:
-        advisor_company_id:
-          type: integer
-        advisor_company_name:
-          type: string
-        advisor_type_name:
-          type: string
-        is_lead:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is a lead advisor
-        advisor_fee_amount:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
-          description: Advisor fee amount
-        advisor_fee_currency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the advisor fee (ISO-4217 code)
-      required:
-      - advisor_company_id
-      - advisor_company_name
-      - advisor_type_name
     RoundOfFundingInfoTransaction:
       type: object
       properties:
@@ -368,6 +259,43 @@ components:
           type: string
         pay_to_play_penalties:
           type: string
+    RoundOfFundingInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        investors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
+      required:
+      - investors
+      - target
+    AdvisorsResponse:
+      type: object
+      properties:
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
+      required:
+      - advisors
+    RoundOfFundingInfo:
+      type: object
+      properties:
+        timeline:
+          $ref: '#/components/schemas/RoundOfFundingInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/RoundOfFundingInfoParticipants'
+        transaction:
+          $ref: '#/components/schemas/RoundOfFundingInfoTransaction'
+        security:
+          $ref: '#/components/schemas/RoundOfFundingInfoSecurity'
+      required:
+      - participants
+      - security
+      - timeline
+      - transaction
     RoundOfFundingInfoSecurity:
       type: object
       properties:
@@ -389,15 +317,87 @@ components:
           type: string
         class_series_tranche:
           type: string
-    AdvisorsResponse:
+    RoundOfFundingInfoParticipant:
       type: object
       properties:
-        advisors:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvisorResponse'
+        company_id:
+          type: integer
+        company_name:
+          type: string
+        lead_investor:
+          type: boolean
+        investment_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the investment value
+        ownership_percentage_pre:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage before the transaction
+        ownership_percentage_post:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage after the transaction
+        board_seat_granted:
+          type:
+          - boolean
+          - 'null'
+          description: Whether a board seat was granted to this investor
       required:
-      - advisors
+      - company_id
+      - company_name
+    AdvisorResponse:
+      type: object
+      description: Advisor response with fee information added to original fields.
+      properties:
+        advisor_company_id:
+          type: integer
+        advisor_company_name:
+          type: string
+        advisor_type_name:
+          type: string
+        is_lead:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is a lead advisor
+        advisor_fee_amount:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
+          description: Advisor fee amount
+        advisor_fee_currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the advisor fee (ISO-4217 code)
+      required:
+      - advisor_company_id
+      - advisor_company_name
+      - advisor_type_name
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
     RoundOfFundingInfoTimeline:
       type: object
       properties:

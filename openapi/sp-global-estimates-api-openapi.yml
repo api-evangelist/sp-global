@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/estimates/:
     post:
-      operationId: Get Estimates
+      operationId: GetEstimates
       description: Get the consensus estimates or guidance for a given company.
       requestBody:
         content:
@@ -64,9 +64,11 @@ paths:
       - Estimates
       summary: Get estimates
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Estimates
   /api/v1/estimates/analyst_recommendations/{company_id}:
     get:
-      operationId: Get Analyst Recommendations
+      operationId: GetAnalystRecommendations
       description: 'Get analyst recommendations for a given company_id.
 
 
@@ -122,9 +124,11 @@ paths:
       - Estimates
       summary: Get analyst recommendations
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Analyst Recommendations
   /api/v1/estimates/consensus_target_price/{company_id}:
     get:
-      operationId: Get Consensus Target Price
+      operationId: GetConsensusTargetPrice
       description: Get the consensus target price estimates for a given company_id.
       parameters:
       - in: path
@@ -172,185 +176,10 @@ paths:
       - Estimates
       summary: Get consensus target price
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Consensus Target Price
 components:
   schemas:
-    EstimatesRequestPeriodTypeEnum:
-      enum:
-      - annual
-      - quarterly
-      - semi_annual
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `semi_annual` - semi_annual'
-    ConsensusTargetPriceItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-      required:
-      - name
-      - value
-    NullEnum:
-      enum:
-      - null
-    FiscalStartQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    ConsensusTargetPriceResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ConsensusTargetPrice'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
-    EstimatesPeriod:
-      type: object
-      properties:
-        period_end_date:
-          type: string
-          format: date
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/EstimatesLineItem'
-      required:
-      - estimates
-      - period_end_date
-    AnalystRecommendationsResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AnalystRecommendations'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
-    ConsensusTargetPrice:
-      type: object
-      properties:
-        currency:
-          type:
-          - string
-          - 'null'
-        effective_date:
-          type:
-          - string
-          - 'null'
-          format: date
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsensusTargetPriceItem'
-      required:
-      - currency
-      - effective_date
-      - estimates
-    EstimateTypeEnum:
-      enum:
-      - consensus
-      - guidance
-      type: string
-      description: '* `consensus` - consensus
-
-        * `guidance` - guidance'
-    AnalystRecommendationsItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-      required:
-      - name
-      - value
-    EstimatesItemResponse:
-      type: object
-      properties:
-        estimate_type:
-          $ref: '#/components/schemas/EstimateTypeEnum'
-        currency:
-          type:
-          - string
-          - 'null'
-        period_type:
-          type:
-          - string
-          - 'null'
-        periods:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EstimatesPeriod'
-      required:
-      - currency
-      - period_type
-      - periods
-    AnalystRecommendations:
-      type: object
-      properties:
-        effective_date:
-          type:
-          - string
-          - 'null'
-          format: date
-        estimates:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalystRecommendationsItem'
-      required:
-      - effective_date
-      - estimates
-    FiscalEndQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
     EstimatesLineItem:
       type: object
       properties:
@@ -365,21 +194,17 @@ components:
       required:
       - name
       - value
-    EstimatesResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EstimatesItemResponse'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
+    EstimatesRequestPeriodTypeEnum:
+      enum:
+      - annual
+      - quarterly
+      - semi_annual
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `semi_annual` - semi_annual'
     EstimatesRequest:
       type: object
       description: Request fields for get_estimates
@@ -430,6 +255,187 @@ components:
           minimum: 0
       required:
       - company_id
+    NullEnum:
+      enum:
+      - null
+    ConsensusTargetPriceResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ConsensusTargetPrice'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    ConsensusTargetPrice:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        effective_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsensusTargetPriceItem'
+      required:
+      - currency
+      - effective_date
+      - estimates
+    FiscalStartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    EstimatesResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EstimatesItemResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    EstimatesItemResponse:
+      type: object
+      properties:
+        estimate_type:
+          $ref: '#/components/schemas/EstimateTypeEnum'
+        currency:
+          type:
+          - string
+          - 'null'
+        period_type:
+          type:
+          - string
+          - 'null'
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EstimatesPeriod'
+      required:
+      - currency
+      - period_type
+      - periods
+    FiscalEndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    AnalystRecommendationsResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AnalystRecommendations'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    AnalystRecommendationsItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+      required:
+      - name
+      - value
+    ConsensusTargetPriceItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+      required:
+      - name
+      - value
+    EstimatesPeriod:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstimatesLineItem'
+      required:
+      - estimates
+      - period_end_date
+    EstimateTypeEnum:
+      enum:
+      - consensus
+      - guidance
+      type: string
+      description: '* `consensus` - consensus
+
+        * `guidance` - guidance'
+    AnalystRecommendations:
+      type: object
+      properties:
+        effective_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        estimates:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalystRecommendationsItem'
+      required:
+      - effective_date
+      - estimates
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

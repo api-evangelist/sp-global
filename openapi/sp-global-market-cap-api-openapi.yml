@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/market_cap/{company_id}/{start_date}/{end_date}:
     get:
-      operationId: Get Market Caps
+      operationId: GetMarketCaps
       description: 'Get the market caps between start and end date inclusive.
 
 
@@ -61,6 +61,8 @@ paths:
       - Market Cap
       summary: Get market caps
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Market Caps
 components:
   schemas:
     MarketCapsResponse:

@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/ticker_groups/exchange/{exchange_code}:
     get:
-      operationId: Get Tickers By Exchange Code
+      operationId: GetTickersByExchangeCode
       description: Get the list of tickers that are traded on exchange_code
       parameters:
       - in: path
@@ -53,9 +53,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by exchange code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Exchange Code
   /api/v1/ticker_groups/filters/geo/{iso_code}/{state}/simple/{simple_industry}/exchange/{exchange_code}:
     get:
-      operationId: Get Tickers By Combined Filters
+      operationId: GetTickersByCombinedFilters
       description: 'Get the list of tickers that are traded on the provided filters: iso_code, state, exchange_code, and simple_industry.'
       parameters:
       - in: path
@@ -116,9 +118,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by combined filters
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Combined Filters
   /api/v1/ticker_groups/geo/country/{iso_code}:
     get:
-      operationId: Get Tickers By Location
+      operationId: GetTickersByLocation
       description: 'Get the list of tickers based in a location with filters iso_code and state.
 
 
@@ -166,9 +170,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by location
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Location
   /api/v1/ticker_groups/geo/country/{iso_code}/{state}:
     get:
-      operationId: Get Tickers By Location_2
+      operationId: GetTickersByLocation_2
       description: 'Get the list of tickers based in a location with filters iso_code and state.
 
 
@@ -222,9 +228,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by location 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Location_2
   /api/v1/ticker_groups/industry/{industry_classification}/{industry_code}:
     get:
-      operationId: Get Tickers By Industry Code
+      operationId: GetTickersByIndustryCode
       description: Get the list of tickers and their associated identification triple that are in the given industry_classification and industry_code
       parameters:
       - in: path
@@ -274,9 +282,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by industry code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Industry Code
   /api/v1/ticker_groups/industry/gics/{gics_code}:
     get:
-      operationId: Get Tickers By GICS Code
+      operationId: GetTickersByGICSCode
       description: 'Get the list of tickers that are classified in the gics_code.
 
 
@@ -322,9 +332,11 @@ paths:
       - Ticker Groups
       summary: Get tickers by GICS code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By GICS Code
   /api/v1/ticker_groups/industry/simple/{simple_industry}:
     get:
-      operationId: Get Tickers By Simple Industry
+      operationId: GetTickersBySimpleIndustry
       description: Get the list of tickers and their associated identification triple that are in the given simple_industry
       parameters:
       - in: path
@@ -368,8 +380,20 @@ paths:
       - Ticker Groups
       summary: Get tickers by simple industry
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers By Simple Industry
 components:
   schemas:
+    TickerListResponse:
+      type: object
+      description: Response fields for get_tickers_by_simple_industry
+      properties:
+        tickers:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+      required:
+      - tickers
     IdentificationTripleResponse:
       type: object
       description: Response fields serializing an identification triple
@@ -388,16 +412,6 @@ components:
       - company_id
       - security_id
       - trading_item_id
-    TickerListResponse:
-      type: object
-      description: Response fields for get_tickers_by_simple_industry
-      properties:
-        tickers:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-      required:
-      - tickers
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

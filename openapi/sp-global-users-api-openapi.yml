@@ -30,7 +30,7 @@ paths:
       x-summary-source: derived
   /api/v1/users/refresh_access_token:
     get:
-      operationId: Refresh Access Token
+      operationId: RefreshAccessToken
       description: Refresh a client's access token, given their valid refresh token.
       responses:
         '200':
@@ -52,8 +52,10 @@ paths:
       - Users
       summary: Refresh access token
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Refresh Access Token
     post:
-      operationId: Refresh Access Token_2
+      operationId: RefreshAccessToken_2
       description: Refresh a client's access token, given their valid refresh token.
       requestBody:
         content:
@@ -87,22 +89,10 @@ paths:
       - Users
       summary: Refresh access token 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Refresh Access Token_2
 components:
   schemas:
-    RefreshToken:
-      type: object
-      properties:
-        refresh_token:
-          type: string
-      required:
-      - refresh_token
-    AccessToken:
-      type: object
-      properties:
-        access_token:
-          type: string
-      required:
-      - access_token
     PermissionsResponse:
       type: object
       description: Response fields for get_permissions
@@ -113,6 +103,20 @@ components:
             type: string
       required:
       - permissions
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+      - access_token
+    RefreshToken:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      required:
+      - refresh_token
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

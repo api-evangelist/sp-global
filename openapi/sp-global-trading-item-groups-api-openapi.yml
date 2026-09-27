@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/trading_item_groups/exchange/{exchange_code}:
     get:
-      operationId: Get Trading Items By Exchange Code
+      operationId: GetTradingItemsByExchangeCode
       description: Get the list of trading items that are traded on an exchange via exchange_code
       parameters:
       - in: path
@@ -50,6 +50,8 @@ paths:
       - Trading Item Groups
       summary: Get trading items by exchange code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Trading Items By Exchange Code
 components:
   schemas:
     TradingItemListResponse:

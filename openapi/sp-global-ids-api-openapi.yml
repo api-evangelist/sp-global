@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: LLM-ready IDS API
+  title: LLM-ready IDs API
   version: 0.1.0
   description: S&P Global Market Intelligence kFinance dataset via LLM-Ready API
 servers:
@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/ids:
     post:
-      operationId: Unified Identification Triple
+      operationId: UnifiedIdentificationTriple
       description: Get the most likely trading_item_id, security_id, and company_id for various identifier types (ISIN, CUSIP, Company ID, ticker, or company name).
       requestBody:
         content:
@@ -87,8 +87,24 @@ paths:
       - IDS
       summary: Unified identification triple
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Unified Identification Triple
 components:
   schemas:
+    UnifiedIdentificationTripleResponse:
+      type: object
+      description: 'Response fields for unified_identification_triple.
+
+
+        Maps identifiers to either identification triples or error messages.'
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoOrError'
+          readOnly: true
+      required:
+      - data
     UnifiedIdentificationTripleRequest:
       type: object
       description: Request fields for unified_identification_triple
@@ -103,18 +119,6 @@ components:
           minItems: 1
       required:
       - identifiers
-    IdentificationTripleWithCompanyInfoOrError:
-      oneOf:
-      - $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoResponse'
-      - $ref: '#/components/schemas/IdentificationTripleError'
-    IdentificationTripleError:
-      type: object
-      description: Serializer for error response
-      properties:
-        error:
-          type: string
-      required:
-      - error
     IdentificationTripleWithCompanyInfoResponse:
       type: object
       description: Response fields for a request returning an identification triple with company info
@@ -146,20 +150,18 @@ components:
       - security_id
       - ticker
       - trading_item_id
-    UnifiedIdentificationTripleResponse:
+    IdentificationTripleError:
       type: object
-      description: 'Response fields for unified_identification_triple.
-
-
-        Maps identifiers to either identification triples or error messages.'
+      description: Serializer for error response
       properties:
-        data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoOrError'
-          readOnly: true
+        error:
+          type: string
       required:
-      - data
+      - error
+    IdentificationTripleWithCompanyInfoOrError:
+      oneOf:
+      - $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoResponse'
+      - $ref: '#/components/schemas/IdentificationTripleError'
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

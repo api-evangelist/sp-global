@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/price_chart/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}:
     get:
-      operationId: Get Price Chart
+      operationId: GetPriceChart
       description: Get the candlestick price chart as a PNG image for a given trading item between start_date and end_date inclusive.
       parameters:
       - in: path
@@ -63,6 +63,8 @@ paths:
       - Price Chart
       summary: Get price chart
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Price Chart
 components:
   securitySchemes:
     Kensho_JWT_Auth:

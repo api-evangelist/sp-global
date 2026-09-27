@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/cusip/{security_id}:
     get:
-      operationId: Get CUSIP
+      operationId: GetCUSIP
       description: Get the CUSIP for a given security_id
       parameters:
       - in: path
@@ -43,6 +43,8 @@ paths:
       - CUSIP
       summary: Get CUSIP
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get CUSIP
 components:
   schemas:
     CusipResponse:

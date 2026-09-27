@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/isin/{security_id}:
     get:
-      operationId: Get ISIN
+      operationId: GetISIN
       description: Get the ISIN for a given security_id
       parameters:
       - in: path
@@ -43,6 +43,8 @@ paths:
       - Isin
       summary: Get ISIN
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get ISIN
 components:
   schemas:
     IsinResponse:

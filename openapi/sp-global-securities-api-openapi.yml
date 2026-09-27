@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/securities/{company_id}:
     get:
-      operationId: Get Securities
+      operationId: GetSecurities
       description: 'Get the list of securities for a given company_id. Returns a dictionary of shape {"securities": List[]}'
       parameters:
       - in: path
@@ -50,9 +50,11 @@ paths:
       - Securities
       summary: Get securities
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Securities
   /api/v1/securities/{company_id}/primary:
     get:
-      operationId: Get Primary Security
+      operationId: GetPrimarySecurity
       description: 'Get the primary security for a given company_id. Returns a dictionary of shape {"primary_security": }'
       parameters:
       - in: path
@@ -85,6 +87,8 @@ paths:
       - Securities
       summary: Get primary security
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Primary Security
 components:
   schemas:
     PrimarySecurityResponse:

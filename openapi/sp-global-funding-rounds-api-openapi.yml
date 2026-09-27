@@ -88,15 +88,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RoundsOfFunding:
-      type: object
-      properties:
-        rounds_of_funding:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoundOfFunding'
-      required:
-      - rounds_of_funding
     RoundOfFunding:
       type: object
       properties:
@@ -115,6 +106,15 @@ components:
       - funding_round_notes
       - funding_type
       - transaction_id
+    RoundsOfFunding:
+      type: object
+      properties:
+        rounds_of_funding:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFunding'
+      required:
+      - rounds_of_funding
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

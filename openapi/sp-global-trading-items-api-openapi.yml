@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/trading_items/{security_id}:
     get:
-      operationId: Get Trading Items
+      operationId: GetTradingItems
       description: 'Get the list of trading items for a given security_id. Returns a dictionary of shape {"trading_items": List[]}'
       parameters:
       - in: path
@@ -51,9 +51,11 @@ paths:
       - Trading Items
       summary: Get trading items
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Trading Items
   /api/v1/trading_items/{security_id}/primary:
     get:
-      operationId: Get Primary Trading Item
+      operationId: GetPrimaryTradingItem
       description: 'Get the primary trading item for a given security_id. Returns a dictionary of shape {"primary_trading_item": }'
       parameters:
       - in: path
@@ -86,16 +88,10 @@ paths:
       - Trading Items
       summary: Get primary trading item
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Primary Trading Item
 components:
   schemas:
-    PrimaryTradingItemResponse:
-      type: object
-      description: Response fields for get_primary_trading_item
-      properties:
-        primary_trading_item:
-          type: integer
-      required:
-      - primary_trading_item
     TradingItemListResponse:
       type: object
       description: Response fields for get_trading_item_by_exchange_code, get_trading_items
@@ -107,6 +103,14 @@ components:
             title: trading_item_id
       required:
       - trading_items
+    PrimaryTradingItemResponse:
+      type: object
+      description: Response fields for get_primary_trading_item
+      properties:
+        primary_trading_item:
+          type: integer
+      required:
+      - primary_trading_item
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

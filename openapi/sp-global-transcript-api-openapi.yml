@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/transcript/{key_dev_id}:
     get:
-      operationId: Get Transcript
+      operationId: GetTranscript
       description: 'Get the transcript for a given key_dev_id
 
 
@@ -51,9 +51,11 @@ paths:
       - Transcript
       summary: Get transcript
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Transcript
   /api/v1/transcript/{key_dev_id}/raw:
     get:
-      operationId: Get Raw Transcript
+      operationId: GetRawTranscript
       description: 'Get the raw transcript for a given key_dev_id
 
 
@@ -94,6 +96,8 @@ paths:
       - Transcript
       summary: Get raw transcript
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Raw Transcript
 components:
   schemas:
     RawTranscriptResponse:
@@ -102,16 +106,6 @@ components:
       properties:
         transcript:
           type: string
-      required:
-      - transcript
-    TranscriptResponse:
-      type: object
-      description: Response fields for get_transcript.
-      properties:
-        transcript:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscriptEntry'
       required:
       - transcript
     TranscriptEntry:
@@ -130,6 +124,16 @@ components:
       - component_type
       - person_name
       - text
+    TranscriptResponse:
+      type: object
+      description: Response fields for get_transcript.
+      properties:
+        transcript:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptEntry'
+      required:
+      - transcript
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

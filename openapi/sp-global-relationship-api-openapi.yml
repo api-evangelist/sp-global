@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/relationship/{company_id}/{relationship_type}:
     get:
-      operationId: Get Companies by Business Relationships
+      operationId: GetCompaniesByBusinessRelationships
       description: 'Get the list of current and previous companies that are relationship_type OF company_id.
 
 
@@ -70,9 +70,11 @@ paths:
       - Relationship
       summary: Get companies by business relationships
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Companies by Business Relationships
   /api/v1/relationship/{company_id}/{relationship_type}/ticker:
     get:
-      operationId: Get Tickers by Business Relationships
+      operationId: GetTickersByBusinessRelationships
       description: 'Get the list of current and previous ticker identification triples that are relationship_type OF company_id.
 
 
@@ -125,8 +127,35 @@ paths:
       - Relationship
       summary: Get tickers by business relationships
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Tickers by Business Relationships
 components:
   schemas:
+    TickerRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+      required:
+      - current
+      - previous
+    CompanyResponse:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
     IdentificationTripleResponse:
       type: object
       description: Response fields serializing an identification triple
@@ -145,21 +174,6 @@ components:
       - company_id
       - security_id
       - trading_item_id
-    TickerRelationshipResponse:
-      type: object
-      description: Response fields for get_relationships
-      properties:
-        current:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-        previous:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-      required:
-      - current
-      - previous
     CompaniesRelationshipResponse:
       type: object
       description: Response fields for get_relationships
@@ -175,16 +189,6 @@ components:
       required:
       - current
       - previous
-    CompanyResponse:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-      required:
-      - company_id
-      - company_name
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

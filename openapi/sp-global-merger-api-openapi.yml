@@ -158,17 +158,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MergerInfoTimeline:
-      type: object
-      properties:
-        status:
-          type: string
-        date:
-          type: string
-          format: date
-      required:
-      - date
-      - status
     MergerInfo:
       type: object
       properties:
@@ -185,33 +174,26 @@ components:
       - consideration
       - participants
       - timeline
-    MergerInfoParticipants:
+    AdvisorsResponse:
       type: object
       properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        buyers:
+        advisors:
           type: array
           items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
-        sellers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
+            $ref: '#/components/schemas/AdvisorResponse'
       required:
-      - buyers
-      - sellers
-      - target
-    TransactionInfoParticipant:
+      - advisors
+    MergerInfoTimeline:
       type: object
       properties:
-        company_id:
-          type: integer
-        company_name:
+        status:
           type: string
+        date:
+          type: string
+          format: date
       required:
-      - company_id
-      - company_name
+      - date
+      - status
     MergerInfoConsiderationDetail:
       type: object
       properties:
@@ -268,15 +250,33 @@ components:
       - advisor_company_id
       - advisor_company_name
       - advisor_type_name
-    AdvisorsResponse:
+    TransactionInfoParticipant:
       type: object
       properties:
-        advisors:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    MergerInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        buyers:
           type: array
           items:
-            $ref: '#/components/schemas/AdvisorResponse'
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+        sellers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
       required:
-      - advisors
+      - buyers
+      - sellers
+      - target
     MergerInfoConsideration:
       type: object
       properties:

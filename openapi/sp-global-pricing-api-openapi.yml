@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/pricing/{trading_item_id}/{start_date}/{end_date}/{periodicity}/{adjusted}:
     get:
-      operationId: Get Stock Prices
+      operationId: GetStockPrices
       description: Get stock prices for a given trading_item_id and its associated currency between start_date and end_date inclusive, with latest available data being from the previous day, and the most recent price will always be the closing price from the day before. The returned prices include the open, close, high, low prices and volume.
       parameters:
       - in: path
@@ -78,9 +78,11 @@ paths:
       - Pricing
       summary: Get stock prices
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Stock Prices
   /api/v1/pricing/{trading_item_id}/metadata:
     get:
-      operationId: Get Historical Metadata
+      operationId: GetHistoricalMetadata
       description: Get the historical metadata of the trading item id, such as currency, symbol, exchange_name, instrument_type, and first_trade_date.
       parameters:
       - in: path
@@ -117,29 +119,10 @@ paths:
       - Pricing
       summary: Get historical metadata
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Historical Metadata
 components:
   schemas:
-    HistoryMetadataResponse:
-      type: object
-      description: Response fields for get_history_metadata
-      properties:
-        currency:
-          type: string
-        symbol:
-          type: string
-        exchange_name:
-          type: string
-        instrument_type:
-          type: string
-        first_trade_date:
-          type: string
-          format: date
-      required:
-      - currency
-      - exchange_name
-      - first_trade_date
-      - instrument_type
-      - symbol
     Prices:
       type: object
       description: Response fields a single price
@@ -190,6 +173,27 @@ components:
       required:
       - currency
       - prices
+    HistoryMetadataResponse:
+      type: object
+      description: Response fields for get_history_metadata
+      properties:
+        currency:
+          type: string
+        symbol:
+          type: string
+        exchange_name:
+          type: string
+        instrument_type:
+          type: string
+        first_trade_date:
+          type: string
+          format: date
+      required:
+      - currency
+      - exchange_name
+      - first_trade_date
+      - instrument_type
+      - symbol
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

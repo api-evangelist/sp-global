@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/id/{cusip}:
     get:
-      operationId: CUSIP to Identification Triple
+      operationId: CUSIPToIdentificationTriple
       description: Get the most likely trading_item_id, security_id, and company_id with a given CUSIP.
       parameters:
       - in: path
@@ -46,9 +46,11 @@ paths:
       - Id
       summary: CUSIP to identification triple
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: CUSIP to Identification Triple
   /api/v1/id/{isin}:
     get:
-      operationId: ISIN to Identification Triple
+      operationId: ISINToIdentificationTriple
       description: Get the most likely trading_item_id, security_id, and company_id with a given ISIN.
       parameters:
       - in: path
@@ -84,9 +86,11 @@ paths:
       - Id
       summary: ISIN to identification triple
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: ISIN to Identification Triple
   /api/v1/id/{ticker}:
     get:
-      operationId: Ticker to Identification Triple
+      operationId: TickerToIdentificationTriple
       description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol.
       parameters:
       - in: path
@@ -121,9 +125,11 @@ paths:
       - Id
       summary: Ticker to identification triple
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Ticker to Identification Triple
   /api/v1/id/{ticker}/exchange_code/{exchange_code}:
     get:
-      operationId: Ticker to Identification Triple_2
+      operationId: TickerToIdentificationTriple_2
       description: Get the most likely trading_item_id, security_id, and company_id with a given ticker symbol.
       parameters:
       - in: path
@@ -163,6 +169,8 @@ paths:
       - Id
       summary: Ticker to identification triple 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Ticker to Identification Triple_2
 components:
   schemas:
     IdentificationTripleWithCompanyInfoResponse:

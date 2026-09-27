@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/info/{company_id}:
     get:
-      operationId: Get Company Information
+      operationId: GetCompanyInformation
       description: Get the general information of a given company_id, such as name, status, company type, simple industry, number of employees, founding date, webpage, and address.
       parameters:
       - in: path
@@ -55,6 +55,8 @@ paths:
       - Info
       summary: Get company information
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Company Information
   /api/v1/info/{company_id}/descriptions:
     get:
       operationId: info_descriptions_retrieve
@@ -157,6 +159,16 @@ components:
       - alternate_names
       - historical_names
       - native_names
+    CompanyDescriptionsResponse:
+      type: object
+      properties:
+        summary:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - summary
     CompanyInfoResponse:
       type: object
       description: Response fields for get_company_info
@@ -214,16 +226,6 @@ components:
       required:
       - language
       - name
-    CompanyDescriptionsResponse:
-      type: object
-      properties:
-        summary:
-          type: string
-        description:
-          type: string
-      required:
-      - description
-      - summary
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

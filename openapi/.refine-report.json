@@ -165,7 +165,7 @@
     "kensho-scribe-batch-v2-openapi.yml: declared missing tag: Transcription",
     "tag 'Transcription' spans 2 source specs (kensho-scribe-batch-v1-openapi.yml, kensho-scribe-batch-v2-openapi.yml): per-path servers applied",
     "superseded outputs removed: sp-global-funding-rounds-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 10 total)"
+    "apis.yml register: written (+1 apis, 12 total)"
   ],
   "skipped": [
     "sp-global-annotations-async-api-openapi.yml: previously refined output, superseded by openapi/_original/",

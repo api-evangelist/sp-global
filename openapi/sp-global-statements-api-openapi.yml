@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/statements/:
     post:
-      operationId: Get Financial Statement
+      operationId: GetFinancialStatement
       description: 'Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.
 
 
@@ -155,9 +155,11 @@ paths:
       - Statements
       summary: Get financial statement
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Financial Statement
   /api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
     get:
-      operationId: Get Financial Statement_2
+      operationId: GetFinancialStatement_2
       description: 'Get a financial statement, such as a balance sheet, income statement, or cashflow statement for a given company_id.
 
 
@@ -253,39 +255,36 @@ paths:
       - Statements
       summary: Get financial statement 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Financial Statement_2
 components:
   schemas:
-    NullEnum:
+    StatementTypeEnum:
       enum:
-      - null
-    StartQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    PeriodTypeBe5Enum:
-      enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
+      - balance_sheet
+      - bs
+      - cash_flow
+      - cashflow
+      - cf
+      - income_statement
+      - income_stmt
+      - is
       type: string
-      description: '* `annual` - annual
+      description: '* `balance_sheet` - balance_sheet
 
-        * `quarterly` - quarterly
+        * `bs` - bs
 
-        * `ytd` - ytd
+        * `cash_flow` - cash_flow
 
-        * `ltm` - ltm'
+        * `cashflow` - cashflow
+
+        * `cf` - cf
+
+        * `income_statement` - income_statement
+
+        * `income_stmt` - income_stmt
+
+        * `is` - is'
     FinancialStatementCurrencyResponse:
       type: object
       properties:
@@ -300,6 +299,20 @@ components:
       required:
       - currency
       - periods
+    StartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
     EndQuarterEnum:
       enum:
       - 1
@@ -314,6 +327,42 @@ components:
         * `3` - 3
 
         * `4` - 4'
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
+    NullEnum:
+      enum:
+      - null
+    Period:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        num_months:
+          type:
+          - integer
+          - 'null'
+        line_item:
+          $ref: '#/components/schemas/LineItem'
+      required:
+      - line_item
+      - num_months
+      - period_end_date
     FinancialStatementRequest:
       type: object
       description: Request fields for get_financial_statement
@@ -368,65 +417,6 @@ components:
       required:
       - company_ids
       - statement_type
-    LineItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        sources:
-          type: array
-          items: {}
-      required:
-      - name
-      - value
-    StatementTypeEnum:
-      enum:
-      - balance_sheet
-      - bs
-      - cash_flow
-      - cashflow
-      - cf
-      - income_statement
-      - income_stmt
-      - is
-      type: string
-      description: '* `balance_sheet` - balance_sheet
-
-        * `bs` - bs
-
-        * `cash_flow` - cash_flow
-
-        * `cashflow` - cashflow
-
-        * `cf` - cf
-
-        * `income_statement` - income_statement
-
-        * `income_stmt` - income_stmt
-
-        * `is` - is'
-    Period:
-      type: object
-      properties:
-        period_end_date:
-          type: string
-          format: date
-        num_months:
-          type:
-          - integer
-          - 'null'
-        line_item:
-          $ref: '#/components/schemas/LineItem'
-      required:
-      - line_item
-      - num_months
-      - period_end_date
     CalendarTypeEnum:
       enum:
       - fiscal
@@ -435,6 +425,20 @@ components:
       description: '* `fiscal` - fiscal
 
         * `calendar` - calendar'
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
     FinancialStatementResponse:
       type: object
       properties:

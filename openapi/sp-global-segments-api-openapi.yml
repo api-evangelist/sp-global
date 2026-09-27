@@ -10,7 +10,7 @@ tags:
 paths:
   /api/v1/segments/:
     post:
-      operationId: Get Segments
+      operationId: GetSegments
       description: 'Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.
 
 
@@ -178,9 +178,11 @@ paths:
       - Segments
       summary: Get segments
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Segments
   /api/v1/segments/{company_id}/{segment_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}:
     get:
-      operationId: Get Segments_2
+      operationId: GetSegments_2
       description: 'Get the templated segments of a given company_id for a given start_year, start_quarter, end_year and end_quarter.
 
 
@@ -357,6 +359,8 @@ paths:
       - Segments
       summary: Get segments 2
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Segments_2
 components:
   schemas:
     SegmentTypeEnum:
@@ -367,9 +371,6 @@ components:
       description: '* `business` - business
 
         * `geographic` - geographic'
-    NullEnum:
-      enum:
-      - null
     StartQuarterEnum:
       enum:
       - 1
@@ -384,20 +385,40 @@ components:
         * `3` - 3
 
         * `4` - 4'
-    PeriodTypeBe5Enum:
+    EndQuarterEnum:
       enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
 
-        * `quarterly` - quarterly
+        * `2` - 2
 
-        * `ytd` - ytd
+        * `3` - 3
 
-        * `ltm` - ltm'
+        * `4` - 4'
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
+    NullEnum:
+      enum:
+      - null
     SegmentsRequest:
       type: object
       description: Request fields for post_segments
@@ -453,37 +474,6 @@ components:
           minimum: 0
       required:
       - company_ids
-    EndQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    LineItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        sources:
-          type: array
-          items: {}
-      required:
-      - name
-      - value
     Period:
       type: object
       properties:
@@ -500,6 +490,28 @@ components:
       - line_item
       - num_months
       - period_end_date
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
     SegmentsCurrencyResponse:
       type: object
       properties:
@@ -514,14 +526,6 @@ components:
       required:
       - currency
       - periods
-    CalendarTypeEnum:
-      enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
-
-        * `calendar` - calendar'
     SegmentsResponse:
       type: object
       properties:

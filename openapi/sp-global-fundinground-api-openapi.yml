@@ -179,6 +179,102 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AdvisorsResponse:
+      type: object
+      properties:
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
+      required:
+      - advisors
+    RoundOfFundingInfoSecurity:
+      type: object
+      properties:
+        dividend_per_share:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        annualized_dividend_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        seniority_level:
+          type: string
+        coupon_type:
+          type: string
+        funding_convertible_type:
+          type: string
+        security_description:
+          type: string
+        class_series_tranche:
+          type: string
+    AdvisorResponse:
+      type: object
+      description: Advisor response with fee information added to original fields.
+      properties:
+        advisor_company_id:
+          type: integer
+        advisor_company_name:
+          type: string
+        advisor_type_name:
+          type: string
+        is_lead:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is a lead advisor
+        advisor_fee_amount:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
+          description: Advisor fee amount
+        advisor_fee_currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the advisor fee (ISO-4217 code)
+      required:
+      - advisor_company_id
+      - advisor_company_name
+      - advisor_type_name
+    RoundOfFundingInfoTimeline:
+      type: object
+      properties:
+        announced_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        closed_date:
+          type:
+          - string
+          - 'null'
+          format: date
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    RoundOfFundingInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        investors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
+      required:
+      - investors
+      - target
     RoundOfFundingInfoTransaction:
       type: object
       properties:
@@ -259,27 +355,6 @@ components:
           type: string
         pay_to_play_penalties:
           type: string
-    RoundOfFundingInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        investors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
-      required:
-      - investors
-      - target
-    AdvisorsResponse:
-      type: object
-      properties:
-        advisors:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvisorResponse'
-      required:
-      - advisors
     RoundOfFundingInfo:
       type: object
       properties:
@@ -296,27 +371,6 @@ components:
       - security
       - timeline
       - transaction
-    RoundOfFundingInfoSecurity:
-      type: object
-      properties:
-        dividend_per_share:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        annualized_dividend_rate:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        seniority_level:
-          type: string
-        coupon_type:
-          type: string
-        funding_convertible_type:
-          type: string
-        security_description:
-          type: string
-        class_series_tranche:
-          type: string
     RoundOfFundingInfoParticipant:
       type: object
       properties:
@@ -357,60 +411,6 @@ components:
       required:
       - company_id
       - company_name
-    AdvisorResponse:
-      type: object
-      description: Advisor response with fee information added to original fields.
-      properties:
-        advisor_company_id:
-          type: integer
-        advisor_company_name:
-          type: string
-        advisor_type_name:
-          type: string
-        is_lead:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is a lead advisor
-        advisor_fee_amount:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,16}(?:\.\d{0,4})?$
-          description: Advisor fee amount
-        advisor_fee_currency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the advisor fee (ISO-4217 code)
-      required:
-      - advisor_company_id
-      - advisor_company_name
-      - advisor_type_name
-    TransactionInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-      required:
-      - company_id
-      - company_name
-    RoundOfFundingInfoTimeline:
-      type: object
-      properties:
-        announced_date:
-          type:
-          - string
-          - 'null'
-          format: date
-        closed_date:
-          type:
-          - string
-          - 'null'
-          format: date
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

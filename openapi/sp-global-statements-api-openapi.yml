@@ -259,94 +259,6 @@ paths:
       x-operation-id-original: Get Financial Statement_2
 components:
   schemas:
-    StatementTypeEnum:
-      enum:
-      - balance_sheet
-      - bs
-      - cash_flow
-      - cashflow
-      - cf
-      - income_statement
-      - income_stmt
-      - is
-      type: string
-      description: '* `balance_sheet` - balance_sheet
-
-        * `bs` - bs
-
-        * `cash_flow` - cash_flow
-
-        * `cashflow` - cashflow
-
-        * `cf` - cf
-
-        * `income_statement` - income_statement
-
-        * `income_stmt` - income_stmt
-
-        * `is` - is'
-    FinancialStatementCurrencyResponse:
-      type: object
-      properties:
-        currency:
-          type:
-          - string
-          - 'null'
-        periods:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Period'
-      required:
-      - currency
-      - periods
-    StartQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    EndQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    LineItem:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        sources:
-          type: array
-          items: {}
-      required:
-      - name
-      - value
-    NullEnum:
-      enum:
-      - null
     Period:
       type: object
       properties:
@@ -363,6 +275,20 @@ components:
       - line_item
       - num_months
       - period_end_date
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
     FinancialStatementRequest:
       type: object
       description: Request fields for get_financial_statement
@@ -417,28 +343,6 @@ components:
       required:
       - company_ids
       - statement_type
-    CalendarTypeEnum:
-      enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
-
-        * `calendar` - calendar'
-    PeriodTypeBe5Enum:
-      enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `ytd` - ytd
-
-        * `ltm` - ltm'
     FinancialStatementResponse:
       type: object
       properties:
@@ -454,6 +358,102 @@ components:
       required:
       - errors
       - results
+    StatementTypeEnum:
+      enum:
+      - balance_sheet
+      - bs
+      - cash_flow
+      - cashflow
+      - cf
+      - income_statement
+      - income_stmt
+      - is
+      type: string
+      description: '* `balance_sheet` - balance_sheet
+
+        * `bs` - bs
+
+        * `cash_flow` - cash_flow
+
+        * `cashflow` - cashflow
+
+        * `cf` - cf
+
+        * `income_statement` - income_statement
+
+        * `income_stmt` - income_stmt
+
+        * `is` - is'
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    NullEnum:
+      enum:
+      - null
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    StartQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    FinancialStatementCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    LineItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        sources:
+          type: array
+          items: {}
+      required:
+      - name
+      - value
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

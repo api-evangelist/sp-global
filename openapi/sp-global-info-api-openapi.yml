@@ -138,37 +138,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CompanyOtherNamesResponse:
+    CompanyNativeNameResponse:
       type: object
       properties:
-        alternate_names:
-          type: array
-          items:
-            type: string
-            title: alternate_name
-        historical_names:
-          type: array
-          items:
-            type: string
-            title: historical_name
-        native_names:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyNativeNameResponse'
-      required:
-      - alternate_names
-      - historical_names
-      - native_names
-    CompanyDescriptionsResponse:
-      type: object
-      properties:
-        summary:
+        name:
           type: string
-        description:
+        language:
           type: string
       required:
-      - description
-      - summary
+      - language
+      - name
     CompanyInfoResponse:
       type: object
       description: Response fields for get_company_info
@@ -216,16 +195,37 @@ components:
       - type
       - webpage
       - zip_code
-    CompanyNativeNameResponse:
+    CompanyOtherNamesResponse:
       type: object
       properties:
-        name:
+        alternate_names:
+          type: array
+          items:
+            type: string
+            title: alternate_name
+        historical_names:
+          type: array
+          items:
+            type: string
+            title: historical_name
+        native_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyNativeNameResponse'
+      required:
+      - alternate_names
+      - historical_names
+      - native_names
+    CompanyDescriptionsResponse:
+      type: object
+      properties:
+        summary:
           type: string
-        language:
+        description:
           type: string
       required:
-      - language
-      - name
+      - description
+      - summary
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

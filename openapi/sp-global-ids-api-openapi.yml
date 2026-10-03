@@ -91,20 +91,6 @@ paths:
       x-operation-id-original: Unified Identification Triple
 components:
   schemas:
-    UnifiedIdentificationTripleResponse:
-      type: object
-      description: 'Response fields for unified_identification_triple.
-
-
-        Maps identifiers to either identification triples or error messages.'
-      properties:
-        data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoOrError'
-          readOnly: true
-      required:
-      - data
     UnifiedIdentificationTripleRequest:
       type: object
       description: Request fields for unified_identification_triple
@@ -119,6 +105,32 @@ components:
           minItems: 1
       required:
       - identifiers
+    IdentificationTripleWithCompanyInfoOrError:
+      oneOf:
+      - $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoResponse'
+      - $ref: '#/components/schemas/IdentificationTripleError'
+    IdentificationTripleError:
+      type: object
+      description: Serializer for error response
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    UnifiedIdentificationTripleResponse:
+      type: object
+      description: 'Response fields for unified_identification_triple.
+
+
+        Maps identifiers to either identification triples or error messages.'
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoOrError'
+          readOnly: true
+      required:
+      - data
     IdentificationTripleWithCompanyInfoResponse:
       type: object
       description: Response fields for a request returning an identification triple with company info
@@ -150,18 +162,6 @@ components:
       - security_id
       - ticker
       - trading_item_id
-    IdentificationTripleError:
-      type: object
-      description: Serializer for error response
-      properties:
-        error:
-          type: string
-      required:
-      - error
-    IdentificationTripleWithCompanyInfoOrError:
-      oneOf:
-      - $ref: '#/components/schemas/IdentificationTripleWithCompanyInfoResponse'
-      - $ref: '#/components/schemas/IdentificationTripleError'
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

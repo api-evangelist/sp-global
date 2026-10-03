@@ -53,9 +53,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    NullEnum:
-      enum:
-      - null
     AuditorResponse:
       type: object
       properties:
@@ -83,6 +80,9 @@ components:
       description: '* `fiscal` - fiscal
 
         * `calendar` - calendar'
+    NullEnum:
+      enum:
+      - null
     AuditorEntry:
       type: object
       properties:

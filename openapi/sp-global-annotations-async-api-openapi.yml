@@ -172,17 +172,17 @@ paths:
         - token_info
 components:
   requestBodies:
-    nerd_request_post:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/nerd_request_post'
-      required: true
     nerd_request_put:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/nerd_request_put'
+      required: true
+    nerd_request_post:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/nerd_request_post'
       required: true
   schemas:
     nerd_request_post:
@@ -205,6 +205,29 @@ components:
         text:
           type: string
           description: Content of the source document.
+        originating_entity_id:
+          type: string
+          description: Specifies the Capital IQ ID of the company issuing the source document. For example, the company whose earnings call transcript or 10K filing is passed through NERD would be the originating entity for that document. Used only when submitting documents for linking to the Capital IQ knowledge base. If there isn't an appropriate originating entity for a document, such as in the case of a news article, simply enter `"0"` or omit the field.
+        request_id:
+          type: string
+          description: Optional identifier submitted by the caller to track their own requests. If provided, it is returned in the response as it was submitted.
+      type: object
+    nerd_request_put:
+      example:
+        knowledge_bases:
+        - capiq
+        tag_people: false
+        originating_entity_id: '701221'
+        request_id: R1234
+      properties:
+        knowledge_bases:
+          items:
+            type: string
+          type: array
+          description: Knowledge bases to disambiguate to, e.g., `["capiq"]`, `["wikimedia"]`, or `["capiq", "wikimedia"]`.
+        tag_people:
+          type: boolean
+          description: Whether to tag people on a CapIQ request. Requires access to people tagging.
         originating_entity_id:
           type: string
           description: Specifies the Capital IQ ID of the company issuing the source document. For example, the company whose earnings call transcript or 10K filing is passed through NERD would be the originating entity for that document. Used only when submitting documents for linking to the Capital IQ knowledge base. If there isn't an appropriate originating entity for a document, such as in the case of a news article, simply enter `"0"` or omit the field.
@@ -357,29 +380,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/nerd_response_results'
-    nerd_request_put:
-      example:
-        knowledge_bases:
-        - capiq
-        tag_people: false
-        originating_entity_id: '701221'
-        request_id: R1234
-      properties:
-        knowledge_bases:
-          items:
-            type: string
-          type: array
-          description: Knowledge bases to disambiguate to, e.g., `["capiq"]`, `["wikimedia"]`, or `["capiq", "wikimedia"]`.
-        tag_people:
-          type: boolean
-          description: Whether to tag people on a CapIQ request. Requires access to people tagging.
-        originating_entity_id:
-          type: string
-          description: Specifies the Capital IQ ID of the company issuing the source document. For example, the company whose earnings call transcript or 10K filing is passed through NERD would be the originating entity for that document. Used only when submitting documents for linking to the Capital IQ knowledge base. If there isn't an appropriate originating entity for a document, such as in the case of a news article, simply enter `"0"` or omit the field.
-        request_id:
-          type: string
-          description: Optional identifier submitted by the caller to track their own requests. If provided, it is returned in the response as it was submitted.
-      type: object
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT

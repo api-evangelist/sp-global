@@ -359,18 +359,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Output:
-      type: object
-      properties:
-        content_tree:
-          type: object
-          $ref: '#/components/schemas/ContentTree'
-        annotations:
-          type: object
-          $ref: '#/components/schemas/Annotations'
-      required:
-      - content_tree
-      - annotations
     ContentTree:
       type: object
       properties:
@@ -414,6 +402,18 @@ components:
         required:
         - type
         - content_uids
+    Output:
+      type: object
+      properties:
+        content_tree:
+          type: object
+          $ref: '#/components/schemas/ContentTree'
+        annotations:
+          type: object
+          $ref: '#/components/schemas/Annotations'
+      required:
+      - content_tree
+      - annotations
   securitySchemes:
     bearerAuth:
       type: http

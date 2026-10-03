@@ -91,16 +91,6 @@ components:
       - annual
       - now
       - quarterly
-    Quarterly:
-      type: object
-      properties:
-        latest_quarter:
-          type: integer
-        latest_year:
-          type: integer
-      required:
-      - latest_quarter
-      - latest_year
     Now:
       type: object
       properties:
@@ -118,6 +108,16 @@ components:
       - current_month
       - current_quarter
       - current_year
+    Quarterly:
+      type: object
+      properties:
+        latest_quarter:
+          type: integer
+        latest_year:
+          type: integer
+      required:
+      - latest_quarter
+      - latest_year
     Annual:
       type: object
       properties:

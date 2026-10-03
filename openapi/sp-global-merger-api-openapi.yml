@@ -158,22 +158,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MergerInfo:
-      type: object
-      properties:
-        timeline:
-          type: array
-          items:
-            $ref: '#/components/schemas/MergerInfoTimeline'
-        participants:
-          $ref: '#/components/schemas/MergerInfoParticipants'
-        consideration:
-          allOf:
-          - $ref: '#/components/schemas/MergerInfoConsideration'
-      required:
-      - consideration
-      - participants
-      - timeline
     AdvisorsResponse:
       type: object
       properties:
@@ -183,17 +167,6 @@ components:
             $ref: '#/components/schemas/AdvisorResponse'
       required:
       - advisors
-    MergerInfoTimeline:
-      type: object
-      properties:
-        status:
-          type: string
-        date:
-          type: string
-          format: date
-      required:
-      - date
-      - status
     MergerInfoConsiderationDetail:
       type: object
       properties:
@@ -219,6 +192,23 @@ components:
           - 'null'
           format: decimal
           pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+    MergerInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        buyers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+        sellers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+      required:
+      - buyers
+      - sellers
+      - target
     AdvisorResponse:
       type: object
       description: Advisor response with fee information added to original fields.
@@ -250,33 +240,17 @@ components:
       - advisor_company_id
       - advisor_company_name
       - advisor_type_name
-    TransactionInfoParticipant:
+    MergerInfoTimeline:
       type: object
       properties:
-        company_id:
-          type: integer
-        company_name:
+        status:
           type: string
+        date:
+          type: string
+          format: date
       required:
-      - company_id
-      - company_name
-    MergerInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        buyers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
-        sellers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
-      required:
-      - buyers
-      - sellers
-      - target
+      - date
+      - status
     MergerInfoConsideration:
       type: object
       properties:
@@ -306,6 +280,32 @@ components:
             $ref: '#/components/schemas/MergerInfoConsiderationDetail'
       required:
       - details
+    MergerInfo:
+      type: object
+      properties:
+        timeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/MergerInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/MergerInfoParticipants'
+        consideration:
+          allOf:
+          - $ref: '#/components/schemas/MergerInfoConsideration'
+      required:
+      - consideration
+      - participants
+      - timeline
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

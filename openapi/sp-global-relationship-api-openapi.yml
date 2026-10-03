@@ -156,6 +156,21 @@ components:
       required:
       - company_id
       - company_name
+    CompaniesRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+      required:
+      - current
+      - previous
     IdentificationTripleResponse:
       type: object
       description: Response fields serializing an identification triple
@@ -174,21 +189,6 @@ components:
       - company_id
       - security_id
       - trading_item_id
-    CompaniesRelationshipResponse:
-      type: object
-      description: Response fields for get_relationships
-      properties:
-        current:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyResponse'
-        previous:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyResponse'
-      required:
-      - current
-      - previous
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

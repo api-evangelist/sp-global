@@ -610,21 +610,31 @@ paths:
     - url: https://scribe.kensho.com
 components:
   schemas:
-    Transcript:
-      description: A fully specified transcript with timing information
+    SliceMeta:
+      description: A single slice of transcribed audio
       type: object
       properties:
         transcript:
-          description: The full text of the transcript
           type: string
+          description: The transcribed text of the slice
         accuracy:
           type: number
-          description: The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription is correct
-        slice_meta:
+          description: 'The accuracy score of the transcribed slice.
+
+            The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription is correct.
+
+            '
+        start_ms:
+          type: integer
+          description: The start time of the slice in milliseconds
+        duration_ms:
+          type: integer
+          description: The duration of the slice in milliseconds
+        token_meta:
           type: array
-          description: Array of slices of the transcribed audio
+          description: Array of tokens of the transcribed slice
           items:
-            $ref: '#/components/schemas/SliceMeta'
+            $ref: '#/components/schemas/TokenMeta'
     TokenMeta:
       description: A single transcribed token
       type: object
@@ -648,6 +658,21 @@ components:
         align_success:
           type: boolean
           description: Indicates whether the token has a definitive timestamp
+    Transcript:
+      description: A fully specified transcript with timing information
+      type: object
+      properties:
+        transcript:
+          description: The full text of the transcript
+          type: string
+        accuracy:
+          type: number
+          description: The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription is correct
+        slice_meta:
+          type: array
+          description: Array of slices of the transcribed audio
+          items:
+            $ref: '#/components/schemas/SliceMeta'
     PollTranscriptionResponse:
       description: Returned type from polling a transcription
       type: object
@@ -674,122 +699,9 @@ components:
           type:
           - string
           - 'null'
-    SliceMeta:
-      description: A single slice of transcribed audio
-      type: object
-      properties:
-        transcript:
-          type: string
-          description: The transcribed text of the slice
-        accuracy:
-          type: number
-          description: 'The accuracy score of the transcribed slice.
-
-            The accuracy score ranges from 0 to 1 and a higher score indicates a relatively higher confidence that the transcription is correct.
-
-            '
-        start_ms:
-          type: integer
-          description: The start time of the slice in milliseconds
-        duration_ms:
-          type: integer
-          description: The duration of the slice in milliseconds
-        token_meta:
-          type: array
-          description: Array of tokens of the transcribed slice
-          items:
-            $ref: '#/components/schemas/TokenMeta'
-    tokenMeta:
-      description: A single transcribed token
-      type: object
-      properties:
-        transcript:
-          type: string
-          description: The transcribed text of the token
-        accuracy:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: 'An indicator of the accuracy of the transcribed token - a higher number gives a higher confidence.
-
-            '
-        start_ms:
-          type: integer
-          description: The token start time, in milliseconds, from the beginning of the file.
-        duration_ms:
-          type: integer
-          description: The token duration, in milliseconds.
-        align_success:
-          type: boolean
-          description: Indicates whether the token has a definitive timestamp
-    mpfdOptions:
-      type: object
-      required:
-      - media
-      properties:
-        media:
-          type: string
-          format: binary
-          description: 'The binary data for the media to transcribe.
-
-            Along with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,
-
-            and the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:
-
-            - application/mp3
-
-            - audio/aac
-
-            - audio/flac
-
-            - audio/m4a
-
-            - audio/mp3
-
-            - audio/mpeg
-
-            - audio/mpeg3
-
-            - audio/wav
-
-            - audio/wave
-
-            - audio/x-flac
-
-            - audio/x-m4a
-
-            - audio/x-mpeg-3
-
-            - audio/x-wav
-
-            - video/mp4
-
-            '
-        options:
-          $ref: '#/components/schemas/commonOptions'
     vttTranscript:
       description: Transcribed video text tracks
       type: string
-    error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A detailed statement about why the error occurred.
-          example: Specified content type cannot be returned
-        msg_code:
-          type: string
-          description: An error code which can be used to get more information about the problem.
-          example: S2T-BA-0010
-    transcriptionId:
-      type: object
-      properties:
-        transcription_id:
-          type: string
-          description: The ID of the transcription
-          example: 76fc238be38d49cda51dd396ca69215d
-      required:
-      - transcription_id
     sliceMeta:
       description: A single slice of transcribed audio
       type: object
@@ -830,20 +742,6 @@ components:
           description: Array of tokens of the transcribed slice
           items:
             $ref: '#/components/schemas/tokenMeta'
-    callback:
-      type: object
-      properties:
-        transcription_id:
-          type: string
-          description: The ID of the transcription
-          example: 76fc238be38d49cda51dd396ca69215d
-        result:
-          type: string
-          description: The final result of the transcription - one of 'success' or 'failure'
-          example: success
-      required:
-      - transcription_id
-      - result
     commonOptions:
       type: object
       properties:
@@ -977,6 +875,74 @@ components:
             tracked with internal IDs which is needed when retrieving the transcript.
 
             '
+    callback:
+      type: object
+      properties:
+        transcription_id:
+          type: string
+          description: The ID of the transcription
+          example: 76fc238be38d49cda51dd396ca69215d
+        result:
+          type: string
+          description: The final result of the transcription - one of 'success' or 'failure'
+          example: success
+      required:
+      - transcription_id
+      - result
+    mpfdOptions:
+      type: object
+      required:
+      - media
+      properties:
+        media:
+          type: string
+          format: binary
+          description: 'The binary data for the media to transcribe.
+
+            Along with the binary data you will want to provide the `filename` in the value for `Content-Disposition`,
+
+            and the mime type in the value for `Content-Type`.  The `Content-Type` currently can be one of:
+
+            - application/mp3
+
+            - audio/aac
+
+            - audio/flac
+
+            - audio/m4a
+
+            - audio/mp3
+
+            - audio/mpeg
+
+            - audio/mpeg3
+
+            - audio/wav
+
+            - audio/wave
+
+            - audio/x-flac
+
+            - audio/x-m4a
+
+            - audio/x-mpeg-3
+
+            - audio/x-wav
+
+            - video/mp4
+
+            '
+        options:
+          $ref: '#/components/schemas/commonOptions'
+    transcriptionId:
+      type: object
+      properties:
+        transcription_id:
+          type: string
+          description: The ID of the transcription
+          example: 76fc238be38d49cda51dd396ca69215d
+      required:
+      - transcription_id
     jsonTranscript:
       description: A structured output of the transcript - ideal for programmatic or custom uses of transcriptions
       type: object
@@ -996,6 +962,17 @@ components:
           description: Array of slices of the transcribed audio
           items:
             $ref: '#/components/schemas/sliceMeta'
+    error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A detailed statement about why the error occurred.
+          example: Specified content type cannot be returned
+        msg_code:
+          type: string
+          description: An error code which can be used to get more information about the problem.
+          example: S2T-BA-0010
     jsonOptions:
       allOf:
       - type: object
@@ -1016,6 +993,29 @@ components:
 
               '
       - $ref: '#/components/schemas/commonOptions'
+    tokenMeta:
+      description: A single transcribed token
+      type: object
+      properties:
+        transcript:
+          type: string
+          description: The transcribed text of the token
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: 'An indicator of the accuracy of the transcribed token - a higher number gives a higher confidence.
+
+            '
+        start_ms:
+          type: integer
+          description: The token start time, in milliseconds, from the beginning of the file.
+        duration_ms:
+          type: integer
+          description: The token duration, in milliseconds.
+        align_success:
+          type: boolean
+          description: Indicates whether the token has a definitive timestamp
   securitySchemes:
     BearerAuth:
       type: http

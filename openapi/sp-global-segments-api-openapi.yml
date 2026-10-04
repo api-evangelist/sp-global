@@ -371,6 +371,28 @@ components:
       description: '* `business` - business
 
         * `geographic` - geographic'
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
     Period:
       type: object
       properties:
@@ -387,34 +409,21 @@ components:
       - line_item
       - num_months
       - period_end_date
-    EndQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
-    SegmentsCurrencyResponse:
+    SegmentsResponse:
       type: object
       properties:
-        currency:
-          type:
-          - string
-          - 'null'
-        periods:
+        results:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/Period'
+            $ref: '#/components/schemas/SegmentsCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
       required:
-      - currency
-      - periods
+      - errors
+      - results
     SegmentsRequest:
       type: object
       description: Request fields for post_segments
@@ -470,21 +479,37 @@ components:
           minimum: 0
       required:
       - company_ids
-    SegmentsResponse:
+    NullEnum:
+      enum:
+      - null
+    EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    SegmentsCurrencyResponse:
       type: object
       properties:
-        results:
+        currency:
+          type:
+          - string
+          - 'null'
+        periods:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/SegmentsCurrencyResponse'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
+            $ref: '#/components/schemas/Period'
       required:
-      - errors
-      - results
+      - currency
+      - periods
     StartQuarterEnum:
       enum:
       - 1
@@ -499,31 +524,6 @@ components:
         * `3` - 3
 
         * `4` - 4'
-    PeriodTypeBe5Enum:
-      enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `ytd` - ytd
-
-        * `ltm` - ltm'
-    NullEnum:
-      enum:
-      - null
-    CalendarTypeEnum:
-      enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
-
-        * `calendar` - calendar'
     LineItem:
       type: object
       properties:

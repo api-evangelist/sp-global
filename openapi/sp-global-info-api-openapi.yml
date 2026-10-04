@@ -138,6 +138,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CompanyDescriptionsResponse:
+      type: object
+      properties:
+        summary:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - summary
     CompanyNativeNameResponse:
       type: object
       properties:
@@ -216,16 +226,6 @@ components:
       - alternate_names
       - historical_names
       - native_names
-    CompanyDescriptionsResponse:
-      type: object
-      properties:
-        summary:
-          type: string
-        description:
-          type: string
-      required:
-      - description
-      - summary
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

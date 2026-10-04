@@ -384,16 +384,6 @@ paths:
       x-operation-id-original: Get Tickers By Simple Industry
 components:
   schemas:
-    TickerListResponse:
-      type: object
-      description: Response fields for get_tickers_by_simple_industry
-      properties:
-        tickers:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-      required:
-      - tickers
     IdentificationTripleResponse:
       type: object
       description: Response fields serializing an identification triple
@@ -412,6 +402,16 @@ components:
       - company_id
       - security_id
       - trading_item_id
+    TickerListResponse:
+      type: object
+      description: Response fields for get_tickers_by_simple_industry
+      properties:
+        tickers:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+      required:
+      - tickers
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

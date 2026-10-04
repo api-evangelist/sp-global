@@ -93,6 +93,22 @@ paths:
       x-operation-id-original: Get Earnings Calls Dates
 components:
   schemas:
+    EarningsEntry:
+      type: object
+      description: Serializer for individual earnings entries.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        key_dev_id:
+          type: integer
+        datetime:
+          type: string
+          format: date-time
+      required:
+      - datetime
+      - key_dev_id
+      - name
     EarningsResponse:
       type: object
       description: Response fields for get_earnings.
@@ -112,22 +128,6 @@ components:
           items: {}
       required:
       - earnings
-    EarningsEntry:
-      type: object
-      description: Serializer for individual earnings entries.
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        key_dev_id:
-          type: integer
-        datetime:
-          type: string
-          format: date-time
-      required:
-      - datetime
-      - key_dev_id
-      - name
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

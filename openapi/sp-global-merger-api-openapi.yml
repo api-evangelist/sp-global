@@ -167,48 +167,61 @@ components:
             $ref: '#/components/schemas/AdvisorResponse'
       required:
       - advisors
-    MergerInfoConsiderationDetail:
+    MergerInfo:
       type: object
       properties:
-        scenario:
-          type: string
-        subtype:
-          type: string
-        cash_or_cash_equivalent_per_target_share_unit:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        number_of_target_shares_sought:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        current_calculated_gross_value_of_consideration:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-    MergerInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        buyers:
+        timeline:
           type: array
           items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
-        sellers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionInfoParticipant'
+            $ref: '#/components/schemas/MergerInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/MergerInfoParticipants'
+        consideration:
+          allOf:
+          - $ref: '#/components/schemas/MergerInfoConsideration'
       required:
-      - buyers
-      - sellers
-      - target
+      - consideration
+      - participants
+      - timeline
+    MergerInfoConsideration:
+      type: object
+      properties:
+        currency_name:
+          type: string
+        current_calculated_gross_total_transaction_value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        current_calculated_implied_equity_value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        current_calculated_implied_enterprise_value:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MergerInfoConsiderationDetail'
+      required:
+      - details
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
     AdvisorResponse:
       type: object
       description: Advisor response with fee information added to original fields.
@@ -240,6 +253,23 @@ components:
       - advisor_company_id
       - advisor_company_name
       - advisor_type_name
+    MergerInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        buyers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+        sellers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionInfoParticipant'
+      required:
+      - buyers
+      - sellers
+      - target
     MergerInfoTimeline:
       type: object
       properties:
@@ -251,61 +281,31 @@ components:
       required:
       - date
       - status
-    MergerInfoConsideration:
+    MergerInfoConsiderationDetail:
       type: object
       properties:
-        currency_name:
+        scenario:
           type: string
-        current_calculated_gross_total_transaction_value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        current_calculated_implied_equity_value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        current_calculated_implied_enterprise_value:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/MergerInfoConsiderationDetail'
-      required:
-      - details
-    MergerInfo:
-      type: object
-      properties:
-        timeline:
-          type: array
-          items:
-            $ref: '#/components/schemas/MergerInfoTimeline'
-        participants:
-          $ref: '#/components/schemas/MergerInfoParticipants'
-        consideration:
-          allOf:
-          - $ref: '#/components/schemas/MergerInfoConsideration'
-      required:
-      - consideration
-      - participants
-      - timeline
-    TransactionInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
+        subtype:
           type: string
-      required:
-      - company_id
-      - company_name
+        cash_or_cash_equivalent_per_target_share_unit:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        number_of_target_shares_sought:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        current_calculated_gross_value_of_consideration:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

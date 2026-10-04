@@ -61,21 +61,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MergerResponse:
-      type: object
-      properties:
-        transaction_id:
-          type: integer
-        merger_title:
-          type: string
-        closed_date:
-          type:
-          - string
-          - 'null'
-          format: date
-      required:
-      - merger_title
-      - transaction_id
     MergersResponse:
       type: object
       properties:
@@ -98,6 +83,21 @@ components:
       - buyer
       - seller
       - target
+    MergerResponse:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        merger_title:
+          type: string
+        closed_date:
+          type:
+          - string
+          - 'null'
+          format: date
+      required:
+      - merger_title
+      - transaction_id
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

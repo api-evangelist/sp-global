@@ -77,20 +77,23 @@ paths:
       x-operation-id-original: Get Latest Date
 components:
   schemas:
-    LatestResponse:
+    Annual:
       type: object
-      description: Response fields for latest
       properties:
-        annual:
-          $ref: '#/components/schemas/Annual'
-        quarterly:
-          $ref: '#/components/schemas/Quarterly'
-        now:
-          $ref: '#/components/schemas/Now'
+        latest_year:
+          type: integer
       required:
-      - annual
-      - now
-      - quarterly
+      - latest_year
+    Quarterly:
+      type: object
+      properties:
+        latest_quarter:
+          type: integer
+        latest_year:
+          type: integer
+      required:
+      - latest_quarter
+      - latest_year
     Now:
       type: object
       properties:
@@ -108,23 +111,20 @@ components:
       - current_month
       - current_quarter
       - current_year
-    Quarterly:
+    LatestResponse:
       type: object
+      description: Response fields for latest
       properties:
-        latest_quarter:
-          type: integer
-        latest_year:
-          type: integer
+        annual:
+          $ref: '#/components/schemas/Annual'
+        quarterly:
+          $ref: '#/components/schemas/Quarterly'
+        now:
+          $ref: '#/components/schemas/Now'
       required:
-      - latest_quarter
-      - latest_year
-    Annual:
-      type: object
-      properties:
-        latest_year:
-          type: integer
-      required:
-      - latest_year
+      - annual
+      - now
+      - quarterly
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

@@ -259,6 +259,28 @@ paths:
       x-operation-id-original: Get Financial Statement_2
 components:
   schemas:
+    PeriodTypeBe5Enum:
+      enum:
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
+
+        * `quarterly` - quarterly
+
+        * `ytd` - ytd
+
+        * `ltm` - ltm'
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
     Period:
       type: object
       properties:
@@ -275,7 +297,39 @@ components:
       - line_item
       - num_months
       - period_end_date
+    NullEnum:
+      enum:
+      - null
     EndQuarterEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
+
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
+    FinancialStatementResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FinancialStatementCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
+    StartQuarterEnum:
       enum:
       - 1
       - 2
@@ -343,21 +397,6 @@ components:
       required:
       - company_ids
       - statement_type
-    FinancialStatementResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FinancialStatementCurrencyResponse'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
     StatementTypeEnum:
       enum:
       - balance_sheet
@@ -384,45 +423,6 @@ components:
         * `income_stmt` - income_stmt
 
         * `is` - is'
-    CalendarTypeEnum:
-      enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
-
-        * `calendar` - calendar'
-    NullEnum:
-      enum:
-      - null
-    PeriodTypeBe5Enum:
-      enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `ytd` - ytd
-
-        * `ltm` - ltm'
-    StartQuarterEnum:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
-
-        * `2` - 2
-
-        * `3` - 3
-
-        * `4` - 4'
     FinancialStatementCurrencyResponse:
       type: object
       properties:

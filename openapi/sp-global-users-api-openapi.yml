@@ -93,16 +93,6 @@ paths:
       x-operation-id-original: Refresh Access Token_2
 components:
   schemas:
-    PermissionsResponse:
-      type: object
-      description: Response fields for get_permissions
-      properties:
-        permissions:
-          type: array
-          items:
-            type: string
-      required:
-      - permissions
     AccessToken:
       type: object
       properties:
@@ -117,6 +107,16 @@ components:
           type: string
       required:
       - refresh_token
+    PermissionsResponse:
+      type: object
+      description: Response fields for get_permissions
+      properties:
+        permissions:
+          type: array
+          items:
+            type: string
+      required:
+      - permissions
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

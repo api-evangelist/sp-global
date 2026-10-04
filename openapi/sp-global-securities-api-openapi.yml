@@ -91,14 +91,6 @@ paths:
       x-operation-id-original: Get Primary Security
 components:
   schemas:
-    PrimarySecurityResponse:
-      type: object
-      description: Response fields for get_primary_security
-      properties:
-        primary_security:
-          type: integer
-      required:
-      - primary_security
     SecuritiesListResponse:
       type: object
       description: Response fields for get_securities
@@ -110,6 +102,14 @@ components:
             title: security_id
       required:
       - securities
+    PrimarySecurityResponse:
+      type: object
+      description: Response fields for get_primary_security
+      properties:
+        primary_security:
+          type: integer
+      required:
+      - primary_security
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

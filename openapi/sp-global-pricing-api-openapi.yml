@@ -123,39 +123,6 @@ paths:
       x-operation-id-original: Get Historical Metadata
 components:
   schemas:
-    Prices:
-      type: object
-      description: Response fields a single price
-      properties:
-        date:
-          type: string
-        open:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        high:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        low:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        close:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        volume:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,19}(?:\.\d{0,0})?$
-      required:
-      - close
-      - date
-      - high
-      - low
-      - open
-      - volume
     PricesResponse:
       type: object
       description: Response fields for get_prices
@@ -194,6 +161,39 @@ components:
       - first_trade_date
       - instrument_type
       - symbol
+    Prices:
+      type: object
+      description: Response fields a single price
+      properties:
+        date:
+          type: string
+        open:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        high:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        low:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        close:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        volume:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,19}(?:\.\d{0,0})?$
+      required:
+      - close
+      - date
+      - high
+      - low
+      - open
+      - volume
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

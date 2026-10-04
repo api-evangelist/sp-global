@@ -179,6 +179,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    RoundOfFundingInfoParticipants:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/TransactionInfoParticipant'
+        investors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
+      required:
+      - investors
+      - target
     AdvisorsResponse:
       type: object
       properties:
@@ -188,27 +200,85 @@ components:
             $ref: '#/components/schemas/AdvisorResponse'
       required:
       - advisors
-    RoundOfFundingInfoSecurity:
+    RoundOfFundingInfoTimeline:
       type: object
       properties:
-        dividend_per_share:
+        announced_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        closed_date:
+          type:
+          - string
+          - 'null'
+          format: date
+    RoundOfFundingInfo:
+      type: object
+      properties:
+        timeline:
+          $ref: '#/components/schemas/RoundOfFundingInfoTimeline'
+        participants:
+          $ref: '#/components/schemas/RoundOfFundingInfoParticipants'
+        transaction:
+          $ref: '#/components/schemas/RoundOfFundingInfoTransaction'
+        security:
+          $ref: '#/components/schemas/RoundOfFundingInfoSecurity'
+      required:
+      - participants
+      - security
+      - timeline
+      - transaction
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
+    RoundOfFundingInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+        lead_investor:
+          type: boolean
+        investment_value:
           type: string
           format: decimal
           pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        annualized_dividend_rate:
-          type: string
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the investment value
+        ownership_percentage_pre:
+          type:
+          - string
+          - 'null'
           format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        seniority_level:
-          type: string
-        coupon_type:
-          type: string
-        funding_convertible_type:
-          type: string
-        security_description:
-          type: string
-        class_series_tranche:
-          type: string
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage before the transaction
+        ownership_percentage_post:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Ownership percentage after the transaction
+        board_seat_granted:
+          type:
+          - boolean
+          - 'null'
+          description: Whether a board seat was granted to this investor
+      required:
+      - company_id
+      - company_name
     AdvisorResponse:
       type: object
       description: Advisor response with fee information added to original fields.
@@ -240,41 +310,27 @@ components:
       - advisor_company_id
       - advisor_company_name
       - advisor_type_name
-    RoundOfFundingInfoTimeline:
+    RoundOfFundingInfoSecurity:
       type: object
       properties:
-        announced_date:
-          type:
-          - string
-          - 'null'
-          format: date
-        closed_date:
-          type:
-          - string
-          - 'null'
-          format: date
-    TransactionInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
+        dividend_per_share:
           type: string
-      required:
-      - company_id
-      - company_name
-    RoundOfFundingInfoParticipants:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/TransactionInfoParticipant'
-        investors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoundOfFundingInfoParticipant'
-      required:
-      - investors
-      - target
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        annualized_dividend_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
+        seniority_level:
+          type: string
+        coupon_type:
+          type: string
+        funding_convertible_type:
+          type: string
+        security_description:
+          type: string
+        class_series_tranche:
+          type: string
     RoundOfFundingInfoTransaction:
       type: object
       properties:
@@ -355,62 +411,6 @@ components:
           type: string
         pay_to_play_penalties:
           type: string
-    RoundOfFundingInfo:
-      type: object
-      properties:
-        timeline:
-          $ref: '#/components/schemas/RoundOfFundingInfoTimeline'
-        participants:
-          $ref: '#/components/schemas/RoundOfFundingInfoParticipants'
-        transaction:
-          $ref: '#/components/schemas/RoundOfFundingInfoTransaction'
-        security:
-          $ref: '#/components/schemas/RoundOfFundingInfoSecurity'
-      required:
-      - participants
-      - security
-      - timeline
-      - transaction
-    RoundOfFundingInfoParticipant:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-        lead_investor:
-          type: boolean
-        investment_value:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,30}(?:\.\d{0,8})?$
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the investment value
-        ownership_percentage_pre:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          description: Ownership percentage before the transaction
-        ownership_percentage_post:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
-          description: Ownership percentage after the transaction
-        board_seat_granted:
-          type:
-          - boolean
-          - 'null'
-          description: Whether a board seat was granted to this investor
-      required:
-      - company_id
-      - company_name
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

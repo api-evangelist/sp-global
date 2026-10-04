@@ -131,21 +131,6 @@ paths:
       x-operation-id-original: Get Tickers by Business Relationships
 components:
   schemas:
-    TickerRelationshipResponse:
-      type: object
-      description: Response fields for get_relationships
-      properties:
-        current:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-        previous:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-      required:
-      - current
-      - previous
     CompanyResponse:
       type: object
       properties:
@@ -168,6 +153,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompanyResponse'
+      required:
+      - current
+      - previous
+    TickerRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
       required:
       - current
       - previous

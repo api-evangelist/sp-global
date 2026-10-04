@@ -92,14 +92,6 @@ paths:
       x-operation-id-original: Get Primary Trading Item
 components:
   schemas:
-    PrimaryTradingItemResponse:
-      type: object
-      description: Response fields for get_primary_trading_item
-      properties:
-        primary_trading_item:
-          type: integer
-      required:
-      - primary_trading_item
     TradingItemListResponse:
       type: object
       description: Response fields for get_trading_item_by_exchange_code, get_trading_items
@@ -111,6 +103,14 @@ components:
             title: trading_item_id
       required:
       - trading_items
+    PrimaryTradingItemResponse:
+      type: object
+      description: Response fields for get_primary_trading_item
+      properties:
+        primary_trading_item:
+          type: integer
+      required:
+      - primary_trading_item
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

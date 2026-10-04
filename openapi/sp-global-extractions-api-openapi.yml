@@ -359,28 +359,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ContentTree:
-      type: object
-      properties:
-        uid:
-          type: string
-          description: Identifier for a content node that is unique across all nodes in a document
-        type:
-          type: string
-          description: Type of a content node, must be one of document|paragraph|H1|H2|table|table_cell|table_title
-        content:
-          type: string
-          description: Text that corresponds to the content node (optional)
-        children:
-          type: array
-          description: List of child content nodes (recursive)
-          items:
-            $ref: '#'
-      required:
-      - uid
-      - type
-      - content
-      - children
     Annotations:
       type: array
       description: Additional data about structure of the document that references text content nodes by their UIDs
@@ -414,6 +392,28 @@ components:
       required:
       - content_tree
       - annotations
+    ContentTree:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: Identifier for a content node that is unique across all nodes in a document
+        type:
+          type: string
+          description: Type of a content node, must be one of document|paragraph|H1|H2|table|table_cell|table_title
+        content:
+          type: string
+          description: Text that corresponds to the content node (optional)
+        children:
+          type: array
+          description: List of child content nodes (recursive)
+          items:
+            $ref: '#'
+      required:
+      - uid
+      - type
+      - content
+      - children
   securitySchemes:
     bearerAuth:
       type: http

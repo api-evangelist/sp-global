@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-05-23 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-05-23'
 apiCommonsPlansVersion: '0.1'
 providerId: sp-global
 name: S&P Global / Kensho API Plans
@@ -145,3 +150,53 @@ plans:
           - Enterprise data API access
     contact:
       url: https://www.spglobal.com/market-intelligence/en/contact-us
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - negotiated
+  units: []
+  plans:
+  - name: Free Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: LLM-Ready API Subscription
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Kensho Extract Subscription
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Kensho NERD Subscription
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Kensho Scribe Subscription
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Grounding Agent (Alpha)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: S&P Capital IQ Pro Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []

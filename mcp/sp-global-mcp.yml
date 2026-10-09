@@ -121,3 +121,19 @@ deployment:
   probe: gated
   checked: '2026-08-12'
   source: catalog MCP census
+rfc9728:
+  endpoint: https://kfinance.kensho.com/integrations/mcp
+  metadata_url: https://kfinance.kensho.com/.well-known/oauth-protected-resource/integrations/mcp
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://kfinance.kensho.com/integrations/mcp
+    authorization_servers:
+    - https://kfinance.kensho.com/integrations
+    scopes_supported:
+    - kensho:app:kfinance
+    - offline_access
+    bearer_methods_supported:
+    - header

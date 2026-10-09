@@ -1,26 +1,42 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/kensho-extract-openapi.yml, openapi/kensho-llmready-openapi.yml, openapi/kensho-nerd-openapi.yml,
-  openapi/kensho-scribe-batch-v1-openapi.yml, openapi/kensho-scribe-batch-v2-openapi.yml
+source: openapi/sp-global-annotations-async-api-openapi.yml, openapi/sp-global-auditors-api-openapi.yml,
+  openapi/sp-global-ciqpro-api-openapi.yml, openapi/sp-global-company-groups-api-openapi.yml,
+  openapi/sp-global-competitors-api-openapi.yml, openapi/sp-global-cusip-api-openapi.yml, openapi/sp-global-earnings-api-openapi.yml,
+  openapi/sp-global-estimates-api-openapi.yml, openapi/sp-global-extractions-api-openapi.yml,
+  openapi/sp-global-funding-rounds-api-openapi.yml, openapi/sp-global-fundinground-api-openapi.yml,
+  openapi/sp-global-id-api-openapi.yml, openapi/sp-global-ids-api-openapi.yml, openapi/sp-global-info-api-openapi.yml,
+  openapi/sp-global-isin-api-openapi.yml, openapi/sp-global-latest-api-openapi.yml, openapi/sp-global-line-item-api-openapi.yml,
+  openapi/sp-global-market-cap-api-openapi.yml, openapi/sp-global-merger-api-openapi.yml, openapi/sp-global-mergers-api-openapi.yml,
+  openapi/sp-global-price-chart-api-openapi.yml, openapi/sp-global-pricing-api-openapi.yml,
+  openapi/sp-global-relationship-api-openapi.yml, openapi/sp-global-securities-api-openapi.yml,
+  openapi/sp-global-segments-api-openapi.yml, openapi/sp-global-statements-api-openapi.yml,
+  openapi/sp-global-ticker-groups-api-openapi.yml, openapi/sp-global-trading-item-groups-api-openapi.yml,
+  openapi/sp-global-trading-items-api-openapi.yml, openapi/sp-global-transcript-api-openapi.yml,
+  openapi/sp-global-transcription-api-openapi.yml, openapi/sp-global-upload-url-api-openapi.yml,
+  openapi/sp-global-user-info-api-openapi.yml, openapi/sp-global-users-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 79
   by_action_class:
-    acting: 17
-    connected: 62
+    acting: 13
+    connected: 66
   by_consequence:
-    write: 17
-    read: 62
+    write: 13
+    read: 66
   human_in_the_loop_required: 0
 operations:
-- path: /v3/extractions
+- path: /api/v1/annotations-async
   method: post
+  operationId: api_annotations_async_post
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - token_info
     audience: null
     token:
       max-ttl: 900
@@ -30,27 +46,15 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v3/extractions/upload-url
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/extractions/upload-complete
+- path: /api/v1/annotations-async
   method: put
+  operationId: api_annotations_async_put
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - token_info
     audience: null
     token:
       max-ttl: 900
@@ -60,24 +64,36 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v3/extractions/{request_id}
+- path: /api/v1/annotations-async
   method: get
+  operationId: api_annotations_async_get
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - token_info
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/extractions/download-url/{request_id}
-  method: get
+- path: /api/v1/annotations-async
+  method: delete
+  operationId: api_annotations_async_delete
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - token_info
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /api/v1/auditors/
   method: post
   operationId: auditors_create
@@ -198,18 +214,12 @@ operations:
   method: post
   operationId: Get Estimates
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/estimates/analyst_recommendations/{company_id}
   method: get
   operationId: Get Analyst Recommendations
@@ -223,6 +233,94 @@ operations:
 - path: /api/v1/estimates/consensus_target_price/{company_id}
   method: get
   operationId: Get Consensus Target Price
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/extractions
+  method: post
+  operationId: postV3Extractions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/upload-url
+  method: post
+  operationId: postV3ExtractionsUploadUrl
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/upload-complete
+  method: put
+  operationId: putV3ExtractionsUploadComplete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/extractions/{request_id}
+  method: get
+  operationId: getV3ExtractionsByRequestId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/extractions/download-url/{request_id}
+  method: get
+  operationId: getV3ExtractionsDownloadUrlByRequestId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundingrounds/investor/{company_id}
+  method: get
+  operationId: fundingrounds_investor_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/fundingrounds/target/{company_id}
+  method: get
+  operationId: fundingrounds_target_retrieve
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -253,26 +351,6 @@ operations:
 - path: /api/v1/fundinground/info/{transaction_id}/advisors/target
   method: get
   operationId: fundinground_info_advisors_target_retrieve
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/fundingrounds/investor/{company_id}
-  method: get
-  operationId: fundingrounds_investor_retrieve
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/fundingrounds/target/{company_id}
-  method: get
-  operationId: fundingrounds_target_retrieve
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -390,18 +468,12 @@ operations:
   method: post
   operationId: Get Financial Line Item
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/line_item/{company_id}/{line_item}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
   method: get
   operationId: Get Financial Line Item_2
@@ -526,18 +598,12 @@ operations:
   method: post
   operationId: Get Segments
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/segments/{company_id}/{segment_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
   method: get
   operationId: Get Segments_2
@@ -552,18 +618,12 @@ operations:
   method: post
   operationId: Get Financial Statement
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/statements/{company_id}/{statement_type}/{period_type}/{start_year}/{end_year}/{start_quarter}/{end_quarter}
   method: get
   operationId: Get Financial Statement_2
@@ -694,133 +754,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/v1/users/permissions
-  method: get
-  operationId: users_permissions_retrieve
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/users/refresh_access_token
-  method: get
-  operationId: Refresh Access Token
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/users/refresh_access_token
-  method: post
-  operationId: Refresh Access Token_2
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/annotations-async
-  method: post
-  operationId: api_annotations_async_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - token_info
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/annotations-async
-  method: put
-  operationId: api_annotations_async_put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - token_info
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/annotations-async
-  method: get
-  operationId: api_annotations_async_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - token_info
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/annotations-async
-  method: delete
-  operationId: api_annotations_async_delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - token_info
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/upload-url
-  method: get
-  operationId: api_annotations_upload_url
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - token_info
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /me
-  method: get
-  operationId: me_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - kensho_nerd_token
-    - token_info
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /api/v1/transcription
   method: get
   operationId: queryTranscription
@@ -902,6 +835,67 @@ operations:
 - path: /api/v2/transcription/{transcription_id}
   method: delete
   operationId: deleteTranscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/upload-url
+  method: get
+  operationId: api_annotations_upload_url
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - token_info
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /me
+  method: get
+  operationId: me_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - kensho_nerd_token
+    - token_info
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/permissions
+  method: get
+  operationId: users_permissions_retrieve
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/refresh_access_token
+  method: get
+  operationId: Refresh Access Token
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/refresh_access_token
+  method: post
+  operationId: Refresh Access Token_2
   x-agentic-access:
     action-class: acting
     consequence: write

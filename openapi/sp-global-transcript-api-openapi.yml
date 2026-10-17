@@ -116,14 +116,6 @@ components:
       - component_type
       - person_name
       - text
-    RawTranscriptResponse:
-      type: object
-      description: Response fields for get_raw_transcript.
-      properties:
-        transcript:
-          type: string
-      required:
-      - transcript
     TranscriptResponse:
       type: object
       description: Response fields for get_transcript.
@@ -132,6 +124,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TranscriptEntry'
+      required:
+      - transcript
+    RawTranscriptResponse:
+      type: object
+      description: Response fields for get_raw_transcript.
+      properties:
+        transcript:
+          type: string
       required:
       - transcript
   securitySchemes:

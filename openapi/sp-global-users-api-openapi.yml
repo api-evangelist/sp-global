@@ -93,13 +93,6 @@ paths:
       x-operation-id-original: Refresh Access Token_2
 components:
   schemas:
-    AccessToken:
-      type: object
-      properties:
-        access_token:
-          type: string
-      required:
-      - access_token
     RefreshToken:
       type: object
       properties:
@@ -107,6 +100,13 @@ components:
           type: string
       required:
       - refresh_token
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+      - access_token
     PermissionsResponse:
       type: object
       description: Response fields for get_permissions

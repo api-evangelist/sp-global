@@ -158,15 +158,41 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AdvisorsResponse:
+    MergerInfoConsiderationDetail:
       type: object
       properties:
-        advisors:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvisorResponse'
+        scenario:
+          type: string
+        subtype:
+          type: string
+        cash_or_cash_equivalent_per_target_share_unit:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        number_of_target_shares_sought:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+        current_calculated_gross_value_of_consideration:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
+    TransactionInfoParticipant:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
       required:
-      - advisors
+      - company_id
+      - company_name
     MergerInfo:
       type: object
       properties:
@@ -212,16 +238,15 @@ components:
             $ref: '#/components/schemas/MergerInfoConsiderationDetail'
       required:
       - details
-    TransactionInfoParticipant:
+    AdvisorsResponse:
       type: object
       properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
+        advisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvisorResponse'
       required:
-      - company_id
-      - company_name
+      - advisors
     AdvisorResponse:
       type: object
       description: Advisor response with fee information added to original fields.
@@ -253,6 +278,17 @@ components:
       - advisor_company_id
       - advisor_company_name
       - advisor_type_name
+    MergerInfoTimeline:
+      type: object
+      properties:
+        status:
+          type: string
+        date:
+          type: string
+          format: date
+      required:
+      - date
+      - status
     MergerInfoParticipants:
       type: object
       properties:
@@ -270,42 +306,6 @@ components:
       - buyers
       - sellers
       - target
-    MergerInfoTimeline:
-      type: object
-      properties:
-        status:
-          type: string
-        date:
-          type: string
-          format: date
-      required:
-      - date
-      - status
-    MergerInfoConsiderationDetail:
-      type: object
-      properties:
-        scenario:
-          type: string
-        subtype:
-          type: string
-        cash_or_cash_equivalent_per_target_share_unit:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        number_of_target_shares_sought:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
-        current_calculated_gross_value_of_consideration:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,22}(?:\.\d{0,6})?$
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

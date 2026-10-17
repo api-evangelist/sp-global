@@ -138,6 +138,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CompanyOtherNamesResponse:
+      type: object
+      properties:
+        alternate_names:
+          type: array
+          items:
+            type: string
+            title: alternate_name
+        historical_names:
+          type: array
+          items:
+            type: string
+            title: historical_name
+        native_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyNativeNameResponse'
+      required:
+      - alternate_names
+      - historical_names
+      - native_names
     CompanyDescriptionsResponse:
       type: object
       properties:
@@ -205,27 +226,6 @@ components:
       - type
       - webpage
       - zip_code
-    CompanyOtherNamesResponse:
-      type: object
-      properties:
-        alternate_names:
-          type: array
-          items:
-            type: string
-            title: alternate_name
-        historical_names:
-          type: array
-          items:
-            type: string
-            title: historical_name
-        native_names:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyNativeNameResponse'
-      required:
-      - alternate_names
-      - historical_names
-      - native_names
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

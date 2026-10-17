@@ -244,28 +244,53 @@ components:
       required:
       - company_ids
       - line_item
-    PeriodTypeBe5Enum:
+    FinancialItemCurrencyResponse:
+      type: object
+      properties:
+        currency:
+          type:
+          - string
+          - 'null'
+        periods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Period'
+      required:
+      - currency
+      - periods
+    Period:
+      type: object
+      properties:
+        period_end_date:
+          type: string
+          format: date
+        num_months:
+          type:
+          - integer
+          - 'null'
+        line_item:
+          $ref: '#/components/schemas/LineItem'
+      required:
+      - line_item
+      - num_months
+      - period_end_date
+    NullEnum:
       enum:
-      - annual
-      - quarterly
-      - ytd
-      - ltm
-      type: string
-      description: '* `annual` - annual
-
-        * `quarterly` - quarterly
-
-        * `ytd` - ytd
-
-        * `ltm` - ltm'
-    CalendarTypeEnum:
+      - null
+    StartQuarterEnum:
       enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: '* `1` - 1
 
-        * `calendar` - calendar'
+        * `2` - 2
+
+        * `3` - 3
+
+        * `4` - 4'
     LineItemEnum:
       enum:
       - accounts_payable
@@ -1819,40 +1844,6 @@ components:
         * `weighted_average_diluted_shares_outstanding` - weighted_average_diluted_shares_outstanding
 
         * `working_capital` - working_capital'
-    Period:
-      type: object
-      properties:
-        period_end_date:
-          type: string
-          format: date
-        num_months:
-          type:
-          - integer
-          - 'null'
-        line_item:
-          $ref: '#/components/schemas/LineItem'
-      required:
-      - line_item
-      - num_months
-      - period_end_date
-    FinancialItemResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FinancialItemCurrencyResponse'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
-            title: error
-      required:
-      - errors
-      - results
-    NullEnum:
-      enum:
-      - null
     EndQuarterEnum:
       enum:
       - 1
@@ -1867,34 +1858,20 @@ components:
         * `3` - 3
 
         * `4` - 4'
-    FinancialItemCurrencyResponse:
-      type: object
-      properties:
-        currency:
-          type:
-          - string
-          - 'null'
-        periods:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Period'
-      required:
-      - currency
-      - periods
-    StartQuarterEnum:
+    PeriodTypeBe5Enum:
       enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '* `1` - 1
+      - annual
+      - quarterly
+      - ytd
+      - ltm
+      type: string
+      description: '* `annual` - annual
 
-        * `2` - 2
+        * `quarterly` - quarterly
 
-        * `3` - 3
+        * `ytd` - ytd
 
-        * `4` - 4'
+        * `ltm` - ltm'
     LineItem:
       type: object
       properties:
@@ -1912,6 +1889,29 @@ components:
       required:
       - name
       - value
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
+    FinancialItemResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FinancialItemCurrencyResponse'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            title: error
+      required:
+      - errors
+      - results
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

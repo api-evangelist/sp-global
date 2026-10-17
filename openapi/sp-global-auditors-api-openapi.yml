@@ -53,17 +53,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CalendarTypeEnum:
-      enum:
-      - fiscal
-      - calendar
-      type: string
-      description: '* `fiscal` - fiscal
-
-        * `calendar` - calendar'
-    NullEnum:
-      enum:
-      - null
     AuditorResponse:
       type: object
       properties:
@@ -83,6 +72,9 @@ components:
       required:
       - errors
       - results
+    NullEnum:
+      enum:
+      - null
     AuditorRequest:
       type: object
       description: Request fields for post_financial_auditors
@@ -107,6 +99,14 @@ components:
           - $ref: '#/components/schemas/NullEnum'
       required:
       - company_id
+    CalendarTypeEnum:
+      enum:
+      - fiscal
+      - calendar
+      type: string
+      description: '* `fiscal` - fiscal
+
+        * `calendar` - calendar'
     AuditorEntry:
       type: object
       properties:

@@ -123,44 +123,6 @@ paths:
       x-operation-id-original: Get Historical Metadata
 components:
   schemas:
-    PricesResponse:
-      type: object
-      description: Response fields for get_prices
-      properties:
-        currency:
-          type: string
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Prices'
-        errors:
-          type: array
-          items:
-            type: string
-      required:
-      - currency
-      - prices
-    HistoryMetadataResponse:
-      type: object
-      description: Response fields for get_history_metadata
-      properties:
-        currency:
-          type: string
-        symbol:
-          type: string
-        exchange_name:
-          type: string
-        instrument_type:
-          type: string
-        first_trade_date:
-          type: string
-          format: date
-      required:
-      - currency
-      - exchange_name
-      - first_trade_date
-      - instrument_type
-      - symbol
     Prices:
       type: object
       description: Response fields a single price
@@ -194,6 +156,44 @@ components:
       - low
       - open
       - volume
+    HistoryMetadataResponse:
+      type: object
+      description: Response fields for get_history_metadata
+      properties:
+        currency:
+          type: string
+        symbol:
+          type: string
+        exchange_name:
+          type: string
+        instrument_type:
+          type: string
+        first_trade_date:
+          type: string
+          format: date
+      required:
+      - currency
+      - exchange_name
+      - first_trade_date
+      - instrument_type
+      - symbol
+    PricesResponse:
+      type: object
+      description: Response fields for get_prices
+      properties:
+        currency:
+          type: string
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prices'
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - currency
+      - prices
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

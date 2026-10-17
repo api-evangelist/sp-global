@@ -131,16 +131,6 @@ paths:
       x-operation-id-original: Get Tickers by Business Relationships
 components:
   schemas:
-    CompanyResponse:
-      type: object
-      properties:
-        company_id:
-          type: integer
-        company_name:
-          type: string
-      required:
-      - company_id
-      - company_name
     CompaniesRelationshipResponse:
       type: object
       description: Response fields for get_relationships
@@ -153,21 +143,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompanyResponse'
-      required:
-      - current
-      - previous
-    TickerRelationshipResponse:
-      type: object
-      description: Response fields for get_relationships
-      properties:
-        current:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
-        previous:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentificationTripleResponse'
       required:
       - current
       - previous
@@ -189,6 +164,31 @@ components:
       - company_id
       - security_id
       - trading_item_id
+    TickerRelationshipResponse:
+      type: object
+      description: Response fields for get_relationships
+      properties:
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+        previous:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationTripleResponse'
+      required:
+      - current
+      - previous
+    CompanyResponse:
+      type: object
+      properties:
+        company_id:
+          type: integer
+        company_name:
+          type: string
+      required:
+      - company_id
+      - company_name
   securitySchemes:
     Kensho_JWT_Auth:
       type: http

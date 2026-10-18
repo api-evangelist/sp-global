@@ -197,6 +197,12 @@ apis:
   tags:
   - NER
   - Entity Linking
+  - Natural Language Processing
+  - Capital IQ
+  - Wikimedia
+  tags_raw:
+  - NER
+  - Entity Linking
   - NLP
   - Capital IQ
   - Wikimedia

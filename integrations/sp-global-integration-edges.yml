@@ -132,6 +132,36 @@ edges:
     identity_note: wikidata P856 spglobal.com for 'S&P Global Market Intelligence' (labelled identity step)
   detected_by: sweep-data-marketplaces.py
   detected: '2026-10-20'
+- partner_name: Science Based Targets initiative (SBTi)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://sciencebasedtargets.org/target-dashboard
+  category: climate target-setting standard participation
+  contract_reference:
+    register: SBTi Target Dashboard (sciencebasedtargets.org/target-dashboard, companies-excel.xlsx)
+    standard: Science Based Targets initiative (SBTi) corporate net-zero / near-term target standard
+    spec_file: null
+    role: sbti-company
+    registered_name: S&P Global Inc.
+    register_id: '40003679'
+    register_country: United States of America
+    organization_type: Corporate
+    near_term_status: Validated Targets
+    net_zero_status: Validated Targets
+    matched_domain: spglobal.com
+    matched_by: domain+name-among-holders
+    signal_note: 'participation only: the company filed a commitment or had targets validated by SBTi; target status
+      is context, not a certified product (the standard certifies no API or product)'
+    detected_by: sweep-carbon-accounting-sbti-pcaf.py
+    detected: '2026-10-21'
+    identity: wikidata Q868587 'S&P Global' P856 https://www.spglobal.com/en
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-carbon-accounting-sbti-pcaf.py
+  first_seen: '2026-10-21'
 generated: '2026-10-15'
 method: searched
 source:
@@ -146,3 +176,9 @@ checked:
 - https://app.snowflake.com/marketplace/providers
 - https://aws.amazon.com/marketplace/search/results?FULFILLMENT_OPTION_TYPE=DATA_EXCHANGE
 - https://marketplace.databricks.com/
+- https://carbonaccountingfinancials.com/en/signatories
+- https://files.sciencebasedtargets.org/production/files/companies-excel.xlsx
+- https://ghgprotocol.org/built-ghg-protocol
+- https://ghgprotocol.org/tools-built-ghg-protocol
+- https://sciencebasedtargets.org/target-dashboard
+- https://www.cdp.net/en/find-accredited-solutions-providers

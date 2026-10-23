@@ -187,6 +187,66 @@ edges:
     detected: '2026-10-21'
   detected_by: sweep-uk-g-cloud-suppliers.py
   first_seen: '2026-10-21'
+- partner_name: FINOS projects (maintainer)
+  partner: finos
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: FINOS project maintainership
+  evidence: https://github.com/finos/fdc3-dotnet/blob/HEAD/MAINTAINERS.md
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: FINOS project MAINTAINERS.md (github.com/finos/<repo>)
+    spec_file: null
+    standard: FINOS
+    role: finos-project-maintainer
+    registered_name: S&P Global
+    registered_names:
+    - S&P Global
+    matched_domain: spglobal.com
+    matched_by: domain+name-among-holders
+    matched_via:
+    - member-homepage
+    api_families:
+    - FDC3
+    api_families_basis: MAINTAINERS.md (maintains, not implements)
+    finos_projects:
+    - project: FDC3
+      maturity: graduated
+      repos:
+      - https://github.com/finos/fdc3-dotnet/blob/HEAD/MAINTAINERS.md
+    signal_note: maintainership of FINOS projects (maintains, not implements); per-edge signal = projects maintained
+      (api_families), never the maintainer count
+    detected_by: sweep-finos-open-source-fintech.py
+    detected: '2026-10-22'
+  detected_by: sweep-finos-open-source-fintech.py
+  first_seen: '2026-10-22'
+- partner_name: FINOS (membership)
+  partner: finos
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: FINOS membership
+  evidence: https://www.finos.org/members
+  channel: standard-directory
+  relationship: standard-participant
+  partner_tier: Gold
+  contract_reference:
+    register: FINOS members (www.finos.org/members)
+    spec_file: null
+    standard: FINOS
+    role: finos-member
+    registered_name: S&P Global
+    website: https://www.spglobal.com/en
+    matched_domain: spglobal.com
+    matched_by: domain+name-among-holders
+    signal_note: 'participation only: FINOS membership is standard-participant evidence, not depth. The tier (partner_tier)
+      is CONTEXT, never counted'
+    detected_by: sweep-finos-open-source-fintech.py
+    detected: '2026-10-22'
+  detected_by: sweep-finos-open-source-fintech.py
+  first_seen: '2026-10-22'
 generated: '2026-10-15'
 method: searched
 source:
@@ -211,3 +271,7 @@ checked:
 - https://www.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/suppliers
 - https://www.crowncommercial.gov.uk/agreements
 - https://www.ncsc.gov.uk/cyberessentials/search
+- https://github.com/finos/<repo>/blob/HEAD/MAINTAINERS.md
+- https://landscape.finos.org/data/full.json
+- https://raw.githubusercontent.com/finos/finos-landscape/e926c0ba0e77896a0718eb29b4f33ba5c210f335/landscape.yml
+- https://www.finos.org/members

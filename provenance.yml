@@ -487,9 +487,15 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   finops/sp-global-finops.yml:
+    method: generated
+    evidence: declared in the artifact
+  front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  front-door-ai/2026-09-17.yml:
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/sp-global-integration-edges.yml:
     method: unknown
     evidence: no authorship recorded
   json-ld/sp-global-context.jsonld:
@@ -549,127 +555,7 @@ artifacts:
   json-structure/kensho-scribe-transcription-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -751,6 +637,21 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/sp-global-lifecycle.yml:
@@ -884,27 +785,129 @@ artifacts:
   openapi/sp-global-users-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/sp-global-annotations-async-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-auditors-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-ciqpro-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-company-groups-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-competitors-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-cusip-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-earnings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-estimates-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/sp-global-extract-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/sp-global-extractions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-funding-rounds-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-fundinground-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-id-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-ids-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-info-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-isin-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-latest-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-line-item-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/sp-global-llmready-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/sp-global-market-cap-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-merger-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-mergers-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/sp-global-nerd-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/sp-global-price-chart-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-pricing-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-relationship-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/sp-global-scribe-batch-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/sp-global-scribe-batch-v2-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/sp-global-securities-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  overlays/sp-global-scribe-batch-v2-overlay.yaml:
+  overlays/sp-global-segments-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-statements-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-ticker-groups-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-trading-item-groups-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-trading-items-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-transcript-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-transcription-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-upload-url-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-user-info-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/sp-global-users-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   packages/sp-global-packages.yml:
     method: searched
     evidence: declared in the artifact
   plans/sp-global-plans-pricing.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
   postman/kensho-extract.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
@@ -1023,8 +1026,8 @@ artifacts:
     method: derived
     evidence: openapi/sp-global-users-api
   rate-limits/sp-global-rate-limits.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
   rules/sp-global-asyncapi-spectral-rules.yml:
     method: generated
     evidence: declared in the artifact
